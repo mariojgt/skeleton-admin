@@ -1,0 +1,41 @@
+{
+    "name": "mariojgt/skeleton-admin",
+    "description": "Laravel Master Admin Panel",
+    "keywords": [
+        "laravel"
+    ],
+    "type": "laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mario",
+            "email": "mariojgt2@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/sanctum": "^2.9",
+        "inertiajs/inertia-laravel": "^0.5.2",
+        "tightenco/ziggy": "^1.4",
+        "mariojgt/castle": "^0.0.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mariojgt\\SkeletonAdmin\\": "src"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php artisan route:list"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mariojgt\\SkeletonAdmin\\SkeletonAdminProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

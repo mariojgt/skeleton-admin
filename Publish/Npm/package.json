@@ -1,0 +1,43 @@
+{
+    "private": true,
+    "scripts": {
+        "deps": "composer update && npm upgrade",
+        "dev": "npm run development",
+        "development": "mix",
+        "hot": "npx mix watch --hot",
+        "lint": "eslint resources --ext .vue --fix",
+        "prod": "npm run production",
+        "prod:ssr": "npm run production:ssr",
+        "production": "mix --production",
+        "production:ssr": "npx mix --mix-config=webpack.ssr.mix.js --production",
+        "ssr": "node public/assets/js/ssr.js",
+        "watch": "mix watch",
+        "watch:prod": "NODE_ENV=production mix watch",
+        "ziggy": "php artisan Ziggy:generate resources/js/Routes/exported.js"
+    },
+    "devDependencies": {
+        "@vue/compiler-sfc": "^3.0.5",
+        "axios": "^0.21.1",
+        "cross-env": "^7.0",
+        "laravel-mix": "^6.0.10",
+        "lodash": "^4.17.19",
+        "naive-ui": "^2.24.4",
+        "postcss": "^8.2.4",
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.32.5",
+        "sass-loader": "^8.0.0",
+        "vfonts": "^0.0.3"
+    },
+    "dependencies": {
+        "@inertiajs/inertia": "^0.11.0",
+        "@inertiajs/inertia-vue3": "^0.6.0",
+        "@inertiajs/progress": "^0.2.7",
+        "daisyui": "^1.16.0",
+        "sweetalert2": "^9.17.2",
+        "tailwindcss": "^3.0.0",
+        "tinymce": "^5.6.2",
+        "toastify-js": "^1.9.3",
+        "vue": "^3.2.23",
+        "vue-loader": "^17.0.0"
+    }
+}
