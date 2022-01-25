@@ -23,7 +23,6 @@ class RegisterController extends Controller
         ]);
     }
 
-
     /**
      * Register a new user to the aplication.
      *
@@ -33,6 +32,7 @@ class RegisterController extends Controller
      */
     public function userRegister(Request $request)
     {
+        // Chechk if the registration is enable
         if (config('skeletonAdmin.register_enable') == false) {
             return Redirect::back()->with('error', 'Sorry but registration has been disable.');
         }

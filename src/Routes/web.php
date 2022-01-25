@@ -15,17 +15,17 @@ Route::group([
 
 // Auth Route
 Route::group([
-    'middleware' => ['skeleton_admin'],
+    'middleware' => ['skeleton_admin', '2fa'],
 ], function () {
-    // Example page required to be login
+    // Admin Dashboard
     Route::get('/skeleton-admin/home', [DashboardController::class, 'index'])
         ->name('skeleton-admin.home');
 
     // Admin Routes
-    // Profile
-    Route::get('/admin/edit/{admin?}', [AdminController::class, 'edit'])
-        ->name('admin.edit');
-    // Verify and enable 2FA
-    Route::post('/skeleton/2fa/enable', [AdminController::class, 'enable2fa'])
-        ->name('skeleton-admin.2fa.enable');
+    Route::controller(AdminController::class)->group(function () {
+        // Profile
+        Route::get('/admin/edit/{admin?}', 'edit')->name('admin.edit');
+        // Verify and enable 2FA
+        Route::post('/skeleton/2fa/enable', 'enable2fa')->name('skeleton-admin.2fa.enable');
+    });
 });

@@ -14,8 +14,9 @@ use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 
 class LoginController extends Controller
 {
+
     /**
-     * @return [blade view]
+     * @return [inersia]
      */
     public function index()
     {

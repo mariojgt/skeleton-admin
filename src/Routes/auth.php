@@ -9,41 +9,39 @@ use Mariojgt\SkeletonAdmin\Controllers\Auth\ResetPassword;
 Route::group([
     'middleware' => ['web', 'skeleton_guest'],
 ], function () {
-    // User Login
-    Route::get('skeleton-admin/login', [LoginController::class, 'index'])
-        ->name('skeleton.login');
-    // Dologin
-    Route::post('skeleton-admin/login/user', [LoginController::class, 'login'])
-        ->name('skeleton.login.user');
+    // Logoin routes
+    Route::controller(LoginController::class)->group(function () {
+        // User Login
+        Route::get('skeleton-admin/login', 'index')->name('skeleton.login');
+        // Dologin
+        Route::post('skeleton-admin/login/user', 'login')->name('skeleton.login.user');
+    });
 
     // User Registration
-    Route::get('skeleton-admin/register', [RegisterController::class, 'register'])
-        ->name('skeleton.register');
-    Route::post('skeleton-admin/register/user', [RegisterController::class, 'userRegister'])
-        ->name('skeleton.register.user');
+    Route::controller(RegisterController::class)->group(function () {
+        Route::get('skeleton-admin/register', 'register')->name('skeleton.register');
+        Route::post('skeleton-admin/register/user', 'userRegister')->name('skeleton.register.user');
+    });
 
     // Password Reset
-    Route::get('skeleton-admin/forgot-password', [ResetPassword::class, 'index'])
-        ->name('skeleton.forgot-password');
-    Route::post('skeleton-admin/password-reset', [ResetPassword::class, 'reset'])
-        ->name('skeleton.password-reset');
-    Route::get('skeleton-admin/password-reset/{token}', [ResetPassword::class, 'passwordReset'])
-        ->name('skeleton.password.reset');
-    Route::post('skeleton-admin/password-change', [ResetPassword::class, 'passwordChange'])
-        ->name('skeleton.password.change');
+    Route::controller(ResetPassword::class)->group(function () {
+        Route::get('skeleton-admin/forgot-password', 'index')->name('skeleton.forgot-password');
+        Route::post('skeleton-admin/password-reset', 'reset')->name('skeleton.password-reset');
+        Route::get('skeleton-admin/password-reset/{token}', 'passwordReset')->name('skeleton.password.reset');
+        Route::post('skeleton-admin/password-change', 'passwordChange')->name('skeleton.password.change');
+    });
 });
 
 // User verify account
 Route::group([
     'middleware' => ['web', 'skeleton_guest'],
 ], function () {
-    // Warn the user need to be verify
-    Route::get('skeleton-admin/email/verify', [LoginController::class, 'needVerify'])
-        ->name('skeleton.verification.notice');
-
-    // Login to verify the user
-    Route::get('skeleton-admin/user/verify/{id}/{time}', [LoginController::class, 'verify'])
-        ->name('skeleton.user.verify');
+    Route::controller(LoginController::class)->group(function () {
+        // Warn the user need to be verify
+        Route::get('skeleton-admin/email/verify', 'needVerify')->name('skeleton.verification.notice');
+        // Login to verify the user
+        Route::get('skeleton-admin/user/verify/{id}/{time}', 'verify')->name('skeleton.user.verify');
+    });
 });
 
 // Auth Route

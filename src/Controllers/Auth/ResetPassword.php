@@ -14,7 +14,7 @@ use Illuminate\Auth\Events\PasswordReset;
 class ResetPassword extends Controller
 {
     /**
-     * @return [blade view]
+     * @return [inersia]
      */
     public function index()
     {

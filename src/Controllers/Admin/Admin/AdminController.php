@@ -15,6 +15,17 @@ use Mariojgt\SkeletonAdmin\Resource\AdminResource;
 class AdminController extends Controller
 {
     /**
+     * Create new admin
+     * @param Request $request
+     *
+     * @return [type]
+     */
+    public function store(Request $request)
+    {
+        # code...
+    }
+
+    /**
      * Edit Admin Profile
      * @return [blade view]
      */
@@ -34,6 +45,28 @@ class AdminController extends Controller
             'autenticator_enable' => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
             'admin'               => AdminResource::collection($adminInfo),
         ]);
+    }
+
+    /**
+     * Update admin profile
+     * @param Request $request
+     *
+     * @return [type]
+     */
+    public function update(Request $request, Admin $admin)
+    {
+        # code...
+    }
+
+    /**
+     * Update the user password
+     * @param Request $request
+     *
+     * @return [type]
+     */
+    public function updatePassword(Request $request)
+    {
+        # code...
     }
 
     /**
