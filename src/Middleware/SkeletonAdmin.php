@@ -16,7 +16,7 @@ class SkeletonAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guard('admin_auth')->check()) {
+        if (Auth::guard('skeleton_admin')->check()) {
             return $next($request);
         }
 
