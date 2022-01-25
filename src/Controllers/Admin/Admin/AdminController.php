@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Admin;
+namespace Mariojgt\SkeletonAdmin\Controllers\Admin\Admin;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -9,19 +9,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Resource\AdminResource;
 
 class AdminController extends Controller
 {
     /**
+     * Edit Admin Profile
      * @return [blade view]
      */
-    public function profile()
+    public function edit($admin)
     {
+        // Get current user else the login admin
+        if (empty($admin)) {
+            $adminInfo = Admin::find($admin);
+        } else {
+            $adminInfo = Auth::guard('skeleton_admin');
+        }
+        // Start the user autenticator so we can enalbe or disable the 2FA and other options
         $autenticator = new AutenticatorHandle();
 
         return Inertia::render('Admin/Edit', [
             'autenticator'        => $autenticator->generateCode(Auth::guard('skeleton_admin')->user()->email),
             'autenticator_enable' => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
+            'admin'               => AdminResource::collection($adminInfo),
         ]);
     }
 

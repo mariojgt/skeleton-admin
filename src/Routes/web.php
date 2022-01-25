@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\HomeContoller;
 use Mariojgt\SkeletonAdmin\Controllers\DashboardController;
-use Mariojgt\SkeletonAdmin\Controllers\Admin\AdminController;
+use Mariojgt\SkeletonAdmin\Controllers\Admin\Admin\AdminController;
 
 // Standard
 Route::group([
@@ -20,10 +20,11 @@ Route::group([
     // Example page required to be login
     Route::get('/skeleton-admin/home', [DashboardController::class, 'index'])
         ->name('skeleton-admin.home');
+
     // Admin Routes
     // Profile
-    Route::get('/skeleton/profile', [AdminController::class, 'profile'])
-        ->name('skeleton-admin.profile');
+    Route::get('/admin/edit/{admin?}', [AdminController::class, 'edit'])
+        ->name('admin.edit');
     // Verify and enable 2FA
     Route::post('/skeleton/2fa/enable', [AdminController::class, 'enable2fa'])
         ->name('skeleton-admin.2fa.enable');
