@@ -35,8 +35,8 @@
         </template>
 
         <template v-slot:links>
-            <LinkButton name="Register" link="skeleton-admin/register" />
-            <LinkButton name="Forgot password" link="skeleton-admin/forgot-password" />
+            <LinkButton name="Register" :link="registerLink" />
+            <LinkButton name="Forgot password" :link="forgotPasswordLink" />
         </template>
     </Layout>
 </template>
@@ -46,6 +46,10 @@ import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../Layout/Login";
+
+// Page links
+const registerLink       = route('skeleton.register');
+const forgotPasswordLink = route('skeleton.forgot-password');
 
 // Import the from components
 import InputField from "../../Components/Form/Input";
@@ -73,7 +77,7 @@ const submitForm = () => {
         password_confirmation: password_confirmation,
         token                : props.token,
     };
-    Inertia.post('/skeleton-admin/password-change', form);
+    Inertia.post(route('skeleton.password.change'), form);
 };
 
 </script>

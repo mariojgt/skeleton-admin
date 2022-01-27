@@ -1,5 +1,5 @@
 <template>
-    <Link :href="'/' + link" method="get" class="btn btn-primary">
+    <Link :href="link" method="get" class="btn btn-primary">
         <span class="inline-block ml-1">{{ props.name }}</span>
     </Link>
 </template>

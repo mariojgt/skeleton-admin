@@ -142,7 +142,7 @@
                     class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
                 >
                     <li>
-                        <Link href="/skeleton/profile">
+                        <Link :href="profileLink">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -194,6 +194,10 @@
 import { watch, onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import logo from "../Global/logo";
+
+// Links
+const profileLink = route('admin.edit');
+
 </script>
 
 <style></style>

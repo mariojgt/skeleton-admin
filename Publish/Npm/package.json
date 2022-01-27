@@ -16,16 +16,16 @@
         "ziggy": "php artisan Ziggy:generate resources/js/Routes/exported.js"
     },
     "devDependencies": {
-        "@vue/compiler-sfc": "^3.2.29",
-        "axios": "^0.25.0",
+        "@vue/compiler-sfc": "^3.0.5",
+        "axios": "^0.21.1",
         "cross-env": "^7.0",
-        "laravel-mix": "^6.0.41",
+        "laravel-mix": "^6.0.10",
         "lodash": "^4.17.19",
         "naive-ui": "^2.24.4",
-        "postcss": "^8.4.5",
+        "postcss": "^8.2.4",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.44.0",
-        "sass-loader": "^12.3.0",
+        "sass": "^1.32.5",
+        "sass-loader": "^8.0.0",
         "vfonts": "^0.0.3"
     },
     "dependencies": {
@@ -33,9 +33,10 @@
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@inertiajs/progress": "^0.2.7",
         "daisyui": "^1.16.0",
+        "sweetalert2": "^9.17.2",
         "tailwindcss": "^3.0.0",
         "tinymce": "^5.6.2",
-        "toastify-js": "^1.11.2",
+        "toastify-js": "^1.9.3",
         "vue": "^3.2.23",
         "vue-loader": "^17.0.0"
     }

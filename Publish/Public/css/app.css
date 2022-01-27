@@ -1919,6 +1919,36 @@ html{
   cursor: not-allowed;
   --tw-text-opacity: 0.2;
 }
+.tabs{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.tab{
+  cursor: pointer;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 2rem;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  line-height: 2;
+  --tab-padding: 1rem;
+  --tw-text-opacity: 0.5;
+  --tab-color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+  --tab-bg: hsla(var(--b1) / var(--tw-bg-opacity, 1));
+  --tab-border-color: hsla(var(--b3) / var(--tw-bg-opacity, 1));
+  color: var(--tab-color);
+  padding-left: var(--tab-padding, 1rem);
+  padding-right: var(--tab-padding, 1rem);
+}
 .toggle{
   flex-shrink: 0;
   --chkbg: hsla(var(--bc) / .2);
@@ -2567,6 +2597,20 @@ html{
   background-image: none;
   padding-right: 1rem;
 }
+.tab:hover{
+  --tw-text-opacity: 1;
+}
+.tab.tab-active{
+  border-color: hsla(var(--bc) / var(--tw-border-opacity, 1));
+  --tw-border-opacity: 1;
+}
+.tab:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.tab:focus-visible{
+  box-shadow: inset 0 0 0 2px currentColor;
+}
 .toggle:focus-visible{
   --focus-shadow: 0 0 0 2px hsl(var(--b1)), 0 0 0 4px hsl(var(--bc));
 }
@@ -2608,6 +2652,9 @@ html{
 }
 .rounded-box{
   border-radius: var(--rounded-box, 1rem);
+}
+.artboard.phone{
+  width: 320px;
 }
 .btn-sm{
   height: 2rem;
@@ -2787,6 +2834,9 @@ html{
 .mb-4{
   margin-bottom: 1rem;
 }
+.block{
+  display: block;
+}
 .inline-block{
   display: inline-block;
 }
@@ -2873,6 +2923,12 @@ html{
 }
 .grid-cols-1{
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.grid-cols-12{
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+.grid-cols-6{
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 .flex-row{
   flex-direction: row;
@@ -3129,10 +3185,10 @@ html{
   .xl\:col-span-2{
     grid-column: span 2 / span 2;
   }
-  .xl\:grid-cols-3{
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
   .xl\:grid-cols-12{
     grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .xl\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

@@ -2,7 +2,7 @@
 
 return [
     // Current package
-    'version'         => '1.0.1',
+    'version'         => '1.0.14',
 
     // If disable users Can't register in the website
     'register_enable' => true,
@@ -20,4 +20,7 @@ return [
 
     // Using innersia Js
     'inertiajs_enable' => true,
+
+    // Routes prefix
+    'route_prefix' => 'skeleton-admin',
 ];

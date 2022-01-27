@@ -8,6 +8,7 @@ use Mariojgt\SkeletonAdmin\Controllers\Admin\Admin\AdminController;
 // Standard
 Route::group([
     'middleware' => ['web'],
+    'prefix'     => config('skeletonAdmin.route_prefix'),
 ], function () {
     // Example page not required to be login
     Route::get('/skeleton-admin', [HomeContoller::class, 'index'])->name('skeleton');
@@ -15,7 +16,8 @@ Route::group([
 
 // Auth Route
 Route::group([
-    'middleware' => ['skeleton_admin', '2fa'],
+    'middleware' => ['skeleton_admin', '2fa:skeleton_admin'],
+    'prefix'     => config('skeletonAdmin.route_prefix'),
 ], function () {
     // Admin Dashboard
     Route::get('/skeleton-admin/home', [DashboardController::class, 'index'])

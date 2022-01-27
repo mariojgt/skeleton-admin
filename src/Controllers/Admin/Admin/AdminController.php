@@ -29,11 +29,11 @@ class AdminController extends Controller
      * Edit Admin Profile
      * @return [blade view]
      */
-    public function edit($admin)
+    public function edit($admin = null)
     {
         // Get current user else the login admin
         if (empty($admin)) {
-            $adminInfo = Admin::find($admin);
+            $adminInfo = Auth::guard('skeleton_admin')->user();
         } else {
             $adminInfo = Auth::guard('skeleton_admin');
         }
@@ -43,7 +43,7 @@ class AdminController extends Controller
         return Inertia::render('Admin/Edit', [
             'autenticator'        => $autenticator->generateCode(Auth::guard('skeleton_admin')->user()->email),
             'autenticator_enable' => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
-            'admin'               => AdminResource::collection($adminInfo),
+            'admin'               => new AdminResource($adminInfo),
         ]);
     }
 
