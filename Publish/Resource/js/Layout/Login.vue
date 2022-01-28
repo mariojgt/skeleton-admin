@@ -1,13 +1,23 @@
 <template>
-    <FlashMessage/>
-    <auth-wraper :title="props.title" >
-            <template v-slot:form >
-                <slot name="form" />
-            </template>
-            <template v-slot:links >
-                <slot name="links" />
-            </template>
-    </auth-wraper>
+    <n-loading-bar-provider>
+        <n-message-provider>
+            <n-notification-provider>
+                <n-dialog-provider>
+                    <n-config-provider :theme="darkTheme">
+                        <FlashMessage />
+                        <auth-wraper :title="props.title">
+                            <template v-slot:form>
+                                <slot name="form" />
+                            </template>
+                            <template v-slot:links>
+                                <slot name="links" />
+                            </template>
+                        </auth-wraper>
+                    </n-config-provider>
+                </n-dialog-provider>
+            </n-notification-provider>
+        </n-message-provider>
+    </n-loading-bar-provider>
 </template>
 
 <script setup>
@@ -22,9 +32,6 @@ const props = defineProps({
         default: "Title",
     },
 });
-
 </script>
 
-<style>
-
-</style>
+<style></style>

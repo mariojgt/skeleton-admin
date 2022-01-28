@@ -5,11 +5,12 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Auth;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Mariojgt\SkeletonAdmin\Models\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\Castle\Helpers\AutenticatorHandle;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 
 class LoginController extends Controller
@@ -59,6 +60,10 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        // Remove all the wall autenticator data
+        $autenticatorHandle = new AutenticatorHandle();
+        $verification       = $autenticatorHandle->logout();
+
         // Logout the user
         Auth::guard('skeleton_admin')->logout();
         // Redirect to the login page

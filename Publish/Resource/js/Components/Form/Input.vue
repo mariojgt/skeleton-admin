@@ -9,6 +9,7 @@
             name="{{ props.name }}"
             id="{{ props.id }}"
             :placeholder="props.placeholder"
+            :value="modelValue"
             @input="update"
         />
     </div>
@@ -56,6 +57,10 @@ const props = defineProps({
         type: String,
         default: "text",
     },
+    modelValue: {
+        type: String,
+        default: "",
+    }
 });
 
 const emit = defineEmits(['update:modelValue'])

@@ -3,6 +3,7 @@
 namespace Mariojgt\SkeletonAdmin\Resource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
 
 class AdminResource extends JsonResource
 {
@@ -18,8 +19,9 @@ class AdminResource extends JsonResource
         // The image is a example
         return [
             'id'                => $this->id,
-            'name'              => $this->name,
-            'avatar'            => 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png',
+            'first_name'        => $this->first_name,
+            'last_name'         => $this->last_name,
+            'avatar'            => Gravatar::gravatar($this->email),
             'email'             => $this->email,
             'email_verified_at' => $this->email_verified_at,
             'created_at'        => $this->created_at,

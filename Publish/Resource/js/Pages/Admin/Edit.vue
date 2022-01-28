@@ -4,17 +4,30 @@
             <div
                 class="card col-span-1 row-span-3 shadow-lg xl:col-span-2 bg-base-100"
             >
-                <n-card title="User Profile" >
-                    <n-tabs type="line" class="text-primary" >
-                        <n-tab-pane name="basic-info" tab="Basic Info"
-                            >Wonderwall</n-tab-pane
+                <n-card title="User Profile">
+                    <n-tabs
+                        type="card"
+                        tab-style="min-width: 80px;"
+                        class="tabs"
+                    >
+                        <n-tab-pane name="basic-info" tab="Basic Profile">
+                            <EditDeatils :admin-info="props.admin.data" />
+                        </n-tab-pane>
+                        <n-tab-pane
+                            name="password update"
+                            tab="Password Update"
                         >
-                        <n-tab-pane name="the beatles" tab="the Beatles"
-                            >Hey Jude</n-tab-pane
+                            <PasswordUpdate :admin-info="props.admin.data" />
+                        </n-tab-pane>
+                        <n-tab-pane
+                            name="2fa autenticator"
+                            tab="2 steps autenticator"
                         >
-                        <n-tab-pane name="jay chou" tab="Jay Chou"
-                            >Qilixiang</n-tab-pane
-                        >
+                            <AutenticatorManager
+                                :admin-info="props.admin.data"
+                                :autenticator-info="props.autenticator"
+                            />
+                        </n-tab-pane>
                     </n-tabs>
                 </n-card>
             </div>
@@ -28,29 +41,19 @@ import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../Layout/App";
 
-// Import the from components
-import InputField from "../../Components/Form/Input";
-import InputPassword from "../../Components/Form/Password";
-import Submit from "../../Components/Form/Submit";
-import LinkButton from "../../Components/Form/Link.vue";
-
-let code = $ref("");
+// Tab Content
+import EditDeatils from "./Components/EditDetails.vue";
+import PasswordUpdate from "./Components/PasswordUpdate.vue";
+import AutenticatorManager from "./Components/AutenticatorManager.vue";
 
 const props = defineProps({
     autenticator: {
-        type: String,
-        boolean: false,
+        type: Object,
+        default: () => ({}),
     },
-    autenticator_enable: {
-        type: String,
-        default: "mariojgt is heredude",
+    admin: {
+        type: Object,
+        default: () => ({}),default: {},
     },
 });
-
-const submitForm = () => {
-    const form = {
-        code: code,
-    };
-    Inertia.post("/login/user", form);
-};
 </script>

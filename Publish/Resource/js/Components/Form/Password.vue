@@ -10,6 +10,7 @@
                 name="{{ props.name }}"
                 id="{{ props.id }}"
                 :placeholder="props.placeholder"
+                :value="modelValue"
                 @input="update"
             />
             <a class="absolute top-0 right-0 rounded-l-none btn btn-primary" @click="showPasswordlToogle" >
@@ -59,6 +60,10 @@ const props = defineProps({
         default: "",
     },
     placeholder: {
+        type: String,
+        default: "",
+    },
+    modelValue: {
         type: String,
         default: "",
     }

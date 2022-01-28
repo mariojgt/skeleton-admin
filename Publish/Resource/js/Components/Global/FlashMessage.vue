@@ -3,95 +3,41 @@
 <script setup>
 import { watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/inertia-vue3";
-import Toastify from "toastify-js";
+
+import { useMessage } from "naive-ui";
+const message = useMessage();
 
 watch(
     () => usePage().props.value,
     (v) => {
+        // Loop any possible page errors and display the message
+        if (usePage().props.value.errors) {
+            for (const [key, value] of Object.entries(
+                usePage().props.value.errors
+            )) {
+                message.error(value);
+            }
+        }
         if (usePage().props.value.flash) {
-            Toastify({
-                text: usePage().props.value.flash.message,
-                className: usePage().props.value.flash.type,
-                duration: 31000,
-                close: true,
-            }).showToast();
+            // Bases on the flash type, show the toast
+            switch (usePage().props.value.flash.type) {
+                case "success":
+                    message.success(usePage().props.value.flash.message);
+                    break;
+                case "error":
+                    message.error(usePage().props.value.flash.message);
+                    break;
+                case "warning":
+                    message.warning(usePage().props.value.flash.message);
+                    break;
+                case "info":
+                    message.info(usePage().props.value.flash.message);
+                    break;
+                default:
+                    message.info(usePage().props.value.flash.message);
+                    break;
+            }
         }
     }
 );
-
 </script>
-
-<style>
-
-.info {
-    background: #BE123C;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    background-clip: padding-box;
-    --tw-bg-opacity: 1;
-    background-color: #0284C7;
-    --tw-border-opacity: 1;
-    border-color: #FACC15;
-    border-bottom-width: 4px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-}
-
-.success {
-    background: #BE123C;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    background-clip: padding-box;
-    --tw-bg-opacity: 1;
-    background-color: #22C55E;
-    --tw-border-opacity: 1;
-    border-color: #FACC15;
-    border-bottom-width: 4px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-}
-
-.error {
-    background: #BE123C;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    background-clip: padding-box;
-    --tw-bg-opacity: 1;
-    background-color: #DC2626;
-    --tw-border-opacity: 1;
-    border-color: #22C55E;
-    border-bottom-width: 4px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-}
-
-.warning {
-    background: #BE123C;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    background-clip: padding-box;
-    --tw-bg-opacity: 1;
-    background-color: #DC2626;
-    --tw-border-opacity: 1;
-    border-color: #22C55E;
-    border-bottom-width: 4px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-}
-
-.toast-close {
-    color: #ffffff;
-}
-</style>
