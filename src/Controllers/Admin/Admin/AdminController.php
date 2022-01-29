@@ -8,8 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
 use Mariojgt\SkeletonAdmin\Models\Admin;
+use Illuminate\Validation\ValidationException;
+use Mariojgt\Castle\Helpers\AutenticatorHandle;
 use Mariojgt\SkeletonAdmin\Resource\AdminResource;
 
 class AdminController extends Controller
@@ -105,6 +106,22 @@ class AdminController extends Controller
             'password'  => ['required', 'confirmed'],
         ]);
 
+        // Check if the two factor is enable
+        if (Auth::guard('skeleton_admin')->user()->twoStepsEnable()) {
+            // Validate the code to make sure it has 6 digits
+            $request->validate([
+                'code' => 'required|digits:6',
+            ]);
+
+            $autenticatorHandle = new AutenticatorHandle();
+            $verification       = $autenticatorHandle->checkCode(Request('code'));
+            // If the code is not valid we redirect the user to the edit page
+            if ($verification == false) {
+                return Redirect::back()
+                    ->with('error', 'Code Is Not Valid.');
+            }
+        }
+
         $admin->password = bcrypt(Request('password'));
         $admin->save();
 
@@ -141,8 +158,27 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Fuction Remove the 2FA
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function removeAutenticator(Request $request)
     {
+        // Validate the code to make sure it has 6 digits
+        $request->validate([
+            'code' => 'required|digits:6',
+        ]);
+
+        $autenticatorHandle = new AutenticatorHandle();
+        $verification       = $autenticatorHandle->checkCode(Request('code'));
+        // If the code is not valid we redirect the user to the edit page
+        if ($verification == false) {
+            return Redirect::back()
+                ->with('error', 'Code Is Not Valid.');
+        }
+
         // Start the user autenticator so we can enalbe or disable the 2FA and other options
         Auth::guard('skeleton_admin')->user()->getCodes->delete();
 

@@ -17,7 +17,10 @@
                             name="password update"
                             tab="Password Update"
                         >
-                            <PasswordUpdate :admin-info="props.admin.data" />
+                            <PasswordUpdate
+                                :admin-info="props.admin.data"
+                                :autenticator-info="props.autenticator"
+                            />
                         </n-tab-pane>
                         <n-tab-pane
                             name="2fa autenticator"

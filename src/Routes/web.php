@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\HomeContoller;
 use Mariojgt\SkeletonAdmin\Controllers\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Admin\Admin\AdminController;
+use Mariojgt\SkeletonAdmin\Controllers\Admin\Booking\BookingController;
+use Mariojgt\SkeletonAdmin\Controllers\Admin\Category\CategoryController;
 
 // Standard
 Route::group([
@@ -36,5 +38,17 @@ Route::group([
             ->name('admin.remove-autenticator');
         // Verify and enable 2FA
         Route::post('/admin/2fa/enable', 'enable2fa')->name('admin.2fa.enable');
+    });
+
+    // Ecommerce categories
+    Route::controller(CategoryController::class)->group(function () {
+        // Index
+        Route::get('/categories', 'index')->name('admin.categories.index');
+    });
+
+    // Booking System Routes
+    Route::controller(BookingController::class)->group(function () {
+        // Profile Edit
+        Route::get('booking/', 'index')->name('admin.booking.index');
     });
 });

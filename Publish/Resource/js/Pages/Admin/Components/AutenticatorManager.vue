@@ -45,12 +45,46 @@
                         <h2 class="my-4 text-4xl font-bold card-title">
                             Two Factor Autenticator Backup Codes
                             <div class="flex items-center justify-end gap-3">
-                                <button class="btn btn-primary" @click="downloadCodesToCsv">
+                                <button
+                                    class="btn btn-primary"
+                                    @click="downloadCodesToCsv"
+                                >
                                     Download Csv
                                 </button>
-                                <button class="btn btn-primary" @click="removeAutenticator">
-                                    Remove Autenticator
-                                </button>
+
+                                <label
+                                    for="my-modal-2"
+                                    class="btn btn-primary modal-button"
+                                    >Remove Autenticator</label
+                                >
+                                <input
+                                    type="checkbox"
+                                    id="my-modal-2"
+                                    class="modal-toggle"
+                                />
+                                <div class="modal">
+                                    <div class="modal-box">
+
+                                        <input-field
+                                            v-model="code"
+                                            label="Two Factor Autenticator Code"
+                                            type="text"
+                                            placeholder="type your code"
+                                        />
+
+                                        <div class="modal-action">
+                                            <label
+                                                for="my-modal-2"
+                                                class="btn btn-primary"
+                                                @click="removeAutenticator"
+                                                >Remove</label
+                                            >
+                                            <label for="my-modal-2" class="btn"
+                                                >Close</label
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </h2>
                     </div>
@@ -98,28 +132,24 @@ const submitForm = () => {
 };
 // Remvoe the user aunteticator
 const removeAutenticator = () => {
-    Inertia.patch(route("admin.remove-autenticator"));
+    const form = {
+        code: code,
+    };
+    Inertia.patch(route("admin.remove-autenticator"), form);
 };
 
 const downloadCodesToCsv = () => {
     // csv header
-    let rows = [
-        [
-            "Code",
-            "Used",
-        ],
-    ];
+    let rows = [["Code", "Used"]];
 
     // Loop a varaible and add the value to the csv
-    for (const [key, value] of Object.entries(props.autenticatorInfo.backup_codes)) {
+    for (const [key, value] of Object.entries(
+        props.autenticatorInfo.backup_codes
+    )) {
         console.log(value);
         // Build the totals in the csv
-        rows.push([
-            value.code,
-            value.used,
-        ]);
+        rows.push([value.code, value.used]);
     }
-
 
     // Build the csv
     let csvContent =
