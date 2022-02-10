@@ -5,10 +5,16 @@ namespace Mariojgt\SkeletonAdmin\Helpers;
 use Carbon\Carbon;
 
 /**
- * Helper Class to help with various math stuff
+ * Helper Class to help with various calendar math stuff
  */
 class CalendarBuilder
 {
+    /**
+     * This fuction will create a calendar for the month we want using a start date
+     * @param Carbon $start_date
+     *
+     * @return [type]
+     */
     public function buildCalendar(Carbon $start_date)
     {
         // Get the start day of the month
