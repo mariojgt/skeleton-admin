@@ -2,12 +2,13 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth;
 
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Mariojgt\SkeletonAdmin\Models\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Mariojgt\SkeletonAdmin\Models\Admin;
 use Illuminate\Validation\Rules\Password;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 
@@ -59,7 +60,7 @@ class RegisterController extends Controller
             UserVerifyEvent::dispatch($user);
         } else {
             // If not send the email of user verification
-            $user->email_verified_at = true;
+            $user->email_verified_at = Carbon::now();
             $user->save();
         }
 

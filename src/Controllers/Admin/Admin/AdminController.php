@@ -41,9 +41,9 @@ class AdminController extends Controller
 
         // Start the user autenticator so we can enalbe or disable the 2FA and other options
         $autenticator = new AutenticatorHandle();
-
+        // Autenticator information
         $autenticatorInfo = [];
-        // FIrst we check if the user is uisng the autenticator
+        // First we check if the user is uisng the autenticator
         if (Auth::guard('skeleton_admin')->user()->twoStepsEnable()) {
             $autenticatorInfo = [
                 'is_enable'    => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
@@ -54,11 +54,6 @@ class AdminController extends Controller
                 'codeinfo'     => $autenticator->generateCode(Auth::guard('skeleton_admin')->user()->email),
                 'is_enable'    => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
             ];
-        }
-
-        // Get backup codes if has the autenticator enable
-        if (Auth::guard('skeleton_admin')->user()->twoStepsEnable()) {
-            $backupCodes = Auth::guard('skeleton_admin')->user()->getCodes;
         }
 
         return Inertia::render('Admin/Edit', [
