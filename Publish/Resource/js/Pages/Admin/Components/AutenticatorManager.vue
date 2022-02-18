@@ -47,7 +47,7 @@
                             <div class="flex items-center justify-end gap-3">
                                 <button
                                     class="btn btn-primary"
-                                    @click="downloadCodesToCsv"
+                                    @click="printCodes"
                                 >
                                     Download Csv
                                 </button>
@@ -64,7 +64,6 @@
                                 />
                                 <div class="modal">
                                     <div class="modal-box">
-
                                         <input-field
                                             v-model="code"
                                             label="Two Factor Autenticator Code"
@@ -138,24 +137,40 @@ const removeAutenticator = () => {
     Inertia.patch(route("admin.remove-autenticator"), form);
 };
 
-const downloadCodesToCsv = () => {
-    // csv header
-    let rows = [["Code", "Used"]];
+const printCodes = () => {
+    let mywindow = window.open(
+        "",
+        "PRINT",
+        "height=650,width=900,top=100,left=150"
+    );
+    const title = "codes";
+    mywindow.document.write(`<html><head><title>${title}</title>`);
+    mywindow.document.write("</head><body>");
+    mywindow.document.write("<h1> Two Factor Autenticator Backup Codes </h1>");
 
-    // Loop a varaible and add the value to the csv
+    // Create a table
+    mywindow.document.write("<table>");
+    mywindow.document.write("<tr><th>Code</th><th>used</th></tr>");
+    // Create a table row for each object
     for (const [key, value] of Object.entries(
         props.autenticatorInfo.backup_codes
     )) {
-        console.log(value);
-        // Build the totals in the csv
-        rows.push([value.code, value.used]);
+        mywindow.document.write("<tr>");
+        mywindow.document.write(`<td>${value.code}</td>`);
+        mywindow.document.write(`<td>${value.used}</td>`);
+        mywindow.document.write("</tr>");
     }
+    // Close the table
+    mywindow.document.write("</table>");
 
-    // Build the csv
-    let csvContent =
-        "data:text/csv;charset=utf-8," +
-        rows.map((e) => e.join(",")).join("\n");
+    mywindow.document.write("</body></html>");
 
-    window.open(encodeURI(csvContent));
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
 };
 </script>
