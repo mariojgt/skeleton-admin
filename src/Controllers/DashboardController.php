@@ -12,6 +12,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // Example on the fly change the inertia template
+        // Inertia::setRootView('layouts.news');
+
         return Inertia::render('Dashboard/Index', [
             'title' => 'Login',
         ]);

@@ -78,7 +78,7 @@ class SkeletonAdminProvider extends ServiceProvider
         // Publish now view for the inersia were we goin to render the page
         $this->publishes([
             __DIR__ . '/../Publish/InersiaRequest/appLayout'
-            => resource_path('views/'),
+            => resource_path('views/skeleton-admin'),
         ]);
 
         // Publish the npm

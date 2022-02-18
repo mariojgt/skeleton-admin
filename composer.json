@@ -17,7 +17,7 @@
         "laravel/sanctum": "^2.9",
         "inertiajs/inertia-laravel": "^0.5.2",
         "tightenco/ziggy": "^1.4",
-        "mariojgt/castle": "^0.0.5"
+        "mariojgt/castle": "^1.0.1"
     },
     "autoload": {
         "psr-4": {

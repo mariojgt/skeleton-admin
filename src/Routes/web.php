@@ -1,20 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\HomeContoller;
 use Mariojgt\SkeletonAdmin\Controllers\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Admin\Admin\AdminController;
 use Mariojgt\SkeletonAdmin\Controllers\Admin\Booking\BookingController;
 use Mariojgt\SkeletonAdmin\Controllers\Admin\Category\CategoryController;
-
-// Standard
-Route::group([
-    'middleware' => ['web'],
-    'prefix'     => config('skeletonAdmin.route_prefix'),
-], function () {
-    // Example page not required to be login
-    Route::get('/skeleton-admin', [HomeContoller::class, 'index'])->name('skeleton');
-});
 
 // Auth Route
 Route::group([
