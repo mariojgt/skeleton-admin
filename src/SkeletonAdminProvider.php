@@ -39,7 +39,8 @@ class SkeletonAdminProvider extends ServiceProvider
 
         // Load skeleton-admin routes
         $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/auth.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/adminAuth.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/frontAuth.php');
         $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
 
         // Load Migrations
