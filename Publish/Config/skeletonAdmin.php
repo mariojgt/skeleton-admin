@@ -2,7 +2,7 @@
 
 return [
     // Current package
-    'version'         => '1.0.14',
+    'version'         => '1.1.0',
 
     // If disable users Can't register in the website
     'register_enable' => true,
