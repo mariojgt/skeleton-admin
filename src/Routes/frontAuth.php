@@ -12,7 +12,8 @@ Route::group([
 ], function () {
     // User Login
     Route::get('/login', [LoginController::class, 'index'])->name('login');
-    // Dologin
+
+    // Do login
     Route::post('/login/user', [LoginController::class, 'login'])->name('login.user');
 
     // User Registration

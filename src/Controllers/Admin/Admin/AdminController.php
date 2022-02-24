@@ -27,8 +27,11 @@ class AdminController extends Controller
     }
 
     /**
-     * Edit Admin Profile
-     * @return [blade view]
+     * Edit the admin
+     *
+     * @param null $admin
+     *
+     * @return [type]
      */
     public function edit($admin = null)
     {
@@ -64,6 +67,7 @@ class AdminController extends Controller
 
     /**
      * Update admin profile
+     *
      * @param Request $request
      *
      * @return [type]
@@ -154,7 +158,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Fuction Remove the 2FA
+     * Function Remove the 2FA
      * @param Request $request
      *
      * @return [type]
@@ -166,6 +170,7 @@ class AdminController extends Controller
             'code' => 'required|digits:6',
         ]);
 
+        // Call the autenticator handle to remove the autenticator
         $autenticatorHandle = new AutenticatorHandle();
         $verification       = $autenticatorHandle->checkCode(Request('code'));
         // If the code is not valid we redirect the user to the edit page
