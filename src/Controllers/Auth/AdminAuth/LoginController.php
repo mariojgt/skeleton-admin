@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 

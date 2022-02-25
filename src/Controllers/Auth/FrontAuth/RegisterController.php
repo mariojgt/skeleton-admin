@@ -39,15 +39,17 @@ class RegisterController extends Controller
 
         // Validate the user Note the small update in the password verification
         $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::min(8)->uncompromised()],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name'  => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'   => ['required', 'confirmed', Password::min(8)->uncompromised()],
         ]);
 
-        $user           = new User();
-        $user->name     = Request('name');
-        $user->email    = Request('email');
-        $user->password = Hash::make(Request('password'));
+        $user             = new User();
+        $user->first_name = Request('first_name');
+        $user->last_name  = Request('last_name');
+        $user->email      = Request('email');
+        $user->password   = Hash::make(Request('password'));
         $user->save();
 
         // Send the verification to the user
