@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+    <div class="navbar mb-2 shadow-lg bg-base-300 text-neutral-content">
         <div class="flex">
             <!-- {{-- Trigger the side menu --}} -->
             <label for="nav-drawer" class="btn btn-square btn-ghost">

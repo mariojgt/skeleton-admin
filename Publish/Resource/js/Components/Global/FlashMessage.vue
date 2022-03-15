@@ -18,6 +18,7 @@ watch(
                 message.error(value);
             }
         }
+        // If there is any message we can display it
         if (usePage().props.value.flash) {
             // Bases on the flash type, show the toast
             switch (usePage().props.value.flash.type) {

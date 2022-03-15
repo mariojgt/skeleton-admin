@@ -5,7 +5,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                class="inline-block w-6 h-6 stroke-current"
+                class="inline-block w-6 h-6 stroke-current text-primary"
             >
                 <path
                     stroke-linecap="round"
@@ -16,16 +16,15 @@
             </svg>
         </div>
 
-        <div class="flex shadow menu dropdown-content bg-base-100 rounded-box w-96">
+        <div
+            class="flex shadow menu dropdown-content bg-base-100 rounded-box w-96"
+        >
             <ul class="menu py-3 shadow-lg bg-base-100 rounded-box">
-                <li>
-                    <div
-                        class="flex pd bg-base-200 shadow-lg rounded-lg overflow-hidden"
-                    >
-                        <div class="w-2 bg-gray-800"></div>
+                <li class="pb-0">
+                    <div class="flex pd overflow-hidden">
                         <div class="flex items-center pr-7">
                             <div class="avatar">
-                                <div class="w-10 mask mask-squircle">
+                                <div class="w-12 mask mask-squircle">
                                     <img
                                         src="https://api.lorem.space/image/face?hash=47449"
                                     />
@@ -46,6 +45,28 @@
                             </div>
                         </div>
                     </div>
+                </li>
+            </ul>
+
+            <ul class="menu bg-base-100 p-2 rounded-box">
+                <li>
+                    <a>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                        </svg>
+                        Clear Notifications
+                    </a>
                 </li>
             </ul>
         </div>
