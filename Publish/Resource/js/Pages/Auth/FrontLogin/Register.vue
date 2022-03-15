@@ -1,24 +1,15 @@
 <template>
-    <Layout title="Register">
+    <Layout title="Register" >
         <template v-slot:form>
             <div>
                 <div class="px-5 py-7">
                     <input-field
-                        v-model="first_name"
-                        label="First Name"
+                        v-model="name"
+                        label="Name"
                         type="txt"
-                        name="first_name"
-                        id="first_name"
-                        placeholder="type your first name"
-                    />
-
-                    <input-field
-                        v-model="last_name"
-                        label="Last Name"
-                        type="txt"
-                        name="last_name"
-                        id="last_name"
-                        placeholder="type your last name"
+                        name="name"
+                        id="name"
+                        placeholder="type your name"
                     />
 
                     <input-field
@@ -71,10 +62,9 @@ import InputPassword from "../../../Components/Form/Password";
 import Submit from "../../../Components/Form/Submit";
 import LinkButton from "../../../Components/Form/Link.vue";
 
-let first_name = $ref("");
-let last_name = $ref("");
-let email = $ref("");
-let password = $ref("");
+let name                  = $ref("");
+let email                 = $ref("");
+let password              = $ref("");
 let password_confirmation = $ref("");
 
 const props = defineProps({
@@ -86,12 +76,12 @@ const props = defineProps({
 
 const submitForm = () => {
     const form = {
-        first_name: first_name,
-        last_name: last_name,
-        email: email,
-        password: password,
-        password_confirmation: password_confirmation,
+        name:name,
+        email:email,
+        password:password,
+        password_confirmation:password_confirmation,
     };
-    Inertia.post(route("register.user"), form);
+    Inertia.post(route('register.user'), form);
 };
+
 </script>

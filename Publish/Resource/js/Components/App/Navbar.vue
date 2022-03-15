@@ -57,76 +57,7 @@
             </div>
         </div>
         <div class="flex-none">
-            <div class="dropdown dropdown-end">
-                <div tabindex="0" class="m-1 btn btn-square btn-ghost">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        class="inline-block w-6 h-6 stroke-current"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                        ></path>
-                    </svg>
-                </div>
-
-                <div
-                    class="shadow menu dropdown-content bg-base-100 rounded-box w-96"
-                >
-                    <ul class="menu py-3 shadow-lg bg-base-100 rounded-box">
-                        <li class="menu-title">
-                            <span> Menu Title </span>
-                        </li>
-                        <li>
-                            <a>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    class="inline-block w-5 h-5 mr-2 stroke-current"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                    ></path>
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                    ></path>
-                                </svg>
-                                Item with icon
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    class="inline-block w-5 h-5 mr-2 stroke-current"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                                    ></path>
-                                </svg>
-                                Item with icon
-                                <div class="badge ml-2 success">3</div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <notification/>
         </div>
         <div class="flex-none">
             <div class="dropdown dropdown-end">
@@ -194,10 +125,10 @@
 import { watch, onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import logo from "../Global/logo";
+import notification from "./Notifications.vue";
 
 // Links
-const profileLink = route('admin.edit');
-
+const profileLink = route("admin.edit");
 </script>
 
 <style></style>

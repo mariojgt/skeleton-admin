@@ -20,7 +20,7 @@
 
         <template v-slot:links>
             <LinkButton name="Register" :link="registerLink" />
-            <LinkButton name="Forgot password" :link="forgotPasswordLink" />
+            <LinkButton name="Login" :link="loginLink" />
         </template>
     </Layout>
 </template>
@@ -32,8 +32,8 @@ import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../../Layout/Login";
 
 // Page links
-const registerLink       = route('skeleton.register');
-const forgotPasswordLink = route('skeleton.forgot-password');
+const registerLink = route('skeleton.register');
+const loginLink    = route('skeleton.login');
 
 // Import the from components
 import InputField from "../../../Components/Form/Input";

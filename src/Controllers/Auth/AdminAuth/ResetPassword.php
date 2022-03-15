@@ -18,9 +18,19 @@ class ResetPassword extends Controller
      */
     public function index()
     {
-        return Inertia::render('Login/Reset', [
+        return Inertia::render('Auth/AdminLogin/Reset', [
             'title' => 'Login',
         ]);
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return PasswordBroker
+     */
+    protected function broker()
+    {
+        return Password::broker('admins');
     }
 
     /**
@@ -34,7 +44,7 @@ class ResetPassword extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        Password::sendResetLink(
+        $response = $this->broker()->sendResetLink(
             $request->only('email')
         );
 
@@ -67,20 +77,19 @@ class ResetPassword extends Controller
             'email'    => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
-        // Using laravel default password reset
-        Password::reset(
+
+        // Reset the admin password based in the broker
+        $response = $this->broker()->reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => Hash::make($password),
                 ])->save();
 
-                $user->setRememberToken(Str::random(60));
-
                 event(new PasswordReset($user));
             }
         );
 
-        return Redirect::route('login')->with('success', 'Password Update');
+        return Redirect::route('skeleton.login')->with('success', 'Password Update');
     }
 }
