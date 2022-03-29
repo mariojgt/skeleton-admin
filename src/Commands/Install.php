@@ -38,26 +38,28 @@ class Install extends Command
      */
     public function handle()
     {
-        // Copy the need file to make the skeleton to work
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',
-            '--force'    => true,
-        ]);
-
         // Copy the need file to make the laravel sanctum work
         Artisan::call('vendor:publish', [
             '--provider' => 'Laravel\Sanctum\SanctumServiceProvider',
             '--force'    => true,
         ]);
 
+        // Install the castle package
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Mariojgt\Castle\CastleProvider',
+            '--force'    => true,
+        ]);
+
+        // Copy the need file to make the skeleton to work
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',
+            '--force'    => true,
+        ]);
+
         // Migrate
         Artisan::call('migrate');
-        // Cache the config
-        Artisan::call('config:cache');
-        // Cache the views
-        Artisan::call('view:cache');
         // Cache the routes
-        Artisan::call('route:cache');
+        Artisan::call('optimize:clear');
 
         $this->newLine();
         $this->info('The command was successful!');
