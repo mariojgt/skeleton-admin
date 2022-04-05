@@ -5,12 +5,12 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Mariojgt\Skeleton\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
+use Mariojgt\SkeletonAdmin\Models\User;
 use Illuminate\Support\Facades\Redirect;
-use Mariojgt\Skeleton\Events\UserVerifyEvent;
+use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 
 class LoginController extends Controller
 {
@@ -20,7 +20,8 @@ class LoginController extends Controller
     public function index()
     {
         return Inertia::render('Auth/FrontLogin/Index', [
-            'title' => 'Login',
+            'title'   => 'Login',
+            'isAdmin' => false, // Dynamic update the logo
         ]);
     }
 
@@ -43,7 +44,7 @@ class LoginController extends Controller
 
         // Try login Note the you have the guard
         if (Auth::guard(config('skeleton.user_guard'))->attempt($credentials)) {
-            return Redirect::route('skeleton.home')->with('success', 'Welcome :)');
+            return Redirect::route('user.home')->with('success', 'Welcome :)');
         } else {
             return Redirect::route('login')->with('error', 'Credentials do not match');
         }

@@ -97,8 +97,8 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 // Import the from components
-import InputField from "../../../Components/Form/Input";
-import Submit from "../../../Components/Form/Submit";
+import InputField from "@mariojgt/masterui/packages/Input/index";
+import Submit from "@mariojgt/masterui/packages/Submit/index";
 
 // FIelds Values
 

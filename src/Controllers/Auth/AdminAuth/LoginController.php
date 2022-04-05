@@ -21,7 +21,8 @@ class LoginController extends Controller
     public function index()
     {
         return Inertia::render('Auth/AdminLogin/Login', [
-            'title' => 'Login',
+            'title'   => 'Login',
+            'isAdmin' => true,  // Dynamic update the logo
         ]);
     }
 
@@ -46,7 +47,7 @@ class LoginController extends Controller
         if (Auth::guard('skeleton_admin')->attempt($credentials)) {
             return Redirect::route('skeleton-admin.home')->with('success', 'Welcome :)');
         } else {
-            return Redirect::route('login')->with('error', 'Credentials do not match');
+            return Redirect::route('skeleton.login')->with('error', 'Credentials do not match');
         }
     }
 

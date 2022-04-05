@@ -13,7 +13,8 @@
             <div class="flex flex-col overflow-y-auto md:flex-row">
                 <div class="h-32 md:h-auto md:w-1/2">
                      <!-- Call the logo here -->
-                    <logo />
+                    <adminLogo v-if="usePage().props.value.isAdmin" />
+                    <userLogo v-if="usePage().props.value.isAdmin == false" />
                 </div>
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                     <div class="w-full">
@@ -36,13 +37,19 @@
 
 <script setup>
 import { watch, onMounted } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
 
-import logo from "../Global/logo";
+import adminLogo from "../Backend/Global/AdminLogo";
+import userLogo from "../Backend/Global/UserLogo";
 
 const props = defineProps({
     title: {
         type: String,
         default: '',
+    },
+    isAdmin: {
+        type: Boolean,
+        default: true,
     }
 });
 

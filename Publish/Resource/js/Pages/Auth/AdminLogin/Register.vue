@@ -68,15 +68,15 @@ import Layout from "../../../Layout/Login";
 const loginLink       = route('skeleton.login');
 
 // Import the from components
-import InputField from "../../../Components/Form/Input";
-import InputPassword from "../../../Components/Form/Password";
-import Submit from "../../../Components/Form/Submit";
-import LinkButton from "../../../Components/Form/Link.vue";
+import InputField from "@mariojgt/masterui/packages/Input/index";
+import InputPassword from "@mariojgt/masterui/packages/Password/index";
+import Submit from "@mariojgt/masterui/packages/Submit/index";
+import LinkButton from "@mariojgt/masterui/packages/Link/index";
 
-let fist_name = $ref("");
-let last_name = $ref("");
-let email = $ref("");
-let password = $ref("");
+let fist_name             = $ref("");
+let last_name             = $ref("");
+let email                 = $ref("");
+let password              = $ref("");
 let password_confirmation = $ref("");
 
 const props = defineProps({

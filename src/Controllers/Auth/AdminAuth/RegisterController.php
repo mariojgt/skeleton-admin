@@ -21,6 +21,7 @@ class RegisterController extends Controller
     {
         return Inertia::render('Auth/AdminLogin/Register', [
             'title' => 'Login',
+            'isAdmin' => true,  // Dynamic update the logo
         ]);
     }
 

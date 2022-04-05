@@ -37,7 +37,7 @@
                         placeholder="type your Password Confirmation"
                     />
 
-                    <submit @click="submitForm" />
+                    <submit name="Register" @click="submitForm" />
                 </div>
                 <!-- <Link href="/about-us">Go to about us</Link> -->
             </div>
@@ -57,10 +57,10 @@ import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../../Layout/Login";
 
 // Import the from components
-import InputField from "../../../Components/Form/Input";
-import InputPassword from "../../../Components/Form/Password";
-import Submit from "../../../Components/Form/Submit";
-import LinkButton from "../../../Components/Form/Link.vue";
+import InputField from "@mariojgt/masterui/packages/Input/index";
+import InputPassword from "@mariojgt/masterui/packages/Password/index";
+import Submit from "@mariojgt/masterui/packages/Submit/index";
+import LinkButton from "@mariojgt/masterui/packages/Link/index";
 
 let name                  = $ref("");
 let email                 = $ref("");

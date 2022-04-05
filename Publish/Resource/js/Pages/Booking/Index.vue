@@ -65,7 +65,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted, watch } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../Layout/App";
+import Layout from "../../Layout/Backend.vue";
 
 const props = defineProps({
     autenticator: {

@@ -24,7 +24,7 @@
 import { watch, onMounted } from "vue";
 // Call the auth wrhaper compnent
 import AuthWraper from "../Components/Auth/AuthWrap";
-import FlashMessage from "../Components/Global/FlashMessage";
+import FlashMessage from "../Components/Backend/Global/FlashMessage";
 
 const props = defineProps({
     title: {

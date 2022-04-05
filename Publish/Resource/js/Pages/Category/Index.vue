@@ -38,7 +38,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../Layout/App";
+import Layout from "../../Layout/Backend.vue";
 
 // FIelds Values
 import CreateCategory from "./Components/Create.vue";
