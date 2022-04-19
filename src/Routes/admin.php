@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\DashboardController;
+use Mariojgt\SkeletonAdmin\Controllers\Admin\Dashboard\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Admin\Admin\AdminController;
 use Mariojgt\SkeletonAdmin\Controllers\Admin\Booking\BookingController;
 use Mariojgt\SkeletonAdmin\Controllers\Admin\Category\CategoryController;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers;
+namespace Mariojgt\SkeletonAdmin\Controllers\Admin\Dashboard;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
