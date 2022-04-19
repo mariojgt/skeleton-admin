@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth\ResetPassword;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth\LoginController;
-use Mariojgt\SkeletonAdmin\Controllers\FrontEnd\UserDashboardController;
+use Mariojgt\SkeletonAdmin\Controllers\FrontEnd\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth\RegisterController;
 
 // Login | Register Route need to be logout to view this page
@@ -45,5 +45,5 @@ Route::group([
     'prefix'     => config('skeletonAdmin.route_prefix_front'),
 ], function () {
     // Warn the user need to be verify
-    Route::get('/user/home', [UserDashboardController::class, 'index'])->name('user.home');
+    Route::get('/user/home', [DashboardController::class, 'index'])->name('user.home');
 });

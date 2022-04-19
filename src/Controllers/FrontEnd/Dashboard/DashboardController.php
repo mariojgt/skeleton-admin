@@ -1,13 +1,14 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\FrontEnd;
+namespace Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Dashboard;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 
-class UserDashboardController extends Controller
+class DashboardController extends Controller
 {
     /**
+     * Return the dashboard view for the frontend user.
      * @return [blade view]
      */
     public function index()
