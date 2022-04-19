@@ -7,7 +7,7 @@ use Carbon\Carbon;
 /**
  * Helper Class to help with various date stuff
  */
-class Dates
+class Date
 {
     /**
      * Function to convert a from - to into a Carbon array
@@ -55,5 +55,24 @@ class Dates
         $monthStart = $date->startOfMonth()->format('Y-m-d');
         $monthEnd   = $date->endOfMonth()->format('Y-m-d');
         return Carbon::parse($monthStart)->range($monthEnd, $interval, $unit)->toArray();
+    }
+
+    /**
+     * Create a hour range based at start time and end time the format must be 00:00:00
+     *
+     * @param mixed $startTime
+     * @param mixed $endTime
+     * @param mixed $interval
+     *
+     * @return array [time]
+     */
+    public function hourRange($startTime, $endTime, $interval)
+    {
+        // Parse the start and end time
+        $startTime = Carbon::parse($startTime);
+        $endTime   = Carbon::parse($endTime);
+        // Return the range
+        $range     = $startTime->range($endTime, $interval, 'hours');
+        return $range;
     }
 }
