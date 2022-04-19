@@ -8,7 +8,7 @@ use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\ResetPassword;
 // Login | Register Route need to be logout to view this page
 Route::group([
     'middleware' => ['web', 'skeleton_guest'],
-    'prefix'     => config('skeletonAdmin.route_prefix'),
+    'prefix'     => config('skeleton.route_prefix'),
 ], function () {
     // Logoin routes
     Route::controller(LoginController::class)->group(function () {

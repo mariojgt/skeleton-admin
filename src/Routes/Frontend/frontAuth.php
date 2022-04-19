@@ -3,13 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\ResetPassword;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\LoginController;
-use Mariojgt\SkeletonAdmin\Controllers\Frontend\DashboardController;
+use Mariojgt\SkeletonAdmin\Controllers\Frontend\Dashboard\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\RegisterController;
 
 // Login | Register Route need to be logout to view this page
 Route::group([
     'middleware' => ['web', 'guest'],
-    'prefix'     => config('skeletonAdmin.route_prefix_front'),
+    'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
     // User Login
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -31,7 +31,7 @@ Route::group([
 // User verify account
 Route::group([
     'middleware' => ['web'],
-    'prefix'     => config('skeletonAdmin.route_prefix_front'),
+    'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
     // Warn the user need to be verify
     Route::get('/email/verify', [LoginController::class, 'needVerify'])->name('verification.notice');
@@ -42,8 +42,10 @@ Route::group([
 
 Route::group([
     'middleware' => ['web', 'auth'],
-    'prefix'     => config('skeletonAdmin.route_prefix_front'),
+    'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
+    // Do logout
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout.user');
     // Warn the user need to be verify
     Route::get('/user/home', [DashboardController::class, 'index'])->name('user.home');
 });

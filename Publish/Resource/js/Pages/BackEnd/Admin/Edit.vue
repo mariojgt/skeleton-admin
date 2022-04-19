@@ -45,9 +45,9 @@ import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../../Layout/Backend.vue";
 
 // Tab Content
-import EditDeatils from "../Components/EditDetails.vue";
-import PasswordUpdate from "../Components/PasswordUpdate.vue";
-import AutenticatorManager from "../Components/AutenticatorManager.vue";
+import EditDeatils from "./Components/EditDetails.vue";
+import PasswordUpdate from "./Components/PasswordUpdate.vue";
+import AutenticatorManager from "./Components/AutenticatorManager.vue";
 
 const props = defineProps({
     autenticator: {

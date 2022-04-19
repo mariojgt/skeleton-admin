@@ -5,7 +5,9 @@ return [
     'version'         => '1.1.0',
 
     // If disable users Can't register in the website
-    'register_enable' => true,
+    'frontend_register_enable' => true,
+    // If true we goin to send an email to the user to verify his account
+    'frontend_email_verify' => true,
 
     // The Boot Token is used in the pre api autentication
     // So we can prevent unwanted aplication ping your url

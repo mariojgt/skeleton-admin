@@ -5,6 +5,7 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 use Carbon\Carbon;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -35,7 +36,7 @@ class RegisterController extends Controller
     public function userRegister(Request $request)
     {
         // Chechk if the registration is enable
-        if (config('skeletonAdmin.register_enable') == false) {
+        if (config('skeleton.backend_register_enable') == false) {
             return Redirect::back()->with('error', 'Sorry but registration has been disable.');
         }
 
@@ -47,6 +48,8 @@ class RegisterController extends Controller
             'password'  => ['required', 'confirmed', Password::min(8)->uncompromised()],
         ]);
 
+        DB::beginTransaction();
+
         // Register The user
         $user             = new Admin();
         $user->first_name = Request('fist_name');
@@ -56,7 +59,7 @@ class RegisterController extends Controller
         $user->save();
 
         // Check if the user need to be verify
-        if (config('skeletonAdmin.send_verification') == true) {
+        if (config('skeleton.backend_email_verify') == true) {
             // Send the verification to the user
             UserVerifyEvent::dispatch($user);
         } else {
@@ -64,6 +67,8 @@ class RegisterController extends Controller
             $user->email_verified_at = Carbon::now();
             $user->save();
         }
+
+        DB::commit();
 
         return Redirect::back()
             ->with('success', 'Account Created with success, Please check you email for a verification link.');

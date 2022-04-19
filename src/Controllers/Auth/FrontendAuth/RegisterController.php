@@ -21,7 +21,7 @@ class RegisterController extends Controller
     {
         return Inertia::render('Auth/Frontend/Register', [
             'title' => 'Login',
-            'isAdmin' => true,  // Dynamic update the logo
+            'isAdmin' => false,  // Dynamic update the logo
         ]);
     }
 
@@ -35,7 +35,7 @@ class RegisterController extends Controller
      */
     public function userRegister(Request $request)
     {
-        if (config('skeleton.register_enable') == false) {
+        if (config('skeleton.frontend_register_enable') == false) {
             return Redirect::back()->with('error', 'Sorry but registration has been disable.');
         }
         // Validate the user Note the small update in the password verification
@@ -54,7 +54,13 @@ class RegisterController extends Controller
         $user->save();
 
         // Send the verification to the user
-        UserVerifyEvent::dispatch($user);
+        if (config('skeleton.frontend_email_verify')) {
+            UserVerifyEvent::dispatch($user);
+        } else {
+            // Verify the user
+            $user->email_verified_at = now();
+            $user->save();
+        }
 
         DB::commit();
         return Redirect::back()
