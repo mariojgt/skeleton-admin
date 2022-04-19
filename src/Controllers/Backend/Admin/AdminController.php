@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Admin\Admin;
+namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Admin;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -59,7 +59,7 @@ class AdminController extends Controller
             ];
         }
 
-        return Inertia::render('Admin/Edit', [
+        return Inertia::render('BackEnd/Admin/Edit', [
             'autenticator' => $autenticatorInfo,
             'admin'        => new AdminResource($adminInfo),
         ]);

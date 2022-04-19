@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth\ResetPassword;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth\LoginController;
-use Mariojgt\SkeletonAdmin\Controllers\FrontEnd\DashboardController;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth\RegisterController;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\ResetPassword;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\LoginController;
+use Mariojgt\SkeletonAdmin\Controllers\Frontend\DashboardController;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\RegisterController;
 
 // Login | Register Route need to be logout to view this page
 Route::group([

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Auth\AdminAuth;
+namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 
 use Carbon\Carbon;
 use Inertia\Inertia;
@@ -19,7 +19,7 @@ class RegisterController extends Controller
      */
     public function register()
     {
-        return Inertia::render('Auth/AdminLogin/Register', [
+        return Inertia::render('Auth/Backend/Register', [
             'title' => 'Login',
             'isAdmin' => true,  // Dynamic update the logo
         ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Auth\FrontAuth;
+namespace Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class RegisterController extends Controller
      */
     public function register()
     {
-        return Inertia::render('Auth/FrontLogin/Register', [
+        return Inertia::render('Auth/Frontend/Register', [
             'title' => 'Login',
             'isAdmin' => true,  // Dynamic update the logo
         ]);

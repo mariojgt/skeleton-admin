@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Admin\Category;
+namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Category;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        return Inertia::render('Category/Index', []);
+        return Inertia::render('BackEnd/Category/Index', []);
     }
 
     public function store(Request $request)

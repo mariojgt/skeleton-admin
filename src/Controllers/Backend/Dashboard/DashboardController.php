@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Admin\Dashboard;
+namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Dashboard;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ class DashboardController extends Controller
         // Example on the fly change the inertia template
         // Inertia::setRootView('layouts.news');
 
-        return Inertia::render('Dashboard/Index', [
+        return Inertia::render('BackEnd/Dashboard/Index', [
             'title' => 'Login',
         ]);
     }

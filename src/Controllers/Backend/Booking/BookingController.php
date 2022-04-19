@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Admin\Booking;
+namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Booking;
 
 use Carbon\Carbon;
 use Inertia\Inertia;
@@ -23,7 +23,7 @@ class BookingController extends Controller
         $today           = Carbon::now();
         $calendarDays    = $calendarManager->buildCalendar($today);
 
-        return Inertia::render('Booking/Index', [
+        return Inertia::render('BackEnd/Booking/Index', [
             'calendarDays' => $calendarDays,
             'today'        => $today,
         ]);

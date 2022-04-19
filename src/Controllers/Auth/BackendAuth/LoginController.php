@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Auth\AdminAuth;
+namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Auth/AdminLogin/Login', [
+        return Inertia::render('Auth/Backend/Login', [
             'title'   => 'Login',
             'isAdmin' => true,  // Dynamic update the logo
         ]);

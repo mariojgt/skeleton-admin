@@ -490,7 +490,7 @@ import InputPassword from "@mariojgt/masterui/packages/Password/index";
 import Submit from "@mariojgt/masterui/packages/Submit/index";
 import LinkButton from "@mariojgt/masterui/packages/Link/index";
 
-let email = $ref("");
+let email    = $ref("");
 let password = $ref("");
 
 const props = defineProps({

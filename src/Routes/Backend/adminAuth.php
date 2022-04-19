@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\AdminAuth\LoginController;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\AdminAuth\RegisterController;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\AdminAuth\ResetPassword;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\LoginController;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\RegisterController;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\ResetPassword;
 
 // Login | Register Route need to be logout to view this page
 Route::group([
