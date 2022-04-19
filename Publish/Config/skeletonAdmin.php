@@ -18,10 +18,7 @@ return [
     // Send the email of user verification once the user try to login
     'send_verification' => false,
 
-    // Using innersia Js
-    'inertiajs_enable' => true,
-
-    // Routes prefix
+    // Routes prefix admin
     'route_prefix' => 'admin',
 
     // Routes prefix front end

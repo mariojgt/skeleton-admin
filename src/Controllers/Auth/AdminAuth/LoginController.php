@@ -16,6 +16,7 @@ class LoginController extends Controller
 {
 
     /**
+     * Return the login view
      * @return [inersia]
      */
     public function index()
