@@ -38,7 +38,7 @@ class Install extends Command
      */
     public function handle()
     {
-        // Copy the need file to make the laravel sanctum work
+        // Install Sanctum
         Artisan::call('vendor:publish', [
             '--provider' => 'Laravel\Sanctum\SanctumServiceProvider',
             '--force'    => true,
@@ -47,6 +47,12 @@ class Install extends Command
         // Install the castle package
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\Castle\CastleProvider',
+            '--force'    => true,
+        ]);
+
+        // The cookie package
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Mariojgt\Biscotto\BiscottoProvider',
             '--force'    => true,
         ]);
 

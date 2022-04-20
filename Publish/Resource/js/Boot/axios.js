@@ -1,17 +1,9 @@
-import { boot } from "quasar/wrappers";
-import { Notify } from "quasar";
 import axios from "axios";
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({
-    baseURL: process.env.API_BASE_URL || "http://bookings.dsm",
-    timeout: 5000,
-});
+const api = axios.create({});
+
+// Add XMLHttpRequest to axios
+api.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 export default boot(({ app, store, router }) => {
     // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -31,34 +23,17 @@ export default boot(({ app, store, router }) => {
         },
         function (error) {
             const status = error.response.status;
-            if (status === 401 && store.getters["user/isAuth"] === true) {
-                store.commit("user/saveToken", "");
-                router.push({
-                    name: "signin",
-                });
+            if (status === 401 ) {
+                console.log("401");
             } else if (
-                status === 402 &&
-                store.getters["user/isAuth"] === true
-            ) {
-                Notify.create({
-                    type: "warning",
-                    message: error.response.data.message,
-                });
+                status === 402             ) {
+                console.log("402");
             } else if (
-                status === 403 &&
-                store.getters["user/isAuth"] === true
+                status === 403
             ) {
-                Notify.create({
-                    type: "warning",
-                    message: "You are not authorised to perform that action",
-                });
+                console.log("403");
             } else if (status === 400) {
-                Notify.create({
-                    type: "warning",
-                    message:
-                        error.response.data.message ??
-                        "Error please contact the support.",
-                });
+                console.log("400");
             }
             return Promise.reject(error);
         }

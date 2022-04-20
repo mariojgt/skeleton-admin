@@ -127,7 +127,7 @@ import logo from "../Global/UserLogo.vue";
 import notification from "./Notifications.vue";
 
 // Links
-const profileLink = route("admin.edit");
+const profileLink = route("user.edit");
 // Logout Route
 const logoutRoute = route("logout.user");
 </script>

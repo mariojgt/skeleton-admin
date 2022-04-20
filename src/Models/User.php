@@ -8,12 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Mariojgt\Castle\Trait\Castle;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
-    use Castle;
+    use HasApiTokens,
+        HasFactory,
+        Notifiable,
+        Castle;
 
     /**
      * The attributes that are mass assignable.
