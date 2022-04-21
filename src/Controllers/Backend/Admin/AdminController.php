@@ -146,7 +146,7 @@ class AdminController extends Controller
 
         // if true we can sync the user
         if ($verification) {
-            Auth::guard('skeleton_admin')->user()->syncAutenticator(decrypt(Session::get('autenticator_key')));
+            Auth::guard('skeleton_admin')->user()->syncAutenticator(Session::get('autenticator_key'));
             // Return success
             return Redirect::back()
                 ->with('success', 'code sync with success.');

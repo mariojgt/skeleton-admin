@@ -142,10 +142,9 @@ class ProfileController extends Controller
 
         $autenticatorHandle = new AutenticatorHandle();
         $verification       = $autenticatorHandle->checkCode(Request('code'));
-
         // if true we can sync the user
         if ($verification) {
-            Auth::user()->syncAutenticator(decrypt(Session::get('autenticator_key')));
+            Auth::user()->syncAutenticator(Session::get('autenticator_key'));
             // Return success
             return Redirect::back()
                 ->with('success', 'code sync with success.');

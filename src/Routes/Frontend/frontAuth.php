@@ -45,9 +45,6 @@ Route::group([
     'middleware' => ['web', 'auth', '2fa'],
     'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
-    // Do logout
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout.user');
-
     // Warn the user need to be verify
     Route::get('/user/home', [DashboardController::class, 'index'])->name('user.home');
 
@@ -65,4 +62,12 @@ Route::group([
         // Verify and enable 2FA
         Route::post('/user/2fa/enable', 'enable2fa')->name('user.2fa.enable');
     });
+});
+
+Route::group([
+    'middleware' => ['web', 'auth'],
+    'prefix'     => config('skeleton.route_prefix_front'),
+], function () {
+    // Do logout
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout.user');
 });
