@@ -3622,6 +3622,15 @@ body[dir="rtl"] .checkbox:checked,
 .mt-16{
   margin-top: 4rem;
 }
+.mb-12{
+  margin-bottom: 3rem;
+}
+.mb-6{
+  margin-bottom: 1.5rem;
+}
+.mb-0{
+  margin-bottom: 0px;
+}
 .mb-4{
   margin-bottom: 1rem;
 }
@@ -3718,11 +3727,17 @@ body[dir="rtl"] .checkbox:checked,
 .w-24{
   width: 6rem;
 }
+.min-w-0{
+  min-width: 0px;
+}
 .max-w-4xl{
   max-width: 56rem;
 }
 .max-w-none{
   max-width: none;
+}
+.max-w-full{
+  max-width: 100%;
 }
 .flex-1{
   flex: 1 1 0%;
@@ -3805,6 +3820,9 @@ body[dir="rtl"] .checkbox:checked,
 .overflow-y-auto{
   overflow-y: auto;
 }
+.break-words{
+  overflow-wrap: break-word;
+}
 .rounded-lg{
   border-radius: 0.5rem;
 }
@@ -3817,6 +3835,13 @@ body[dir="rtl"] .checkbox:checked,
 .rounded-l-none{
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+.rounded-t{
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.border-0{
+  border-width: 0px;
 }
 .border-r{
   border-right-width: 1px;
@@ -3855,6 +3880,10 @@ body[dir="rtl"] .checkbox:checked,
 .bg-neutral{
   --tw-bg-opacity: 1;
   background-color: hsl(var(--n) / var(--tw-bg-opacity));
+}
+.bg-neutral-focus{
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
 }
 .bg-opacity-90{
   --tw-bg-opacity: 0.9;
@@ -3930,6 +3959,9 @@ body[dir="rtl"] .checkbox:checked,
 }
 .pt-10{
   padding-top: 2.5rem;
+}
+.text-right{
+  text-align: right;
 }
 .font-sans{
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -4031,6 +4063,9 @@ body[dir="rtl"] .checkbox:checked,
 .outline-base-content{
   outline-color: hsl(var(--bc));
 }
+.filter{
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .backdrop-blur{
   --tw-backdrop-blur: blur(8px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -4119,6 +4154,9 @@ body[dir="rtl"] .checkbox:checked,
 @media (min-width: 1280px){
   .xl\:col-span-2{
     grid-column: span 2 / span 2;
+  }
+  .xl\:mb-0{
+    margin-bottom: 0px;
   }
   .xl\:grid-cols-12{
     grid-template-columns: repeat(12, minmax(0, 1fr));

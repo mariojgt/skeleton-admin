@@ -56,6 +56,12 @@ class Install extends Command
             '--force'    => true,
         ]);
 
+        // Publish spatie permission
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Spatie\Permission\PermissionServiceProvider',
+            '--force'    => true,
+        ]);
+
         // Copy the need file to make the skeleton to work
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',

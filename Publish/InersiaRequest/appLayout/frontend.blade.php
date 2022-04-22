@@ -13,5 +13,5 @@
 </body>
 @routes
 <script src="{{ asset('vendor/SkeletonAdmin/js/frontend/app.js') }}" defer></script>
-
+<x-biscotto::biscotto/>
 </html>

@@ -41,9 +41,13 @@ const loadLocalStorageTheme = async () => {
   html.setAttribute("data-theme", "coffee");
   // Get the theme from the local storage
   const theme = localStorage.getItem("theme-frontend");
-  // Add the data-theme attribute
-  html.setAttribute("data-theme", theme);
-
+  // if not found set the default theme
+  if (theme) {
+    // Add the data-theme attribute
+    html.setAttribute("data-theme", theme);
+  } else {
+    html.setAttribute("data-theme", "dracula");
+  }
 };
 
 // On mount load the saved theme from the local storage

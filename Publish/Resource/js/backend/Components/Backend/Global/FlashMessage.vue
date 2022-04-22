@@ -13,7 +13,8 @@ watch(
     // Loop any possible page errors and display the message
     if (usePage().props.value.errors) {
       for (const [key, value] of Object.entries(usePage().props.value.errors)) {
-        message.error(value);
+        // Display a message using the helper
+        handleMessage("error", value);
       }
     }
   }
@@ -22,23 +23,10 @@ watch(
 // Check if there is a flash message and display it
 onMounted(() => {
   if (usePage().props.value.flash) {
-    switch (usePage().props.value.flash.type) {
-      case "success":
-        message.success(usePage().props.value.flash.message);
-        break;
-      case "error":
-        message.error(usePage().props.value.flash.message);
-        break;
-      case "warning":
-        message.warning(usePage().props.value.flash.message);
-        break;
-      case "info":
-        message.info(usePage().props.value.flash.message);
-        break;
-      default:
-        message.info(usePage().props.value.flash.message);
-        break;
-    }
+    handleMessage(
+      usePage().props.value.flash.type,
+      usePage().props.value.flash.message
+    );
   }
 });
 
@@ -47,25 +35,32 @@ watch(
   (v) => {
     // If there is any message we can display it
     if (usePage().props.value.flash) {
-      // Bases on the flash type, show the toast
-      switch (usePage().props.value.flash.type) {
-        case "success":
-          message.success(usePage().props.value.flash.message);
-          break;
-        case "error":
-          message.error(usePage().props.value.flash.message);
-          break;
-        case "warning":
-          message.warning(usePage().props.value.flash.message);
-          break;
-        case "info":
-          message.info(usePage().props.value.flash.message);
-          break;
-        default:
-          message.info(usePage().props.value.flash.message);
-          break;
-      }
+      handleMessage(
+        usePage().props.value.flash.type,
+        usePage().props.value.flash.message
+      );
     }
   }
 );
+
+// This fuction will display a mesage based o nthe message type
+const handleMessage = async (type, messageData) => {
+  switch (type) {
+    case "success":
+      message.success(messageData);
+      break;
+    case "error":
+      message.error(messageData);
+      break;
+    case "warning":
+      message.warning(messageData);
+      break;
+    case "info":
+      message.info(messageData);
+      break;
+    default:
+      message.info(messageData);
+      break;
+  }
+};
 </script>
