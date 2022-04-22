@@ -4,7 +4,7 @@
 import { watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/inertia-vue3";
 
-import { useMessage } from "naive-ui";
+import { useMessage, useNotification } from "naive-ui";
 const message = useMessage();
 
 watch(
@@ -23,22 +23,22 @@ watch(
 onMounted(() => {
   if (usePage().props.value.flash) {
     switch (usePage().props.value.flash.type) {
-        case "success":
-          message.success(usePage().props.value.flash.message);
-          break;
-        case "error":
-          message.error(usePage().props.value.flash.message);
-          break;
-        case "warning":
-          message.warning(usePage().props.value.flash.message);
-          break;
-        case "info":
-          message.info(usePage().props.value.flash.message);
-          break;
-        default:
-          message.info(usePage().props.value.flash.message);
-          break;
-      }
+      case "success":
+        message.success(usePage().props.value.flash.message);
+        break;
+      case "error":
+        message.error(usePage().props.value.flash.message);
+        break;
+      case "warning":
+        message.warning(usePage().props.value.flash.message);
+        break;
+      case "info":
+        message.info(usePage().props.value.flash.message);
+        break;
+      default:
+        message.info(usePage().props.value.flash.message);
+        break;
+    }
   }
 });
 
@@ -68,5 +68,4 @@ watch(
     }
   }
 );
-
 </script>
