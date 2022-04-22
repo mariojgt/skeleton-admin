@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 
 class RegisterController extends Controller
@@ -22,7 +24,6 @@ class RegisterController extends Controller
     {
         return Inertia::render('Auth/Backend/Register', [
             'title' => 'Login',
-            'isAdmin' => true,  // Dynamic update the logo
         ]);
     }
 

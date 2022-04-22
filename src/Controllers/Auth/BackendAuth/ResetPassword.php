@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Auth\Events\PasswordReset;
+use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class ResetPassword extends Controller
 {
@@ -20,7 +21,6 @@ class ResetPassword extends Controller
     {
         return Inertia::render('Auth/Backend/Reset', [
             'title' => 'Login',
-            'isAdmin' => true,  // Dynamic update the logo
         ]);
     }
 
@@ -87,7 +87,13 @@ class ResetPassword extends Controller
                 $user->forceFill([
                     'password' => Hash::make($password),
                 ])->save();
-
+                // Send the notification to the user
+                $user->notify(new GenericNotification(
+                    'Password update',
+                    'info',
+                    'Your password has been updated.',
+                    'icon'
+                ));
                 event(new PasswordReset($user));
             }
         );

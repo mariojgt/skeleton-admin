@@ -45,6 +45,37 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // If the route is admin we can return different data.
+        if ($request->route()->getPrefix() === 'admin') {
+            return $this->backendShare($request);
+        } else {
+            return $this->frontendShare($request);
+        }
+    }
+
+    /**
+     * Return data for the inersia shared data for the backend.
+     *
+     * @param Request $request
+     *
+     * @return array [data]
+     */
+    private function backendShare(Request $request)
+    {
+        return array_merge(parent::share($request), [
+            'flash' => $this->handleFlashMessage($request),
+        ]);
+    }
+
+    /**
+     * Return data for the inersia shared data for the frontend.
+     *
+     * @param Request $request
+     *
+     * @return array [data]
+     */
+    private function frontendShare(Request $request)
+    {
         return array_merge(parent::share($request), [
             'flash' => $this->handleFlashMessage($request),
         ]);

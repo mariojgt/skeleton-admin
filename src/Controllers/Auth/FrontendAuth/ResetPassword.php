@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Auth\Events\PasswordReset;
+use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class ResetPassword extends Controller
 {
@@ -20,7 +21,6 @@ class ResetPassword extends Controller
     {
         return Inertia::render('Auth/Frontend/Reset', [
             'title' => 'Login',
-            'isAdmin' => false,  // Dynamic update the logo
         ]);
     }
 
@@ -79,10 +79,21 @@ class ResetPassword extends Controller
 
                 $user->setRememberToken(Str::random(60));
 
+                // Send the notification to the user
+                $user->notify(new GenericNotification(
+                    'Password update',
+                    'info',
+                    'Your password has been updated.',
+                    'icon'
+                ));
+
                 event(new PasswordReset($user));
             }
         );
 
-        return Redirect::route('login')->with('success', 'Password Update');
+        // Set a session message on the session
+        session()->flash('success', 'Password updated with success.');
+
+        return Redirect::route('login');
     }
 }

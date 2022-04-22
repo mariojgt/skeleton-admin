@@ -32,6 +32,24 @@ const props = defineProps({
     default: "Title",
   },
 });
+
+// Load the saved theme
+const loadLocalStorageTheme = async () => {
+  // Find the html element
+  const html = document.querySelector("html");
+  // Set a default theme
+  html.setAttribute("data-theme", "coffee");
+  // Get the theme from the local storage
+  const theme = localStorage.getItem("theme-backend");
+  // Add the data-theme attribute
+  html.setAttribute("data-theme", theme);
+};
+
+// On mount load the saved theme from the local storage
+onMounted(() => {
+  loadLocalStorageTheme();
+});
+
 </script>
 
 <style></style>

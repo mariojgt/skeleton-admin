@@ -21,7 +21,6 @@ class LoginController extends Controller
     {
         return Inertia::render('Auth/Frontend/Index', [
             'title'   => 'Login',
-            'isAdmin' => false, // Dynamic update the logo
         ]);
     }
 
