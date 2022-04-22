@@ -1,6 +1,11 @@
 <template>
   <Layout>
-      <Table/>
+    <Table
+        :columns="props.columns"
+        :model="props.model"
+        :endpoint="props.endpoint"
+     />
+
   </Layout>
 </template>
 
@@ -11,17 +16,20 @@ import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../../Layout/Backend.vue";
 
 // Import the table component
-import Table from "../../../Components/Backend/Reusable/table.vue";
+import Table from "./Table/Table.vue";
 
 const props = defineProps({
-  autenticator: {
+  endpoint: {
+    type: String,
+    default: "",
+  },
+  columns: {
     type: Object,
     default: () => ({}),
   },
-  admin: {
-    type: Object,
-    default: () => ({}),
-    default: {},
+  model: {
+    type: String,
+    default: '',
   },
 });
 </script>

@@ -4,7 +4,7 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
+use Mariojgt\SkeletonAdmin\Models\Role;
 
 class RoleController extends Controller
 {
@@ -13,18 +13,41 @@ class RoleController extends Controller
      */
     public function index()
     {
-        // Selecte all roles with 10 per page
-        $roles = Role::paginate(10);
-        $displayRow = [
-            'id'         => 'ID',
-            'name'       => 'Name',
-            'guard_name' => 'Guard',
+        // Table columns
+        $columns = [
+            [
+                'label'    => 'Id',
+                'key'      => 'id',
+                'sortable' => true,
+            ],
+            [
+                'label'    => 'Name',
+                'key'      => 'name',
+                'sortable' => true,
+            ],
+            [
+                'label'    => 'Guard',
+                'key'      => 'guard_name',
+                'sortable' => true,
+            ],
+            [
+                'label'    => 'Created At',
+                'key'      => 'created_at',
+                'sortable' => false,
+            ],
+            [
+                'label'    => 'Updated At',
+                'key'      => 'updated_at',
+                'sortable' => false,
+            ],
         ];
 
         return Inertia::render('BackEnd/Permissions/Index', [
             'title' => 'Permissions | Roles',
-            'data'  => $roles,
-            'row'   => $displayRow,
+            // Required for the generic table api
+            'endpoint' => route('admin.api.generic.table'),
+            'columns'  => $columns,
+            'model'    => encrypt(Role::class),
         ]);
     }
 }

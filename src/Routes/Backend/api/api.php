@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\GenericTable\GenericTableController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
 Route::group([
@@ -13,4 +14,8 @@ Route::group([
     // Admin read notification
     Route::post('/admin/api/notification/read', [NotificationsController::class, 'read'])
         ->name('admin.api.notification.read');
+
+    // Generic table api
+    Route::post('/admin/api/generic/table', [GenericTableController::class, 'index'])
+        ->name('admin.api.generic.table');
 });
