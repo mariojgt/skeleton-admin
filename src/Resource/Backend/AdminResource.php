@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Resource\Frontend;
+namespace Mariojgt\SkeletonAdmin\Resource\Backend;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Mariojgt\SkeletonAdmin\Helpers\Gravatar;

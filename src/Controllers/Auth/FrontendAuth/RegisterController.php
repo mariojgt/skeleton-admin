@@ -55,15 +55,29 @@ class RegisterController extends Controller
 
         // Send the verification to the user
         if (config('skeleton.frontend_email_verify')) {
-            UserVerifyEvent::dispatch($user);
+            try {
+                UserVerifyEvent::dispatch($user);
+                DB::commit();
+                return Redirect::back()
+                    ->with('success', 'Account Created with success, Please check you email for a verification link.');
+            } catch (\Throwable $th) {
+                // If there is a error we rollback the transaction
+                DB::rollback();
+                return Redirect::back()
+                    ->with('error', 'The email service is not setup correctly, please contact the administrator.');
+            }
         } else {
+
             // Verify the user
             $user->email_verified_at = now();
             $user->save();
-        }
+            DB::commit();
 
-        DB::commit();
-        return Redirect::back()
-            ->with('success', 'Account Created with success, Please check you email for a verification link.');
+            // Login the user using the guard
+            auth()->login($user);
+            // Redirect to the dashboard
+            return Redirect::route('user.home')
+                ->with('success', 'Account Created with success, Welcome to the Dashboard.');
+        }
     }
 }

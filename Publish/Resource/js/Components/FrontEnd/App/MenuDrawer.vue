@@ -186,19 +186,12 @@
           </a>
         </li>
       </ul>
-      <ul class="menu flex flex-col p-4 pt-2">
-        <li class="mt-4 menu-title"><span> Theme </span></li>
-        <li>
-          <theme-swich />
-        </li>
-      </ul>
     </div>
   </aside>
 </template>
 
 <script setup>
 import { watch, onMounted } from "vue";
-import ThemeSwich from "../Global/ThemeSwich";
 </script>
 
 <style></style>

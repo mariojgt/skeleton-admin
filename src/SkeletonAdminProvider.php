@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Mariojgt\SkeletonAdmin\Commands\Install;
 use Mariojgt\SkeletonAdmin\Commands\Republish;
+use Mariojgt\SkeletonAdmin\Commands\TestNotification;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Listeners\SendUserVerifyListener;
 
@@ -29,6 +30,7 @@ class SkeletonAdminProvider extends ServiceProvider
             $this->commands([
                 Republish::class,
                 Install::class,
+                TestNotification::class,
             ]);
         }
         // Load custom middlewares
@@ -37,11 +39,14 @@ class SkeletonAdminProvider extends ServiceProvider
         // Load skeleton views
         $this->loadViewsFrom(__DIR__ . '/views', 'skeleton-admin');
 
-        // Load skeleton-admin routes
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/admin.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/adminAuth.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/frontAuth.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+        // Load backend routes
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/auth.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/api/api.php');
+        // Load frontend routes
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/auth.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/api/api.php');
 
         // Load Migrations
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');

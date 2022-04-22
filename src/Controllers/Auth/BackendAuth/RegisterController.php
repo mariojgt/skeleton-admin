@@ -58,19 +58,13 @@ class RegisterController extends Controller
         $user->password   = Hash::make(Request('password'));
         $user->save();
 
-        // Check if the user need to be verify
-        if (config('skeleton.backend_email_verify') == true) {
-            // Send the verification to the user
-            UserVerifyEvent::dispatch($user);
-        } else {
-            // If not send the email of user verification
-            $user->email_verified_at = Carbon::now();
-            $user->save();
-        }
+        // If not send the email of user verification
+        $user->email_verified_at = Carbon::now();
+        $user->save();
 
         DB::commit();
 
         return Redirect::back()
-            ->with('success', 'Account Created with success, Please check you email for a verification link.');
+            ->with('success', 'Account Created with success.');
     }
 }

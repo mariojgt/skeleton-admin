@@ -7,7 +7,9 @@ return [
     // If disable users Can't register in the website
     'frontend_register_enable' => true,
     // If true we goin to send an email to the user to verify his account
-    'frontend_email_verify' => true,
+    'frontend_email_verify' => false,
+
+    'backend_register_enable' => true,   // Enable or disable backend register
 
     // The Boot Token is used in the pre api autentication
     // So we can prevent unwanted aplication ping your url

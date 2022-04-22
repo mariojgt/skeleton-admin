@@ -10,6 +10,7 @@
         data-tip="Menu"
       >
         <label for="nav-drawer" class="btn btn-square btn-ghost">
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -27,7 +28,9 @@
       </span>
     </div>
     <div class="flex-1 hidden px-2 mx-2 lg:flex">
-      <span class="text-lg font-bold"> skeleton </span>
+      <Link :href="homeRoute">
+        <span class="text-lg text-primary font-bold"> skeleton backend </span>
+      </Link>
     </div>
     <div class="flex-1 lg:flex-none">
       <div class="form-control">
@@ -54,6 +57,9 @@
           </button>
         </div>
       </div>
+    </div>
+    <div class="flex-none">
+      <ThemeSwich />
     </div>
     <div class="flex-none">
       <notification />
@@ -96,7 +102,7 @@
             </Link>
           </li>
           <li>
-            <Link href="/skeleton-admin/logout">
+            <Link :href="logoutRoute">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-6 w-6"
@@ -125,9 +131,14 @@ import { watch, onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import logo from "../Global/AdminLogo.vue";
 import notification from "./Notifications.vue";
+import ThemeSwich from "../Global/ThemeSwich";
 
 // Links
 const profileLink = route("admin.edit");
+// Logout Route
+const logoutRoute = route("logout.user");
+// Home route
+const homeRoute = route("skeleton-admin.home");
 </script>
 
 <style></style>

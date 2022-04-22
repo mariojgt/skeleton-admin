@@ -27,7 +27,9 @@
       </span>
     </div>
     <div class="flex-1 hidden px-2 mx-2 lg:flex">
-      <span class="text-lg font-bold"> skeleton </span>
+      <Link :href="homeRoute">
+        <span class="text-lg text-primary font-bold"> skeleton frontend </span>
+      </Link>
     </div>
     <div class="flex-1 lg:flex-none">
       <div class="form-control">
@@ -54,6 +56,9 @@
           </button>
         </div>
       </div>
+    </div>
+    <div class="flex-none">
+      <ThemeSwich />
     </div>
     <div class="flex-none">
       <notification />
@@ -125,11 +130,14 @@ import { watch, onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import logo from "../Global/UserLogo.vue";
 import notification from "./Notifications.vue";
+import ThemeSwich from "../Global/ThemeSwich";
 
 // Links
 const profileLink = route("user.edit");
 // Logout Route
 const logoutRoute = route("logout.user");
+// Home page route
+const homeRoute = route("user.home");
 </script>
 
 <style></style>

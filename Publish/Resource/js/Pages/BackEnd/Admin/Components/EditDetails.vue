@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="px-5 py-7">
-      <div class="avatar justify-center">
-        <div class="mb-8 rounded-full w-24 h-24">
-          <img :src="adminInformation.avatar" />
+      <div class="grid">
+        <div class="avatar justify-center">
+          <div class="mb-8 rounded-full w-24 h-24">
+            <img :src="adminInformation.avatar" />
+          </div>
         </div>
       </div>
       <input-field

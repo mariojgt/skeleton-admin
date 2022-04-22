@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace Mariojgt\SkeletonAdmin\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\HtmlString;
@@ -16,12 +16,14 @@ class GenericNotification extends Notification implements ShouldQueue
     public $icon;
     public $message;
     public $mail;
+    public $type;
 
-    public function __construct($title, $icon, $message, $mail = false)
+    public function __construct($title, $icon, $message, $type = 'icon', $mail = false)
     {
         $this->title   = $title;    // Notification title
         $this->icon    = $icon;     // Notification icon
         $this->message = $message;  // Notification message
+        $this->type    = $type;     // can be a icon or image
         $this->mail    = $mail;     // Send mail notification default false
     }
 
@@ -47,7 +49,8 @@ class GenericNotification extends Notification implements ShouldQueue
         return [
             'title'   => $this->title,
             'icon'    => $this->icon,
-            'content' => $this->message
+            'content' => $this->message,
+            'type'    => $this->type,
         ];
     }
 }

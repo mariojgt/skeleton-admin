@@ -4,7 +4,10 @@
         <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
         <!-- {{-- Website content --}} -->
         <div class="flex flex-col drawer-content">
-            <Navbar />
+            <!-- Required so the flash message works -->
+            <n-message-provider>
+                <Navbar />
+            </n-message-provider>
             <div class="px-6 py-8">
                 <n-loading-bar-provider>
                     <n-message-provider>

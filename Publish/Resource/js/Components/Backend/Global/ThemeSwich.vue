@@ -1,69 +1,160 @@
 <template>
-    <select class="select select-bordered select-xs w-full max-w-xs text-base-content" id="theme-select"
-        @click="onChangeChangeTheme()">
-        <option disabled=" disabled" selected="selected">Change Theme</option>
-        <option onclick="changeTheme('light')"> light </option>
-        <option onclick="changeTheme('dark')"> dark </option>
-        <option onclick="changeTheme('cupcake')"> cupcake </option>
-        <option onclick="changeTheme('bumblebee')"> bumblebee </option>
-        <option onclick="changeTheme('emerald')"> emerald </option>
-        <option onclick="changeTheme('corporate')"> corporate </option>
-        <option onclick="changeTheme('synthwave')"> synthwave </option>
-        <option onclick="changeTheme('retro')"> retro </option>
-        <option onclick="changeTheme('cyberpunk')"> cyberpunk </option>
-        <option onclick="changeTheme('valentine')"> valentine </option>
-        <option onclick="changeTheme('halloween')"> halloween </option>
-        <option onclick="changeTheme('garden')"> garden </option>
-        <option onclick="changeTheme('forest')"> forest </option>
-        <option onclick="changeTheme('aqua')"> aqua </option>
-        <option onclick="changeTheme('lofi')"> lofi </option>
-        <option onclick="changeTheme('pastel')"> pastel </option>
-        <option onclick="changeTheme('fantasy')"> fantasy </option>
-        <option onclick="changeTheme('wireframe')"> wireframe </option>
-        <option onclick="changeTheme('black')"> black </option>
-        <option onclick="changeTheme('dracula')"> dracula </option>
-        <option onclick="changeTheme('cmyk')"> cmyk </option>
-    </select>
+  <div title="Change Theme" class="dropdown dropdown-end">
+    <div tabindex="0" class="btn gap-1 normal-case btn-ghost">
+      <svg
+        width="20"
+        height="20"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="inline-block h-5 w-5 stroke-current md:h-6 md:w-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+        ></path>
+      </svg>
+      <span class="hidden md:inline">Theme</span>
+      <svg
+        width="12px"
+        height="12px"
+        class="ml-1 hidden h-3 w-3 fill-current opacity-60 sm:inline-block"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 2048 2048"
+      >
+        <path
+          d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"
+        ></path>
+      </svg>
+    </div>
+    <div
+      class="
+        dropdown-content
+        bg-base-200
+        text-base-content
+        rounded-t-box rounded-b-box
+        top-px
+        max-h-96
+        h-[70vh]
+        w-52
+        overflow-y-auto
+        shadow-2xl
+        mt-16
+      "
+    >
+      <div class="grid grid-cols-1 gap-3 p-3" tabindex="0">
+        <!-- Theme options loop start here -->
+        <div
+          v-for="(item, index) in avaliablesThemes"
+          :key="index"
+          class="
+            outline-base-content
+            overflow-hidden
+            rounded-lg
+            outline outline-2 outline-offset-2
+          "
+          :data-set-theme="item"
+          data-act-class="outline"
+          @click="changeTheme(item)"
+        >
+          <div
+            :data-theme="item"
+            class="
+              bg-base-100
+              text-base-content
+              w-full
+              cursor-pointer
+              font-sans
+            "
+          >
+            <div class="grid grid-cols-5 grid-rows-3">
+              <div
+                class="col-span-5 row-span-3 row-start-1 flex gap-1 py-3 px-4"
+              >
+                <div class="badge badge-outline" v-if="selectedTheme == item">
+                  {{ item }}
+                </div>
+                <div class="flex-grow text-sm font-bold" v-else>{{ item }}</div>
+                <div class="flex flex-shrink-0 flex-wrap gap-1">
+                  <div class="bg-primary w-2 rounded"></div>
+                  <div class="bg-secondary w-2 rounded"></div>
+                  <div class="bg-accent w-2 rounded"></div>
+                  <div class="bg-neutral w-2 rounded"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
+import { watch, onMounted } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
 
-    import { watch, onMounted } from "vue";
-    import { usePage } from "@inertiajs/inertia-vue3";
-    import Toastify from 'toastify-js';
+const avaliablesThemes = [
+  "light",
+  "dark",
+  "cupcake",
+  "bumblebee",
+  "emerald",
+  "corporate",
+  "synthwave",
+  "retro",
+  "cyberpunk",
+  "valentine",
+  "halloween",
+  "garden",
+  "forest",
+  "aqua",
+  "lofi",
+  "pastel",
+  "fantasy",
+  "wireframe",
+  "black",
+  "luxury",
+  "dracula",
+  "cmyk",
+  "autumn",
+  "business",
+  "acid",
+  "lemonade",
+  "night",
+  "coffee",
+  "winter",
+];
 
-    // Get the saved theme option
-    const theme = localStorage.getItem('theme');
+let selectedTheme = $ref(null);
 
-    onMounted(() => {
-        if (theme) {
-            changeTheme(theme);
-        } else {
-            changeTheme('light');
-        }
-    });
+// On Click we goin to update the page theme
+const changeTheme = async (newTheme) => {
+  // Find the html element
+  const html = document.querySelector("html");
+  // Add the data-theme attribute
+  html.setAttribute("data-theme", newTheme);
+  // Save the theme in the local storage
+  localStorage.setItem("theme-backend", newTheme);
+  selectedTheme = newTheme;
+};
 
-    /**
-     * Change the current theme
-     * @param mixed theme
-     *
-     * @return [type]
-     */
-    const changeTheme = (theme) => {
-       // Find the main html theme
-        var html = document.getElementsByTagName("HTML")[0];
-        // now check if there is data in the stora
-        html.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-   };
+const loadLocalStorageTheme = async () => {
+  // Find the html element
+  const html = document.querySelector("html");
+  // Set a default theme
+  html.setAttribute("data-theme", "dark");
+  // Get the theme from the local storage
+  const theme = localStorage.getItem("theme-backend");
+  // Add the data-theme attribute
+  html.setAttribute("data-theme", theme);
+  selectedTheme = theme;
+};
 
-    /**
-     * On select change
-     * @return [type]
-     */
-    const onChangeChangeTheme = (theme) => {
-       var themeColor = document.querySelector('#theme-select').value;
-        changeTheme(themeColor);
-    };
-
+// on page load we load the theme from the local storage
+onMounted(() => {
+  loadLocalStorageTheme();
+});
 </script>
