@@ -32,14 +32,27 @@ mix.webpackConfig({
  |
  */
 
-// Vue js
-mix.js('resources/vendor/SkeletonAdmin/js/app.js', 'public/vendor/SkeletonAdmin/js')
+// Load the backend js assets
+mix.js('resources/vendor/SkeletonAdmin/js/backend/app.js', 'public/vendor/SkeletonAdmin/js/backend')
     .vue({version: 3})
     .sourceMaps()
     .version();
-const tailwindcss = require('tailwindcss')
+// Load the frontend js assets
+mix.js('resources/vendor/SkeletonAdmin/js/frontend/app.js', 'public/vendor/SkeletonAdmin/js/frontend')
+    .vue({version: 3})
+    .sourceMaps()
+    .version();
 
-mix.sass('resources/vendor/SkeletonAdmin/sass/app.scss', 'public/vendor/SkeletonAdmin/css')
+
+const tailwindcss = require('tailwindcss')
+// Load the backend css assets
+mix.sass('resources/vendor/SkeletonAdmin/sass/backend/app.scss', 'public/vendor/SkeletonAdmin/css/backend')
+   .options({
+      processCssUrls: false,
+      postCss: [ tailwindcss('tailwind.config.js') ],
+});
+// Load the frontend css assets
+mix.sass('resources/vendor/SkeletonAdmin/sass/frontend/app.scss', 'public/vendor/SkeletonAdmin/css/frontend')
    .options({
       processCssUrls: false,
       postCss: [ tailwindcss('tailwind.config.js') ],

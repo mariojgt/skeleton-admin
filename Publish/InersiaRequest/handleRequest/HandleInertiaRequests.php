@@ -13,7 +13,16 @@ class HandleInertiaRequests extends Middleware
      * @see https://inertiajs.com/server-side-setup#root-template
      * @var string
      */
-    protected $rootView = 'skeleton-admin.app';
+
+    public function rootView(Request $request): string
+    {
+        // Change the route to use the admin layout instead of the user layout.
+        if ($request->route()->getPrefix() === 'admin') {
+            return 'skeleton-admin.backend';
+        } else {
+            return 'skeleton-admin.frontend';
+        }
+    }
 
     /**
      * Determines the current asset version.
