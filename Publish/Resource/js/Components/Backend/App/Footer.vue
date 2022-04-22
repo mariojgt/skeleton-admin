@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer fixed bottom-0 footer-center p-4 bg-base-300 text-base-content">
+    <footer class="footer bottom-0 footer-center p-4 bg-base-300 text-base-content">
         <div>
             <p>Copyright © {{ currentYear }} - All right reserved by {{ usePage().props.value.app }}</p>
         </div>

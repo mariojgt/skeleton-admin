@@ -1,5 +1,20 @@
 <template>
-  <div class="navbar mb-2 shadow-lg bg-base-300 text-neutral-content">
+  <div
+    class="
+      navbar
+      sticky
+      top-0
+      z-30
+      mb-2
+      shadow-lg
+      bg-opacity-90
+      backdrop-blur
+      transition-all
+      duration-100
+      bg-base-100
+      text-base-content
+    "
+  >
     <div class="flex">
       <!-- {{-- Trigger the side menu --}} -->
       <span
@@ -9,7 +24,7 @@
         "
         data-tip="Menu"
       >
-        <label for="nav-drawer" class="btn btn-square btn-ghost">
+        <label for="nav-drawer" class="btn btn-square btn-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -32,7 +47,7 @@
       </Link>
     </div>
     <div class="flex-1 lg:flex-none">
-      <div class="form-control">
+      <div class="form-control p-6">
         <div class="relative">
           <input
             type="text"

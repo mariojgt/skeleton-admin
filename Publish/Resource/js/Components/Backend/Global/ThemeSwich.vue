@@ -1,6 +1,6 @@
 <template>
-  <div title="Change Theme" class="dropdown dropdown-end">
-    <div tabindex="0" class="btn gap-1 normal-case btn-ghost">
+  <div title="Change Theme" class="dropdown dropdown-end p-6">
+    <div tabindex="0" class="btn gap-1 normal-case btn-primary">
       <svg
         width="20"
         height="20"
