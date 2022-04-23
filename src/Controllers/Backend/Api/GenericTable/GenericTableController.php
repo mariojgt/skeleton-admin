@@ -2,9 +2,11 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Api\GenericTable;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 
 class GenericTableController extends Controller
@@ -61,9 +63,11 @@ class GenericTableController extends Controller
         $request->validate(
             [
                 'model'        => 'required',
+                'data'         => 'required',
                 'data.*.value' => 'required',
             ],
             [
+                'data'                  => 'Field are required',
                 'data.*.value.required' => 'The value is required',
             ]
         );
@@ -74,14 +78,15 @@ class GenericTableController extends Controller
 
         // Get the columns
         $rawColumns = collect($request->data);
-        $columns    = $rawColumns->pluck('value', 'key');
 
         // Create the model
         $model = new $model();
-        // Loop through the columns and set the values
-        foreach ($columns as $key => $value) {
-            $model->$key = $value;
+
+        // Loop the columns and set the value and validate acording to the type
+        foreach ($rawColumns as $key => $column) {
+            $model = $this->generictValidation($model, $column);
         }
+
         // Save the model
         $model->save();
 
@@ -90,6 +95,88 @@ class GenericTableController extends Controller
             'success' => true,
             'message' => 'Item created successfully',
         ]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate(
+            [
+                'model'        => 'required',
+                'id'           => 'required',
+                'data'         => 'required',
+                'data.*.value' => 'required',
+            ],
+            [
+                'data'                  => 'Field are required',
+                'data.*.value.required' => 'The value is required',
+            ]
+        );
+
+        // Fist we need to decrypt the model and instantiate it
+        $model = decrypt($request->model);
+        $model = new $model;
+
+        // Find the model item
+        $model = $model->find($request->id);
+
+        // Get the columns
+        $rawColumns = collect($request->data);
+
+        // Loop the columns and set the value and validate acording to the type
+        foreach ($rawColumns as $key => $column) {
+            $model = $this->generictValidation($model, $column);
+        }
+
+        // Save the model
+        $model->save();
+
+        // Return the response
+        return response()->json([
+            'success' => true,
+            'message' => 'Item updated successfully',
+        ]);
+    }
+
+    /**
+     * Genercit assing and validation the data inforamtion
+     * @param mixed $type
+     * @param mixed $model
+     * @param mixed $key
+     * @param mixed $value
+     * @param mixed $column
+     *
+     * @return Model [model]
+     */
+    private function generictValidation($model, $column)
+    {
+        // Get the value
+        $value = $column['value'];
+        // Get the key
+        $key   = $column['key'];
+        // Get the type
+        $type  = $column['type'];
+
+        switch ($type) {
+            case 'text':
+                $model->$key = $value;
+                break;
+            case 'email':
+                // Make sure the email is valid else trow an error validation message
+                if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    throw ValidationException::withMessages([$column['key'] => 'Must be a valid email.']);
+                } else {
+                    $model->$key = $value;
+                }
+                break;
+            case 'date':
+                // Cast the value to date
+                $model->$key = Carbon::parse($value);
+                break;
+            default:
+                $model->$key = $value;
+                break;
+        }
+        return $model;
     }
 
     /**

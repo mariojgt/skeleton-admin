@@ -20,6 +20,8 @@ Route::group([
         ->name('admin.api.generic.table');
     Route::post('/admin/api/generic/table/create', [GenericTableController::class, 'store'])
         ->name('admin.api.generic.table.create');
+    Route::post('/admin/api/generic/table/update', [GenericTableController::class, 'update'])
+        ->name('admin.api.generic.table.update');
     Route::post('/admin/api/generic/table/delete', [GenericTableController::class, 'delete'])
         ->name('admin.api.generic.table.delete');
 });

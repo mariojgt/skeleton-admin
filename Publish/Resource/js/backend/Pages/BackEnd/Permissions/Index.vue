@@ -6,6 +6,7 @@
       :endpoint="props.endpoint"
       :endpoint-delete="props.endpointDelete"
       :endpoint-create="props.endpointCreate"
+      :endpoint-edit="props.endpointEdit"
     />
   </Layout>
 </template>
@@ -37,6 +38,10 @@ const props = defineProps({
     default: "",
   },
   endpointCreate: {
+    type: String,
+    default: "",
+  },
+  endpointEdit: {
     type: String,
     default: "",
   },

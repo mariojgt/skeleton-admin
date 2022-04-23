@@ -1,6 +1,6 @@
 <template>
   <!-- The button to open modal -->
-  <label :for="'my-modal-' + props.id" class="btn modal-button">
+  <label :for="'my-modal-' + props.id" class="btn btn-error modal-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6"
@@ -20,12 +20,13 @@
   <!-- Put this part before </body> tag -->
   <input type="checkbox" :id="'my-modal-' + props.id" class="modal-toggle" />
   <div class="modal">
-    <div class="modal-box w-11/12 max-w-5xl">
+    <div class="modal-box w-11/12 max-w-5xl ">
       <label
         :for="'my-modal-' + props.id"
         class="btn btn-sm btn-circle absolute right-2 top-2"
         >✕</label
       >
+
       <h3 class="text-lg font-bold">This action cannot be undone.</h3>
       <p class="py-4">Are you sure you want to delete this item?</p>
       <div class="modal-action">

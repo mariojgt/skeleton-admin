@@ -65,6 +65,14 @@
                     :model="props.model"
                     @onDelete="onDelete"
                   />
+                  <Edit
+                    :columns="props.columns"
+                    :endpoint="props.endpointEdit"
+                    :model="props.model"
+                    :modelValue="tableItem"
+                    :id="tableItem.id"
+                    @onEdit="onEdit"
+                  />
                 </th>
               </tr>
             </tbody>
@@ -99,6 +107,8 @@ import TablePagination from "./components/pagination.vue";
 import Delete from "./components/delete.vue";
 // Import the create component
 import Create from "./components/create.vue";
+// Import the edit component
+import Edit from "./components/edit.vue";
 
 const props = defineProps({
   columns: {
@@ -118,6 +128,10 @@ const props = defineProps({
     default: "",
   },
   endpointCreate: {
+    type: String,
+    default: "",
+  },
+  endpointEdit: {
     type: String,
     default: "",
   },

@@ -1,5 +1,6 @@
 <template>
   <div class="flex items-center min-h-screen p-6 bg-base-200">
+      <!-- from-primary to-secondary text-primary-content -mt-[4rem] grid place-items-center items-end bg-gradient-to-br pt-20 -->
     <div
       class="
         flex-1

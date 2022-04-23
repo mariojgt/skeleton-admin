@@ -2639,11 +2639,22 @@ html{
   --tw-bg-opacity: 1;
   background-color: hsl(var(--af, var(--a)) / var(--tw-bg-opacity));
 }
+.btn-info{
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--in) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--in) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--inc, var(--nc)) / var(--tw-text-opacity));
+}
 .btn-info:hover, .btn-info.btn-active{
   --tw-border-opacity: 1;
   border-color: hsl(var(--in) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: hsl(var(--in) / var(--tw-bg-opacity));
+}
+.btn-info:focus-visible{
+  outline: 2px solid hsl(var(--in));
 }
 .btn-success{
   --tw-border-opacity: 1;
@@ -2736,6 +2747,18 @@ html{
   background-color: hsl(var(--su) / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: hsl(var(--suc, var(--nc)) / var(--tw-text-opacity));
+}
+.btn-outline.btn-info{
+  --tw-text-opacity: 1;
+  color: hsl(var(--in) / var(--tw-text-opacity));
+}
+.btn-outline.btn-info:hover{
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--in) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--in) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--inc, var(--nc)) / var(--tw-text-opacity));
 }
 .btn-outline.btn-error{
   --tw-text-opacity: 1;
@@ -3631,9 +3654,6 @@ body[dir="rtl"] .checkbox:checked,
   border-radius: 9999px;
   padding: 0px;
 }
-.modal-bottom{
-  align-items: flex-end;
-}
 .alert-info{
   --tw-bg-opacity: 1;
   background-color: hsl(var(--in) / var(--tw-bg-opacity));
@@ -3878,6 +3898,9 @@ body[dir="rtl"] .checkbox:checked,
 .mt-2{
   margin-top: 0.5rem;
 }
+.-mt-\[4rem\]{
+  margin-top: -4rem;
+}
 .block{
   display: block;
 }
@@ -3989,11 +4012,11 @@ body[dir="rtl"] .checkbox:checked,
 .max-w-full{
   max-width: 100%;
 }
-.max-w-xs{
-  max-width: 20rem;
-}
 .max-w-5xl{
   max-width: 64rem;
+}
+.max-w-xs{
+  max-width: 20rem;
 }
 .flex-1{
   flex: 1 1 0%;
@@ -4030,6 +4053,12 @@ body[dir="rtl"] .checkbox:checked,
 }
 .flex-wrap{
   flex-wrap: wrap;
+}
+.place-items-center{
+  place-items: center;
+}
+.items-end{
+  align-items: flex-end;
 }
 .items-center{
   align-items: center;
@@ -4144,8 +4173,22 @@ body[dir="rtl"] .checkbox:checked,
   --tw-bg-opacity: 1;
   background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
 }
+.bg-error{
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--er) / var(--tw-bg-opacity));
+}
 .bg-opacity-90{
   --tw-bg-opacity: 0.9;
+}
+.bg-gradient-to-br{
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+.from-primary{
+  --tw-gradient-from: hsl(var(--p));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, hsl(var(--p) / 0));
+}
+.to-secondary{
+  --tw-gradient-to: hsl(var(--s));
 }
 .fill-current{
   fill: currentColor;
@@ -4201,13 +4244,13 @@ body[dir="rtl"] .checkbox:checked,
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
 }
-.py-5{
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+.py-5{
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 .pt-2{
   padding-top: 0.5rem;
@@ -4229,6 +4272,9 @@ body[dir="rtl"] .checkbox:checked,
 }
 .pl-4{
   padding-left: 1rem;
+}
+.pt-20{
+  padding-top: 5rem;
 }
 .text-center{
   text-align: center;
@@ -4301,6 +4347,14 @@ body[dir="rtl"] .checkbox:checked,
 .text-warning{
   --tw-text-opacity: 1;
   color: hsl(var(--wa) / var(--tw-text-opacity));
+}
+.text-primary-content{
+  --tw-text-opacity: 1;
+  color: hsl(var(--pc) / var(--tw-text-opacity));
+}
+.text-neutral-content{
+  --tw-text-opacity: 1;
+  color: hsl(var(--nc) / var(--tw-text-opacity));
 }
 .text-opacity-40{
   --tw-text-opacity: 0.4;
@@ -4379,19 +4433,6 @@ body[dir="rtl"] .checkbox:checked,
   content: var(--tw-content);
 }
 @media (min-width: 640px){
-  .sm\:modal-middle{
-    align-items: center;
-  }
-  .sm\:modal-middle :where(.modal-box){
-    width: 91.666667%;
-    max-width: 32rem;
-    --tw-translate-y: 0px;
-    --tw-scale-x: .9;
-    --tw-scale-y: .9;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    border-bottom-left-radius: var(--rounded-box, 1rem);
-    border-bottom-right-radius: var(--rounded-box, 1rem);
-  }
   .sm\:mb-0{
     margin-bottom: 0px;
   }

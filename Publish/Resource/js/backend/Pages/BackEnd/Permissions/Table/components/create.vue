@@ -19,22 +19,7 @@
     <div class="modal-box w-11/12 max-w-5xl">
       <h3 class="font-bold text-lg">New</h3>
 
-      <div v-for="(item, index) in avaliableFields" :key="index">
-        <div v-if="item.type == 'text'">
-          <InputField
-            type="text"
-            v-model="avaliableFields[index].value"
-            :label="item.label"
-          />
-        </div>
-        <div v-else-if="item.type == 'email'">
-          <InputField
-            type="email"
-            v-model="avaliableFields[index].value"
-            :label="item.label"
-          />
-        </div>
-      </div>
+      <FormBuilder :columns="props.columns" @onFormUpdate="onFormUpdate" />
 
       <div class="modal-action">
         <label for="my-modal-5" class="btn btn-error">Close</label>
@@ -50,16 +35,10 @@
 import { watch } from "vue";
 // Import axios
 import axios from "axios";
+// Import the form builder
+import FormBuilder from "./formbuilder.vue";
 
 import { useMessage } from "naive-ui";
-
-// Import the from components
-import {
-  InputField,
-  InputPassword,
-  Submit,
-  LinkButton,
-} from "@mariojgt/masterui/packages/index";
 
 const message = useMessage();
 
@@ -79,23 +58,9 @@ const props = defineProps({
 });
 
 let avaliableFields = $ref([]);
-
-// This fuction will loop the columns and create the fields
-const createFields = () => {
-  avaliableFields = [];
-  for (const [key, value] of Object.entries(props.columns)) {
-    if (value.required) {
-      avaliableFields.push({
-        key: value.key,
-        label: value.label,
-        type: value.type,
-        value: "",
-      });
-    }
-  }
+const onFormUpdate = async (formData) => {
+  avaliableFields = formData;
 };
-
-createFields();
 
 const emit = defineEmits(["onCreate"]);
 
