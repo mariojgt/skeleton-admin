@@ -1,11 +1,12 @@
 <template>
   <Layout>
     <Table
-        :columns="props.columns"
-        :model="props.model"
-        :endpoint="props.endpoint"
-     />
-
+      :columns="props.columns"
+      :model="props.model"
+      :endpoint="props.endpoint"
+      :endpoint-delete="props.endpointDelete"
+      :endpoint-create="props.endpointCreate"
+    />
   </Layout>
 </template>
 
@@ -29,7 +30,15 @@ const props = defineProps({
   },
   model: {
     type: String,
-    default: '',
+    default: "",
+  },
+  endpointDelete: {
+    type: String,
+    default: "",
+  },
+  endpointCreate: {
+    type: String,
+    default: "",
   },
 });
 </script>

@@ -21,7 +21,14 @@
           <div
             class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
           >
-            <button class="btn btn-primary">Button</button>
+            <slot name="new">
+              <Create
+                :columns="props.columns"
+                :endpoint="props.endpointCreate"
+                :model="props.model"
+                @onCreate="onCreate"
+              />
+            </slot>
           </div>
         </div>
       </div>
@@ -43,12 +50,21 @@
                 <th v-for="(item, index) in columns" :key="index">
                   {{ item.label }}
                 </th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(tableItem, tableKey) in tableData" :key="tableItem">
                 <th v-for="(item, index) in tableItem" :key="index">
                   {{ item }}
+                </th>
+                <th>
+                  <Delete
+                    :id="tableItem.id"
+                    :endpoint="props.endpointDelete"
+                    :model="props.model"
+                    @onDelete="onDelete"
+                  />
                 </th>
               </tr>
             </tbody>
@@ -57,6 +73,7 @@
                 <th v-for="(item, index) in columns" :key="index">
                   {{ item.label }}
                 </th>
+                <th>Action</th>
               </tr>
             </tfoot>
           </table>
@@ -78,6 +95,10 @@ import axios from "axios";
 // Include filter
 import TableFilter from "./components/filter.vue";
 import TablePagination from "./components/pagination.vue";
+// Import the delete component
+import Delete from "./components/delete.vue";
+// Import the create component
+import Create from "./components/create.vue";
 
 const props = defineProps({
   columns: {
@@ -89,6 +110,14 @@ const props = defineProps({
     default: "",
   },
   endpoint: {
+    type: String,
+    default: "",
+  },
+  endpointDelete: {
+    type: String,
+    default: "",
+  },
+  endpointCreate: {
     type: String,
     default: "",
   },
@@ -107,12 +136,11 @@ const onPerPage = async (onPerPage) => {
 };
 
 // On sort field
-let filterBy = $ref('id');
+let filterBy = $ref("id");
 const onFilter = async (onFilter) => {
   filterBy = onFilter;
   fetchData();
 };
-
 
 let orderBy = $ref(null);
 // When the user change order by
@@ -131,6 +159,15 @@ const onSearch = async (onSearch) => {
   }
 };
 
+// On delete we reload the page
+const onDelete = async () => {
+  fetchData();
+};
+// On create new
+const onCreate = async () => {
+  fetchData();
+};
+
 // Data we goin to display in the table
 let tableData = $ref([]);
 // Current page
@@ -145,12 +182,12 @@ const fetchData = async (newEndPoint = null) => {
 
   axios
     .post(newEndPoint, {
-      model    : props.model,     // The model name encrypted
-      columns  : props.columns,   // columns to display
-      perPage  : perPage,         // per page
-      search   : search,          // Search
-      sort     : filterBy,        // Fiel example : name
-      direction: orderBy,         // Asc or desc
+      model: props.model, // The model name encrypted
+      columns: props.columns, // columns to display
+      perPage: perPage, // per page
+      search: search, // Search
+      sort: filterBy, // Fiel example : name
+      direction: orderBy, // Asc or desc
     })
     .then(function (response) {
       tableData = response.data.data;

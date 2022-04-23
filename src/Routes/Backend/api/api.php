@@ -18,4 +18,8 @@ Route::group([
     // Generic table api
     Route::post('/admin/api/generic/table', [GenericTableController::class, 'index'])
         ->name('admin.api.generic.table');
+    Route::post('/admin/api/generic/table/create', [GenericTableController::class, 'store'])
+        ->name('admin.api.generic.table.create');
+    Route::post('/admin/api/generic/table/delete', [GenericTableController::class, 'delete'])
+        ->name('admin.api.generic.table.delete');
 });

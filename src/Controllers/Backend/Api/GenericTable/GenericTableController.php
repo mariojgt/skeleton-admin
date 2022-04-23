@@ -12,8 +12,8 @@ class GenericTableController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-          'model'   => 'required',
-          'columns' => 'required',
+            'model'   => 'required',
+            'columns' => 'required',
         ]);
 
         // Fist we need to decrypt the model and instantiate it
@@ -39,7 +39,7 @@ class GenericTableController extends Controller
             $model = $model->where(function ($query) use ($request, $columnSearch) {
                 // Search using concatination
                 foreach ($columnSearch as $column) {
-                    $query->orWhere($column, 'like', '%'.$request->search.'%');
+                    $query->orWhere($column, 'like', '%' . $request->search . '%');
                 }
             });
         }
@@ -54,5 +54,71 @@ class GenericTableController extends Controller
         $data = $model->select($columns->toArray())->paginate($request->perPage ?? 10);
 
         return $data;
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate(
+            [
+                'model'        => 'required',
+                'data.*.value' => 'required',
+            ],
+            [
+                'data.*.value.required' => 'The value is required',
+            ]
+        );
+
+        // Fist we need to decrypt the model and instantiate it
+        $model = decrypt($request->model);
+        $model = new $model;
+
+        // Get the columns
+        $rawColumns = collect($request->data);
+        $columns    = $rawColumns->pluck('value', 'key');
+
+        // Create the model
+        $model = new $model();
+        // Loop through the columns and set the values
+        foreach ($columns as $key => $value) {
+            $model->$key = $value;
+        }
+        // Save the model
+        $model->save();
+
+        // Return the response
+        return response()->json([
+            'success' => true,
+            'message' => 'Item created successfully',
+        ]);
+    }
+
+    /**
+     * Dynamic delete model item.
+     *
+     * @param Request $request
+     *
+     */
+    public function delete(Request $request)
+    {
+        $request->validate([
+            'model' => 'required',
+            'id'  => 'required',
+        ]);
+
+        // Fist we need to decrypt the model and instantiate it
+        $model = decrypt($request->model);
+        $model = new $model;
+
+        // Find the model item
+        $modelItem = $model->find($request->id);
+
+        // Delete
+        $modelItem->delete();
+
+        // Return the response
+        return response()->json([
+            'success' => true,
+            'message' => 'Item deleted successfully',
+        ]);
     }
 }
