@@ -16,19 +16,19 @@ class RoleController extends Controller
         // Table columns
         $columns = [
             [
-                'label'     => 'Id',
-                'key'       => 'id',
-                'sortable'  => true,
-                'canCreate' => false,
-                'canEdit'   => false,
+                'label'     => 'Id',    // Display name
+                'key'       => 'id',    // Table column key
+                'sortable'  => true,    // Can be use in the filter
+                'canCreate' => false,   // Can be use in the create form
+                'canEdit'   => false,   // Can be use in the edit form
             ],
             [
-                'label'     => 'Name',
-                'key'       => 'name',
-                'sortable'  => true,
-                'canCreate' => true,
-                'canEdit'   => true,
-                'type'      => 'text',
+                'label'     => 'Name',   // Display name
+                'key'       => 'name',   // Table column key
+                'sortable'  => true,     // Can be use in the filter
+                'canCreate' => true,     // Can be use in the create form
+                'canEdit'   => true,     // Can be use in the edit form
+                'type'      => 'text',   // Type text,email,password,date,timestamp
             ],
             [
                 'label'     => 'Guard',

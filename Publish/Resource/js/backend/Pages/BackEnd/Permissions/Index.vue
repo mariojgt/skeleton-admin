@@ -7,6 +7,7 @@
       :endpoint-delete="props.endpointDelete"
       :endpoint-create="props.endpointCreate"
       :endpoint-edit="props.endpointEdit"
+      :table-title="'Roles'"
     />
   </Layout>
 </template>
@@ -17,8 +18,8 @@ import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../../Layout/Backend.vue";
 
-// Import the table component
-import Table from "./Table/Table.vue";
+// Import the table component from the builder api
+import Table from "../../../../../../Builder/Table/Table.vue";
 
 const props = defineProps({
   endpoint: {

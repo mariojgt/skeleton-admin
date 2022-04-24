@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\GenericTable\GenericTableController;
+use Mariojgt\Builder\Controllers\TableBuilderApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
 Route::group([
@@ -15,13 +15,11 @@ Route::group([
     Route::post('/admin/api/notification/read', [NotificationsController::class, 'read'])
         ->name('admin.api.notification.read');
 
-    // Generic table api
-    Route::post('/admin/api/generic/table', [GenericTableController::class, 'index'])
-        ->name('admin.api.generic.table');
-    Route::post('/admin/api/generic/table/create', [GenericTableController::class, 'store'])
-        ->name('admin.api.generic.table.create');
-    Route::post('/admin/api/generic/table/update', [GenericTableController::class, 'update'])
-        ->name('admin.api.generic.table.update');
-    Route::post('/admin/api/generic/table/delete', [GenericTableController::class, 'delete'])
-        ->name('admin.api.generic.table.delete');
+    // Table api controller
+    Route::controller(TableBuilderApiController::class)->group(function () {
+        Route::post('/admin/api/generic/table', 'index')->name('admin.api.generic.table');
+        Route::post('/admin/api/generic/table/create', 'store')->name('admin.api.generic.table.create');
+        Route::post('/admin/api/generic/table/update', 'update')->name('admin.api.generic.table.update');
+        Route::post('/admin/api/generic/table/delete', 'delete')->name('admin.api.generic.table.delete');
+    });
 });
