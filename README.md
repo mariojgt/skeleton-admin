@@ -13,8 +13,9 @@ First, you need a clean Laravel project, then run the following command:
 ```
 A config file will be published to the config folder where you can update the settings.
 
-By default, this package will come with those Requirements below. For more information please see the package.json file.
-# Requirements
+By default, this package will come with the requirements below. For more information please see the package.json file.
+
+## Requirements
 - [ ] Tailwind CSS.
 - [ ] Daisy UI.
 - [ ] Inertia JS.
