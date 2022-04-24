@@ -1,26 +1,29 @@
 ![image info](https://raw.githubusercontent.com/mariojgt/skeleton-admin/master/Publish/Art/logo.png)
-# welcome to skeleton-admin
-This is a base package for laravel that scaffold a basic admin panel, it comes with frontend and backend login, 2 webpack configs both for frontend and backend, use inerisia js, tailwind css, vue js, daisy ui,GDPR cookie for laravel, comes with a generic crud builder ready and easy to use and two factor autentication out of the box, the project still in development, so if you have any suggestion or you want to contribute, please submit an issue on github, thanks!
+
+# Welcome to skeleton-admin
+This is a base package for Laravel that scaffolds a basic admin panel. It comes with frontend and backend login and two Webpack configs both for them both respectively. Also included is Inertia JS, Tailwind CSS, Vue JS, Daisy UI, GDPR cookie for Laravel. skeleton-admin comes with a generic crud builder ready and easy to use and Two-factor Authentication out of the box. The project still in development, so if you have any suggestion or you want to contribute, please submit an issue on GitHub, thanks!
 
 ## Installation
 
-first you need a clean laravel project, then run the following command:
+First, you need a clean Laravel project, then run the following command:
 
 ```bash
     1: composer require mariojgt/skeleton-admin
     2: php artisan install:skeleton-admin
 ```
-There is a config file that will be publish to the config folder where you can update the settings.
+A config file will be published to the config folder where you can update the settings.
 
-by defualt this package will come with those Requirements below, more infor please the the package.json file.
+By default, this package will come with those Requirements below. For more information please see the package.json file.
 # Requirements
-- [ ] tailwind.
-- [ ] daisy ui.
-- [ ] inersia js.
-- [ ] vue js.
+- [ ] Tailwind CSS.
+- [ ] Daisy UI.
+- [ ] Inertia JS.
+- [ ] Vue JS.
 
 ## Usage
-after instalation you can acess yoururl/user/login or yoururl/admin/login, the login page will be the same for both frontend and backend, with different logos, but everything can be change the files are inside resources/vendor/skeleton-admin don't forget to run npm run watch in order to update the files, because all the controler are inside the package so you may need to create a repo for your project in order to add new fuctions because the idea is to have a starting point for your project with evething conteined in the package.
+After installation, you can access `/user/login` or `/admin/login`. The login page will be the same for both frontend and backend, with different logos. Everything in this package can be changed as the files are inside `resources/vendor/skeleton-admin`. Don't forget to run `npm run watch` to update the files as all the controllers are inside the package.
 
-# note
-this package was design to have a strong and simple start point as modular as possible you can update to your needs, and don't forget to contribute to the project, thanks!
+You may need to create a repo for your project to add new functions because the idea is to have a starting point for your project with everything contained in the package.
+
+## Note
+This package was designed to have a strong and simple start point to be as modular as possible, you can update it to meet your needs and don't forget to contribute to the project, thanks!
