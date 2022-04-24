@@ -10,6 +10,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Mariojgt\SkeletonAdmin\Notifications\AdminMailResetPasswordToken;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Traits\HasPermissions;
 
 class Admin extends Authenticatable implements MustVerifyEmail
 {
@@ -18,6 +20,8 @@ class Admin extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use Castle;
     use CanResetPassword;
+    use HasRoles;
+    use HasPermissions;
 
     /**
      * The attributes that are mass assignable.

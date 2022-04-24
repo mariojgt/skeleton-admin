@@ -63,8 +63,23 @@ class RoleController extends Controller
             'endpointDelete' => route('admin.api.generic.table.delete'),
             'endpointCreate' => route('admin.api.generic.table.create'),
             'endpointEdit'   => route('admin.api.generic.table.update'),
+            // You table columns
             'columns'        => $columns,
+            // The model where all those actions will take place
             'model'          => encrypt(Role::class),
+            // If you want to protect your crud form you can use this below not required
+            'permission'     => [
+                'guard'          => 'skeleton_admin',
+                // You can use permission or role up to you
+                'type'          => 'permission',
+                // The permission name or role
+                'key' => [
+                    'store'  => 'create-permission',
+                    'update' => 'edit-permission',
+                    'delete' => 'delete-permission',
+                    'index'  => 'read-permission',
+                ],
+            ],
         ]);
     }
 }

@@ -7,6 +7,7 @@ module.exports = {
         // Path to my php view it will only purge stuf we goin to use
         "./vendor/mariojgt/admin-skeleton/src/views/**/*.php",
         "./resources/vendor/SkeletonAdmin/js/**/*.vue",
+        "./resources/vendor/Builder/**/*.vue",
     ],
     theme: {
       extend: {},
