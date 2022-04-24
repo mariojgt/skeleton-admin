@@ -68,7 +68,7 @@ class RoleController extends Controller
             // The model where all those actions will take place
             'model'          => encrypt(Role::class),
             // If you want to protect your crud form you can use this below not required
-            'permission'     => [
+            'permission'     => encrypt([
                 'guard'          => 'skeleton_admin',
                 // You can use permission or role up to you
                 'type'          => 'permission',
@@ -79,7 +79,7 @@ class RoleController extends Controller
                     'delete' => 'delete-permission',
                     'index'  => 'read-permission',
                 ],
-            ],
+            ]),
         ]);
     }
 }

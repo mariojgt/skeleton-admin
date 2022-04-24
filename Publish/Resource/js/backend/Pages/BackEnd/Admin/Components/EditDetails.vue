@@ -27,6 +27,13 @@
         placeholder="type your email"
       />
 
+      <select-input
+        v-if="adminInformation.role?.id"
+        label="Role"
+        :options="props.roles"
+        v-model="adminInformation.role.id"
+      />
+
       <div class="form-control pt-10">
         <submit name="update" @click="submitForm" />
       </div>
@@ -38,8 +45,14 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 // Import the from components
-import InputField from "@mariojgt/masterui/packages/Input/index";
-import Submit from "@mariojgt/masterui/packages/Submit/index";
+// Import the from components
+import {
+  InputField,
+  LinkButton,
+  InputPassword,
+  Submit,
+  SelectInput,
+} from "@mariojgt/masterui/packages/index";
 
 // FIelds Values
 
@@ -47,6 +60,11 @@ import Submit from "@mariojgt/masterui/packages/Submit/index";
 const props = defineProps({
   adminInfo: {
     type: Object,
+    default: {},
+  },
+  roles: {
+    type: Object,
+    default: () => ({}),
     default: {},
   },
 });
@@ -62,6 +80,7 @@ const submitForm = () => {
     first_name: adminInformation.first_name,
     last_name: adminInformation.last_name,
     email: adminInformation.email,
+    role: adminInformation.role.id,
   };
   Inertia.patch(route("admin.update", adminInformation.id), form);
 };

@@ -69,7 +69,7 @@ class PermissionController extends Controller
             'model'          => encrypt(Permission::class),
             // If you want to protect your crud form you can use this below not required
             // The permission name for the crud
-            'permission'     => [
+            'permission'     => encrypt([
                 'guard'          => 'skeleton_admin',
                 // You can use permission or role up to you
                 'type'          => 'permission',
@@ -80,7 +80,7 @@ class PermissionController extends Controller
                     'delete' => 'delete-permission',
                     'index'  => 'read-permission',
                 ],
-            ],
+            ]),
         ]);
     }
 }

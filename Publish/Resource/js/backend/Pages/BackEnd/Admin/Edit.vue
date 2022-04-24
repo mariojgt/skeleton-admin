@@ -11,7 +11,7 @@
                         class="tabs"
                     >
                         <n-tab-pane name="basic-info" tab="Basic Profile">
-                            <EditDeatils :admin-info="props.admin.data" />
+                            <EditDeatils :admin-info="props.admin.data" :roles="props.roles" />
                         </n-tab-pane>
                         <n-tab-pane
                             name="password update"
@@ -55,6 +55,10 @@ const props = defineProps({
         default: () => ({}),
     },
     admin: {
+        type: Object,
+        default: () => ({}),default: {},
+    },
+    roles: {
         type: Object,
         default: () => ({}),default: {},
     },

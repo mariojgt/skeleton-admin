@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Mariojgt\SkeletonAdmin\Models\Role;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Illuminate\Validation\ValidationException;
@@ -59,9 +60,13 @@ class AdminController extends Controller
             ];
         }
 
+        // Get system avalable roles
+        $roles = Role::where('guard_name', 'skeleton_admin')->pluck('name', 'id');
+
         return Inertia::render('BackEnd/Admin/Edit', [
             'autenticator' => $autenticatorInfo,
             'admin'        => new AdminResource($adminInfo),
+            'roles'        => $roles,
         ]);
     }
 
@@ -85,6 +90,11 @@ class AdminController extends Controller
         $admin->last_name = Request('last_name');
         $admin->email = Request('email');
         $admin->save();
+
+        // Update the roles
+        // FInd the role in the database
+        $role = Role::find(Request('role'));
+        $admin->assignRole($role);
 
         return Redirect::back()
             ->with('success', 'Profile updated successfully');
