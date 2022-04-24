@@ -20,7 +20,7 @@ by defualt this package will come with those Requirements below, more infor plea
 - [ ] vue js.
 
 ## Usage
-after instalation you can acess yoururl/user/login or yoururl/admin/login, the login page will be the same for both frontend and backend, with different logos, but everything can be change the files are inside resources/vendor/skeleton-admin don't forget to run npm run watch in order to update the files.
+after instalation you can acess yoururl/user/login or yoururl/admin/login, the login page will be the same for both frontend and backend, with different logos, but everything can be change the files are inside resources/vendor/skeleton-admin don't forget to run npm run watch in order to update the files, because all the controler are inside the package so you may need to create a repo for your project in order to add new fuctions because the idea is to have a starting point for your project with evething conteined in the package.
 
 # note
 this package was design to have a strong and simple start point as modular as possible you can update to your needs, and don't forget to contribute to the project, thanks!
