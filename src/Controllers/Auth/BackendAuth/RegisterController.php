@@ -60,6 +60,9 @@ class RegisterController extends Controller
         $user->email_verified_at = Carbon::now();
         $user->save();
 
+        // Assin the Administrator role
+        $user->assignRole('Administrator');
+
         DB::commit();
 
         return Redirect::back()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Mariojgt\SkeletonAdmin\Database\Seeder;
 
 use Illuminate\Database\Seeder;
 use Mariojgt\SkeletonAdmin\Models\Role;
@@ -29,10 +29,11 @@ class PermissionSeeder extends Seeder
         ];
         // Loop the roles and create it
         foreach ($roles as $role) {
-            $role             = new Role();
-            $role->name       = $role['name'];
-            $role->guard_name = $role['guard_name'];
-            $role->save();
+            // Firt or create the role
+            $newRole = Role::firstOrCreate([
+                'name'       => $role['name'],
+                'guard_name' => $role['guard_name'],
+            ]);
         }
         // Create permissions
         $permissions = [
@@ -55,14 +56,15 @@ class PermissionSeeder extends Seeder
         ];
         // Loop the permissions and create them
         foreach ($permissions as $permission) {
-            $permission = new Permission();
-            $permission->name = $permission['name'];
-            $permission->guard_name = $permission['guard_name'];
-            $permission->save();
-
+            // Create or update the permission
+            $newPermission = Permission::firstOrCreate([
+                'name'       => $permission['name'],
+                'guard_name' => $permission['guard_name'],
+            ]);
             // Find the Administrator role and assign the permission
             $role = Role::where('name', 'Administrator')->first();
-            $role->givePermissionTo($permission);
+            $role->givePermissionTo($newPermission);
+            $newPermission->assignRole($role);
         }
     }
 }

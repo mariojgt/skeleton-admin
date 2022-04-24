@@ -70,6 +70,12 @@ class Install extends Command
 
         // Migrate
         Artisan::call('migrate');
+
+        // Run the database seeder
+        Artisan::call('db:seed', [
+            '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\PermissionSeeder',
+        ]);
+
         // Cache the routes
         Artisan::call('optimize:clear');
 
