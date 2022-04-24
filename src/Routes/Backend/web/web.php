@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin\AdminController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\PermissionController;
 
 // Auth Route
 Route::group([
@@ -29,9 +30,15 @@ Route::group([
         Route::post('/admin/2fa/enable', 'enable2fa')->name('admin.2fa.enable');
     });
 
-    // Admin permissions management
+    // Admin roles management
     Route::controller(RoleController::class)->group(function () {
         // Profile Edit
-        Route::get('/permissions/index', 'index')->name('admin.permissions.index');
+        Route::get('/roles/index', 'index')->name('admin.roles.index');
+    });
+
+    // Admin permission management
+    Route::controller(PermissionController::class)->group(function () {
+        // Profile Edit
+        Route::get('/permission/index', 'index')->name('admin.permission.index');
     });
 });

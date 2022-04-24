@@ -4,9 +4,9 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
-use Mariojgt\SkeletonAdmin\Models\Role;
+use Mariojgt\SkeletonAdmin\Models\Permission;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * @return [blade view]
@@ -56,15 +56,15 @@ class RoleController extends Controller
             ],
         ];
 
-        return Inertia::render('BackEnd/Role/Index', [
-            'title' => 'Role | Roles',
+        return Inertia::render('BackEnd/Permissions/Index', [
+            'title' => 'Permissions | Permissions',
             // Required for the generic table api
             'endpoint'       => route('admin.api.generic.table'),
             'endpointDelete' => route('admin.api.generic.table.delete'),
             'endpointCreate' => route('admin.api.generic.table.create'),
             'endpointEdit'   => route('admin.api.generic.table.update'),
             'columns'        => $columns,
-            'model'          => encrypt(Role::class),
+            'model'          => encrypt(Permission::class),
         ]);
     }
 }
