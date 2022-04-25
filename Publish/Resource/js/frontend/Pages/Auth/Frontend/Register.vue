@@ -1,5 +1,5 @@
 <template>
-  <Layout title="Register">
+  <layout title="Register">
     <template v-slot:form>
       <div>
         <div class="px-5 py-7">
@@ -49,7 +49,7 @@
       <link-button name="Login" link="login" />
       <link-button name="Forgot password" link="forgot-password" />
     </template>
-  </Layout>
+  </layout>
 </template>
 
 <script setup>

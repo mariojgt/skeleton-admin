@@ -1,5 +1,5 @@
 <template>
-  <Layout title="Reset Password">
+  <layout title="Reset Password">
     <template v-slot:form>
       <div>
         <div class="px-5 py-7">
@@ -24,7 +24,7 @@
       <link-button name="Register" link="register" />
       <link-button name="Forgot password" link="forgot-password" />
     </template>
-  </Layout>
+  </layout>
 </template>
 
 <script setup>

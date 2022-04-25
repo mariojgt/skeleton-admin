@@ -482,13 +482,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../../Layout/Backend.vue";
-
-// Import the from components
-import InputField from "@mariojgt/masterui/packages/Input/index";
-import InputPassword from "@mariojgt/masterui/packages/Password/index";
-import Submit from "@mariojgt/masterui/packages/Submit/index";
-import LinkButton from "@mariojgt/masterui/packages/Link/index";
+import Layout from "../../../Layout/App.vue";
 
 let email = $ref("");
 let password = $ref("");

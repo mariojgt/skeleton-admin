@@ -1,5 +1,5 @@
 <template>
-    <Layout>
+    <layout>
         <div
             class="grid grid-cols-1 gap-6 lg:p-10 xl:grid-cols-3 lg:bg-base-200 rounded-box"
         >
@@ -475,20 +475,14 @@
                 </div>
             </div>
         </div>
-    </Layout>
+    </layout>
 </template>
 
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../../Layout/Frontend";
-
-// Import the from components
-import InputField from "@mariojgt/masterui/packages/Input/index";
-import InputPassword from "@mariojgt/masterui/packages/Password/index";
-import Submit from "@mariojgt/masterui/packages/Submit/index";
-import LinkButton from "@mariojgt/masterui/packages/Link/index";
+import Layout from "../../../Layout/App.vue";
 
 let email    = $ref("");
 let password = $ref("");

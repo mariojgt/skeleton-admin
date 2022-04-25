@@ -42,7 +42,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../../Layout/Backend.vue";
+import Layout from "../../../Layout/App.vue";
 
 // Tab Content
 import EditDeatils from "./Components/EditDetails.vue";

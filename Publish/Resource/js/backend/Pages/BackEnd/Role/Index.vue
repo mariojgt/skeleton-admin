@@ -16,7 +16,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../../Layout/Backend.vue";
+import Layout from "../../../Layout/App.vue";
 
 // Import the table component from the builder api
 import Table from "../../../../../../Builder/Table/Table.vue";
