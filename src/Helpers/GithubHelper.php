@@ -22,7 +22,7 @@ class GithubHelper
      *
      * @return [array string]
      */
-    public function getRepositories($organization = "mjgt-Studios")
+    public function getRepositories($organization = "your-organization")
     {
         return $this->getGenericRequest('https://api.github.com/orgs/' . $organization . '/repos');
     }
@@ -69,7 +69,7 @@ class GithubHelper
      *
      * @return [json]
      */
-    public function validateToken($token, $organization = "mjgt-Studios")
+    public function validateToken($token, $organization = "your-organization")
     {
         $response = Http::withHeaders([
             'Authorization' => 'token ' . $token

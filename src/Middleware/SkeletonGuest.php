@@ -16,6 +16,7 @@ class SkeletonGuest
      */
     public function handle($request, Closure $next)
     {
+        // Check if the user is a backend guest
         if (Auth::guard('skeleton_admin')->check()) {
             return redirect(route('skeleton-admin.home'));
         }

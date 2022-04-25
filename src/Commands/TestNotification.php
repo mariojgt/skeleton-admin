@@ -8,6 +8,9 @@ use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
+/**
+ * Test the notifications
+ */
 class TestNotification extends Command
 {
     /**
@@ -86,7 +89,7 @@ class TestNotification extends Command
                     // Get a random message
                     $message = $faker->sentence;
                     // Send a notification
-                    $user->notify(new GenericNotification($name, $icon, $message ,$type));
+                    $user->notify(new GenericNotification($name, $icon, $message, $type));
                 }
 
                 $this->info('Sending a notification to user');

@@ -7,10 +7,11 @@ Route::group([
     'middleware' => ['web', 'auth'],
     'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
-    // Get user notifications
-    Route::get('/user/api/notifications/{amount}', [NotificationController::class, 'index'])
-        ->name('user.api.notifications');
-    // User read notification
-    Route::post('/user/api/notification/read', [NotificationController::class, 'read'])
-        ->name('user.api.notification.read');
+    // User notifications fetch
+    Route::controller(NotificationController::class)->group(function () {
+        // Get user notifications
+        Route::get('/user/api/notifications/{amount}', 'index')->name('user.api.notifications');
+        // User read notification
+        Route::post('/user/api/notification/read', 'read')->name('user.api.notification.read');
+    });
 });

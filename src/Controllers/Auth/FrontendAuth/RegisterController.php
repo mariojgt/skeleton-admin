@@ -11,6 +11,7 @@ use Mariojgt\SkeletonAdmin\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
+use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class RegisterController extends Controller
 {
@@ -51,6 +52,14 @@ class RegisterController extends Controller
         $user->email    = Request('email');
         $user->password = Hash::make(Request('password'));
         $user->save();
+
+        // Send the notification to the user
+        $user->notify(new GenericNotification(
+            'Welcome',
+            'info',
+            'Account created successfully.',
+            'icon'
+        ));
 
         // Send the verification to the user
         if (config('skeleton.frontend_email_verify')) {

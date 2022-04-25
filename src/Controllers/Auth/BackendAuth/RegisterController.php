@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Illuminate\Validation\Rules\Password;
-
+use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 class RegisterController extends Controller
 {
     /**
@@ -62,6 +62,14 @@ class RegisterController extends Controller
 
         // Assin the Administrator role
         $user->assignRole('Administrator');
+
+        // Send the notification to the user
+        $user->notify(new GenericNotification(
+            'Welcome',
+            'info',
+            'Account created successfully.',
+            'icon'
+        ));
 
         DB::commit();
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
-
+use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 class LoginController extends Controller
 {
 
@@ -60,7 +60,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        // Remove all the wall autenticator data
+        // Remove all the wall autenticator data from catle
         $autenticatorHandle = new AutenticatorHandle();
         $verification       = $autenticatorHandle->logout();
 
@@ -93,9 +93,19 @@ class LoginController extends Controller
 
         // Check if the user has been verify
         if (!$user->hasVerifiedEmail()) {
+            // Mark the user as verified
             $user->markEmailAsVerified();
+            // Trigger the event to verify the user
             event(new Verified($user));
+            // Send the notification to the user tell that the account has been verified
+            $user->notify(new GenericNotification(
+               'Account verified',
+               'info',
+               'Your account has been verified',
+               'icon'
+           ));
         }
+
 
         // Return to the the login page as success
         return Redirect::route('login')->with('success', 'User verify with success!');

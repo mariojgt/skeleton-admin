@@ -8,6 +8,9 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
+/**
+ * Trigger a generic notification to the backend or frontend
+ */
 class GenericNotification extends Notification implements ShouldQueue
 {
     use Queueable;
