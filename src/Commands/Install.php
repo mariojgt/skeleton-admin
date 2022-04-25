@@ -62,6 +62,12 @@ class Install extends Command
             '--force'    => true,
         ]);
 
+        // Publish the builder package
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Mariojgt\Builder\BuilderProvider',
+            '--force'    => true,
+        ]);
+
         // Copy the need file to make the skeleton to work
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',
