@@ -16,7 +16,7 @@ Route::group([
         Route::post('/admin/api/notification/read', 'read')->name('admin.api.notification.read');
     });
 
-    // Table api controller
+    // BUILDER Table api controller
     Route::controller(TableBuilderApiController::class)->group(function () {
         Route::post('/admin/api/generic/table', 'index')->name('admin.api.generic.table');
         Route::post('/admin/api/generic/table/create', 'store')->name('admin.api.generic.table.create');

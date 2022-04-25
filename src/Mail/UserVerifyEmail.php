@@ -8,6 +8,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 
+/**
+ * Send the email verification notification to the user.
+ */
 class UserVerifyEmail extends Mailable implements ShouldQueue
 {
     use Queueable;
@@ -36,6 +39,6 @@ class UserVerifyEmail extends Mailable implements ShouldQueue
         $validRoute = route('user.verify', [encrypt($this->user->id), encrypt($date)]);
 
         return $this->from(env('MAIL_FROM_ADDRESS'))
-               ->markdown('skeleton-admin::email.user_verify', compact('validRoute'));
+            ->markdown('skeleton-admin::email.user_verify', compact('validRoute'));
     }
 }
