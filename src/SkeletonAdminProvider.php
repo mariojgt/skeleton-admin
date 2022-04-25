@@ -25,7 +25,7 @@ class SkeletonAdminProvider extends ServiceProvider
             [SendUserVerifyListener::class, 'handle']
         );
 
-        // Load some commands
+        // Load Required commands
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Republish::class,
@@ -62,6 +62,9 @@ class SkeletonAdminProvider extends ServiceProvider
         $this->publish();
     }
 
+    /**
+     * This fuction will publish the package assets.
+     */
     public function publish()
     {
         // Publish the public folder
@@ -109,10 +112,8 @@ class SkeletonAdminProvider extends ServiceProvider
         ]);
     }
 
-
     /**
-     * Load some custom middlerwhere
-     * @return [type]
+     * Load some custom middlerwhere required by the package.
      */
     public function middleware()
     {
@@ -132,4 +133,5 @@ class SkeletonAdminProvider extends ServiceProvider
             \Mariojgt\SkeletonAdmin\Middleware\BootTokenApi::class
         );
     }
+
 }
