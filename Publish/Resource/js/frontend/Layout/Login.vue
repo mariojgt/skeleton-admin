@@ -18,6 +18,16 @@
       </n-notification-provider>
     </n-message-provider>
   </n-loading-bar-provider>
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+    <div>
+      <p>
+        Copyright © {{ currentYear }} - All right reserved by
+        <a target="_blank" href="https://github.com/mariojgt/skeleton-admin"
+          >Skeleton-admin</a
+        >
+      </p>
+    </div>
+  </footer>
 </template>
 
 <script setup>
@@ -54,6 +64,9 @@ const loadLocalStorageTheme = async () => {
 onMounted(() => {
   loadLocalStorageTheme();
 });
+
+// Footer date
+const currentYear = new Date().getFullYear();
 </script>
 
 <style></style>

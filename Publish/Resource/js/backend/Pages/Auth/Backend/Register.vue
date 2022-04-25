@@ -1,5 +1,5 @@
 <template>
-  <layout title="Register">
+  <layout title="Backend Register">
     <template v-slot:form>
       <div>
         <div class="px-5 py-7">

@@ -18,6 +18,16 @@
       </n-notification-provider>
     </n-message-provider>
   </n-loading-bar-provider>
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+    <div>
+      <p>
+        Copyright © {{ currentYear }} - All right reserved by
+        <a target="_blank" href="https://github.com/mariojgt/skeleton-admin"
+          >Skeleton-admin</a
+        >
+      </p>
+    </div>
+  </footer>
 </template>
 
 <script setup>
@@ -38,7 +48,7 @@ const loadLocalStorageTheme = async () => {
   // Find the html element
   const html = document.querySelector("html");
   // Set a default theme
-  html.setAttribute("data-theme", "coffee");
+  html.setAttribute("data-theme", "forest");
   // Get the theme from the local storage
   const theme = localStorage.getItem("theme-backend");
   // if not found set the default theme
@@ -46,7 +56,7 @@ const loadLocalStorageTheme = async () => {
     // Add the data-theme attribute
     html.setAttribute("data-theme", theme);
   } else {
-    html.setAttribute("data-theme", "coffee");
+    html.setAttribute("data-theme", "forest");
   }
 };
 
@@ -54,6 +64,9 @@ const loadLocalStorageTheme = async () => {
 onMounted(() => {
   loadLocalStorageTheme();
 });
+
+// Footer date
+const currentYear = new Date().getFullYear();
 </script>
 
 <style></style>

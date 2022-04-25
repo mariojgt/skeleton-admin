@@ -1,5 +1,5 @@
 <template>
-  <layout title="Admin Login">
+  <layout title="Backend Login">
     <template v-slot:form>
       <div>
         <div class="px-5 py-7">

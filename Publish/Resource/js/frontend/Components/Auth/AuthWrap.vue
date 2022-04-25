@@ -1,36 +1,25 @@
 <template>
-  <div class="flex items-center min-h-screen p-6 bg-base-200">
-    <div
-      class="
-        flex-1
-        h-full
-        max-w-4xl
-        mx-auto
-        overflow-hidden
-        bg-base-300
-        rounded-lg
-        shadow-xl
-      "
-    >
-      <div class="flex flex-col overflow-y-auto md:flex-row">
-        <div class="h-32 md:h-auto md:w-1/2">
-          <!-- Call the logo here -->
-          <userLogo/>
-        </div>
-        <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-          <div class="w-full">
-            <h1 class="my-4 text-4xl font-bold card-title">
-              {{ props.title }}
-            </h1>
-            <!-- Where the data will display -->
-            <slot name="form" />
-            <div
-              class="flex items-right justify-right p-6 sm:p-12 md:w-1/2 gap-3"
-            >
-              <slot name="links" />
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card-body text-center">
+          <div class="avatar justify-center">
+            <div class="w-32 rounded">
+              <userLogo />
             </div>
           </div>
+          <slot name="form" />
+          <slot name="links" />
         </div>
+      </div>
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold">{{ props.title }}</h1>
+        <p class="py-6">
+          Welcome to the frontend login, in here you have a very basic
+          dashboard, with user profile management, Thank you for download
+          skeleton-admin please don't forget to share this package, now go and
+          create your amazing application.
+        </p>
       </div>
     </div>
   </div>
@@ -46,7 +35,7 @@ const props = defineProps({
   title: {
     type: String,
     default: "",
-  }
+  },
 });
 </script>
 

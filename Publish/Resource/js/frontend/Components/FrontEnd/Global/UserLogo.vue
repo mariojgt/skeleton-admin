@@ -1,7 +1,7 @@
 <template>
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        :class="props.full == 'true' ? 'object-cover w-full pl-10 h-full' : ''"
+        :class="props.full == 'true' ? 'max-w-sm rounded-lg' : ''"
         viewBox="0 0 163 124"
         width="{{ props.width ?? 163 }}"
         height="{{ props.height ?? 124 }}"

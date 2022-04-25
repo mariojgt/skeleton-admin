@@ -1,5 +1,5 @@
 <template>
-  <layout title="Reset Password">
+  <layout title="Backend Reset Password">
     <template v-slot:form>
       <div>
         <div class="px-5 py-7">
