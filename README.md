@@ -22,6 +22,7 @@ By default, this package will come with the requirements below. For more informa
 - [ ] Vue JS.
 
 ## Features
+- [ ] Generict Notificaiton.
 - [ ] Two-factor Authentication.
 - [ ] GDPR Cookie.
 - [ ] Generic CRUD Builder.
