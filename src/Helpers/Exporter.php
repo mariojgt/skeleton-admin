@@ -5,7 +5,7 @@ namespace Mariojgt\SkeletonAdmin\Helpers;
 class Exporter
 {
     /**
-     * @param mixed $list
+     * @param mixed  $list
      * @param string $fileName
      *
      * @return [downloadble file]
@@ -13,7 +13,7 @@ class Exporter
     public static function jsonExport($list, $fileName = 'export')
     {
         // File name
-        $fileName = $fileName . '.json';
+        $fileName = $fileName.'.json';
         // Open the file to create the csv
         $fp = fopen($fileName, 'w');
 
@@ -26,7 +26,7 @@ class Exporter
     }
 
     /**
-     * @param mixed $list
+     * @param mixed  $list
      * @param string $fileName
      *
      * @return [downloadble file]
@@ -34,7 +34,7 @@ class Exporter
     public static function csvExport($list, $fileName = 'export')
     {
         // File name
-        $fileName = $fileName . '.csv';
+        $fileName = $fileName.'.csv';
         // Open the file to create the csv
         $fp = fopen($fileName, 'w');
 
@@ -62,7 +62,7 @@ class Exporter
     }
 
     /**
-     * @param mixed $fileName
+     * @param mixed  $fileName
      * @param string $type
      *
      * @return [return the file type]
@@ -74,7 +74,7 @@ class Exporter
 
         $name = $fileName;
 
-        $headers = ['Content-Type: application/' . $type];
+        $headers = ['Content-Type: application/'.$type];
 
         return response()->download($pathToFile, $name, $headers);
     }

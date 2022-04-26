@@ -2,15 +2,15 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth;
 
-use Inertia\Inertia;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Mariojgt\SkeletonAdmin\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
+use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class RegisterController extends Controller
@@ -24,7 +24,6 @@ class RegisterController extends Controller
             'title' => 'Login',
         ]);
     }
-
 
     /**
      * Register a new user to the aplication.
@@ -47,9 +46,9 @@ class RegisterController extends Controller
 
         DB::beginTransaction();
         // Register the user in the database
-        $user           = new User();
-        $user->name     = Request('name');
-        $user->email    = Request('email');
+        $user = new User();
+        $user->name = Request('name');
+        $user->email = Request('email');
         $user->password = Hash::make(Request('password'));
         $user->save();
 
@@ -66,11 +65,13 @@ class RegisterController extends Controller
             try {
                 UserVerifyEvent::dispatch($user);
                 DB::commit();
+
                 return Redirect::back()
                     ->with('success', 'Account Created with success, Please check you email for a verification link.');
             } catch (\Throwable $th) {
                 // If there is a error we rollback the transaction
                 DB::rollback();
+
                 return Redirect::back()
                     ->with('error', 'The email service is not setup correctly, please contact the administrator.');
             }

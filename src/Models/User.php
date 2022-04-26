@@ -8,15 +8,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Mariojgt\Castle\Trait\Castle;
-use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens,
-        HasFactory,
-        Notifiable,
-        Castle;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use Castle;
     use HasRoles;
     use HasPermissions;
 

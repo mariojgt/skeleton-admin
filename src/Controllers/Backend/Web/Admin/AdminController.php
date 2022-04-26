@@ -2,33 +2,33 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Mariojgt\SkeletonAdmin\Models\Role;
 use Illuminate\Support\Facades\Redirect;
-use Mariojgt\SkeletonAdmin\Models\Admin;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Models\Role;
 use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
 
 class AdminController extends Controller
 {
     /**
-     * Create new admin
+     * Create new admin.
+     *
      * @param Request $request
      *
      * @return [type]
      */
     public function store(Request $request)
     {
-        # code...
+        // code...
     }
 
     /**
-     * Edit the admin
+     * Edit the admin.
      *
      * @param null $admin
      *
@@ -71,7 +71,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Update admin profile
+     * Update admin profile.
      *
      * @param Request $request
      *
@@ -83,7 +83,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email'      => 'required|email|unique:admins,email,' . $admin->id,
+            'email'      => 'required|email|unique:admins,email,'.$admin->id,
         ]);
 
         $admin->first_name = Request('first_name');
@@ -101,9 +101,10 @@ class AdminController extends Controller
     }
 
     /**
-     * Handle the password update
+     * Handle the password update.
+     *
      * @param Request $request
-     * @param Admin $admin
+     * @param Admin   $admin
      *
      * @return [type]
      */
@@ -123,7 +124,7 @@ class AdminController extends Controller
             ]);
 
             $autenticatorHandle = new AutenticatorHandle();
-            $verification       = $autenticatorHandle->checkCode(Request('code'));
+            $verification = $autenticatorHandle->checkCode(Request('code'));
             // If the code is not valid we redirect the user to the edit page
             if ($verification == false) {
                 return Redirect::back()
@@ -139,7 +140,8 @@ class AdminController extends Controller
     }
 
     /**
-     * Check if the code that the user type match with the autenticator
+     * Check if the code that the user type match with the autenticator.
+     *
      * @param Request $request
      *
      * @return [type]
@@ -152,7 +154,7 @@ class AdminController extends Controller
         ]);
 
         $autenticatorHandle = new AutenticatorHandle();
-        $verification       = $autenticatorHandle->checkCode(Request('code'));
+        $verification = $autenticatorHandle->checkCode(Request('code'));
 
         // if true we can sync the user
         if ($verification) {
@@ -168,7 +170,8 @@ class AdminController extends Controller
     }
 
     /**
-     * Function Remove the 2FA
+     * Function Remove the 2FA.
+     *
      * @param Request $request
      *
      * @return [type]
@@ -182,7 +185,7 @@ class AdminController extends Controller
 
         // Call the autenticator handle to remove the autenticator
         $autenticatorHandle = new AutenticatorHandle();
-        $verification       = $autenticatorHandle->checkCode(Request('code'));
+        $verification = $autenticatorHandle->checkCode(Request('code'));
         // If the code is not valid we redirect the user to the edit page
         if ($verification == false) {
             return Redirect::back()

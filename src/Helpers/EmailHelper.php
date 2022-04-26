@@ -2,18 +2,18 @@
 
 namespace Mariojgt\SkeletonAdmin\Helpers;
 
-use Mariojgt\UnityAdmin\Mail\GenericEmail;
 use Illuminate\Support\Facades\Mail;
+use Mariojgt\UnityAdmin\Mail\GenericEmail;
 use Mariojgt\UnityAdmin\Models\EmailLayout;
 
 class EmailHelper
 {
     /**
-     * Send the generic email
+     * Send the generic email.
      *
      * @param mixed $data
      * @param mixed $emailLayout
-     * @param null $email
+     * @param null  $email
      *
      * @return [mail]
      */
@@ -46,9 +46,9 @@ class EmailHelper
     }
 
     /**
-     * @param mixed $data
+     * @param mixed       $data
      * @param EmailLayout $emailLayout
-     * @param null $email
+     * @param null        $email
      *
      * @return [GenericEmail]
      */

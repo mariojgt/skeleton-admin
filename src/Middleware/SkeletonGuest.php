@@ -10,8 +10,9 @@ class SkeletonGuest
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -20,6 +21,7 @@ class SkeletonGuest
         if (Auth::guard('skeleton_admin')->check()) {
             return redirect(route('skeleton-admin.home'));
         }
+
         return $next($request);
     }
 }

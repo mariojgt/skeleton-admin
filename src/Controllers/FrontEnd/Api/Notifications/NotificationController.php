@@ -9,7 +9,7 @@ use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 class NotificationController extends Controller
 {
     /**
-     * Return the last notifications
+     * Return the last notifications.
      *
      * @param int $amount
      *
@@ -26,7 +26,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Read all the user notifications
+     * Read all the user notifications.
      *
      * @return [type]
      */

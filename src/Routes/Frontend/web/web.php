@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Profile\ProfileController;
 use Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Dashboard\DashboardController;
+use Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Profile\ProfileController;
 
 Route::group([
     'middleware' => ['web', 'auth', '2fa'],

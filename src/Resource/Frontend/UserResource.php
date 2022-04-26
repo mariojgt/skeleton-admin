@@ -2,8 +2,8 @@
 
 namespace Mariojgt\SkeletonAdmin\Resource\Frontend;
 
-use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
 
 class UserResource extends JsonResource
 {

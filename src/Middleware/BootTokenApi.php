@@ -7,13 +7,13 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 /**
- * This middleware is used to check if the current request hits the API route
+ * This middleware is used to check if the current request hits the API route.
  */
 class BootTokenApi
 {
     public function __construct(Application $app, Request $request)
     {
-        $this->app     = $app;
+        $this->app = $app;
         $this->request = $request;
     }
 

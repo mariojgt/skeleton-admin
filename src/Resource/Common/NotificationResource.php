@@ -2,7 +2,6 @@
 
 namespace Mariojgt\SkeletonAdmin\Resource\Common;
 
-use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NotificationResource extends JsonResource

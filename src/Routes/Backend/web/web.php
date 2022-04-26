@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin\AdminController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\PermissionController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
 
 // Auth Route
 Route::group([

@@ -5,12 +5,13 @@ namespace Mariojgt\SkeletonAdmin\Helpers;
 use Carbon\Carbon;
 
 /**
- * Helper Class to help with various calendar math stuff
+ * Helper Class to help with various calendar math stuff.
  */
 class CalendarBuilder
 {
     /**
-     * This fuction will create a calendar for the month we want using a start date
+     * This fuction will create a calendar for the month we want using a start date.
+     *
      * @param Carbon $start_date
      *
      * @return [type]
@@ -20,7 +21,7 @@ class CalendarBuilder
         // Get the start day of the month
         $start_date = Carbon::parse(Request('date'))->startOfMonth();
         // Based in the date get the last day of the month
-        $end_date   = Carbon::parse(Request('date'))->endOfMonth();
+        $end_date = Carbon::parse(Request('date'))->endOfMonth();
 
         // Check if the first of the month starts on a monday
         $weekNameDay = $start_date->format('l');

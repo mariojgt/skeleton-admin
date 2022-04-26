@@ -2,21 +2,22 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
+
 class LoginController extends Controller
 {
-
     /**
-     * Return the login view
+     * Return the login view.
+     *
      * @return [inersia]
      */
     public function index()
@@ -62,7 +63,7 @@ class LoginController extends Controller
     {
         // Remove all the wall autenticator data from catle
         $autenticatorHandle = new AutenticatorHandle();
-        $verification       = $autenticatorHandle->logout();
+        $verification = $autenticatorHandle->logout();
 
         // Logout the user
         Auth::guard('skeleton_admin')->logout();
@@ -81,10 +82,10 @@ class LoginController extends Controller
      */
     public function verify(Request $request, $userId, $expiration)
     {
-        $userId     = decrypt($userId);
+        $userId = decrypt($userId);
         $expiration = decrypt($expiration);
-        $user       = User::findOrFail($userId);
-        $nowDate    = Carbon::now();
+        $user = User::findOrFail($userId);
+        $nowDate = Carbon::now();
 
         // Check if is expired
         if ($nowDate > $expiration) {
@@ -99,13 +100,12 @@ class LoginController extends Controller
             event(new Verified($user));
             // Send the notification to the user tell that the account has been verified
             $user->notify(new GenericNotification(
-               'Account verified',
-               'info',
-               'Your account has been verified',
-               'icon'
-           ));
+                'Account verified',
+                'info',
+                'Your account has been verified',
+                'icon'
+            ));
         }
-
 
         // Return to the the login page as success
         return Redirect::route('login')->with('success', 'User verify with success!');

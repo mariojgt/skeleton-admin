@@ -5,10 +5,11 @@ namespace Mariojgt\SkeletonAdmin\Helpers;
 class Money
 {
     /**
-     * Function to return an array of pricing
+     * Function to return an array of pricing.
      *
-     * @param integer $value Price in pence
-     * @param integer $tax_id Tax Rate Id
+     * @param int $value  Price in pence
+     * @param int $tax_id Tax Rate Id
+     *
      * @return collection of pricing, local and default
      */
     public static function pricing($value, $tax_rate_id = 1)
@@ -80,37 +81,38 @@ class Money
         }
 
         // Add additional data
-        $return['tax']            = $return['inc_tax'] - $return['exc_tax'];
-        $return['tax_name']       = $taxRate->name;
-        $return['price_inc_tax']  = self::price($return['inc_tax']);
-        $return['price_exc_tax']  = self::price($return['exc_tax']);
-        $return['price_tax']      = self::price($return['tax']);
+        $return['tax'] = $return['inc_tax'] - $return['exc_tax'];
+        $return['tax_name'] = $taxRate->name;
+        $return['price_inc_tax'] = self::price($return['inc_tax']);
+        $return['price_exc_tax'] = self::price($return['exc_tax']);
+        $return['price_tax'] = self::price($return['tax']);
         $return['format_inc_tax'] = self::money($return['inc_tax']);
         $return['format_exc_tax'] = self::money($return['exc_tax']);
-        $return['format_tax']     = self::money($return['tax']);
+        $return['format_tax'] = self::money($return['tax']);
 
         // Return
         return collect($return);
     }
 
     /**
-     * Function to return fully formatted money value
+     * Function to return fully formatted money value.
      *
-     * @param  Decimal $value            Value of the amount
-     * @param  string $thousandSeperator Seperator
-     * @return string                    Formatted string with currency symbol
+     * @param Decimal $value             Value of the amount
+     * @param string  $thousandSeperator Seperator
+     *
+     * @return string Formatted string with currency symbol
      */
     public static function money($value)
     {
-        return session('exchange_symbol', '&pound;') . self::price($value, ',');
+        return session('exchange_symbol', '&pound;').self::price($value, ',');
     }
-
 
     public static function retail($value, $tax = 1)
     {
         if ($tax == 1) {
             $value = $value * config('settings.tax_rate');
         }
+
         return $value;
     }
 
@@ -120,14 +122,17 @@ class Money
             $thousandSeperator = config('settings.thousandSeperator', ',');
         }
         $value = self::makePounds($value);
+
         return number_format($value, 2, '.', $thousandSeperator);
     }
 
     /**
-     * Function to calculate tax onto a price
-     * @param  integer $price   Value in pence
-     * @param  integer $taxRate taxRate being charged
-     * @return integer          Price after calculation
+     * Function to calculate tax onto a price.
+     *
+     * @param int $price   Value in pence
+     * @param int $taxRate taxRate being charged
+     *
+     * @return int Price after calculation
      */
     public static function calculatetax($price, $taxRate = 20)
     {
@@ -135,9 +140,11 @@ class Money
     }
 
     /**
-     * Function to convert decimal price (pounds) to pence
-     * @param  float $price Price to 2 decimal places
-     * @return integer      Price in pence
+     * Function to convert decimal price (pounds) to pence.
+     *
+     * @param float $price Price to 2 decimal places
+     *
+     * @return int Price in pence
      */
     public static function makePence($price)
     {
@@ -148,13 +155,16 @@ class Money
     }
 
     /**
-     * Function to make Pounds from pence price
-     * @param  integer $price Value in Pence
-     * @return float          Return the value in Pounds to 2 decimal place in nice format
+     * Function to make Pounds from pence price.
+     *
+     * @param int $price Value in Pence
+     *
+     * @return float Return the value in Pounds to 2 decimal place in nice format
      */
     public static function makePounds($price)
     {
         $value = round($price / 100, 2);
+
         return number_format($value, 2, '.', '');
     }
 }

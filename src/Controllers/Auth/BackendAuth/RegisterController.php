@@ -2,16 +2,17 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Mariojgt\SkeletonAdmin\Models\Admin;
 use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
+use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
+
 class RegisterController extends Controller
 {
     /**
@@ -49,11 +50,11 @@ class RegisterController extends Controller
         DB::beginTransaction();
 
         // Register The user
-        $user             = new Admin();
+        $user = new Admin();
         $user->first_name = Request('fist_name');
-        $user->last_name  = Request('last_name');
-        $user->email      = Request('email');
-        $user->password   = Hash::make(Request('password'));
+        $user->last_name = Request('last_name');
+        $user->email = Request('email');
+        $user->password = Hash::make(Request('password'));
         $user->save();
 
         // If not send the email of user verification
