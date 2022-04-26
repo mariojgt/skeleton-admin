@@ -33,7 +33,7 @@ Route::group([
     // Admin roles management
     Route::controller(RoleController::class)->group(function () {
         // Profile Edit
-        Route::get('/roles/index', 'index')->name('admin.roles.index');
+        Route::get('/role/index', 'index')->name('admin.role.index');
     });
 
     // Admin permission management
