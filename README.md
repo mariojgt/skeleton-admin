@@ -1,10 +1,11 @@
 ![image info](https://raw.githubusercontent.com/mariojgt/skeleton-admin/master/Publish/Art/logo.png)
 
-
+<div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/mariojgt/skeleton-admin/main/Publish/Showcase/img1.png" alt="" style="max-width: 100%;" width="400">
 <img src="https://raw.githubusercontent.com/mariojgt/skeleton-admin/main/Publish/Showcase/img2.png" alt="" style="max-width: 100%;" width="400">
 <img src="https://raw.githubusercontent.com/mariojgt/skeleton-admin/main/Publish/Showcase/img3.png" alt="" style="max-width: 100%;" width="400">
 <img src="https://raw.githubusercontent.com/mariojgt/skeleton-admin/main/Publish/Showcase/img4.png" alt="" style="max-width: 100%;" width="400">
+</div>
 
 # Welcome to skeleton-admin
 This is a base package for Laravel that scaffolds a basic admin panel. It comes with frontend and backend login and two Webpack configs both for them both respectively. Also included is Inertia JS, Tailwind CSS, Vue JS, Daisy UI, GDPR cookie for Laravel. skeleton-admin comes with a generic crud builder ready and easy to use and Two-factor Authentication out of the box. The project still in development, so if you have any suggestion or you want to contribute, please submit an issue on GitHub, thanks!
