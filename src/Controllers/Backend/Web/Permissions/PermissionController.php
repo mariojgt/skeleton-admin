@@ -58,7 +58,7 @@ class PermissionController extends Controller
 
         return Inertia::render('BackEnd/Permissions/Index', [
             'title' => 'Permissions | Permissions',
-            // Required for the generic table api
+            // Required for the generic builder table api
             'endpoint'       => route('admin.api.generic.table'),
             'endpointDelete' => route('admin.api.generic.table.delete'),
             'endpointCreate' => route('admin.api.generic.table.create'),

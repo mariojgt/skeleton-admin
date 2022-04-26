@@ -29,7 +29,7 @@ class PermissionSeeder extends Seeder
         // Loop the roles and create it
         foreach ($roles as $role) {
             // Firt or create the role
-            $newRole = Role::firstOrCreate([
+            Role::firstOrCreate([
                 'name'       => $role['name'],
                 'guard_name' => $role['guard_name'],
             ]);

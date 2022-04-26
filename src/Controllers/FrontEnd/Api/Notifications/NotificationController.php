@@ -28,7 +28,7 @@ class NotificationController extends Controller
     /**
      * Read all the user notifications.
      *
-     * @return [type]
+     * @return json [true|false]
      */
     public function read()
     {
