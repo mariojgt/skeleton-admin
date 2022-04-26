@@ -3,13 +3,13 @@
 namespace Mariojgt\SkeletonAdmin\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\HtmlString;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\HtmlString;
 
 /**
- * Trigger a generic notification to the backend or frontend
+ * Trigger a generic notification to the backend or frontend.
  */
 class GenericNotification extends Notification implements ShouldQueue
 {
@@ -23,11 +23,11 @@ class GenericNotification extends Notification implements ShouldQueue
 
     public function __construct($title, $icon, $message, $type = 'icon', $mail = false)
     {
-        $this->title   = $title;    // Notification title
-        $this->icon    = $icon;     // Notification icon // success, info, warning, error
+        $this->title = $title;    // Notification title
+        $this->icon = $icon;     // Notification icon // success, info, warning, error
         $this->message = $message;  // Notification message
-        $this->type    = $type;     // can be a icon or image
-        $this->mail    = $mail;     // Send mail notification default false
+        $this->type = $type;     // can be a icon or image
+        $this->mail = $mail;     // Send mail notification default false
     }
 
     public function via($notifiable)
@@ -41,7 +41,7 @@ class GenericNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject($this->title)
             ->line(new HtmlString($this->title))
             ->line(new HtmlString($this->message));

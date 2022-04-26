@@ -2,14 +2,14 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth;
 
-use Inertia\Inertia;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class ResetPassword extends Controller

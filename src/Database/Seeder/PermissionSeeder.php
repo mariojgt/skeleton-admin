@@ -3,9 +3,8 @@
 namespace Mariojgt\SkeletonAdmin\Database\Seeder;
 
 use Illuminate\Database\Seeder;
-use Mariojgt\SkeletonAdmin\Models\Role;
 use Mariojgt\SkeletonAdmin\Models\Permission;
-
+use Mariojgt\SkeletonAdmin\Models\Role;
 
 class PermissionSeeder extends Seeder
 {
@@ -52,7 +51,7 @@ class PermissionSeeder extends Seeder
             [
                 'name'       => 'read-permission',
                 'guard_name' => 'skeleton_admin',
-            ]
+            ],
         ];
         // Loop the permissions and create them
         foreach ($permissions as $permission) {

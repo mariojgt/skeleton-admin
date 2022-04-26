@@ -11,9 +11,10 @@ class SkeletonInertia
 {
     /**
      * Update the view for inersia js, need to be static because it is called from the middleware.
+     *
      * @param Request $request
      *
-     * @return String [view path]
+     * @return string [view path]
      */
     public static function returnInersiaLayout(Request $request)
     {

@@ -2,15 +2,15 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Mariojgt\SkeletonAdmin\Models\User;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
+use Mariojgt\SkeletonAdmin\Models\User;
 
 class LoginController extends Controller
 {
@@ -74,10 +74,10 @@ class LoginController extends Controller
      */
     public function verify(Request $request, $userId, $expiration)
     {
-        $userId     = decrypt($userId);
+        $userId = decrypt($userId);
         $expiration = decrypt($expiration);
-        $user       = User::findOrFail($userId);
-        $nowDate    = Carbon::now();
+        $user = User::findOrFail($userId);
+        $nowDate = Carbon::now();
 
         // Check if is expired
         if ($nowDate > $expiration) {

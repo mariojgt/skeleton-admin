@@ -1,16 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\ResetPassword;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\LoginController;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\RegisterController;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\ResetPassword;
 
 // Login | Register Route need to be logout to view this page
 Route::group([
     'middleware' => ['web', 'guest'],
     'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
-
     Route::controller(LoginController::class)->group(function () {
         // User Login
         Route::get('/login', 'index')->name('login');

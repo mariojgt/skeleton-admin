@@ -2,16 +2,16 @@
 
 namespace Mariojgt\SkeletonAdmin\Models;
 
-use Laravel\Sanctum\HasApiTokens;
-use Mariojgt\Castle\Trait\Castle;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Mariojgt\Castle\Trait\Castle;
 use Mariojgt\SkeletonAdmin\Notifications\AdminMailResetPasswordToken;
-use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable implements MustVerifyEmail
 {
@@ -54,7 +54,7 @@ class Admin extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Send a password reset email to the user
+     * Send a password reset email to the user.
      */
     public function sendPasswordResetNotification($token)
     {

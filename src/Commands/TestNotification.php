@@ -2,19 +2,18 @@
 
 namespace Mariojgt\SkeletonAdmin\Commands;
 
-use File;
 use Illuminate\Console\Command;
-use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 /**
- * Test the notifications
+ * Test the notifications.
  */
 class TestNotification extends Command
 {
     /**
-     * The name and signature of the console command. with parametres
+     * The name and signature of the console command. with parametres.
      *
      * @var string
      */

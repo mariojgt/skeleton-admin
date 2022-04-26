@@ -2,8 +2,8 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions;
 
-use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 use Mariojgt\SkeletonAdmin\Models\Role;
 
 class RoleController extends Controller

@@ -5,17 +5,18 @@ namespace Mariojgt\SkeletonAdmin\Helpers;
 use Carbon\Carbon;
 
 /**
- * Helper Class to help with various date stuff
+ * Helper Class to help with various date stuff.
  */
 class Date
 {
     /**
-     * Function to convert a from - to into a Carbon array
+     * Function to convert a from - to into a Carbon array.
      *
      * @param string $start
      * @param string $end
-     * @param integer $interval
+     * @param int    $interval
      * @param string $unit
+     *
      * @return Carbon array for range
      */
     public static function dateRange($start, $end = false, $interval = 1, $unit = 'days')
@@ -26,39 +27,43 @@ class Date
     }
 
     /**
-     * function to return a range from - to
+     * function to return a range from - to.
      *
      * @param string $date
-     * @param integer $interval
+     * @param int    $interval
      * @param string $unit
+     *
      * @return Carbon array for range
      */
     public static function weekRange($date = false, $interval = 1, $unit = 'days')
     {
-        $date      = Carbon::parse($date ?? now());
+        $date = Carbon::parse($date ?? now());
         $weekStart = $date->startOfWeek()->format('Y-m-d');
-        $weekEnd   = $date->endOfWeek()->format('Y-m-d');
+        $weekEnd = $date->endOfWeek()->format('Y-m-d');
+
         return Carbon::parse($weekStart)->range($weekEnd, $interval, $unit)->toArray();
     }
 
     /**
-     * function to return all dates for month
+     * function to return all dates for month.
      *
-     * @param string $month Must be valid date
-     * @param integer $interval
+     * @param string $month    Must be valid date
+     * @param int    $interval
      * @param string $unit
+     *
      * @return Carbon array of range
      */
     public static function monthRange($month = false, $interval = 1, $unit = 'days')
     {
-        $date       = Carbon::parse($month ?? now());
+        $date = Carbon::parse($month ?? now());
         $monthStart = $date->startOfMonth()->format('Y-m-d');
-        $monthEnd   = $date->endOfMonth()->format('Y-m-d');
+        $monthEnd = $date->endOfMonth()->format('Y-m-d');
+
         return Carbon::parse($monthStart)->range($monthEnd, $interval, $unit)->toArray();
     }
 
     /**
-     * Create a hour range based at start time and end time the format must be 00:00:00
+     * Create a hour range based at start time and end time the format must be 00:00:00.
      *
      * @param mixed $startTime
      * @param mixed $endTime
@@ -70,9 +75,10 @@ class Date
     {
         // Parse the start and end time
         $startTime = Carbon::parse($startTime);
-        $endTime   = Carbon::parse($endTime);
+        $endTime = Carbon::parse($endTime);
         // Return the range
-        $range     = $startTime->range($endTime, $interval, 'hours');
+        $range = $startTime->range($endTime, $interval, 'hours');
+
         return $range;
     }
 }
