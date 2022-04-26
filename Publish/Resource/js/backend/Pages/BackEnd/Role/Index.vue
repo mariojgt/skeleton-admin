@@ -8,6 +8,7 @@
       :endpoint-create="props.endpointCreate"
       :endpoint-edit="props.endpointEdit"
       :table-title="'Roles'"
+      :permission="props.permission"
     />
   </Layout>
 </template>
@@ -43,6 +44,10 @@ const props = defineProps({
     default: "",
   },
   endpointEdit: {
+    type: String,
+    default: "",
+  },
+  permission: {
     type: String,
     default: "",
   },

@@ -92,6 +92,10 @@ class AdminController extends Controller
         $admin->save();
 
         // Update the roles
+        // First remove all the roles from the admin
+        $admin->roles()->detach();
+        // Remove all the urser permissions
+        $admin->permissions()->detach();
         // FInd the role in the database
         $role = Role::find(Request('role'));
         $admin->assignRole($role);
