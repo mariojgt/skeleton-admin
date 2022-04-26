@@ -27,11 +27,6 @@ return [
     'user_guard' => 'web',
 
     /**
-     * Send the email of user verification once the user try to login.
-     */
-    'send_verification' => false,
-
-    /**
      * Routes prefix admin.
      */
     'route_prefix' => 'admin',
