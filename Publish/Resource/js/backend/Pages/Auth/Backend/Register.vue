@@ -4,7 +4,7 @@
       <div>
         <div class="px-5 py-7">
           <input-field
-            v-model="fist_name"
+            v-model="first_name"
             label="First Name"
             type="text"
             name="name"
@@ -77,7 +77,7 @@ import {
   LinkButton,
 } from "@mariojgt/masterui/packages/index";
 
-let fist_name = $ref("");
+let first_name = $ref("");
 let last_name = $ref("");
 let email = $ref("");
 let password = $ref("");
@@ -93,7 +93,7 @@ const props = defineProps({
 // Send the form
 const submitForm = () => {
   const form = {
-    fist_name: fist_name,
+    first_name: first_name,
     last_name: last_name,
     email: email,
     password: password,
