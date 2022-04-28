@@ -8,12 +8,12 @@ use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 /**
- * Test the notifications.
+ * Test the notifications, automatic crea notifications and send them to the users for testing
  */
 class TestNotification extends Command
 {
     /**
-     * The name and signature of the console command. with parametres.
+     * {user} user|admin {type} icon|image
      *
      * @var string
      */
