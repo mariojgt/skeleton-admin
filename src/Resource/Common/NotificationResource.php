@@ -15,10 +15,11 @@ class NotificationResource extends JsonResource
      */
     public function toArray($request)
     {
-        // The image is a example
+        // Return the notification information
         return [
             'id'   => $this->id,
             'data' => $this->data,
+            'date' => $this->created_at->diffForHumans(),
         ];
     }
 }
