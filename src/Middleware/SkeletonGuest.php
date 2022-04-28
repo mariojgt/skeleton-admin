@@ -5,6 +5,9 @@ namespace Mariojgt\SkeletonAdmin\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Skeleton admin guest middleware, will manage the backend and make sure the user is not login.
+ */
 class SkeletonGuest
 {
     /**
