@@ -4151,6 +4151,9 @@ body[dir="rtl"] .checkbox:checked,
 .w-11\/12 {
   width: 91.666667%;
 }
+.w-56 {
+  width: 14rem;
+}
 .min-w-0 {
   min-width: 0px;
 }

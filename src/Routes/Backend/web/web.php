@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin\AdminController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\PermissionController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navigation\NavigationController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\PermissionController;
 
 // Auth Route
 Route::group([
@@ -40,5 +41,11 @@ Route::group([
     Route::controller(PermissionController::class)->group(function () {
         // Profile Edit
         Route::get('/permission/index', 'index')->name('admin.permission.index');
+    });
+
+    // Navigations
+    Route::controller(NavigationController::class)->group(function () {
+        // Navigation Edit
+        Route::get('/navigation/index', 'index')->name('admin.navigation.index');
     });
 });

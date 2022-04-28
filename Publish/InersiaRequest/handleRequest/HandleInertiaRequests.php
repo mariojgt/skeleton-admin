@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Illuminate\Http\Request;
+use Mariojgt\SkeletonAdmin\Models\Navigation;
+use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -67,7 +69,8 @@ class HandleInertiaRequests extends Middleware
     private function backendShare(Request $request)
     {
         return array_merge(parent::share($request), [
-            'flash' => $this->handleFlashMessage($request),
+            'flash'      => $this->handleFlashMessage($request),
+            'navigation' => NavigationResource::collection(Navigation::where('guard', 'skeleton_admin')->whereNull('parent_id')->get()),
         ]);
     }
 
