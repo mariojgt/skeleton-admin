@@ -94,27 +94,28 @@ class HandleInertiaRequests extends Middleware
      */
     public function handleFlashMessage(Request $request)
     {
+        // Return the flash error message.
         if ($request->session()->get('error')) {
             return [
                 'type'    => 'error',
                 'message' => $request->session()->get('error'),
             ];
         }
-
+        // Return the flash success message.
         if ($request->session()->get('success')) {
             return [
                 'type'    => 'success',
                 'message' => $request->session()->get('success'),
             ];
         }
-
+        // Return the flash info message.
         if ($request->session()->get('info')) {
             return [
                 'type'    => 'info',
                 'message' => $request->session()->get('info'),
             ];
         }
-
+        // Return the flash warning message.
         if ($request->session()->get('warning')) {
             return [
                 'type'    => 'warning',
