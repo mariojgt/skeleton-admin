@@ -1,12 +1,18 @@
 <template>
   <div class="dropdown dropdown-right">
     <label tabindex="0" class="btn m-1">Menu Name</label>
-    <ul
-      tabindex="0"
-      class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-    >
-      <li><Link href="#" >Item 1</Link></li>
-      <li><Link href="#" >Item 2</Link></li>
+    <ul class="menu bg-base-100">
+      <li><a>Item 1</a></li>
+      <!-- tabindex will make the parent menu focusable to keep the submenu open if it's focused -->
+      <li tabindex="0">
+        <span>Parent</span>
+        <ul class="bg-base-100">
+          <li><a>Submenu 1</a></li>
+          <li><a>Submenu 2</a></li>
+          <li><a>Submenu 3</a></li>
+        </ul>
+      </li>
+      <li><a>Item 3</a></li>
     </ul>
   </div>
 </template>
