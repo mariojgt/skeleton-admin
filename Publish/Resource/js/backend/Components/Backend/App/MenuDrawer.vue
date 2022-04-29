@@ -63,7 +63,7 @@
             Home
           </a>
         </li>
-        <menuItemHandle v-for="(item, index) in menu" :key="index" :menuItem="item" />
+        <menu-item-handle v-for="(item, index) in menu" :key="index" :menuItem="item" />
       </ul>
     </div>
   </aside>
@@ -72,7 +72,7 @@
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
 import { watch, onMounted } from "vue";
-import menuItemHandle from "../../Menu/menuHandle.vue";
+import menuItemHandle from "../../Menu/MenuHandle.vue";
 
 const menu = usePage().props.value.navigation.data;
 </script>

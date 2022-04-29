@@ -4,7 +4,7 @@
 
 <script setup>
 
-import menuSingle from "./menuSingle.vue";
+import menuSingle from "./MenuSingle.vue";
 
 
 // Page props
