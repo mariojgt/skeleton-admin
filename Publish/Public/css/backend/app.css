@@ -3728,6 +3728,9 @@ body[dir="rtl"] .checkbox:checked,
 .rounded-tr-box {
   border-top-right-radius: var(--rounded-box, 1rem);
 }
+.rounded-btn {
+  border-radius: var(--rounded-btn, 0.5rem);
+}
 .glass,
   .glass:hover,
   .glass.btn-active {
@@ -4019,11 +4022,11 @@ body[dir="rtl"] .checkbox:checked,
 .mt-4 {
   margin-top: 1rem;
 }
-.mr-2 {
-  margin-right: 0.5rem;
-}
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+.mr-2 {
+  margin-right: 0.5rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
@@ -4112,11 +4115,11 @@ body[dir="rtl"] .checkbox:checked,
 .w-32 {
   width: 8rem;
 }
-.w-80 {
-  width: 20rem;
-}
 .w-6 {
   width: 1.5rem;
+}
+.w-80 {
+  width: 20rem;
 }
 .w-10 {
   width: 2.5rem;
@@ -4150,9 +4153,6 @@ body[dir="rtl"] .checkbox:checked,
 }
 .w-11\/12 {
   width: 91.666667%;
-}
-.w-56 {
-  width: 14rem;
 }
 .min-w-0 {
   min-width: 0px;

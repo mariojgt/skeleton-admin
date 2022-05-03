@@ -24,12 +24,12 @@ class Navigation extends Model
      *
      * @param mixed $category
      *
-     * @return array [collection]
+     * @return array [collection|null]
      */
     public function parentCollection($navigation)
     {
         $child    = $navigation->child()->orderBy('sort_order', 'ASC')->get();
-        $children = [];
+        $children = null;
         foreach ($child as $cat) {
             $children[] = [
                 'id'         => $cat->id,
@@ -39,6 +39,7 @@ class Navigation extends Model
                 'child'      => $this->parentCollection($cat)
             ];
         }
+
         return $children;
     }
 }
