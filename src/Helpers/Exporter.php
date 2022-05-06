@@ -69,7 +69,7 @@ class Exporter
      */
     public static function forceDownload($fileName, $type = 'csv')
     {
-        // here force the broser to download the file
+        // here force the browser to download the file
         $pathToFile = public_path($fileName);
 
         $name = $fileName;

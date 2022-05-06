@@ -2,8 +2,8 @@
 
 namespace Mariojgt\SkeletonAdmin\Commands;
 
-use Artisan;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class Install extends Command
 {
@@ -37,6 +37,45 @@ class Install extends Command
      * @return int
      */
     public function handle()
+    {
+
+        // Call the fuction that will publish all the packages files
+        $this->publishPackages();
+
+        // Migrate
+        Artisan::call('migrate');
+
+        // Run the seeder
+        $this->runSeeders();
+
+        // Cache the routes
+        Artisan::call('optimize:clear');
+
+        $this->newLine();
+        $this->info('The command was successful!');
+    }
+
+    /**
+     * Run the seeders required for the skeleton-admin
+     *
+     */
+    private function runSeeders()
+    {
+        // Run the database seeder
+        Artisan::call('db:seed', [
+            '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder',
+        ]);
+
+        // Run the naviation seeder
+        Artisan::call('db:seed', [
+            '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder',
+        ]);
+    }
+
+    /**
+     * Publish the related packages
+     */
+    private function publishPackages()
     {
         // Install Sanctum
         Artisan::call('vendor:publish', [
@@ -73,19 +112,5 @@ class Install extends Command
             '--provider' => 'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',
             '--force'    => true,
         ]);
-
-        // Migrate
-        Artisan::call('migrate');
-
-        // Run the database seeder
-        Artisan::call('db:seed', [
-            '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\PermissionSeeder',
-        ]);
-
-        // Cache the routes
-        Artisan::call('optimize:clear');
-
-        $this->newLine();
-        $this->info('The command was successful!');
     }
 }
