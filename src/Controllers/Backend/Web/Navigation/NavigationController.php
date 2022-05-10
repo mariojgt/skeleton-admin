@@ -26,7 +26,7 @@ class NavigationController extends Controller
                 'label'     => 'Menu Label',   // Display name
                 'key'       => 'menu_label',   // Table column key
                 'sortable'  => true,           // Can be use in the filter
-                'canCreate' => true,           // Can be use in the create form
+                'canCreate' => false,          // Can be use in the create form
                 'canEdit'   => true,           // Can be use in the edit form
                 'type'      => 'text',         // Type text,email,password,date,timestamp
             ],
@@ -34,8 +34,8 @@ class NavigationController extends Controller
                 'label'     => 'Route',
                 'key'       => 'route',
                 'sortable'  => true,
-                'canCreate' => true,
-                'canEdit'   => true,
+                'canCreate' => false,
+                'canEdit'   => false,
                 'type'      => 'text',
             ]
         ];
