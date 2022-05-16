@@ -2,8 +2,9 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navigation;
 
-use App\Http\Controllers\Controller;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
 
 class NavigationController extends Controller
@@ -65,6 +66,20 @@ class NavigationController extends Controller
                     'index'  => 'read-permission',
                 ],
             ]),
+        ]);
+    }
+
+    /**
+     * This fuction will allow us to manage the naviation menu drag and drop
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
+    public function position(Request $request)
+    {
+        return Inertia::render('BackEnd/Navigation/PositionManage', [
+            'title' => 'Navigations | Position Management',
         ]);
     }
 }

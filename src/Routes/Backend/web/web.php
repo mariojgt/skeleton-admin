@@ -45,7 +45,9 @@ Route::group([
 
     // Navigations
     Route::controller(NavigationController::class)->group(function () {
-        // Navigation Edit
+        // Navigation Index
         Route::get('/navigation/index', 'index')->name('admin.navigation.index');
+        // Navigation position edit
+        Route::get('/navigation/position', 'position')->name('admin.navigation.position');
     });
 });
