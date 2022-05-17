@@ -7,7 +7,7 @@
       :endpoint-delete="props.endpointDelete"
       :endpoint-create="props.endpointCreate"
       :endpoint-edit="props.endpointEdit"
-      :table-title="'Roles'"
+      :table-title="'Navigation'"
       :permission="props.permission"
     />
   </Layout>

@@ -1,6 +1,5 @@
 <template>
   <Layout>
-
     <div
       class="
         bg-base-100
@@ -18,24 +17,10 @@
       "
     >
       <div class="grid w-full grid-cols-1 gap-4 p-4" id="menu-item">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title">Menu name!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div class="card-actions justify-end">
-              <button class="btn btn-primary">Move</button>
-            </div>
-          </div>
-        </div>
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title">Menu name!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div class="card-actions justify-end">
-              <button class="btn btn-primary">Move</button>
-            </div>
-          </div>
-        </div>
+        <MenuItem>
+            <MenuItem/>
+            <MenuItem/>
+        </MenuItem>
       </div>
     </div>
   </Layout>
@@ -46,6 +31,9 @@ import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../../Layout/App.vue";
+
+// Import the menu item
+import MenuItem from "./PositionItems/MenuItem.vue";
 
 // Default SortableJS
 // import Sortable from 'sortablejs';
@@ -66,9 +54,9 @@ setTimeout(() => {
       },
       // sort: '{{ $sort ?? false }}',
       sort: true,
-      ghostClass: "bordered", // Class name for the drop placeholder
-      chosenClass: "bordered", // Class name for the chosen item
-      dragClass: "bordered", // Class name for the dragging item
+      ghostClass: "bg-primary", // Class name for the drop placeholder
+      chosenClass: "bg-primary", // Class name for the chosen item
+      dragClass: "bg-primary", // Class name for the dragging item
       animation: 150,
       fallbackOnBody: true,
       swapThreshold: 0.65,
