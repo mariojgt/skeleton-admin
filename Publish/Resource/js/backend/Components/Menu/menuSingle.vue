@@ -24,7 +24,7 @@ const props = defineProps({
     },
 });
 
-// Daynamic import the icon component
+// Dynamic import the icon component
 const DynamicIcon = icons[props.menuItem.icon];
 
 </script>
