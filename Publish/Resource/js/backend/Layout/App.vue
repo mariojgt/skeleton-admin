@@ -9,6 +9,8 @@
                 <Navbar />
             </n-message-provider>
             <div class="px-6 py-8">
+                <!-- handle the breadcrumb -->
+                <Breadcrumb/>
                 <n-loading-bar-provider>
                     <n-message-provider>
                         <n-notification-provider>
@@ -38,9 +40,32 @@
 import { watch, onMounted } from "vue";
 import { darkTheme } from "naive-ui";
 import FlashMessage from "../Components/Backend/Global/FlashMessage";
+import Breadcrumb from "../Components/Backend/App/Breadcrumb";
 import Navbar from "../Components/Backend/App/Navbar";
 import Footer from "../Components/Backend/App/Footer";
 import MenuDrawer from "../Components/Backend/App/MenuDrawer";
+import { usePage } from "@inertiajs/inertia-vue3";
+
+// Watch for any changes in the page title once the title has change we goin to update the title of the page
+watch(
+    () => usePage().props.value.title,
+    (v) => {
+        pageTitleUpdate(v);
+    }
+);
+
+/**
+ * Update the page title
+ */
+const pageTitleUpdate = async (newTitle) => {
+    document.title = newTitle;
+};
+
+setTimeout(() => {
+    pageTitleUpdate(usePage().props.value.title ?? 'Skeleton Admin');
+}, 500);
+
 </script>
 
-<style></style>
+<style>
+</style>

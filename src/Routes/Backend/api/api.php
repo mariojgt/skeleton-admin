@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Mariojgt\Builder\Controllers\TableBuilderApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
 Route::group([
@@ -14,6 +15,12 @@ Route::group([
         Route::get('/admin/api/notifications/{amount}', 'index')->name('admin.api.notifications');
         // Admin read notification
         Route::post('/admin/api/notification/read', 'read')->name('admin.api.notification.read');
+    });
+
+    // Admin update the navigation
+    Route::controller(NavigationController::class)->group(function () {
+        // Get Admin notifications
+        Route::put('/admin/api/navigation/{navigation}', 'menuUpdate')->name('admin.api.navigation.update');
     });
 
     // BUILDER Table api controller

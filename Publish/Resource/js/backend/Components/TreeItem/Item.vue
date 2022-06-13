@@ -1,13 +1,13 @@
 <template>
-    <div class="card bg-base-300 border border-gray-300 shadow-xl" :data-itemid="props.parentId" >
+    <div class="card bg-base-300 border border-gray-300 shadow-xl" :data-itemid="props.itemId" >
         <div class="card-body">
             <h2 class="card-title">
                 <component v-if="DynamicIcon" :is="DynamicIcon" />
                 {{ props.itemName }}
             </h2>
             <p v-if="props.subTitle">{{ props.subTitle }}</p>
-            <p>Item id:{{ props.parentId }}</p>
-            <div class="grid w-full grid-cols-1 gap-4 p-7" id="menu-item" :data-itemid="props.parentId">
+            <p>Item id:{{ props.itemId }}</p>
+            <div class="grid w-full grid-cols-1 gap-4 p-7" id="menu-item" :data-itemid="props.itemId">
                 <!-- This slot is where the other menus will be places -->
                 <slot />
             </div>
@@ -34,7 +34,7 @@ import * as icons from "@mariojgt/masterui/packages/Icons";
  */
 const props = defineProps({
     // Menu item name
-    parentId: {
+    itemId: {
         type: Number,
         default: 0,
     },

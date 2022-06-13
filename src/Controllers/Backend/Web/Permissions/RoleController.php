@@ -13,6 +13,14 @@ class RoleController extends Controller
      */
     public function index()
     {
+        // Build the breadcrumb
+        $breadcrumb = [
+            [
+                'label' => 'Role',
+                'url'   => route('admin.role.index'),
+            ]
+        ];
+
         // Table columns
         $columns = [
             [
@@ -57,7 +65,8 @@ class RoleController extends Controller
         ];
 
         return Inertia::render('BackEnd/Role/Index', [
-            'title' => 'Role | Roles',
+            'title'      => 'Role | Roles',
+            'breadcrumb' => $breadcrumb,
             // Required for the generic builder table api
             'endpoint'       => route('admin.api.generic.table'),
             'endpointDelete' => route('admin.api.generic.table.delete'),

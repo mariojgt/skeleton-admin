@@ -9,6 +9,8 @@
                 <Navbar />
             </n-message-provider>
             <div class="px-6 py-8">
+                <!-- handle the breadcrumb -->
+                <Breadcrumb/>
                 <n-loading-bar-provider>
                     <n-message-provider>
                         <n-notification-provider>
@@ -38,6 +40,7 @@
 import { watch, onMounted } from "vue";
 import { darkTheme } from "naive-ui";
 import FlashMessage from "../Components/FrontEnd/Global/FlashMessage";
+import Breadcrumb from "../Components/FrontEnd/App/Breadcrumb";
 import Navbar from "../Components/FrontEnd/App/Navbar";
 import Footer from "../Components/FrontEnd/App/Footer";
 import MenuDrawer from "../Components/FrontEnd/App/MenuDrawer";

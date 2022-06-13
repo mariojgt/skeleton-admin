@@ -13,6 +13,14 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        // Build the breadcrumb
+        $breadcrumb = [
+            [
+                'label' => 'Permissions',
+                'url'   => route('admin.permission.index'),
+            ]
+        ];
+
         // Table columns
         $columns = [
             [
@@ -57,7 +65,8 @@ class PermissionController extends Controller
         ];
 
         return Inertia::render('BackEnd/Permissions/Index', [
-            'title' => 'Permissions | Permissions',
+            'title'      => 'Permissions | Permissions',
+            'breadcrumb' => $breadcrumb,
             // Required for the generic builder table api
             'endpoint'       => route('admin.api.generic.table'),
             'endpointDelete' => route('admin.api.generic.table.delete'),

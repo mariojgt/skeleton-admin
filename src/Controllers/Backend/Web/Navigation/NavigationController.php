@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
+use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
 
 class NavigationController extends Controller
 {
@@ -14,6 +15,14 @@ class NavigationController extends Controller
      */
     public function index()
     {
+        // Build the breadcrumb
+        $breadcrumb = [
+            [
+                'label' => 'Navigations',
+                'url'   => route('admin.navigation.index'),
+            ]
+        ];
+
         // Table columns
         $columns = [
             [
@@ -42,7 +51,8 @@ class NavigationController extends Controller
         ];
 
         return Inertia::render('BackEnd/Navigation/Index', [
-            'title' => 'Navigations | Navigations',
+            'title'      => 'Navigations | Navigations',
+            'breadcrumb' => $breadcrumb,
             // Required for the generic builder table api
             'endpoint'       => route('admin.api.generic.table'),
             'endpointDelete' => route('admin.api.generic.table.delete'),
@@ -70,7 +80,7 @@ class NavigationController extends Controller
     }
 
     /**
-     * This fuction will allow us to manage the naviation menu drag and drop
+     * This function will allow us to manage the naviation menu drag and drop
      *
      * @param Request $request
      *
@@ -78,8 +88,26 @@ class NavigationController extends Controller
      */
     public function position(Request $request)
     {
+        // Return the navigation resource order by the sort order
+        $navigation = NavigationResource::collection(Navigation::whereNull('parent_id')->orderBy('sort_order', 'desc')->get());
+
+        // Build the breadcrumb
+        $breadcrumb = [
+            [
+                'label' => 'Navigations',
+                'url'   => route('admin.navigation.index'),
+            ],
+            [
+                'label' => 'Position',
+                'url'   => route('admin.navigation.position'),
+            ],
+        ];
+
+        // Return the view
         return Inertia::render('BackEnd/Navigation/PositionManage', [
-            'title' => 'Navigations | Position Management',
+            'title'      => 'Navigations | Position Management',
+            'breadcrumb' => $breadcrumb,
+            'navigation' => $navigation,
         ]);
     }
 }

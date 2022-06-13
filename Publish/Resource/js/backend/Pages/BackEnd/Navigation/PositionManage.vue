@@ -15,12 +15,13 @@
         svelte-1n6ue57
       ">
             <div class="grid w-full grid-cols-1 gap-4 p-4" id="menu-item">
-                <TreeItem :parentId="1">
-                    <TreeItem icon="home" :parentId="2" />
-                    <TreeItem icon="home" :parentId="3" />
-                </TreeItem>
-                <TreeItem icon="home" :parentId="4" />
-                <TreeItem icon="home" :parentId="5" />
+                <!-- Do a recursive call to the children -->
+                <TreeItem
+                    v-for="(item, index) in props.navigation.data" :key="index"
+                    :icon="item.icon"
+                    :itemName="item.menu_label"
+                    :itemId="item.id"
+                />
             </div>
         </div>
     </Layout>
@@ -31,10 +32,10 @@ import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import Layout from "../../../Layout/App.vue";
+import axios from "axios";
 
 // Import the menu item
 import TreeItem from "../../../Components/TreeItem/Item.vue";
-
 // Default SortableJS
 // import Sortable from 'sortablejs';
 // Core SortableJS (without default plugins)
@@ -50,7 +51,7 @@ setTimeout(() => {
             group: {
                 name: "shared",
                 pull: true,
-                put: true,
+                put: false, // If true, items can be put in the list.
             },
             // sort: '{{ $sort ?? false }}',
             sort: true,
@@ -82,6 +83,15 @@ setTimeout(() => {
                 const parentId  = evt.to.dataset.itemid;
                 const itemId    = itemEl.dataset.itemid;
                 const sortOrder = evt.newIndex + 1;
+
+                // Update the sort order menu item axios
+                axios.put(route("admin.api.navigation.update", itemId),{
+                    parent_id : parentId ?? null,
+                    item_id   : itemId ?? null,
+                    sort_order: sortOrder ?? null,
+                }).then(response => {
+                    console.log(response);
+                });
                 console.log('Parent id:' + parentId);
                 console.log('Current item id:' + itemId);
                 console.log('Sort Order:' + sortOrder);
@@ -91,33 +101,13 @@ setTimeout(() => {
 }, 500);
 
 const props = defineProps({
-    endpoint: {
+    title: {
         type: String,
         default: "",
     },
-    columns: {
+    navigation: {
         type: Object,
         default: () => ({}),
-    },
-    model: {
-        type: String,
-        default: "",
-    },
-    endpointDelete: {
-        type: String,
-        default: "",
-    },
-    endpointCreate: {
-        type: String,
-        default: "",
-    },
-    endpointEdit: {
-        type: String,
-        default: "",
-    },
-    permission: {
-        type: String,
-        default: "",
     },
 });
 </script>
