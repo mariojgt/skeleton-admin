@@ -39,7 +39,7 @@ class Install extends Command
     public function handle()
     {
 
-        // Call the fuction that will publish all the packages files
+        // Call the function that will publish all the packages files
         $this->publishPackages();
 
         // Migrate

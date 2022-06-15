@@ -30,7 +30,7 @@ class BootTokenApi
     {
         // This Middleware where will check if the request has the right token
         // Since this is sensible information you app need to have the token define
-        // in the config file for secure purpuse
+        // in the config file for secure purpure
         // Returns header value with default as fallback
         //$request->header('some_header', 'default_value');
         if (empty($request->bearerToken())) {

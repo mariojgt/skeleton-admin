@@ -21,7 +21,7 @@ class PusherHelper
             [
                 'cluster'      => env('PUSHER_APP_CLUSTER'),
                 'host'         => 'live.unityadmin.net', // This is Important if not using the official
-                'port'         => 6001, // Portal defaul 443
+                'port'         => 6001, // Portal default 443
                 'useTLS'       => true,
                 'encrypted'    => true, // if without ssl them false
                 'scheme'       => 'https', // Typo of connection

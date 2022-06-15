@@ -32,7 +32,7 @@ class NotificationsController extends Controller
      */
     public function read()
     {
-        // FInd the user
+        // Find the user
         $user = Auth::guard('skeleton_admin')->user();
         // Get the notifications not read
         $notifications = $user->notifications()->where('read_at', null)->get();

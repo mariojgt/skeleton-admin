@@ -17,7 +17,7 @@ class NotificationController extends Controller
      */
     public function index($amount = 10)
     {
-        // FInd the user
+        // Find the user
         $user = Auth::user();
         // Get the notifications not read
         $notifications = $user->notifications()->where('read_at', null)->orderBy('created_at', 'desc')->take($amount)->get();
@@ -32,7 +32,7 @@ class NotificationController extends Controller
      */
     public function read()
     {
-        // FInd the user
+        // Find the user
         $user = Auth::user();
         // Get the notifications not read
         $notifications = $user->notifications()->where('read_at', null)->get();

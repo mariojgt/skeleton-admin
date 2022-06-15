@@ -9,7 +9,7 @@ use Mariojgt\SkeletonAdmin\Models\Navigation;
 class NavigationController extends Controller
 {
     /**
-     * Update the naviation information
+     * Update the navigation information
      *
      * @param request $request
      *

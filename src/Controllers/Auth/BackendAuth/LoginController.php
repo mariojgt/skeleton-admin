@@ -18,7 +18,7 @@ class LoginController extends Controller
     /**
      * Return the login view.
      *
-     * @return [inersia]
+     * @return [inertia]
      */
     public function index()
     {
@@ -61,9 +61,9 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        // Remove all the wall autenticator data from catle
-        $autenticatorHandle = new AutenticatorHandle();
-        $verification = $autenticatorHandle->logout();
+        // Remove all the wall authenticator data from castle
+        $authenticatorHandle = new AutenticatorHandle();
+        $verification = $authenticatorHandle->logout();
 
         // Logout the user
         Auth::guard('skeleton_admin')->logout();
@@ -82,10 +82,10 @@ class LoginController extends Controller
      */
     public function verify(Request $request, $userId, $expiration)
     {
-        $userId = decrypt($userId);
+        $userId     = decrypt($userId);
         $expiration = decrypt($expiration);
-        $user = User::findOrFail($userId);
-        $nowDate = Carbon::now();
+        $user       = User::findOrFail($userId);
+        $nowDate    = Carbon::now();
 
         // Check if is expired
         if ($nowDate > $expiration) {

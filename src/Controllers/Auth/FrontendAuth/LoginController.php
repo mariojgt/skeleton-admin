@@ -74,10 +74,10 @@ class LoginController extends Controller
      */
     public function verify(Request $request, $userId, $expiration)
     {
-        $userId = decrypt($userId);
+        $userId     = decrypt($userId);
         $expiration = decrypt($expiration);
-        $user = User::findOrFail($userId);
-        $nowDate = Carbon::now();
+        $user       = User::findOrFail($userId);
+        $nowDate    = Carbon::now();
 
         // Check if is expired
         if ($nowDate > $expiration) {

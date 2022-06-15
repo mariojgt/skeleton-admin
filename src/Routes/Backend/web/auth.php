@@ -10,11 +10,11 @@ Route::group([
     'middleware' => ['web', 'skeleton_guest'],
     'prefix'     => config('skeleton.route_prefix'),
 ], function () {
-    // Logoin routes
+    // Login routes
     Route::controller(LoginController::class)->group(function () {
         // User Login
         Route::get('login', 'index')->name('skeleton.login');
-        // Dologin
+        // Do login
         Route::post('login/user', 'login')->name('skeleton.login.user');
     });
 

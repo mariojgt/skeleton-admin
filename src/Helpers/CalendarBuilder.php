@@ -10,13 +10,13 @@ use Carbon\Carbon;
 class CalendarBuilder
 {
     /**
-     * This fuction will create a calendar for the month we want using a start date.
+     * This function will create a calendar for the month we want using a start date.
      *
      * @param Carbon $start_date
      *
      * @return [type]
      */
-    public function buildCalendar(Carbon $start_date)
+    public function buildCalendar(Carbon $start_date) : collection
     {
         // Get the start day of the month
         $start_date = Carbon::parse(Request('date'))->startOfMonth();
@@ -64,7 +64,7 @@ class CalendarBuilder
             ];
         }
 
-        // Return the dates sperated by chunks of 7
+        // Return the dates speared by chunks of 7
         return collect($dates);
     }
 }

@@ -14,7 +14,7 @@ use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 class ResetPassword extends Controller
 {
     /**
-     * @return [inersia]
+     * @return [inertia]
      */
     public function index()
     {

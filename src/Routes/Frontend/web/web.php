@@ -15,7 +15,7 @@ Route::group([
     Route::controller(ProfileController::class)->group(function () {
         // Profile Edit
         Route::get('/user/edit/{user?}', 'edit')->name('user.edit');
-        // Prodifle Update
+        // Profile Update
         Route::patch('/user/update/{user}', 'update')->name('user.update');
         // Profile Update Password
         Route::patch('/user/update-password/{user}', 'updatePassword')->name('user.update-password');

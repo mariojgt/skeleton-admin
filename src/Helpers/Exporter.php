@@ -8,7 +8,7 @@ class Exporter
      * @param mixed  $list
      * @param string $fileName
      *
-     * @return [downloadble file]
+     * @return [downloadable file]
      */
     public static function jsonExport($list, $fileName = 'export')
     {
@@ -29,7 +29,7 @@ class Exporter
      * @param mixed  $list
      * @param string $fileName
      *
-     * @return [downloadble file]
+     * @return [downloadable file]
      */
     public static function csvExport($list, $fileName = 'export')
     {

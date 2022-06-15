@@ -8,7 +8,7 @@ use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 /**
- * Test the notifications, automatic crea notifications and send them to the users for testing
+ * Test the notifications, automatic create notifications and send them to the users for testing
  */
 class TestNotification extends Command
 {
@@ -43,11 +43,11 @@ class TestNotification extends Command
      */
     public function handle()
     {
-        // Get the parametres
+        // Get the parameters
         $user = $this->argument('user');
         $type = $this->argument('type');
 
-        // Swich case if is a user or a admin
+        // Switch case if is a user or a admin
         switch ($user) {
             case 'admin':
                 // Get all users

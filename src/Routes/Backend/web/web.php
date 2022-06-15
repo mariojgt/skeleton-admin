@@ -20,7 +20,7 @@ Route::group([
     Route::controller(AdminController::class)->group(function () {
         // Profile Edit
         Route::get('/admin/edit/{admin?}', 'edit')->name('admin.edit');
-        // Prodifle Update
+        // Profile Update
         Route::patch('/admin/update/{admin}', 'update')->name('admin.update');
         // Profile Update Password
         Route::patch('/admin/update-password/{admin}', 'updatePassword')->name('admin.update-password');

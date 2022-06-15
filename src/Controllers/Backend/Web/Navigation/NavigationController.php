@@ -18,7 +18,7 @@ class NavigationController extends Controller
         // Build the breadcrumb
         $breadcrumb = [
             [
-                'label' => 'Navigations',
+                'label' => 'Navigation',
                 'url'   => route('admin.navigation.index'),
             ]
         ];
@@ -51,7 +51,7 @@ class NavigationController extends Controller
         ];
 
         return Inertia::render('BackEnd/Navigation/Index', [
-            'title'      => 'Navigations | Navigations',
+            'title'      => 'Navigation | Navigation',
             'breadcrumb' => $breadcrumb,
             // Required for the generic builder table api
             'endpoint'       => route('admin.api.generic.table'),

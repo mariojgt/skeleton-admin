@@ -44,27 +44,27 @@ class AdminController extends Controller
         }
 
         // Start the user autenticator so we can enalbe or disable the 2FA and other options
-        $autenticator = new AutenticatorHandle();
-        // Autenticator information
-        $autenticatorInfo = [];
+        $authenticator = new AutenticatorHandle();
+        // Authenticator information
+        $authenticatorInfo = [];
         // First we check if the user is uisng the autenticator
         if (Auth::guard('skeleton_admin')->user()->twoStepsEnable()) {
-            $autenticatorInfo = [
+            $authenticatorInfo = [
                 'is_enable'    => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
                 'backup_codes' => json_decode(Auth::guard('skeleton_admin')->user()->getCodes->codes),
             ];
         } else {
-            $autenticatorInfo = [
-                'codeinfo'     => $autenticator->generateCode(Auth::guard('skeleton_admin')->user()->email),
+            $authenticatorInfo = [
+                'codeinfo'     => $authenticator->generateCode(Auth::guard('skeleton_admin')->user()->email),
                 'is_enable'    => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
             ];
         }
 
-        // Get system avalable roles
+        // Get system available roles
         $roles = Role::where('guard_name', 'skeleton_admin')->pluck('name', 'id');
 
         return Inertia::render('BackEnd/Admin/Edit', [
-            'autenticator' => $autenticatorInfo,
+            'autenticator' => $authenticatorInfo,
             'admin'        => new AdminResource($adminInfo),
             'roles'        => $roles,
         ]);
@@ -87,14 +87,14 @@ class AdminController extends Controller
         ]);
 
         $admin->first_name = Request('first_name');
-        $admin->last_name = Request('last_name');
-        $admin->email = Request('email');
+        $admin->last_name  = Request('last_name');
+        $admin->email      = Request('email');
         $admin->save();
 
         // Update the roles
         // First remove all the roles from the admin
         $admin->roles()->detach();
-        // Remove all the urser permissions
+        // Remove all the user permissions
         $admin->permissions()->detach();
         // FInd the role in the database
         $role = Role::find(Request('role'));
@@ -127,8 +127,8 @@ class AdminController extends Controller
                 'code' => 'required|digits:6',
             ]);
 
-            $autenticatorHandle = new AutenticatorHandle();
-            $verification = $autenticatorHandle->checkCode(Request('code'));
+            $authenticatorHandle = new AutenticatorHandle();
+            $verification = $authenticatorHandle->checkCode(Request('code'));
             // If the code is not valid we redirect the user to the edit page
             if ($verification == false) {
                 return Redirect::back()
@@ -157,8 +157,8 @@ class AdminController extends Controller
             'code' => 'required|digits:6',
         ]);
 
-        $autenticatorHandle = new AutenticatorHandle();
-        $verification = $autenticatorHandle->checkCode(Request('code'));
+        $authenticatorHandle = new AutenticatorHandle();
+        $verification        = $authenticatorHandle->checkCode(Request('code'));
 
         // if true we can sync the user
         if ($verification) {
@@ -196,7 +196,7 @@ class AdminController extends Controller
                 ->with('error', 'Code Is Not Valid.');
         }
 
-        // Start the user autenticator so we can enalbe or disable the 2FA and other options
+        // Start the user autenticator so we can enable or disable the 2FA and other options
         Auth::guard('skeleton_admin')->user()->getCodes->delete();
 
         return Redirect::back()

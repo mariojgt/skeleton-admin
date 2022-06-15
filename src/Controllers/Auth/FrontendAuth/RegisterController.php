@@ -26,7 +26,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Register a new user to the aplication.
+     * Register a new user to the application.
      *
      * @param Request $request
      *

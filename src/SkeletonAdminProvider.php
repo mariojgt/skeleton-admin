@@ -66,7 +66,7 @@ class SkeletonAdminProvider extends ServiceProvider
     }
 
     /**
-     * This fuction will publish the package assets.
+     * This function will publish the package assets.
      */
     public function publish()
     {
@@ -80,17 +80,17 @@ class SkeletonAdminProvider extends ServiceProvider
             __DIR__ . '/../Publish/InersiaRequest/kernel' => base_path('app/Http/'),
         ]);
 
-        // Publish the inersia request stuff
+        // Publish the inertia request stuff
         $this->publishes([
             __DIR__ . '/../Publish/InersiaRequest/handleRequest' => app_path('Http/Middleware'),
         ]);
 
-        // Publish the inersia helpers
+        // Publish the inertia helpers
         // $this->publishes([
         //     __DIR__.'/../Publish/InersiaRequest/helpers' => app_path('Helpers/'),
         // ]);
 
-        // Publish now view for the inersia were we goin to render the page
+        // Publish now view for the inertia were we going to render the page
         $this->publishes([
             __DIR__ . '/../Publish/InersiaRequest/appLayout' => resource_path('views/skeleton-admin'),
         ]);
@@ -112,7 +112,7 @@ class SkeletonAdminProvider extends ServiceProvider
     }
 
     /**
-     * Load some custom middlerwhere required by the package.
+     * Load some custom middleware required by the package.
      */
     public function middleware()
     {

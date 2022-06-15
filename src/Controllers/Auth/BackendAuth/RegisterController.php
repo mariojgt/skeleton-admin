@@ -26,7 +26,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Register a new user to the aplication.
+     * Register a new user to the application.
      *
      * @param Request $request
      *
@@ -34,7 +34,7 @@ class RegisterController extends Controller
      */
     public function userRegister(Request $request)
     {
-        // Chechk if the registration is enable
+        // Check if the registration is enable
         if (config('skeleton.backend_register_enable') == false) {
             return Redirect::back()->with('error', 'Sorry but registration has been disable.');
         }
@@ -61,7 +61,7 @@ class RegisterController extends Controller
         $user->email_verified_at = Carbon::now();
         $user->save();
 
-        // Assin the Administrator role
+        // Assign the Administrator role
         $user->assignRole('Administrator');
 
         // Send the notification to the user

@@ -42,25 +42,25 @@ class ProfileController extends Controller
             $user = User::find($user);
         }
 
-        // Start the user autenticator so we can enalbe or disable the 2FA and other options
-        $autenticator = new AutenticatorHandle();
+        // Start the user authenticator so we can enable or disable the 2FA and other options
+        $authenticator = new AutenticatorHandle();
         // Autenticator information
-        $autenticatorInfo = [];
+        $authenticatorInfo = [];
         // First we check if the user is uisng the autenticator
         if (Auth::user()->twoStepsEnable()) {
-            $autenticatorInfo = [
+            $authenticatorInfo = [
                 'is_enable'    => Auth::user()->twoStepsEnable(),
                 'backup_codes' => json_decode(Auth::user()->getCodes->codes),
             ];
         } else {
-            $autenticatorInfo = [
-                'codeinfo'     => $autenticator->generateCode(Auth::user()->email),
+            $authenticatorInfo = [
+                'codeinfo'     => $authenticator->generateCode(Auth::user()->email),
                 'is_enable'    => Auth::user()->twoStepsEnable(),
             ];
         }
 
         return Inertia::render('FrontEnd/User/Edit', [
-            'autenticator' => $autenticatorInfo,
+            'autenticator' => $authenticatorInfo,
             'user'         => new UserResource($user),
         ]);
     }
@@ -82,8 +82,8 @@ class ProfileController extends Controller
         ]);
 
         $user->first_name = Request('first_name');
-        $user->last_name = Request('last_name');
-        $user->email = Request('email');
+        $user->last_name  = Request('last_name');
+        $user->email      = Request('email');
         $user->save();
 
         return Redirect::back()
@@ -113,8 +113,8 @@ class ProfileController extends Controller
                 'code' => 'required|digits:6',
             ]);
 
-            $autenticatorHandle = new AutenticatorHandle();
-            $verification = $autenticatorHandle->checkCode(Request('code'));
+            $authenticatorHandle = new AutenticatorHandle();
+            $verification = $authenticatorHandle->checkCode(Request('code'));
             // If the code is not valid we redirect the user to the edit page
             if ($verification == false) {
                 return Redirect::back()
@@ -130,7 +130,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Check if the code that the user type match with the autenticator.
+     * Check if the code that the user type match with the authenticator.
      *
      * @param Request $request
      *
@@ -143,8 +143,8 @@ class ProfileController extends Controller
             'code' => 'required|digits:6',
         ]);
 
-        $autenticatorHandle = new AutenticatorHandle();
-        $verification = $autenticatorHandle->checkCode(Request('code'));
+        $authenticatorHandle = new AutenticatorHandle();
+        $verification = $authenticatorHandle->checkCode(Request('code'));
         // if true we can sync the user
         if ($verification) {
             Auth::user()->syncAutenticator(Session::get('autenticator_key'));
@@ -172,9 +172,9 @@ class ProfileController extends Controller
             'code' => 'required|digits:6',
         ]);
 
-        // Call the autenticator handle to remove the autenticator
-        $autenticatorHandle = new AutenticatorHandle();
-        $verification = $autenticatorHandle->checkCode(Request('code'));
+        // Call the authenticator handle to remove the authenticator
+        $authenticatorHandle = new AutenticatorHandle();
+        $verification = $authenticatorHandle->checkCode(Request('code'));
 
         // If the code is not valid we redirect the user to the edit page
         if ($verification == false) {

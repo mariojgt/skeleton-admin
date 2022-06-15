@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 class GithubHelper
 {
     /**
-     * We use this construct to inicialize the github rest api
+     * We use this construct to initialize the github rest api
      * github.github_token is define in the first app setup.
      */
     public function __construct()
@@ -54,7 +54,7 @@ class GithubHelper
         ])->get($url, []);
 
         // dd($response->json(), $response->successful());
-        // Check if has been sucesffll the request
+        // Check if has been successful the request
         return [
             'status' => $response->successful(),
             'data'   => $response->json(),
@@ -83,12 +83,12 @@ class GithubHelper
             $this->createComposerAuth($token);
         }
         // dd($response->json(), $response->successful());
-        // Check if has been sucesffll the request
+        // Check if has been successful the request
         return $response->successful();
     }
 
     /**
-     * Create the config file that wil be use to get github informations.
+     * Create the config file that wil be use to get github information's.
      *
      * @param mixed $token
      *
@@ -96,7 +96,7 @@ class GithubHelper
      */
     public function createConfigGithubFile($token)
     {
-        // Create a fisical file in ther server that will be use to acess github
+        // Create a fiscal file in the server that will be use to access github
         $githubFile = "
         <?php
             return [
@@ -110,7 +110,7 @@ class GithubHelper
     }
 
     /**
-     * Create a auth.json in the project root so we can autorize composer to get private pacakges.
+     * Create a auth.json in the project root so we can autosize composer to get private packages.
      *
      * @param mixed  $token
      * @param string $username

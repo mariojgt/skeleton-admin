@@ -43,7 +43,7 @@ watch(
   }
 );
 
-// This fuction will display a mesage based o nthe message type
+// This function will display a mesage based o nthe message type
 const handleMessage = async (type, messageData) => {
   switch (type) {
     case "success":
