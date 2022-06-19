@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Mariojgt\Builder\Controllers\TableBuilderApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
@@ -29,5 +30,33 @@ Route::group([
         Route::post('/admin/api/generic/table/create', 'store')->name('admin.api.generic.table.create');
         Route::post('/admin/api/generic/table/update', 'update')->name('admin.api.generic.table.update');
         Route::post('/admin/api/generic/table/delete', 'delete')->name('admin.api.generic.table.delete');
+    });
+});
+
+// Boot token required
+Route::group([
+    'prefix'     => 'api',
+], function () {
+    Route::controller(AuthApiController::class)->group(function () {
+        // Api do Login
+        Route::post('/backend/login', 'login')->name('skeleton.backend.api.login');
+        // Api do Register
+        Route::post('/backend/register', 'register')->name('skeleton.backend.api.register');
+        // Api do forgot password
+        Route::post('/backend/forgot', 'reset')->name('skeleton.backend.api.forgot');
+    });
+});
+
+// Mobile Auth Routes
+Route::group([
+    'middleware' => ['auth:sanctum'],
+    'prefix'     => 'api',
+], function () {
+    Route::controller(UserApiController::class)->group(function () {
+        // Check validate token
+        Route::post('/skeleton/api/check-token', 'checkToken')->name('skeleton.api.check-token');
+        // Load user info
+        Route::post('/skeleton/api/user', 'userProfile')->name('skeleton.api.user');
+        Route::post('/skeleton/api/user-update', 'userUpdateProfile')->name('skeleton.api.user-update');
     });
 });
