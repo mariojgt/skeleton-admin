@@ -48,6 +48,16 @@ class AuthApiController extends Controller
         }
     }
 
+    public function logout(Request $request)
+    {
+        // Logout the user
+        Auth::user()->tokens()->delete();
+        // Return the response
+        return response()->json([
+            'data' => 'Logout successful',
+        ]);
+    }
+
     public function register(Request $request)
     {
         // Check if the registration is enable

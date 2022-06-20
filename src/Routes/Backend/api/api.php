@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Mariojgt\Builder\Controllers\TableBuilderApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
@@ -52,11 +53,14 @@ Route::group([
     'middleware' => ['auth:sanctum'],
     'prefix'     => 'api',
 ], function () {
-    Route::controller(UserApiController::class)->group(function () {
-        // Check validate token
-        Route::post('/skeleton/api/check-token', 'checkToken')->name('skeleton.api.check-token');
-        // Load user info
-        Route::post('/skeleton/api/user', 'userProfile')->name('skeleton.api.user');
-        Route::post('/skeleton/api/user-update', 'userUpdateProfile')->name('skeleton.api.user-update');
+    // User api controller
+    Route::controller(UserController::class)->group(function () {
+        // User info
+        Route::post('/user/info', 'index')->name('user.info');
+    });
+    // User api controller
+    Route::controller(AuthApiController::class)->group(function () {
+        // Api do Logout
+        Route::post('/backend/logout', 'logout')->name('skeleton.backend.api.logout');
     });
 });
