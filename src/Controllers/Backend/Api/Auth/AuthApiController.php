@@ -43,7 +43,7 @@ class AuthApiController extends Controller
             ]);
         } else {
             return response()->json([
-                'data' => 'User not found',
+                'data' => 'Invalid credentials',
             ], 401);
         }
     }
