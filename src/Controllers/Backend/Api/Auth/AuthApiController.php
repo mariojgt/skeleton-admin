@@ -10,11 +10,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Mariojgt\SkeletonAdmin\Models\Admin;
-use Illuminate\Support\Facades\Validator;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class AuthApiController extends Controller
 {
+    /**
+     * User login
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -42,6 +48,13 @@ class AuthApiController extends Controller
         }
     }
 
+    /**
+     * Logout the user
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function logout(Request $request)
     {
         // Logout the user
@@ -52,6 +65,13 @@ class AuthApiController extends Controller
         ]);
     }
 
+    /**
+     * Register a new user
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function register(Request $request)
     {
         // Check if the registration is enable

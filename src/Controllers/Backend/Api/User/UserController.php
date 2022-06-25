@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
 use Mariojgt\Magnifier\Models\MediaFolder;
 use Mariojgt\Magnifier\Controllers\MediaController;
 use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
@@ -47,6 +45,13 @@ class UserController extends Controller
         return new AdminResource(Auth::user());
     }
 
+    /**
+     * Update the user password
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function updatePassword(Request $request)
     {
         $request->validate([
@@ -61,6 +66,13 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Update The user avatar
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function updateAvatar(Request $request)
     {
         $request->validate([
