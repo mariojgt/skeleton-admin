@@ -36,6 +36,7 @@ By default, this package will come with the requirements below. For more informa
 - [ ] Laravel Multiple Auth Frontend and Backend.
 - [ ] 2 Webpack Configs.
 - [ ] Vue js 3 with sugar ref enable.
+- [ ] Mobile application ready and build out of the box so you have a quick templated.
 
 ## Usage
 After installation, you can access `/user/login` or `/admin/login`. The login page will be the same for both frontend and backend, with different logos. Everything in this package can be changed as the files are inside `resources/vendor/skeleton-admin`. Don't forget to run `npm run watch` to update the files as all the controllers are inside the package.
