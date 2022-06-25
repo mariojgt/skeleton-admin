@@ -61,6 +61,8 @@ Route::group([
         Route::patch('/user/profile', 'updateProfile')->name('user.profile');
         // Update User password
         Route::patch('/user/password', 'updatePassword')->name('user.password');
+        // Update User avatar
+        Route::post('/user/avatar', 'updateAvatar')->name('user.avatar');
     });
     // User api controller
     Route::controller(AuthApiController::class)->group(function () {

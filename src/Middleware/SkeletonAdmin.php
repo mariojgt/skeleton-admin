@@ -20,6 +20,7 @@ class SkeletonAdmin
      */
     public function handle($request, Closure $next)
     {
+        dd('here');
         // Check if the guard is logged in
         if (Auth::guard('skeleton_admin')->check()) {
             return $next($request);

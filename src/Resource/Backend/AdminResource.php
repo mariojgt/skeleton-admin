@@ -22,7 +22,7 @@ class AdminResource extends JsonResource
             'first_name'        => $this->first_name,
             'last_name'         => $this->last_name,
             'full_name'         => $this->first_name . ' ' . $this->last_name,
-            'avatar'            => Gravatar::gravatar($this->email),
+            'avatar'            => $this->adminAvatar,
             'email'             => $this->email,
             'email_verified_at' => $this->email_verified_at,
             'created_at'        => $this->created_at,

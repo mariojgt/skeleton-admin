@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
+use Mariojgt\Magnifier\Models\MediaFolder;
+use Mariojgt\Magnifier\Controllers\MediaController;
 use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
 
 class UserController extends Controller
@@ -56,6 +58,24 @@ class UserController extends Controller
 
         return response()->json([
             'data' => 'Password updated',
+        ]);
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'file'   => ['required', 'image'],
+        ]);
+
+        $media  = new MediaController();
+        $folder = MediaFolder::where('name', 'media')->first();
+        $file = $media->upload($request, $folder->id);
+        // Get the resource and update the avatar
+        Auth::user()->avatar = $file->getData()->data->id;
+        Auth::user()->save();
+
+        return response()->json([
+            'data' => 'Avatar updated',
         ]);
     }
 }

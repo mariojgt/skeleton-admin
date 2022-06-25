@@ -4,6 +4,7 @@ namespace Mariojgt\SkeletonAdmin\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Mariojgt\Magnifier\Controllers\MediaFolderController;
 
 class Install extends Command
 {
@@ -106,6 +107,15 @@ class Install extends Command
             '--provider' => 'Mariojgt\Builder\BuilderProvider',
             '--force'    => true,
         ]);
+
+        // Publish the media library package
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Mariojgt\Magnifier\MagnifierProvider',
+            '--force'    => true,
+        ]);
+
+        $mediaManager = new MediaFolderController();
+        $mediaManager->makeFolder('media');
 
         // Copy the need file to make the skeleton to work
         Artisan::call('vendor:publish', [

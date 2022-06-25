@@ -2,16 +2,18 @@
 
 namespace Mariojgt\SkeletonAdmin\Models;
 
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Mariojgt\Castle\Trait\Castle;
-use Mariojgt\SkeletonAdmin\Notifications\AdminMailResetPasswordToken;
-use Spatie\Permission\Traits\HasPermissions;
+use Mariojgt\Magnifier\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
+use Spatie\Permission\Traits\HasPermissions;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Mariojgt\SkeletonAdmin\Notifications\AdminMailResetPasswordToken;
 
 class Admin extends Authenticatable implements MustVerifyEmail
 {
@@ -59,5 +61,14 @@ class Admin extends Authenticatable implements MustVerifyEmail
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminMailResetPasswordToken($token));
+    }
+
+    public function getAdminAvatarAttribute()
+    {
+        if ($this->avatar) {
+            return Media::find($this->avatar)->renderFiles()['medium'];
+        } else {
+            return Gravatar::gravatar($this->email);
+        }
     }
 }
