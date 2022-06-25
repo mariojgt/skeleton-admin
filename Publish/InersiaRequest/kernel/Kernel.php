@@ -52,6 +52,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // Innersia request middleware
             \App\Http\Middleware\HandleInertiaRequests::class,
+            // Check if the guard is logged in else redirect to login page
+            \Mariojgt\SkeletonAdmin\Middleware\SkeletonAdmin::class
         ],
 
         'api' => [

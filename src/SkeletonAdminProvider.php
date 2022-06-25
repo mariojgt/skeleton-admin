@@ -117,19 +117,8 @@ class SkeletonAdminProvider extends ServiceProvider
     public function middleware()
     {
         $this->app['router']->aliasMiddleware(
-            'skeleton_admin',
-            \Mariojgt\SkeletonAdmin\Middleware\SkeletonAdmin::class
-        );
-
-        $this->app['router']->aliasMiddleware(
             'skeleton_guest',
             \Mariojgt\SkeletonAdmin\Middleware\SkeletonGuest::class
-        );
-
-        // Loading Custom middlewhere
-        $this->app['router']->aliasMiddleware(
-            'boot_token',
-            \Mariojgt\SkeletonAdmin\Middleware\BootTokenApi::class
         );
     }
 }
