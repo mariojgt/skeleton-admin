@@ -57,6 +57,10 @@ Route::group([
     Route::controller(UserController::class)->group(function () {
         // User info
         Route::post('/user/info', 'index')->name('user.info');
+        // Update User profile
+        Route::patch('/user/profile', 'updateProfile')->name('user.profile');
+        // Update User password
+        Route::patch('/user/password', 'updatePassword')->name('user.password');
     });
     // User api controller
     Route::controller(AuthApiController::class)->group(function () {

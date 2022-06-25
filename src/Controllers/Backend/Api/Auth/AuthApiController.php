@@ -17,17 +17,11 @@ class AuthApiController extends Controller
 {
     public function login(Request $request)
     {
-         // Validate the user
-         $validator = Validator::make($request->all(), [
+        $request->validate([
             'email'       => ['required', 'string', 'email', 'max:255'],
             'password'    => ['required', 'string', 'min:8'],
             'device_name' => ['required', 'string'],
-         ]);
-
-        // If Validation Fail
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
+        ]);
 
         // Credentials for the login
         $credentials = $request->only('email', 'password');
@@ -67,18 +61,12 @@ class AuthApiController extends Controller
             ], 401);
         }
 
-         // Validate the user
-         $validator = Validator::make($request->all(), [
+        $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name'  => ['required', 'string', 'max:255'],
             'email'      => ['required', 'string', 'email', 'max:255', 'unique:admins'],
             'password'   => ['required', 'confirmed', 'min:8'],
-         ]);
-
-        // If Validation Fail
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
+        ]);
 
         DB::beginTransaction();
 
@@ -128,15 +116,9 @@ class AuthApiController extends Controller
      */
     public function reset(Request $request)
     {
-        // Validate the user
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'email'      => ['required', 'string', 'email', 'max:255'],
         ]);
-
-        // If Validation Fail
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
 
         $this->broker()->sendResetLink(
             $request->only('email')
