@@ -45,3 +45,5 @@ You may need to create a repo for your project to add new functions because the 
 
 ## Note
 This package was designed to have a strong and simple start point to be as modular as possible, you can update it to meet your needs and don't forget to contribute to the project, thanks!
+
+You can also try the mobile application in this link https://github.com/mariojgt/skeleton-pos that was design to work with this application out of the box just update the endpoint and you are all set.
