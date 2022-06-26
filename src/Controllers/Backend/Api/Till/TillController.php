@@ -29,20 +29,18 @@ class TillController extends Controller
         return TillResource::collection($tills);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $till)
     {
         // Validate the till as array
         $request->validate([
-            'tills.*.name'      => 'required|string',
-            'tills.*.is_active' => 'required|boolean',
+            'name'      => 'required|string',
+            'is_active' => 'required|boolean',
         ]);
 
-        foreach (Request('tills') as $key => $till) {
-            $tillUpdate            = Till::find($till['id']);
-            $tillUpdate->name      = $till['name'];
-            $tillUpdate->is_active = $till['is_active'];
-            $tillUpdate->save();
-        }
+        $tillUpdate            = Till::findOrFail($till);
+        $tillUpdate->name      = $request->name;
+        $tillUpdate->is_active = $request->is_active;
+        $tillUpdate->save();
 
         return response()->json([
             'message' => 'Tills updated',
