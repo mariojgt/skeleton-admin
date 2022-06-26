@@ -48,4 +48,24 @@ class TillController extends Controller
             'message' => 'Tills updated',
         ]);
     }
+
+    public function create(Request $request)
+    {
+        // Validate the till as array
+        $request->validate([
+            'name'      => 'required|string',
+            'is_active' => 'required|boolean',
+            'section'   => 'required|string',
+        ]);
+
+        $tillUpdate            = new Till();
+        $tillUpdate->name      = Request('name');
+        $tillUpdate->is_active = Request('is_active');
+        $tillUpdate->section   = Request('section');
+        $tillUpdate->save();
+
+        return response()->json([
+            'message' => 'Tills created',
+        ]);
+    }
 }

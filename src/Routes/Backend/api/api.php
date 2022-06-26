@@ -74,5 +74,6 @@ Route::group([
     Route::controller(TillController::class)->group(function () {
         Route::post('/tills', 'index')->name('skeleton.backend.api.tills');
         Route::patch('/tills/update', 'update')->name('skeleton.backend.api.update');
+        Route::post('/tills/create', 'create')->name('skeleton.backend.api.create');
     });
 });
