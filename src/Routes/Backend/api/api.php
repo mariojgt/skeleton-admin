@@ -5,6 +5,7 @@ use Mariojgt\Builder\Controllers\TableBuilderApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Till\TillController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Category\CategoryController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
@@ -75,5 +76,11 @@ Route::group([
         Route::post('/tills', 'index')->name('skeleton.backend.api.tills');
         Route::patch('/tills/update/{till}', 'update')->name('skeleton.backend.api.update');
         Route::post('/tills/create', 'create')->name('skeleton.backend.api.create');
+    });
+    // Category routes
+    Route::controller(CategoryController::class)->group(function () {
+        Route::post('/category', 'index')->name('skeleton.backend.api.category');
+        Route::patch('/category/update/{category}', 'update')->name('skeleton.backend.api.update');
+        Route::post('/category/create', 'create')->name('skeleton.backend.api.create');
     });
 });
