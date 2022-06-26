@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Mariojgt\Builder\Controllers\TableBuilderApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Till\TillController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
@@ -68,5 +69,10 @@ Route::group([
     Route::controller(AuthApiController::class)->group(function () {
         // Api do Logout
         Route::post('/backend/logout', 'logout')->name('skeleton.backend.api.logout');
+    });
+    // Till routes
+    Route::controller(TillController::class)->group(function () {
+        Route::post('/tills', 'index')->name('skeleton.backend.api.tills');
+        Route::patch('/tills/update', 'update')->name('skeleton.backend.api.update');
     });
 });
