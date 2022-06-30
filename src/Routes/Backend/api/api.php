@@ -5,6 +5,7 @@ use Mariojgt\Builder\Controllers\TableBuilderApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Till\TillController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Product\ProductController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Category\CategoryController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
@@ -71,16 +72,25 @@ Route::group([
         // Api do Logout
         Route::post('/backend/logout', 'logout')->name('skeleton.backend.api.logout');
     });
+
     // Till routes
     Route::controller(TillController::class)->group(function () {
         Route::post('/tills', 'index')->name('skeleton.backend.api.tills');
         Route::patch('/tills/update/{till}', 'update')->name('skeleton.backend.api.update');
         Route::post('/tills/create', 'create')->name('skeleton.backend.api.create');
     });
+
     // Category routes
     Route::controller(CategoryController::class)->group(function () {
         Route::post('/category', 'index')->name('skeleton.backend.api.category');
-        Route::patch('/category/update/{category}', 'update')->name('skeleton.backend.api.update');
-        Route::post('/category/create', 'create')->name('skeleton.backend.api.create');
+        Route::patch('/category/update/{category}', 'update')->name('skeleton.backend.api.update.category');
+        Route::post('/category/create', 'create')->name('skeleton.backend.api.create.category');
+    });
+
+    // Product routes
+    Route::controller(ProductController::class)->group(function () {
+        Route::post('/product', 'index')->name('skeleton.backend.api.product');
+        Route::patch('/product/update/{product}', 'update')->name('skeleton.backend.api.product.update');
+        Route::post('/product/create', 'create')->name('skeleton.backend.api.product.create');
     });
 });
