@@ -47,7 +47,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../../Layout/Login";
+import Layout from "../../../Layout/Login.vue";
 
 // Import the from components
 import InputField from "@mariojgt/masterui/packages/Input/index";

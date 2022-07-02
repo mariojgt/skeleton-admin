@@ -39,11 +39,11 @@
 <script setup>
 import { watch, onMounted } from "vue";
 import { darkTheme } from "naive-ui";
-import FlashMessage from "../Components/FrontEnd/Global/FlashMessage";
-import Breadcrumb from "../Components/FrontEnd/App/Breadcrumb";
-import Navbar from "../Components/FrontEnd/App/Navbar";
-import Footer from "../Components/FrontEnd/App/Footer";
-import MenuDrawer from "../Components/FrontEnd/App/MenuDrawer";
+import FlashMessage from "../Components/FrontEnd/Global/FlashMessage.vue";
+import Breadcrumb from "../Components/FrontEnd/App/Breadcrumb.vue";
+import Navbar from "../Components/FrontEnd/App/Navbar.vue";
+import Footer from "../Components/FrontEnd/App/Footer.vue";
+import MenuDrawer from "../Components/FrontEnd/App/MenuDrawer.vue";
 </script>
 
 <style></style>

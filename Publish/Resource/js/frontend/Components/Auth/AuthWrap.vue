@@ -29,7 +29,7 @@
 import { watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/inertia-vue3";
 
-import userLogo from "../FrontEnd/Global/UserLogo";
+import userLogo from "../FrontEnd/Global/UserLogo.vue";
 
 const props = defineProps({
   title: {

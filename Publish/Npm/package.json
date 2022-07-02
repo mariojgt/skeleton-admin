@@ -1,32 +1,24 @@
 {
     "private": true,
     "scripts": {
-        "deps": "composer update && npm upgrade",
-        "dev": "npm run development",
-        "development": "mix",
-        "hot": "npx mix watch --hot",
-        "lint": "eslint resources --ext .vue --fix",
-        "prod": "npm run production",
-        "prod:ssr": "npm run production:ssr",
-        "production": "mix --production",
-        "production:ssr": "npx mix --mix-config=webpack.ssr.mix.js --production",
-        "ssr": "node public/assets/js/ssr.js",
-        "watch": "mix watch",
-        "watch:prod": "NODE_ENV=production mix watch",
-        "ziggy": "php artisan Ziggy:generate resources/js/Routes/exported.js"
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
         "@vue/compiler-sfc": "^3.0.5",
+        "autoprefixer": "^10.4.7",
         "axios": "^0.27.2",
         "cross-env": "^7.0",
-        "laravel-mix": "^6.0.49",
+        "laravel-vite-plugin": "^0.2.1",
         "lodash": "^4.17.19",
         "naive-ui": "^2.30.3",
         "postcss": "^8.4.14",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.52.3",
         "sass-loader": "^13.0.0",
-        "vfonts": "^0.0.3"
+        "tailwindcss": "^3.1.4",
+        "vfonts": "^0.0.3",
+        "vite": "^2.9.11"
     },
     "dependencies": {
         "@inertiajs/inertia": "^0.11.0",
@@ -35,9 +27,9 @@
         "@jamescoyle/vue-icon": "^0.1.2",
         "@mariojgt/masterui": "^0.0.9",
         "@mdi/js": "^6.7.96",
+        "@vitejs/plugin-vue": "^2.3.3",
         "daisyui": "^2.15.2",
         "sortablejs": "^1.15.0",
-        "tailwindcss": "^3.1.0",
         "tinymce": "^6.0.3",
         "vue": "^3.2.37",
         "vue-loader": "^17.0.0"

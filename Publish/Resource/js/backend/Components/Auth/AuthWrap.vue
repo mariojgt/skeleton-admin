@@ -29,7 +29,7 @@
 import { watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/inertia-vue3";
 
-import adminLogo from "../Backend/Global/AdminLogo";
+import adminLogo from "../Backend/Global/AdminLogo.vue";
 
 const props = defineProps({
   title: {
