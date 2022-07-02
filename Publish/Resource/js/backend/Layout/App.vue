@@ -39,11 +39,11 @@
 <script setup>
 import { watch, onMounted } from "vue";
 import { darkTheme } from "naive-ui";
-import FlashMessage from "../Components/Backend/Global/FlashMessage";
-import Breadcrumb from "../Components/Backend/App/Breadcrumb";
-import Navbar from "../Components/Backend/App/Navbar";
-import Footer from "../Components/Backend/App/Footer";
-import MenuDrawer from "../Components/Backend/App/MenuDrawer";
+import FlashMessage from "../Components/Backend/Global/FlashMessage.vue";
+import Breadcrumb from "../Components/Backend/App/Breadcrumb.vue";
+import Navbar from "../Components/Backend/App/Navbar.vue";
+import Footer from "../Components/Backend/App/Footer.vue";
+import MenuDrawer from "../Components/Backend/App/MenuDrawer.vue";
 import { usePage } from "@inertiajs/inertia-vue3";
 
 // Watch for any changes in the page title once the title has change we goin to update the title of the page

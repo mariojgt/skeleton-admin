@@ -48,7 +48,7 @@ class Republish extends Command
         $bar->advance(); // Little Progress bar
 
         // Now we move the already compiles files from the public
-        $targetFolderPublic = public_path('vendor/SkeletonAdmin/');
+        $targetFolderPublic = public_path('build/');
         $destitionPublic = __DIR__.'/../../Publish/Public/';
         File::copyDirectory($targetFolderPublic, $destitionPublic);
         $bar->advance(); // Little Progress bar
@@ -59,9 +59,9 @@ class Republish extends Command
         // File::copyDirectory($targetFolderPublic, $destitionPublic);
         // $bar->advance(); // Little Progress bar
 
-        // Now we copy the webpack file
-        $targetFolderWebPack = base_path('webpack.mix.js');
-        $destitionWebPack = __DIR__.'/../../Publish/Npm/webpack.mix.js';
+        // Now we copy the vite.config.js file
+        $targetFolderWebPack = base_path('vite.config.js');
+        $destitionWebPack = __DIR__.'/../../Publish/Npm/vite.config.js';
         File::copy($targetFolderWebPack, $destitionWebPack);
         $bar->advance(); // Little Progress bar
 
@@ -74,6 +74,12 @@ class Republish extends Command
         // Now we copy the package.json file
         $targetFolderWebPack = base_path('package.json');
         $destitionWebPack = __DIR__.'/../../Publish/Npm/package.json';
+        File::copy($targetFolderWebPack, $destitionWebPack);
+        $bar->advance(); // Little Progress bar
+
+        // Now we copy the postcss.config.js file
+        $targetFolderWebPack = base_path('postcss.config.js');
+        $destitionWebPack = __DIR__.'/../../Publish/Npm/postcss.config.js';
         File::copy($targetFolderWebPack, $destitionWebPack);
         $bar->advance(); // Little Progress bar
 

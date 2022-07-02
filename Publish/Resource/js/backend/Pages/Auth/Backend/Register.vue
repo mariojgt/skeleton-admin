@@ -64,7 +64,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import Layout from "../../../Layout/Login";
+import Layout from "../../../Layout/Login.vue";
 
 // Page links
 const loginLink = route("skeleton.login");

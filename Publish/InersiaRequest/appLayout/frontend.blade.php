@@ -5,7 +5,10 @@
     <title>Skeleton Admin Front</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link href="{{ asset('vendor/SkeletonAdmin/css/frontend/app.css') }}" rel="stylesheet">
+    @vite([
+        'resources/vendor/SkeletonAdmin/js/frontend/app.js',
+        'resources/vendor/SkeletonAdmin/sass/frontend/app.scss',
+    ])
     @inertiaHead
 </head>
 
@@ -13,6 +16,5 @@
     @inertia
 </body>
 @routes
-<script src="{{ asset('vendor/SkeletonAdmin/js/frontend/app.js') }}" defer></script>
 <x-biscotto::biscotto/>
 </html>

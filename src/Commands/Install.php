@@ -113,6 +113,8 @@ class Install extends Command
             '--provider' => 'Mariojgt\Magnifier\MagnifierProvider',
             '--force'    => true,
         ]);
+        // Call migrations
+        Artisan::call('migrate');
 
         $mediaManager = new MediaFolderController();
         $mediaManager->makeFolder('media');
