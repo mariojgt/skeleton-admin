@@ -2,17 +2,32 @@
 
 namespace Mariojgt\SkeletonAdmin\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Mariojgt\Magnifier\Models\Media;
+use Illuminate\Database\Eloquent\Model;
+use Mariojgt\SkeletonAdmin\Models\Category;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
+    protected $casts = [
+        'allergies' => 'array',
+    ];
+
     use HasFactory;
 
     public function media()
     {
         return $this->belongsToMany(Media::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function mainImage()
+    {
+        return $this->belongsTo(Media::class, 'featured_media_id');
     }
 }

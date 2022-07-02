@@ -11,6 +11,7 @@ use Mariojgt\Magnifier\Models\MediaFolder;
 use Mariojgt\SkeletonAdmin\Models\Product;
 use Mariojgt\SkeletonAdmin\Models\Category;
 use Mariojgt\Magnifier\Controllers\MediaController;
+use Mariojgt\SkeletonAdmin\Resource\Backend\ProductResource;
 use Mariojgt\SkeletonAdmin\Resource\Backend\CategoryResource;
 use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 
@@ -25,9 +26,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $category = Category::paginate(10);
+        $product = Product::paginate(10);
 
-        return CategoryResource::collection($category);
+        return ProductResource::collection($product);
     }
 
     public function update(Request $request, $till)
@@ -72,8 +73,8 @@ class ProductController extends Controller
             $product->sku_code    = Request('sku_code');
             $product->category_id = Request('category_id');
             $product->stock       = Request('stock');
-            $product->price       = $money->makePence(Request('price'));
-            $product->cost_price  = $money->makePence(Request('cost_price'));
+            $product->price       = $money->makePennies(Request('price'));
+            $product->cost_price  = $money->makePennies(Request('cost_price'));
             $product->allergies   = Request('allergies');
             // Cast to boolean
             $product->use_stock   = Request('use_stock') == 'true' ? true : false;
