@@ -92,5 +92,8 @@ Route::group([
         Route::post('/product', 'index')->name('skeleton.backend.api.product');
         Route::patch('/product/update/{product}', 'update')->name('skeleton.backend.api.product.update');
         Route::post('/product/create', 'create')->name('skeleton.backend.api.product.create');
+        Route::post('/product/update/main/image', 'updateMainImage')->name('skeleton.backend.api.update.main.image');
+        Route::post('/product/update', 'update')->name('skeleton.backend.api.update');
+        Route::post('/product/search', 'search')->name('skeleton.backend.api.product.search');
     });
 });

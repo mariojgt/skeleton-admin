@@ -26,26 +26,80 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $product = Product::paginate(10);
+        $pagination = $request->pagination ?? 10;
+        $search     = $request->search ?? null;
+        if (empty($search)) {
+            $product = Product::paginate($pagination);
+        } else {
+            $product = Product::where(function ($query) use ($search) {
+                return $query
+                    ->orWhere(DB::raw("CONCAT(`name`,' ',`sku_code`)"), 'like', '%' . $search . '%');
+            })->paginate($pagination);
+        }
 
         return ProductResource::collection($product);
     }
 
-    public function update(Request $request, $till)
+    public function update(Request $request)
     {
         // Validate the till as array
         $request->validate([
-            'name'      => 'required|string',
-            'is_active' => 'required|boolean',
+            "product"     => 'required|string',
+            "name"        => 'required|string',
+            "use_stock"   => 'required|string',
+            "is_active"   => 'required',
+            "stock"       => 'required|numeric',
+            "allergies"   => 'required',
+            "price"       => 'required|numeric',
+            "cost_price"  => 'required|numeric',
+            "category_id" => 'required',
         ]);
 
-        $tillUpdate            = Category::findOrFail($till);
-        $tillUpdate->name      = $request->name;
-        $tillUpdate->is_active = $request->is_active;
-        $tillUpdate->save();
+        // Import the money function
+        $money = new Money();
+
+        DB::beginTransaction();
+            $product              = Product::findOrFail($request->product);
+            $product->name        = $request->name;
+            $product->description = $request->description;
+            $product->sku_code    = $request->sku_code;
+            $product->category_id = $request->category_id;
+            $product->stock       = $request->stock;
+            $product->price       = $money->makePennies($request->price);
+            $product->cost_price  = $money->makePennies($request->cost_price);
+            $product->allergies   = explode(',', $request->allergies);
+            // Cast to boolean
+            $product->use_stock   = $request->use_stock == 'true' ? true : false;
+            $product->is_active   = $request->is_active == 'true' ? true : false;
+            $product->save();
+
+            // Detach all the media files
+            $product->media()->detach();
+            // Attach the media files
+            $product->media()->attach($request->medias);
+
+            // Upload the images
+            if (!empty(Request('files'))) {
+                // Loop through the images and attach them to the product
+                $media  = new MediaController();
+                $folder = MediaFolder::where('name', 'media')->first();
+                // Attach the images to the product
+                foreach (Request('files') as $image) {
+                    $newRequest = new Request();
+                    $newRequest->merge(['file' => $image]);
+                    $file = $media->upload($newRequest, $folder->id);
+                    $product->media()->attach($file->getData()->data->id);
+                }
+                // Save the media
+                $product->featured_media_id = $product->media()->first()->id;
+            }
+
+            $product->save();
+
+        DB::commit();
 
         return response()->json([
-            'message' => 'Category updated',
+            'message' => 'Product created',
         ]);
     }
 
@@ -82,20 +136,20 @@ class ProductController extends Controller
             $product->save();
 
             // Upload the images
-            if (!empty(Request('files'))) {
-                // Loop through the images and attach them to the product
-                $media  = new MediaController();
-                $folder = MediaFolder::where('name', 'media')->first();
-                // Attach the images to the product
-                foreach (Request('files') as $image) {
-                    $newRequest = new Request();
-                    $newRequest->merge(['file' => $image]);
-                    $file = $media->upload($newRequest, $folder->id);
-                    $product->media()->attach($file->getData()->data->id);
-                }
-                // Save the media
-                $product->featured_media_id = $product->media()->first()->id;
+        if (!empty(Request('files'))) {
+            // Loop through the images and attach them to the product
+            $media  = new MediaController();
+            $folder = MediaFolder::where('name', 'media')->first();
+            // Attach the images to the product
+            foreach (Request('files') as $image) {
+                $newRequest = new Request();
+                $newRequest->merge(['file' => $image]);
+                $file = $media->upload($newRequest, $folder->id);
+                $product->media()->attach($file->getData()->data->id);
             }
+            // Save the media
+            $product->featured_media_id = $product->media()->first()->id;
+        }
 
             $product->save();
 
@@ -103,6 +157,39 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Product created',
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+         'search'       => 'required',
+        ]);
+
+        $search = $request->search;
+
+        $product = Product::where(function ($query) use ($search) {
+            return $query
+                ->where('id', 'like', '%' . $search . '%')
+                ->orWhere(DB::raw("CONCAT(`name`,' ',`sku_code`)"), 'like', '%' . $search . '%');
+        })->first();
+
+        return new ProductResource($product);
+    }
+
+    public function updateMainImage(Request $request)
+    {
+        $request->validate([
+            'product'  => 'required',
+            'media_id' => 'required',
+          ]);
+
+        $product                    = Product::findOrfail($request->product);
+        $product->featured_media_id = $request->media_id;
+        $product->save();
+
+        return response()->json([
+            'message' => 'Product image updated successfully',
         ]);
     }
 }
