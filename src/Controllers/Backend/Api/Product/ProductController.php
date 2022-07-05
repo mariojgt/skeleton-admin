@@ -174,7 +174,14 @@ class ProductController extends Controller
                 ->orWhere(DB::raw("CONCAT(`name`,' ',`sku_code`)"), 'like', '%' . $search . '%');
         })->first();
 
-        return new ProductResource($product);
+        if (!empty($product)) {
+            return new ProductResource($product);
+        } else {
+            return response()->json([
+                'message' => 'Product not found',
+                'status'  => false,
+            ]);
+        }
     }
 
     public function updateMainImage(Request $request)
