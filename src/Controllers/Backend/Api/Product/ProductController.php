@@ -192,4 +192,36 @@ class ProductController extends Controller
             'message' => 'Product image updated successfully',
         ]);
     }
+
+    /**
+     * Search in the extra sections of the product.
+     * @param Request $request
+     *
+     * @return [type]
+     */
+    public function extras(Request $request)
+    {
+
+        $search = $request->search ?? null;
+
+        $extraCategory = Category::where('name', 'extras')->first();
+        if (empty($extraCategory)) {
+            $extraCategory            = new Category();
+            $extraCategory->name      = 'extras';
+            $extraCategory->is_active = 1;
+            $extraCategory->save();
+        }
+
+        // Get the products
+        if (!empty($search)) {
+            $products = $extraCategory->products()->where('is_active', 1)->where(function ($query) use ($search) {
+                return $query
+                ->orWhere(DB::raw("CONCAT(`name`,' ',`sku_code`)"), 'like', '%' . $search . '%');
+            })->paginate(5);
+        } else {
+            $products = $extraCategory->products()->where('is_active', 1)->paginate(5);
+        }
+
+        return ProductResource::collection($products);
+    }
 }

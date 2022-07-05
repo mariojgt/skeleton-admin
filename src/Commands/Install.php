@@ -4,6 +4,7 @@ namespace Mariojgt\SkeletonAdmin\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Mariojgt\SkeletonAdmin\Models\Category;
 use Mariojgt\Magnifier\Controllers\MediaFolderController;
 
 class Install extends Command
@@ -115,9 +116,6 @@ class Install extends Command
         ]);
         // Call migrations
         Artisan::call('migrate');
-
-        $mediaManager = new MediaFolderController();
-        $mediaManager->makeFolder('media');
 
         // Copy the need file to make the skeleton to work
         Artisan::call('vendor:publish', [

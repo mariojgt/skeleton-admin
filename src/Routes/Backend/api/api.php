@@ -95,5 +95,7 @@ Route::group([
         Route::post('/product/update/main/image', 'updateMainImage')->name('skeleton.backend.api.update.main.image');
         Route::post('/product/update', 'update')->name('skeleton.backend.api.update');
         Route::post('/product/search', 'search')->name('skeleton.backend.api.product.search');
+        // Extra products search
+        Route::post('/product/extras', 'extras')->name('skeleton.backend.api.product.extras');
     });
 });
