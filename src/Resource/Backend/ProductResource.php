@@ -2,6 +2,7 @@
 
 namespace Mariojgt\SkeletonAdmin\Resource\Backend;
 
+use Illuminate\Support\Str;
 use Mariojgt\SkeletonAdmin\Helpers\Money;
 use Mariojgt\Magnifier\Resources\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,6 +22,7 @@ class ProductResource extends JsonResource
         // The image is a example
         return [
             'id'                            => $this->id,
+            'unique_key'                    => Str::random(12),
             'description'                   => $this->description,
             'name'                          => $this->name,
             'sku_code'                      => $this->sku_code,
