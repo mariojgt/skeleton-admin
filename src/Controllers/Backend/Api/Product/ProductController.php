@@ -52,6 +52,7 @@ class ProductController extends Controller
             "allergies"   => 'required',
             "price"       => 'required|numeric',
             "cost_price"  => 'required|numeric',
+            "tax"         => 'required|numeric',
             "category_id" => 'required',
         ]);
 
@@ -68,6 +69,7 @@ class ProductController extends Controller
             $product->price       = $money->makePennies($request->price);
             $product->cost_price  = $money->makePennies($request->cost_price);
             $product->allergies   = explode(',', $request->allergies);
+            $product->tax         = $request->tax;
             // Cast to boolean
             $product->use_stock   = $request->use_stock == 'true' ? true : false;
             $product->is_active   = $request->is_active == 'true' ? true : false;
@@ -114,6 +116,7 @@ class ProductController extends Controller
             "allergies"   => 'required',
             "price"       => 'required|numeric',
             "cost_price"  => 'required|numeric',
+            "tax"         => 'required|numeric',
             "category_id" => 'required',
         ]);
 
@@ -129,6 +132,7 @@ class ProductController extends Controller
             $product->stock       = Request('stock');
             $product->price       = $money->makePennies(Request('price'));
             $product->cost_price  = $money->makePennies(Request('cost_price'));
+            $product->tax         = Request('tax');
             $product->allergies   = Request('allergies');
             // Cast to boolean
             $product->use_stock   = Request('use_stock') == 'true' ? true : false;

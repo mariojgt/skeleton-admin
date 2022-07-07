@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('sku_code')->nullable();
             $table->integer('category_id')->nullable();
             $table->integer('price');
+            $table->integer('tax')->nullable();
             $table->integer('cost_price')->nullable();
             $table->json('allergies')->nullable();
             $table->boolean('use_stock')->default(1);

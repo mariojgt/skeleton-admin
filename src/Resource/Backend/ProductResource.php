@@ -29,6 +29,7 @@ class ProductResource extends JsonResource
             'category'                      => $this->category,
             'price'                         => $this->price,
             'cost_price'                    => $this->cost_price,
+            'tax'                           => $this->tax,
             'formatted_price'               => $money->makePenniesToFloat($this->price),
             'formatted_cost_price'          => $money->makePenniesToFloat($this->cost_price),
             'formatted_price_currency'      => '£' . $money->makePenniesToFloat($this->price),
