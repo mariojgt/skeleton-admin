@@ -22,6 +22,7 @@ class OrderResource extends JsonResource
 
         // The image is a example
         return [
+            'id'                 => $this->id,
             'order_name'         => $this->order_name,
             'raw_line'           => $this->raw_line,
             'total'              => $this->total,
@@ -31,6 +32,8 @@ class OrderResource extends JsonResource
             'formatted_tax'      => $money->makePenniesToFloat($this->tax),
             'formatted_subtotal' => $money->makePenniesToFloat($this->subtotal),
             'lines'              => OrderLinesResource::collection($this->lines),
+            'created_at'         => $this->created_at,
+            'updated_at'         => $this->updated_at,
         ];
     }
 }

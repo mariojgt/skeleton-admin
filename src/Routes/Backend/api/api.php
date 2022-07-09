@@ -103,5 +103,6 @@ Route::group([
     // Order routes
     Route::controller(OrderController::class)->group(function () {
         Route::post('/order/create', 'create')->name('skeleton.backend.api.order.create');
+        Route::post('/order/edit/{order}', 'edit')->name('skeleton.backend.api.order.edit');
     });
 });
