@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Mariojgt\Builder\Controllers\TableBuilderApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Till\TillController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Order\OrderController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Product\ProductController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Category\CategoryController;
@@ -97,5 +98,10 @@ Route::group([
         Route::post('/product/search', 'search')->name('skeleton.backend.api.product.search');
         // Extra products search
         Route::post('/product/extras', 'extras')->name('skeleton.backend.api.product.extras');
+    });
+
+    // Order routes
+    Route::controller(OrderController::class)->group(function () {
+        Route::post('/order/create', 'create')->name('skeleton.backend.api.order.create');
     });
 });
