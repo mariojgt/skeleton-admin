@@ -6,6 +6,7 @@ use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Till\TillController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Order\OrderController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Payment\PaymentController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Product\ProductController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Category\CategoryController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
@@ -104,5 +105,11 @@ Route::group([
     Route::controller(OrderController::class)->group(function () {
         Route::post('/order/create', 'create')->name('skeleton.backend.api.order.create');
         Route::post('/order/edit/{order}', 'edit')->name('skeleton.backend.api.order.edit');
+        Route::post('/order/get/{order}', 'view')->name('skeleton.backend.api.order.get');
+    });
+
+    // Payment routes
+    Route::controller(PaymentController::class)->group(function () {
+        Route::post('/make/payment/{order}', 'makePayment')->name('skeleton.backend.api.payment.create');
     });
 });

@@ -13,4 +13,15 @@ class Order extends Model
     {
         return $this->hasMany(OrderLine::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function orderBalance()
+    {
+        return $this->total - $this->payments()->sum('amount');
+    }
+
 }

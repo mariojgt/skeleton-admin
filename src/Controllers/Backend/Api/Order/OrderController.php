@@ -94,4 +94,10 @@ class OrderController extends Controller
 
         return new OrderResource($order);
     }
+
+    public function view($order)
+    {
+        $order = Order::findOrFail($order);
+        return new OrderResource($order);
+    }
 }

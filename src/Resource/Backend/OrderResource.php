@@ -32,6 +32,9 @@ class OrderResource extends JsonResource
             'formatted_tax'      => $money->makePenniesToFloat($this->tax),
             'formatted_subtotal' => $money->makePenniesToFloat($this->subtotal),
             'lines'              => OrderLinesResource::collection($this->lines),
+            'payments'           => PaymentResource::collection($this->payments),
+            'balance'            => $this->orderBalance(),
+            'formatted_balance'  => $money->makePenniesToFloat($this->orderBalance()),
             'created_at'         => $this->created_at,
             'updated_at'         => $this->updated_at,
         ];
