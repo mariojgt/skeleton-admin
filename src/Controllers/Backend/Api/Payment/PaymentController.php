@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Mariojgt\SkeletonAdmin\Models\Order;
 use Mariojgt\SkeletonAdmin\Helpers\Money;
 use Mariojgt\SkeletonAdmin\Models\Payment;
+use Illuminate\Validation\ValidationException;
 use Mariojgt\SkeletonAdmin\Resource\Backend\OrderResource;
 
 class PaymentController extends Controller
@@ -22,6 +23,11 @@ class PaymentController extends Controller
         ]);
 
         $money = new Money();
+
+        // If the balance is less than the amount, then return an error
+        if ($order->orderBalance() == 0) {
+           throw ValidationException::withMessages(['The order balance is 0, so you can\'t make a payment']);
+        }
 
         DB::beginTransaction();
         // Create the payment
