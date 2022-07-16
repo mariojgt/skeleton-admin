@@ -22,6 +22,7 @@ class LiveProductController extends Controller
         $orderLines =  OrderLine::whereIn('product_id', $productIds)
             // ->where('created_at', '>=', now()->subMinutes(40))
             ->where('status', 'placed')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return LiveProductResource::collection($orderLines);

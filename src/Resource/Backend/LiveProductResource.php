@@ -17,15 +17,16 @@ class LiveProductResource extends JsonResource
     {
         // Return the live product data
         return [
-            'id'           => $this->id,
-            'order_id'     => $this->order_id,
-            'name'         => $this->product->name,
-            'qty'          => $this->qty,
-            'modification' => json_decode($this->modification),
-            'extras'       => json_decode($this->extras),
-            'status'       => $this->status,
-            'created_at'   => $this->created_at,
-            'updated_at'   => $this->updated_at,
+            'unique_number' => rand(1000, 9000),
+            'id'            => $this->id,
+            'order_id'      => $this->order_id,
+            'name'          => $this->product->name,
+            'qty'           => $this->qty,
+            'modification'  => json_decode($this->modification),
+            'extras'        => json_decode($this->extras),
+            'status'        => $this->status,
+            'created_at'    => $this->created_at,
+            'updated_at'    => $this->updated_at,
             // How long ago the order was placed in minutes
             'minute_diff'   => $this->created_at->diffInMinutes(),
             'seconds_diff'  => 0,
