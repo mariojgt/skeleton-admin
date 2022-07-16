@@ -9,6 +9,7 @@ use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Payment\PaymentController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Product\ProductController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Category\CategoryController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\LiveProduct\LiveProductController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
@@ -106,10 +107,19 @@ Route::group([
         Route::post('/order/create', 'create')->name('skeleton.backend.api.order.create');
         Route::post('/order/edit/{order}', 'edit')->name('skeleton.backend.api.order.edit');
         Route::post('/order/get/{order}', 'view')->name('skeleton.backend.api.order.get');
+        Route::post('/order/close/{order}', 'closeOrder')->name('skeleton.backend.api.order.close');
     });
 
     // Payment routes
     Route::controller(PaymentController::class)->group(function () {
         Route::post('/make/payment/{order}', 'makePayment')->name('skeleton.backend.api.payment.create');
+    });
+
+    // Live Product routes
+    Route::controller(LiveProductController::class)->group(function () {
+        // Get live products based on the till id
+        Route::get('/live/products/{till}', 'index')->name('skeleton.backend.api.live.product');
+        // Print the ticket for the live product
+        Route::post('/live/products/print/{line}', 'printItem')->name('skeleton.backend.api.live.product.print');
     });
 });

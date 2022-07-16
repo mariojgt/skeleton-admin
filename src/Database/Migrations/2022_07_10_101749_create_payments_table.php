@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->integer('admin_id');
             $table->integer('order_id');
             $table->integer('amount');
             $table->string('status'); // Income or Expense or refunded or change

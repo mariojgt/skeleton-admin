@@ -25,18 +25,20 @@ class CategoryController extends Controller
         return CategoryResource::collection($category);
     }
 
-    public function update(Request $request, $till)
+    public function update(Request $request, $category)
     {
+        $category            = Category::findOrFail($category);
         // Validate the till as array
         $request->validate([
-            'name'      => 'required|string',
+            'name'      => 'required|unique:categories,name,' . $category->id,
+            'till_id'   => 'required',
             'is_active' => 'required|boolean',
         ]);
 
-        $tillUpdate            = Category::findOrFail($till);
-        $tillUpdate->name      = $request->name;
-        $tillUpdate->is_active = $request->is_active;
-        $tillUpdate->save();
+        $category->name      = $request->name;
+        $category->till_id   = $request->till_id['value'];
+        $category->is_active = $request->is_active;
+        $category->save();
 
         return response()->json([
             'message' => 'Category updated',
@@ -47,13 +49,15 @@ class CategoryController extends Controller
     {
         // Validate the till as array
         $request->validate([
-            'name'      => 'required|string',
+            'name'      => ['required', 'string', 'max:255', 'unique:categories'],
+            'till_id'   => 'required',
             'is_active' => 'required|boolean',
         ]);
 
         $category            = new Category();
-        $category->name      = Request('name');
-        $category->is_active = Request('is_active');
+        $category->name      = $request->name;
+        $category->till_id   = $request->till_id['value'];
+        $category->is_active = $request->is_active;
         $category->save();
 
         return response()->json([

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('final_price');
             $table->integer('subtotal');
             $table->integer('tax');
+            $table->string('status')->default('placed'); // printed
             $table->timestamps();
         });
     }

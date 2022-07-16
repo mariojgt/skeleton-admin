@@ -35,7 +35,7 @@ class PaymentController extends Controller
         // Refresh the order
         $order->fresh();
 
-        if ($order->orderBalance() <= 0) {
+        if ($order->orderBalance() < 0) {
             // Create the payment
             $this->createPayment($order, $order->orderBalance(), 'change', 'Customer change', 'system');
         }
@@ -47,6 +47,7 @@ class PaymentController extends Controller
     public function createPayment(Order $order, $amount, $status, $description, $type)
     {
         $payment              = new Payment();
+        $payment->admin_id    = Request()->user()->id;
         $payment->order_id    = $order->id;
         $payment->amount      = $amount;
         $payment->status      = $status;

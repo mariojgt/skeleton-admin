@@ -32,6 +32,7 @@ class PaymentResource extends JsonResource
             'created_at'       => $this->created_at,
             'updated_at'       => $this->updated_at,
             'ago'              => $this->created_at->diffForHumans(),
+            'user'             => new AdminResource($this->user),
         ];
     }
 }

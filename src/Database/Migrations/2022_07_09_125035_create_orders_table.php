@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('total');
             $table->integer('tax');
             $table->integer('subtotal');
+            $table->string('status')->default('open'); // open, closed, cancelled, etc.
             $table->timestamps();
         });
     }

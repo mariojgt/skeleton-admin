@@ -15,7 +15,8 @@ class OrderController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'order_name' => 'required',
+            // Order_name is unique
+            'order_name' => ['required', 'string', 'max:255', 'unique:orders'],
             'products'   => 'required|array',
             'total'      => 'required',
             'total_tax'  => 'required',
@@ -34,19 +35,19 @@ class OrderController extends Controller
             $order->save();
 
             // Save the order lines
-            foreach ($request->products as $product) {
-                $line                = new OrderLine();
-                $line->order_id      = $order->id;
-                $line->product_id    = $product['id'];
-                $line->qty           = $product['qty'];
-                $line->modification  = json_encode($product['modification']);
-                $line->extras        = json_encode($product['extras']);
-                $line->product_price = $product['price'];// Price is already in pennies
-                $line->final_price   = $money->makePennies($product['final_price']);
-                $line->tax           = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
-                $line->subtotal      = $line->final_price - $line->tax;
-                $line->save();
-            }
+        foreach ($request->products as $product) {
+            $line                = new OrderLine();
+            $line->order_id      = $order->id;
+            $line->product_id    = $product['id'];
+            $line->qty           = $product['qty'];
+            $line->modification  = json_encode($product['modification']);
+            $line->extras        = json_encode($product['extras']);
+            $line->product_price = $product['price'];// Price is already in pennies
+            $line->final_price   = $money->makePennies($product['final_price']);
+            $line->tax           = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
+            $line->subtotal      = $line->final_price - $line->tax;
+            $line->save();
+        }
         DB::commit();
 
         return new OrderResource($order);
@@ -54,7 +55,10 @@ class OrderController extends Controller
 
     public function edit(Request $request)
     {
+        $order             = Order::findOrFail($request->order_id);
+
         $request->validate([
+            'order_name' => 'required|email|unique:orders,order_name,' . $order->id,
             'order_name' => 'required',
             'products'   => 'required|array',
             'total'      => 'required',
@@ -65,7 +69,6 @@ class OrderController extends Controller
         $money = new Money();
 
         DB::beginTransaction();
-            $order             = Order::find($request->order_id);
             $order->order_name = $request->order_name;
             $order->total      = $money->makePennies($request->total);
             $order->tax        = $money->makePennies($request->total_tax);
@@ -77,19 +80,19 @@ class OrderController extends Controller
             $order->lines()->delete();
 
             // Save the order lines
-            foreach ($request->products as $product) {
-                $line                = new OrderLine();
-                $line->order_id      = $order->id;
-                $line->product_id    = $product['id'];
-                $line->qty           = $product['qty'];
-                $line->modification  = json_encode($product['modification']);
-                $line->extras        = json_encode($product['extras']);
-                $line->product_price = $product['price'];// Price is already in pennies
-                $line->final_price   = $money->makePennies($product['final_price']);
-                $line->tax           = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
-                $line->subtotal      = $line->final_price - $line->tax;
-                $line->save();
-            }
+        foreach ($request->products as $product) {
+            $line                = new OrderLine();
+            $line->order_id      = $order->id;
+            $line->product_id    = $product['id'];
+            $line->qty           = $product['qty'];
+            $line->modification  = json_encode($product['modification']);
+            $line->extras        = json_encode($product['extras']);
+            $line->product_price = $product['price'];// Price is already in pennies
+            $line->final_price   = $money->makePennies($product['final_price']);
+            $line->tax           = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
+            $line->subtotal      = $line->final_price - $line->tax;
+            $line->save();
+        }
         DB::commit();
 
         return new OrderResource($order);
@@ -98,6 +101,15 @@ class OrderController extends Controller
     public function view($order)
     {
         $order = Order::findOrFail($order);
+        return new OrderResource($order);
+    }
+
+    public function closeOrder(Request $request, $order)
+    {
+        $order = Order::findOrFail($order);
+        $order->status = 'closed';
+        $order->save();
+
         return new OrderResource($order);
     }
 }
