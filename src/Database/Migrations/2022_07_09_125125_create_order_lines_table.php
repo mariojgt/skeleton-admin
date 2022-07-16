@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('subtotal');
             $table->integer('tax');
             $table->string('status')->default('placed'); // printed
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
     }

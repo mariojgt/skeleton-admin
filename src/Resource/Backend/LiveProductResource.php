@@ -27,6 +27,7 @@ class LiveProductResource extends JsonResource
             'status'        => $this->status,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
+            'completed_at'  => $this->completed_at->diffForHumans(),
             // How long ago the order was placed in minutes
             'minute_diff'   => $this->created_at->diffInMinutes(),
             'seconds_diff'  => 0,

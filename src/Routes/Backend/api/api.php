@@ -121,5 +121,7 @@ Route::group([
         Route::get('/live/products/{till}', 'index')->name('skeleton.backend.api.live.product');
         // Print the ticket for the live product
         Route::post('/live/products/print/{line}', 'printItem')->name('skeleton.backend.api.live.product.print');
+        // Get completed orders
+        Route::post('/live/products/completed/{till}', 'completed')->name('skeleton.backend.api.live.product.complete');
     });
 });

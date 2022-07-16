@@ -32,8 +32,27 @@ class LiveProductController extends Controller
     {
         $orderLines =  OrderLine::findOrFail($line);
         $orderLines->status = 'printed';
+        $orderLines->completed_at = now();
         $orderLines->save();
 
         return response()->json(['success' => true]);
+    }
+
+    public function completed(Request $request, $till)
+    {
+        $till = Till::findOrFail($till);
+        // Get all the products related to the categories of the till
+        $productIds = $till->categories->map(function ($category) {
+            return $category->products;
+        })->flatten()->pluck('id')->toArray();
+
+        // Get all the todays order lines where the product is in the list and created_at is in the last 15 minutes
+        $orderLines =  OrderLine::whereIn('product_id', $productIds)
+            ->where('created_at', '>=', now()->subMinutes(500))
+            ->where('status', 'printed')
+            ->orderBy('completed_at', 'desc')
+            ->get();
+
+        return LiveProductResource::collection($orderLines);
     }
 }
