@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Mariojgt\SkeletonAdmin\Models\Order;
 use Mariojgt\SkeletonAdmin\Helpers\Money;
+use Mariojgt\SkeletonAdmin\Models\Product;
 use Mariojgt\SkeletonAdmin\Models\OrderLine;
 use Illuminate\Validation\ValidationException;
 use Mariojgt\SkeletonAdmin\Resource\Backend\OrderResource;
@@ -52,6 +53,17 @@ class OrderController extends Controller
 
             // Save the order lines
         foreach ($request->products as $product) {
+            // Check if the product use stock
+            $searchProduct = Product::find($product['id']);
+            // If use stock is true we can remove the stock
+            if ($searchProduct->use_stock) {
+                if ($searchProduct->stock < $product['qty']) {
+                    throw ValidationException::withMessages(['The product ' . $searchProduct->name . ' has ' . $searchProduct->stock . ' in stock 😭']);
+                }
+                $searchProduct->stock = $searchProduct->stock - $product['qty'];
+                $searchProduct->save();
+            }
+
             $line                = new OrderLine();
             $line->order_id      = $order->id;
             $line->product_id    = $product['id'];

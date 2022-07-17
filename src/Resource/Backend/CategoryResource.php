@@ -20,8 +20,8 @@ class CategoryResource extends JsonResource
             "id"         => $this->id,
             "name"       => $this->name,
             "till_id"    => [
-                "value" => $this->till_id,
-                "label" => $this->till->name,
+                "value" => $this->till_id ?? null,
+                "label" => $this->till?->name,
             ],
             "is_active"  => $this->is_active,
             "created_at" => $this->created_at,

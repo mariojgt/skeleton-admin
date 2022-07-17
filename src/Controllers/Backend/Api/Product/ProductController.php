@@ -10,6 +10,7 @@ use Mariojgt\SkeletonAdmin\Helpers\Money;
 use Mariojgt\Magnifier\Models\MediaFolder;
 use Mariojgt\SkeletonAdmin\Models\Product;
 use Mariojgt\SkeletonAdmin\Models\Category;
+use Illuminate\Validation\ValidationException;
 use Mariojgt\Magnifier\Controllers\MediaController;
 use Mariojgt\SkeletonAdmin\Resource\Backend\ProductResource;
 use Mariojgt\SkeletonAdmin\Resource\Backend\CategoryResource;
@@ -177,6 +178,13 @@ class ProductController extends Controller
                 ->where('id', 'like', '%' . $search . '%')
                 ->orWhere(DB::raw("CONCAT(`name`,' ',`sku_code`)"), 'like', '%' . $search . '%');
         })->first();
+
+        // If use stock is true we can remove the stock
+        if ($product->use_stock && empty($request->read)) {
+            if ($product->stock <= 0) {
+                throw ValidationException::withMessages(['The product ' . $product->name . ' is out of stock 😭']);
+            }
+        }
 
         if (!empty($product)) {
             return new ProductResource($product);

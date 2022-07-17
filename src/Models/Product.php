@@ -10,10 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
-    protected $casts = [
-        'allergies' => 'array',
-    ];
-
     use HasFactory;
 
     public function media()

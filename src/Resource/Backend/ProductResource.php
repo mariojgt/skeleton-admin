@@ -34,7 +34,7 @@ class ProductResource extends JsonResource
             'formatted_cost_price'          => $money->makePenniesToFloat($this->cost_price),
             'formatted_price_currency'      => '£' . $money->makePenniesToFloat($this->price),
             'formatted_cost_price_currency' => '£' . $money->makePenniesToFloat($this->cost_price),
-            'allergies'                     => $this->allergies,
+            'allergies'                     => json_decode($this->allergies),
             'use_stock'                     => $this->use_stock,
             'stock'                         => $this->stock,
             'is_active'                     => $this->is_active,
