@@ -8,15 +8,31 @@ use App\Http\Controllers\Controller;
 use Mariojgt\SkeletonAdmin\Models\Order;
 use Mariojgt\SkeletonAdmin\Helpers\Money;
 use Mariojgt\SkeletonAdmin\Models\OrderLine;
+use Illuminate\Validation\ValidationException;
 use Mariojgt\SkeletonAdmin\Resource\Backend\OrderResource;
 
 class OrderController extends Controller
 {
+    public function index(Request $request)
+    {
+        // Get today orders where is open
+        $orders = Order::where('status', 'open')
+            ->where('created_at', '>=', date('Y-m-d'))
+            ->orderBy('order_name', 'desc')
+            ->get();
+        return OrderResource::collection($orders);
+    }
+
     public function create(Request $request)
     {
+        $order = Order::where('order_name', $request->order_name)->where('status', 'open')->first();
+        if ($order) {
+            throw ValidationException::withMessages(['Order already exists']);
+        }
+
         $request->validate([
             // Order_name is unique
-            'order_name' => ['required', 'string', 'max:255', 'unique:orders'],
+            'order_name' => ['required', 'string', 'max:255'],
             'products'   => 'required|array',
             'total'      => 'required',
             'total_tax'  => 'required',

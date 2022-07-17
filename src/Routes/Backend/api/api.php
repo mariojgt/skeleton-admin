@@ -104,6 +104,7 @@ Route::group([
 
     // Order routes
     Route::controller(OrderController::class)->group(function () {
+        Route::get('/order/index', 'index')->name('skeleton.backend.api.order.index');
         Route::post('/order/create', 'create')->name('skeleton.backend.api.order.create');
         Route::post('/order/edit/{order}', 'edit')->name('skeleton.backend.api.order.edit');
         Route::post('/order/get/{order}', 'view')->name('skeleton.backend.api.order.get');

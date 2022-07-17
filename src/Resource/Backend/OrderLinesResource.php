@@ -23,6 +23,7 @@ class OrderLinesResource extends JsonResource
         return [
             'order_id'                => $this->order_id,
             'product_id'              => $this->product_id,
+            'name'                    => $this->product->name,
             'qty'                     => $this->qty,
             'modification'            => $this->modification,
             'extras'                  => $this->extras,
