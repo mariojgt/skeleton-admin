@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('qty');
             $table->json('modification');
+            $table->json('product_allergies');
             $table->json('extras');
             $table->integer('product_price');
             $table->integer('final_price');

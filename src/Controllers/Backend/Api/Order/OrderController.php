@@ -64,16 +64,17 @@ class OrderController extends Controller
                 $searchProduct->save();
             }
 
-            $line                = new OrderLine();
-            $line->order_id      = $order->id;
-            $line->product_id    = $product['id'];
-            $line->qty           = $product['qty'];
-            $line->modification  = json_encode($product['modification']);
-            $line->extras        = json_encode($product['extras']);
-            $line->product_price = $product['price'];// Price is already in pennies
-            $line->final_price   = $money->makePennies($product['final_price']);
-            $line->tax           = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
-            $line->subtotal      = $line->final_price - $line->tax;
+            $line                    = new OrderLine();
+            $line->order_id          = $order->id;
+            $line->product_id        = $product['id'];
+            $line->qty               = $product['qty'];
+            $line->modification      = json_encode($product['modification']);
+            $line->product_allergies = json_encode($product['product_allergies']);
+            $line->extras            = json_encode($product['extras']);
+            $line->product_price     = $product['price'];                                                        // Price is already in pennies
+            $line->final_price       = $money->makePennies($product['final_price']);
+            $line->tax               = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
+            $line->subtotal          = $line->final_price - $line->tax;
             $line->save();
         }
         DB::commit();
@@ -109,16 +110,17 @@ class OrderController extends Controller
 
             // Save the order lines
         foreach ($request->products as $product) {
-            $line                = new OrderLine();
-            $line->order_id      = $order->id;
-            $line->product_id    = $product['id'];
-            $line->qty           = $product['qty'];
-            $line->modification  = json_encode($product['modification']);
-            $line->extras        = json_encode($product['extras']);
-            $line->product_price = $product['price'];// Price is already in pennies
-            $line->final_price   = $money->makePennies($product['final_price']);
-            $line->tax           = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
-            $line->subtotal      = $line->final_price - $line->tax;
+            $line                    = new OrderLine();
+            $line->order_id          = $order->id;
+            $line->product_id        = $product['id'];
+            $line->qty               = $product['qty'];
+            $line->modification      = json_encode($product['modification']);
+            $line->product_allergies = json_encode($product['product_allergies']);
+            $line->extras            = json_encode($product['extras']);
+            $line->product_price     = $product['price'];                                                        // Price is already in pennies
+            $line->final_price       = $money->makePennies($product['final_price']);
+            $line->tax               = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
+            $line->subtotal          = $line->final_price - $line->tax;
             $line->save();
         }
         DB::commit();
