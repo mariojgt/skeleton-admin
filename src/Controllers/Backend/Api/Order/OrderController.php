@@ -14,9 +14,15 @@ use Mariojgt\SkeletonAdmin\Resource\Backend\OrderResource;
 
 class OrderController extends Controller
 {
+    /**
+     * This function will display the list of orders placed today.
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function index(Request $request)
     {
-        // Get today orders where is open
         $orders = Order::where('status', 'open')
             ->where('created_at', '>=', date('Y-m-d'))
             ->orderBy('order_name', 'desc')
@@ -24,10 +30,17 @@ class OrderController extends Controller
         return OrderResource::collection($orders);
     }
 
+    /**
+     * This function will create a new order.
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function create(Request $request)
     {
-        $order = Order::where('order_name', $request->order_name)->where('status', 'open')->first();
-        if ($order) {
+        // Check if the order already exists. where the status is open.
+        if (Order::where('order_name', $request->order_name)->where('status', 'open')->exists()) {
             throw ValidationException::withMessages(['Order already exists']);
         }
 
@@ -71,7 +84,7 @@ class OrderController extends Controller
             $line->modification      = json_encode($product['modification']);
             $line->product_allergies = json_encode($product['product_allergies']);
             $line->extras            = json_encode($product['extras']);
-            $line->product_price     = $product['price'];                                                        // Price is already in pennies
+            $line->product_price     = $product['price'];
             $line->final_price       = $money->makePennies($product['final_price']);
             $line->tax               = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
             $line->subtotal          = $line->final_price - $line->tax;
@@ -82,6 +95,13 @@ class OrderController extends Controller
         return new OrderResource($order);
     }
 
+    /**
+     * This function will update an order.
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function edit(Request $request)
     {
         $order             = Order::findOrFail($request->order_id);
@@ -117,7 +137,7 @@ class OrderController extends Controller
             $line->modification      = json_encode($product['modification']);
             $line->product_allergies = json_encode($product['product_allergies']);
             $line->extras            = json_encode($product['extras']);
-            $line->product_price     = $product['price'];                                                        // Price is already in pennies
+            $line->product_price     = $product['price'];
             $line->final_price       = $money->makePennies($product['final_price']);
             $line->tax               = $money->makePennies(($product['final_price'] / 100 ) * $product['tax']);
             $line->subtotal          = $line->final_price - $line->tax;
@@ -128,15 +148,36 @@ class OrderController extends Controller
         return new OrderResource($order);
     }
 
+    /**
+     * This function will return the order details based in the id.
+     *
+     * @param mixed $order
+     *
+     * @return [type]
+     */
     public function view($order)
     {
         $order = Order::findOrFail($order);
         return new OrderResource($order);
     }
 
+    /**
+     * Close the order and change the status to closed.
+     *
+     * @param Request $request
+     * @param mixed $order
+     *
+     * @return [type]
+     */
     public function closeOrder(Request $request, $order)
     {
         $order = Order::findOrFail($order);
+
+        // Check if the balance is 0
+        if ($order->orderBalance() != 0) {
+            throw ValidationException::withMessages(['The order must be paid in order to close 😭']);
+        }
+
         $order->status = 'closed';
         $order->save();
 
