@@ -5,7 +5,6 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Mariojgt\SkeletonAdmin\Helpers\Money;
 use Mariojgt\Magnifier\Models\MediaFolder;
 use Mariojgt\SkeletonAdmin\Models\Product;
@@ -13,15 +12,14 @@ use Mariojgt\SkeletonAdmin\Models\Category;
 use Illuminate\Validation\ValidationException;
 use Mariojgt\Magnifier\Controllers\MediaController;
 use Mariojgt\SkeletonAdmin\Resource\Backend\ProductResource;
-use Mariojgt\SkeletonAdmin\Resource\Backend\CategoryResource;
-use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 
 class ProductController extends Controller
 {
+
     /**
-     * Return the last notifications.
+     * Return the product list
      *
-     * @param int $amount
+     * @param Request $request
      *
      * @return [type]
      */
@@ -179,14 +177,13 @@ class ProductController extends Controller
                 ->orWhere(DB::raw("CONCAT(`name`,' ',`sku_code`)"), 'like', '%' . $search . '%');
         })->first();
 
-        // If use stock is true we can remove the stock
-        if ($product->use_stock && empty($request->read)) {
-            if ($product->stock <= 0) {
-                throw ValidationException::withMessages(['The product ' . $product->name . ' is out of stock 😭']);
-            }
-        }
-
         if (!empty($product)) {
+            // If use stock is true we can remove the stock
+            if ($product->use_stock && empty($request->read)) {
+                if ($product->stock <= 0) {
+                    throw ValidationException::withMessages(['The product ' . $product->name . ' is out of stock 😭']);
+                }
+            }
             return new ProductResource($product);
         } else {
             return response()->json([
