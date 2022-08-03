@@ -15,7 +15,7 @@ class UserController extends Controller
     /**
      * Return the user information
      *
-     * @return Collect [user]
+     * @return json
      */
     public function index()
     {
@@ -50,7 +50,7 @@ class UserController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function updatePassword(Request $request)
     {
@@ -71,7 +71,7 @@ class UserController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function updateAvatar(Request $request)
     {

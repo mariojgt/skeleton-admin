@@ -4,10 +4,8 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Category;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Mariojgt\SkeletonAdmin\Models\Category;
 use Mariojgt\SkeletonAdmin\Resource\Backend\CategoryResource;
-use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 
 class CategoryController extends Controller
 {
@@ -16,7 +14,7 @@ class CategoryController extends Controller
      *
      * @param int $amount
      *
-     * @return [type]
+     * @return json
      */
     public function index(Request $request)
     {
@@ -25,6 +23,14 @@ class CategoryController extends Controller
         return CategoryResource::collection($category);
     }
 
+    /**
+     * Update the category information
+     *
+     * @param Request $request
+     * @param mixed $category
+     *
+     * @return json
+     */
     public function update(Request $request, $category)
     {
         $category            = Category::findOrFail($category);
@@ -45,6 +51,13 @@ class CategoryController extends Controller
         ]);
     }
 
+    /**
+     * Create a new category
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
     public function create(Request $request)
     {
         // Validate the till as array

@@ -21,7 +21,7 @@ class ProductController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function index(Request $request)
     {
@@ -39,6 +39,13 @@ class ProductController extends Controller
         return ProductResource::collection($product);
     }
 
+    /**
+     * Update the product information
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
     public function update(Request $request)
     {
         // Validate the till as array
@@ -104,6 +111,13 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * Create a new product
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
     public function create(Request $request)
     {
         // Validate the till as array
@@ -163,6 +177,13 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * Search products
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
     public function search(Request $request)
     {
         $request->validate([
@@ -193,6 +214,13 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * Update the product main image
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
     public function updateMainImage(Request $request)
     {
         $request->validate([
@@ -211,9 +239,10 @@ class ProductController extends Controller
 
     /**
      * Search in the extra sections of the product.
+     *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function extras(Request $request)
     {

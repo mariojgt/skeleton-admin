@@ -13,6 +13,14 @@ use Mariojgt\SkeletonAdmin\Resource\Backend\OrderResource;
 
 class PaymentController extends Controller
 {
+    /**
+     * Make a payment to a order
+     *
+     * @param Request $request
+     * @param mixed $order
+     *
+     * @return json
+     */
     public function makePayment(Request $request, $order)
     {
         $order = Order::findOrFail($order);
@@ -44,6 +52,17 @@ class PaymentController extends Controller
         return new OrderResource($order);
     }
 
+    /**
+     * Short function to create a payment
+     *
+     * @param Order $order
+     * @param mixed $amount
+     * @param mixed $status
+     * @param mixed $description
+     * @param mixed $type
+     *
+     * @return json
+     */
     public function createPayment(Order $order, $amount, $status, $description, $type)
     {
         $payment              = new Payment();

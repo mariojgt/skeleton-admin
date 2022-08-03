@@ -13,7 +13,7 @@ class NotificationsController extends Controller
      *
      * @param int $amount
      *
-     * @return [type]
+     * @return json
      */
     public function index($amount = 10)
     {
@@ -28,7 +28,7 @@ class NotificationsController extends Controller
     /**
      * Read all the user notifications.
      *
-     * @return [type]
+     * @return json
      */
     public function read()
     {

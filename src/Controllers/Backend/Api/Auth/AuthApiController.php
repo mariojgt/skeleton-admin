@@ -19,7 +19,7 @@ class AuthApiController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function login(Request $request)
     {
@@ -53,7 +53,7 @@ class AuthApiController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function logout(Request $request)
     {
@@ -70,7 +70,7 @@ class AuthApiController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function register(Request $request)
     {
@@ -132,7 +132,7 @@ class AuthApiController extends Controller
      *
      * @param Request $request
      *
-     * @return [redirect]
+     * @return json
      */
     public function reset(Request $request)
     {

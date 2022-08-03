@@ -13,7 +13,7 @@ class NavigationController extends Controller
      *
      * @param request $request
      *
-     * @return success
+     * @return json
      */
     public function menuUpdate(Request $request, Navigation $navigation)
     {

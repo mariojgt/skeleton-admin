@@ -10,6 +10,14 @@ use Mariojgt\SkeletonAdmin\Resource\Backend\LiveProductResource;
 
 class LiveProductController extends Controller
 {
+    /**
+     * Return the live products in the orders
+     *
+     * @param Request $request
+     * @param mixed $till
+     *
+     * @return json
+     */
     public function index(Request $request, $till)
     {
         $till = Till::findOrFail($till);
@@ -28,6 +36,14 @@ class LiveProductController extends Controller
         return LiveProductResource::collection($orderLines);
     }
 
+    /**
+     * Print order items
+     *
+     * @param Request $request
+     * @param mixed $line
+     *
+     * @return json
+     */
     public function printItem(Request $request, $line)
     {
         $orderLines =  OrderLine::findOrFail($line);
@@ -38,6 +54,14 @@ class LiveProductController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Mark the order line as completed
+     *
+     * @param Request $request
+     * @param mixed $till
+     *
+     * @return json
+     */
     public function completed(Request $request, $till)
     {
         $till = Till::findOrFail($till);

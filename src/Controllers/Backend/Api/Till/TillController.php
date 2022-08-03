@@ -4,10 +4,8 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Till;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Mariojgt\SkeletonAdmin\Models\Till;
 use Mariojgt\SkeletonAdmin\Resource\Backend\TillResource;
-use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 
 class TillController extends Controller
 {
@@ -16,7 +14,7 @@ class TillController extends Controller
      *
      * @param int $amount
      *
-     * @return [type]
+     * @return json
      */
     public function index(Request $request)
     {
@@ -29,6 +27,14 @@ class TillController extends Controller
         return TillResource::collection($tills);
     }
 
+    /**
+     * Update the till information
+     *
+     * @param Request $request
+     * @param mixed $till
+     *
+     * @return json
+     */
     public function update(Request $request, $till)
     {
         // Validate the till as array
@@ -47,6 +53,13 @@ class TillController extends Controller
         ]);
     }
 
+    /**
+     * Create a new till
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
     public function create(Request $request)
     {
         // Validate the till as array

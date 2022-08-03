@@ -19,7 +19,7 @@ class OrderController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function index(Request $request)
     {
@@ -35,7 +35,7 @@ class OrderController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function create(Request $request)
     {
@@ -100,7 +100,7 @@ class OrderController extends Controller
      *
      * @param Request $request
      *
-     * @return [type]
+     * @return json
      */
     public function edit(Request $request)
     {
@@ -153,7 +153,7 @@ class OrderController extends Controller
      *
      * @param mixed $order
      *
-     * @return [type]
+     * @return json
      */
     public function view($order)
     {
@@ -167,7 +167,7 @@ class OrderController extends Controller
      * @param Request $request
      * @param mixed $order
      *
-     * @return [type]
+     * @return json
      */
     public function closeOrder(Request $request, $order)
     {
