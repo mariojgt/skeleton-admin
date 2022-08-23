@@ -10,6 +10,8 @@
 # Welcome to skeleton-admin
 This is a base package for Laravel that scaffolds a basic admin panel. It comes with frontend and backend login and two Webpack configs both for them both respectively. Also included is Inertia JS, Tailwind CSS, Vue JS, Daisy UI, GDPR cookie for Laravel. skeleton-admin comes with a generic crud builder ready and easy to use and Two-factor Authentication out of the box. The project still in development, so if you have any suggestion or you want to contribute, please submit an issue on GitHub, thanks!
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D5EJZ3P)
+
 ## Installation
 
 First, you need a clean Laravel project, then run the following commands:
