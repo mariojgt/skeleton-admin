@@ -1,5 +1,5 @@
 <template>
-    <div class="card bg-base-300 border border-gray-300 shadow-xl" :data-itemid="props.itemId" >
+    <div class="card bg-base-300 border border-gray-300 shadow-xl" :data-itemid="props.itemId">
         <div class="card-body">
             <h2 class="card-title">
                 <component v-if="DynamicIcon" :is="DynamicIcon" />

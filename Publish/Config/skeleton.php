@@ -6,7 +6,7 @@ return [
      */
     'frontend_register_enable' => true,
     /**
-     * If true we goin to send an email to the user to verify his account.
+     * If true we going to send an email to the user to verify his account.
      */
     'frontend_email_verify' => true,
     /**
@@ -15,13 +15,13 @@ return [
     'backend_register_enable' => true,
 
     /**
-     * The Boot Token is used in the pre api autentication
-     * So we can prevent unwanted aplication ping your url.
+     * The Boot Token is used in the pre api authentication
+     * So we can prevent unwanted application ping your url.
      */
     'boot_token'      => 'admin',
 
     /**
-     * In here for example you have have a admin guard login or a diferent user guard
+     * In here for example you have have a admin guard login or a different user guard
      * default is web.
      */
     'user_guard' => 'web',

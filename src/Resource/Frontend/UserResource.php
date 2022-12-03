@@ -16,13 +16,15 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        // The image is a example
         return [
             'id'                => $this->id,
-            'name'              => $this->name,
+            'first_name'        => $this->first_name,
+            'last_name'         => $this->last_name,
             'avatar'            => Gravatar::gravatar($this->email),
             'email'             => $this->email,
             'email_verified_at' => $this->email_verified_at,
+            'password'          => $this->password,
+            'remember_token'    => $this->remember_token,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
         ];

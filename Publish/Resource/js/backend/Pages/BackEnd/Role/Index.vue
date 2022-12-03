@@ -1,16 +1,9 @@
 <template>
-  <Layout>
-    <Table
-      :columns="props.columns"
-      :model="props.model"
-      :endpoint="props.endpoint"
-      :endpoint-delete="props.endpointDelete"
-      :endpoint-create="props.endpointCreate"
-      :endpoint-edit="props.endpointEdit"
-      :table-title="'Roles'"
-      :permission="props.permission"
-    />
-  </Layout>
+    <Layout>
+        <Table :columns="props.columns" :model="props.model" :endpoint="props.endpoint"
+            :endpoint-delete="props.endpointDelete" :endpoint-create="props.endpointCreate"
+            :endpoint-edit="props.endpointEdit" :table-title="'Roles'" :permission="props.permission" />
+    </Layout>
 </template>
 
 <script setup>
@@ -23,33 +16,33 @@ import Layout from "../../../Layout/App.vue";
 import Table from "../../../../../../Builder/Table/Table.vue";
 
 const props = defineProps({
-  endpoint: {
-    type: String,
-    default: "",
-  },
-  columns: {
-    type: Object,
-    default: () => ({}),
-  },
-  model: {
-    type: String,
-    default: "",
-  },
-  endpointDelete: {
-    type: String,
-    default: "",
-  },
-  endpointCreate: {
-    type: String,
-    default: "",
-  },
-  endpointEdit: {
-    type: String,
-    default: "",
-  },
-  permission: {
-    type: String,
-    default: "",
-  },
+    endpoint: {
+        type: String,
+        default: "",
+    },
+    columns: {
+        type: Object,
+        default: () => ({}),
+    },
+    model: {
+        type: String,
+        default: "",
+    },
+    endpointDelete: {
+        type: String,
+        default: "",
+    },
+    endpointCreate: {
+        type: String,
+        default: "",
+    },
+    endpointEdit: {
+        type: String,
+        default: "",
+    },
+    permission: {
+        type: String,
+        default: "",
+    },
 });
 </script>

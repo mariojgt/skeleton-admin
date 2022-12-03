@@ -44,7 +44,7 @@ class ProfileController extends Controller
 
         // Start the user authenticator so we can enable or disable the 2FA and other options
         $authenticator = new AutenticatorHandle();
-        // Autenticator information
+        // Authenticator information
         $authenticatorInfo = [];
         // First we check if the user is uisng the autenticator
         if (Auth::user()->twoStepsEnable()) {

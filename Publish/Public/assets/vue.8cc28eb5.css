@@ -1,0 +1,1 @@
+.loader{border-top-color:#000;-webkit-animation:spinner 1.5s linear infinite;animation:spinner 1.5s linear infinite}@-webkit-keyframes spinner{0%{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@keyframes spinner{0%{transform:rotate(0)}to{transform:rotate(360deg)}}

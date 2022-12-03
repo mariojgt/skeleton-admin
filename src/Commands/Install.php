@@ -39,6 +39,11 @@ class Install extends Command
      */
     public function handle()
     {
+        // Delete the file if exist
+        $userMigration = 'database/migrations/2014_10_12_000000_create_users_table.php';
+        if (file_exists(base_path($userMigration))) {
+            unlink(base_path($userMigration));
+        }
 
         // Call the function that will publish all the packages files
         $this->publishPackages();
