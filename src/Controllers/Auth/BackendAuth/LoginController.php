@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
@@ -62,7 +62,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         // Remove all the wall authenticator data from castle
-        $authenticatorHandle = new AutenticatorHandle();
+        $authenticatorHandle = new AuthenticatorHandle();
         $verification = $authenticatorHandle->logout();
 
         // Logout the user

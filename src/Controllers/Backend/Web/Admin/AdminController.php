@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\SkeletonAdmin\Models\Role;
 use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
@@ -44,7 +44,7 @@ class AdminController extends Controller
         }
 
         // Start the user autenticator so we can enalbe or disable the 2FA and other options
-        $authenticator = new AutenticatorHandle();
+        $authenticator = new AuthenticatorHandle();
         // Authenticator information
         $authenticatorInfo = [];
         // First we check if the user is uisng the autenticator
@@ -127,7 +127,7 @@ class AdminController extends Controller
                 'code' => 'required|digits:6',
             ]);
 
-            $authenticatorHandle = new AutenticatorHandle();
+            $authenticatorHandle = new AuthenticatorHandle();
             $verification = $authenticatorHandle->checkCode(Request('code'));
             // If the code is not valid we redirect the user to the edit page
             if ($verification == false) {
@@ -157,12 +157,12 @@ class AdminController extends Controller
             'code' => 'required|digits:6',
         ]);
 
-        $authenticatorHandle = new AutenticatorHandle();
+        $authenticatorHandle = new AuthenticatorHandle();
         $verification        = $authenticatorHandle->checkCode(Request('code'));
 
         // if true we can sync the user
         if ($verification) {
-            Auth::guard('skeleton_admin')->user()->syncAutenticator(Session::get('autenticator_key'));
+            Auth::guard('skeleton_admin')->user()->syncAuthenticator(Session::get('authenticator_key'));
             // Return success
             return Redirect::back()
                 ->with('success', 'code sync with success.');
@@ -188,8 +188,8 @@ class AdminController extends Controller
         ]);
 
         // Call the autenticator handle to remove the autenticator
-        $autenticatorHandle = new AutenticatorHandle();
-        $verification = $autenticatorHandle->checkCode(Request('code'));
+        $AuthenticatorHandle = new AuthenticatorHandle();
+        $verification = $AuthenticatorHandle->checkCode(Request('code'));
         // If the code is not valid we redirect the user to the edit page
         if ($verification == false) {
             return Redirect::back()

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
 
@@ -43,7 +43,7 @@ class ProfileController extends Controller
         }
 
         // Start the user authenticator so we can enable or disable the 2FA and other options
-        $authenticator = new AutenticatorHandle();
+        $authenticator = new AuthenticatorHandle();
         // Authenticator information
         $authenticatorInfo = [];
         // First we check if the user is uisng the autenticator
@@ -113,7 +113,7 @@ class ProfileController extends Controller
                 'code' => 'required|digits:6',
             ]);
 
-            $authenticatorHandle = new AutenticatorHandle();
+            $authenticatorHandle = new AuthenticatorHandle();
             $verification = $authenticatorHandle->checkCode(Request('code'));
             // If the code is not valid we redirect the user to the edit page
             if ($verification == false) {
@@ -143,11 +143,11 @@ class ProfileController extends Controller
             'code' => 'required|digits:6',
         ]);
 
-        $authenticatorHandle = new AutenticatorHandle();
+        $authenticatorHandle = new AuthenticatorHandle();
         $verification = $authenticatorHandle->checkCode(Request('code'));
         // if true we can sync the user
         if ($verification) {
-            Auth::user()->syncAutenticator(Session::get('autenticator_key'));
+            Auth::user()->syncAuthenticator(Session::get('authenticator_key'));
             // Return success
             return Redirect::back()
                 ->with('success', 'code sync with success.');
@@ -173,7 +173,7 @@ class ProfileController extends Controller
         ]);
 
         // Call the authenticator handle to remove the authenticator
-        $authenticatorHandle = new AutenticatorHandle();
+        $authenticatorHandle = new AuthenticatorHandle();
         $verification = $authenticatorHandle->checkCode(Request('code'));
 
         // If the code is not valid we redirect the user to the edit page
