@@ -36,7 +36,7 @@ class SkeletonAdminProvider extends ServiceProvider
             ]);
         }
 
-        // Load custom middlewares
+        // Load custom middleware
         $this->middleware();
 
         // Load skeleton views
@@ -86,9 +86,9 @@ class SkeletonAdminProvider extends ServiceProvider
         ]);
 
         // Publish the inertia helpers
-        // $this->publishes([
-        //     __DIR__.'/../Publish/InersiaRequest/helpers' => app_path('Helpers/'),
-        // ]);
+        $this->publishes([
+            __DIR__.'/../Publish/InersiaRequest/helpers' => app_path('Helpers/'),
+        ]);
 
         // Publish now view for the inertia were we going to render the page
         $this->publishes([
