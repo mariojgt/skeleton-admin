@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 /**
  * This helper will be use to render the 2fa authentication pages error
@@ -20,11 +20,11 @@ class CastleHelper
     public function overrideWallAuthentication()
     {
         // Render a new request with the authentication page
-        return new Response(view('castle::content.autentication.index'));
+        return Inertia::location(route('castle.wall'));
     }
 
     /**
-     * On authentication sucess we redirect the user using the customer helper that you can change
+     * On authentication success we redirect the user using the customer helper that you can change
      * @param Request $request
      *
      * @return [type]
