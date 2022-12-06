@@ -40,7 +40,7 @@ class NavigationSeeder extends Seeder
                 'icon'       => 'permission',
                 'guard'      => 'skeleton_admin',
             ],
-            // Navigations
+            // Navigation's
             [
                 'parent_id'  => null,
                 'menu_label' => 'navigation',
@@ -52,7 +52,7 @@ class NavigationSeeder extends Seeder
 
         // Loop the menuOptions and create it
         foreach ($menuOptions as $role) {
-            // Firt or create the role
+            // First or create the role
             Navigation::firstOrCreate([
                 'parent_id'  => $role['parent_id'],
                 'menu_label' => $role['menu_label'],

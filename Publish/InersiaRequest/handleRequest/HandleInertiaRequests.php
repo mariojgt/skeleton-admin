@@ -70,6 +70,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'flash'      => $this->handleFlashMessage($request),
+            'app'        => config('app.name'),
             'navigation' => NavigationResource::collection(Navigation::where('guard', 'skeleton_admin')->whereNull('parent_id')->get()),
         ]);
     }
@@ -85,6 +86,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'flash' => $this->handleFlashMessage($request),
+            'app'   => config('app.name'),
         ]);
     }
 

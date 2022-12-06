@@ -24,9 +24,9 @@ Route::group([
         Route::patch('/admin/update/{admin}', 'update')->name('admin.update');
         // Profile Update Password
         Route::patch('/admin/update-password/{admin}', 'updatePassword')->name('admin.update-password');
-        // Remove Autentetictor
-        Route::patch('/admin/remove-autenticator', 'removeAutenticator')
-            ->name('admin.remove-autenticator');
+        // Remove Authenticator
+        Route::patch('/admin/remove-authenticator', 'removeAuthenticator')
+            ->name('admin.remove-authenticator');
         // Verify and enable 2FA
         Route::post('/admin/2fa/enable', 'enable2fa')->name('admin.2fa.enable');
     });
@@ -43,7 +43,7 @@ Route::group([
         Route::get('/permission/index', 'index')->name('admin.permission.index');
     });
 
-    // Navigations
+    // Navigation's
     Route::controller(NavigationController::class)->group(function () {
         // Navigation Index
         Route::get('/navigation/index', 'index')->name('admin.navigation.index');

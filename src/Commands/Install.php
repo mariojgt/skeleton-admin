@@ -72,7 +72,7 @@ class Install extends Command
             '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder',
         ]);
 
-        // Run the naviation seeder
+        // Run the navigation seeder
         Artisan::call('db:seed', [
             '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder',
         ]);

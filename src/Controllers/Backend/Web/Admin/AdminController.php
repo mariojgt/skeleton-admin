@@ -43,11 +43,11 @@ class AdminController extends Controller
             $adminInfo = Auth::guard('skeleton_admin');
         }
 
-        // Start the user autenticator so we can enalbe or disable the 2FA and other options
+        // Start the user authenticator so we can enalbe or disable the 2FA and other options
         $authenticator = new AuthenticatorHandle();
         // Authenticator information
         $authenticatorInfo = [];
-        // First we check if the user is uisng the autenticator
+        // First we check if the user is uisng the authenticator
         if (Auth::guard('skeleton_admin')->user()->twoStepsEnable()) {
             $authenticatorInfo = [
                 'is_enable'    => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
@@ -64,7 +64,7 @@ class AdminController extends Controller
         $roles = Role::where('guard_name', 'skeleton_admin')->pluck('name', 'id');
 
         return Inertia::render('BackEnd/Admin/Edit', [
-            'autenticator' => $authenticatorInfo,
+            'authenticator' => $authenticatorInfo,
             'admin'        => new AdminResource($adminInfo),
             'roles'        => $roles,
         ]);
@@ -144,7 +144,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Check if the code that the user type match with the autenticator.
+     * Check if the code that the user type match with the authenticator.
      *
      * @param Request $request
      *
@@ -180,14 +180,14 @@ class AdminController extends Controller
      *
      * @return [type]
      */
-    public function removeAutenticator(Request $request)
+    public function removeAuthenticato(Request $request)
     {
         // Validate the code to make sure it has 6 digits
         $request->validate([
             'code' => 'required|digits:6',
         ]);
 
-        // Call the autenticator handle to remove the autenticator
+        // Call the authenticator handle to remove the authenticator
         $AuthenticatorHandle = new AuthenticatorHandle();
         $verification = $AuthenticatorHandle->checkCode(Request('code'));
         // If the code is not valid we redirect the user to the edit page
@@ -196,10 +196,10 @@ class AdminController extends Controller
                 ->with('error', 'Code Is Not Valid.');
         }
 
-        // Start the user autenticator so we can enable or disable the 2FA and other options
+        // Start the user authenticator so we can enable or disable the 2FA and other options
         Auth::guard('skeleton_admin')->user()->getCodes->delete();
 
         return Redirect::back()
-            ->with('success', 'Autenticator Removed');
+            ->with('success', 'Authenticator Removed');
     }
 }

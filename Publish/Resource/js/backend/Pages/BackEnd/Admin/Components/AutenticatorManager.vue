@@ -100,7 +100,7 @@ const removeAutenticator = () => {
     const form = {
         code: code,
     };
-    Inertia.patch(route("admin.remove-autenticator"), form);
+    Inertia.patch(route("admin.remove-authenticatorr"), form);
 };
 
 const printCodes = () => {
