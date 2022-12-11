@@ -48,7 +48,7 @@ class Republish extends Command
         $bar->advance(); // Little Progress bar
 
         // Now we move the already compiles files from the public
-        $targetFolderPublic = public_path('build/');
+        $targetFolderPublic = public_path('vendor/Skeleton');
         $destitionPublic = __DIR__.'/../../Publish/Public/';
         File::copyDirectory($targetFolderPublic, $destitionPublic);
         $bar->advance(); // Little Progress bar

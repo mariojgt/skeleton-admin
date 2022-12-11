@@ -107,7 +107,7 @@ class SkeletonAdminProvider extends ServiceProvider
 
         // Publish the public folder with the css and javascript pre compile
         $this->publishes([
-            __DIR__ . '/../Publish/Public' => public_path('build/'),
+            __DIR__ . '/../Publish/Public' => public_path('vendor/Skeleton'),
         ]);
     }
 

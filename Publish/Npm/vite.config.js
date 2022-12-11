@@ -20,4 +20,16 @@ export default defineConfig({
             reactivityTransform: true
         }),
     ],
+    build: {
+        outDir: 'public/vendor/Skeleton',
+        emptyOutDir: true,
+        rollupOptions: {
+            input: {
+                Backend_js:'resources/vendor/SkeletonAdmin/js/backend/app.js',
+                Backend_scss:'resources/vendor/SkeletonAdmin/sass/backend/app.scss',
+                Frontend_js:'resources/vendor/SkeletonAdmin/js/frontend/app.js',
+                Frontend_scss:'resources/vendor/SkeletonAdmin/sass/frontend/app.scss',
+            },
+        },
+    }
 });
