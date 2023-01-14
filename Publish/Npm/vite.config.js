@@ -6,9 +6,9 @@ export default defineConfig({
     plugins: [
         laravel([
             'resources/vendor/SkeletonAdmin/js/backend/app.js', // Backend
-            'resources/vendor/SkeletonAdmin/sass/backend/app.scss', // Backend
+            'resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss', // Backend
             'resources/vendor/SkeletonAdmin/js/frontend/app.js', // Frontend
-            'resources/vendor/SkeletonAdmin/sass/frontend/app.scss', // Frontend
+            'resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss', // Frontend
         ]),
           vue({
             template: {
@@ -26,9 +26,9 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 Backend_js:'resources/vendor/SkeletonAdmin/js/backend/app.js',
-                Backend_scss:'resources/vendor/SkeletonAdmin/sass/backend/app.scss',
+                Backend_scss:'resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss',
                 Frontend_js:'resources/vendor/SkeletonAdmin/js/frontend/app.js',
-                Frontend_scss:'resources/vendor/SkeletonAdmin/sass/frontend/app.scss',
+                Frontend_scss:'resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss',
             },
         },
     }
