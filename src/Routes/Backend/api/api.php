@@ -9,7 +9,7 @@ use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationControll
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
 Route::group([
-    // 'middleware' => ['web', 'skeleton_admin'],
+    'middleware' => ['web', 'skeleton_admin'],
     'prefix'     => config('skeleton.route_prefix'),
 ], function () {
     // Admin notifications fetch
