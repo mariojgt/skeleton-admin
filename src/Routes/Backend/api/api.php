@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Mariojgt\Builder\Controllers\TableBuilderApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Media\MediaController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
 Route::group([
-    'middleware' => ['web', 'skeleton_admin'],
+    // 'middleware' => ['web', 'skeleton_admin'],
     'prefix'     => config('skeleton.route_prefix'),
 ], function () {
     // Admin notifications fetch
@@ -31,6 +32,12 @@ Route::group([
         Route::post('/admin/api/generic/table/create', 'store')->name('admin.api.generic.table.create');
         Route::post('/admin/api/generic/table/update', 'update')->name('admin.api.generic.table.update');
         Route::post('/admin/api/generic/table/delete', 'delete')->name('admin.api.generic.table.delete');
+    });
+
+    // Media Api controller
+    Route::controller(MediaController::class)->group(function () {
+        // Get Admin notifications
+        Route::post('/admin/api/media/search', 'searchMedia')->name('admin.api.media.search');
     });
 });
 

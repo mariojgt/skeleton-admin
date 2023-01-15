@@ -61,7 +61,7 @@ class PermissionController extends Controller
                 'canCreate' => false,
                 'canEdit'   => true,
                 'type'      => 'timestamp',
-            ],
+            ]
         ];
 
         return Inertia::render('BackEnd/Permissions/Index', [
