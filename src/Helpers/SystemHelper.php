@@ -9,7 +9,7 @@ class SystemHelper
     public function localVersion()
     {
         $liveVersion  = $this->liveVersion();
-        $localVersion = '1.0.2';
+        $localVersion = '1.0.5';
         // Check if the local version is the same as the live version
         if ($liveVersion == $localVersion) {
             return [
@@ -27,13 +27,13 @@ class SystemHelper
 
     public function liveVersion()
     {
-        $response = Http::get('https://repo.packagist.org/p/mariojgt/skeleton-admin.json');
+        $response = Http::get('https://api.github.com/repos/mariojgt/skeleton-admin/releases/latest');
         // Check if is a valid response
         if ($response->ok()) {
             // Get the body
             $body = $response->json();
             // Return the version
-            return array_key_first($body['packages']['mariojgt/skeleton-admin']);
+            return $body['name'];
         } else {
             return '1.0.0';
         }

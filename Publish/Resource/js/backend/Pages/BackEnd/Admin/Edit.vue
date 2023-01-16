@@ -1,18 +1,30 @@
 <template>
     <Layout>
-        <n-card title="User Profile" :class="'card col-span-1 row-span-3 shadow-lg xl:col-span-2 bg-dark'">
-            <n-tabs type="card" tab-style="min-width: 80px;" class="tabs"
-                :pane-class="'bg-base-300 col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md'">
-                <n-tab-pane name="basic-info" tab="Basic Profile">
-                    <EditDeatils :admin-info="props.admin.data" :roles="props.roles" />
-                </n-tab-pane>
-                <n-tab-pane name="password update" tab="Password Update">
-                    <PasswordUpdate :admin-info="props.admin.data" :autenticator-info="props.autenticator" />
-                </n-tab-pane>
-                <n-tab-pane name="2fa autenticator" tab="2 steps autenticator">
-                    <AutenticatorManager :admin-info="props.admin.data" :autenticator-info="props.autenticator" />
-                </n-tab-pane>
-            </n-tabs>
+        <n-card title="User Profile" :class="'card col-span-1 row-span-3 shadow-lg xl:col-span-2 bg-base-300'">
+            <TabGroup>
+                <TabList class="flex space-x-1 rounded-xl p-1 tabs">
+                    <Tab v-slot="{ selected }">
+                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Tab 1</a>
+                    </Tab>
+                    <Tab v-slot="{ selected }">
+                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Tab 2</a>
+                    </Tab>
+                    <Tab v-slot="{ selected }">
+                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Tab 3</a>
+                    </Tab>
+                </TabList>
+                <TabPanels class="mt-2">
+                    <TabPanel>
+                        <EditDeatils :admin-info="props.admin.data" :roles="props.roles" />
+                    </TabPanel>
+                    <TabPanel>
+                        <PasswordUpdate :admin-info="props.admin.data" :autenticator-info="props.autenticator" />
+                    </TabPanel>
+                    <TabPanel>
+                        <AutenticatorManager :admin-info="props.admin.data" :autenticator-info="props.autenticator" />
+                    </TabPanel>
+                </TabPanels>
+            </TabGroup>
         </n-card>
     </Layout>
 </template>
@@ -21,6 +33,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import Layout from "../../../Layout/App.vue";
 
 // Tab Content

@@ -1,5 +1,5 @@
 <template>
-    <div class="text-sm breadcrumbs" v-if="usePage().props.value.breadcrumb" >
+    <div class="text-lg breadcrumbs p-5 bg-base-300" v-if="usePage().props.value.breadcrumb" >
         <ul>
             <li><a>Home</a></li>
             <li v-for="(item, index) in usePage().props.value.breadcrumb" :key="index" >
