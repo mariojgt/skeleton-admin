@@ -24,7 +24,7 @@
         "@headlessui/vue": "^1.7.7",
         "@inertiajs/vue3": "^1.0.0",
         "@jamescoyle/vue-icon": "^0.1.2",
-        "@mariojgt/masterui": "^0.1.4",
+        "@mariojgt/masterui": "^0.1.6",
         "@mdi/js": "^7.0.96",
         "@vitejs/plugin-vue": "^3.2.0",
         "daisyui": "^2.42.1",
