@@ -27,9 +27,8 @@
 </template>
 
 <script setup>
-import { Inertia } from "@inertiajs/inertia";
 import { onMounted } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, router } from "@inertiajs/vue3";
 import Layout from "../../../Layout/Login.vue";
 
 // Import the from components
@@ -55,6 +54,6 @@ const submitForm = () => {
         email: email,
         password: password,
     };
-    Inertia.post(route("skeleton.login.user"), form);
+    router.post(route("skeleton.login.user"), form);
 };
 </script>

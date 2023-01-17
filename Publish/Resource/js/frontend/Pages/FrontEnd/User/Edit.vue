@@ -19,9 +19,9 @@
 </template>
 
 <script setup>
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/vue3";
 import Layout from "../../../Layout/App.vue";
 
 // Tab Content

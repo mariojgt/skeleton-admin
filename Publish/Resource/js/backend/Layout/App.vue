@@ -44,11 +44,11 @@ import Breadcrumb from "../Components/Backend/App/Breadcrumb.vue";
 import Navbar from "../Components/Backend/App/Navbar.vue";
 import Footer from "../Components/Backend/App/Footer.vue";
 import MenuDrawer from "../Components/Backend/App/MenuDrawer.vue";
-import { usePage } from "@inertiajs/inertia-vue3";
+import { usePage } from "@inertiajs/vue3";
 
 // Watch for any changes in the page title once the title has change we goin to update the title of the page
 watch(
-    () => usePage().props.value.title,
+    () => usePage().props.title,
     (v) => {
         pageTitleUpdate(v);
     }
@@ -62,7 +62,7 @@ const pageTitleUpdate = async (newTitle) => {
 };
 
 setTimeout(() => {
-    pageTitleUpdate(usePage().props.value.title ?? 'Skeleton Admin');
+    pageTitleUpdate(usePage().props.title ?? 'Skeleton Admin');
 }, 500);
 
 </script>

@@ -36,9 +36,9 @@
 </template>
 
 <script setup>
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/vue3";
 import Layout from "../../../Layout/Login.vue";
 
 // Page links
@@ -74,6 +74,6 @@ const submitForm = () => {
         password: password,
         password_confirmation: password_confirmation,
     };
-    Inertia.post(route("skeleton.register.user"), form);
+    router.post(route("skeleton.register.user"), form);
 };
 </script>

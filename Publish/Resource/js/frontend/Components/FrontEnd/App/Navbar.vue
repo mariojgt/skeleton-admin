@@ -142,7 +142,7 @@
 
 <script setup>
 import { watch, onMounted } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/vue3";
 import logo from "../Global/UserLogo.vue";
 import notification from "./Notifications.vue";
 import ThemeSwich from "../Global/ThemeSwich.vue";

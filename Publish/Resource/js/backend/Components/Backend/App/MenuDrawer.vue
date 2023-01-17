@@ -54,11 +54,11 @@
 </template>
 
 <script setup>
-import { usePage } from "@inertiajs/inertia-vue3";
+import { usePage } from "@inertiajs/vue3";
 import { watch, onMounted } from "vue";
 import menuItemHandle from "../../Menu/MenuHandle.vue";
 
-const menu = usePage().props.value.navigation.data;
+const menu = usePage().props.navigation.data;
 </script>
 
 <style>

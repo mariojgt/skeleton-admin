@@ -2,17 +2,17 @@
 
 <script setup>
 import { watch, onMounted } from "vue";
-import { usePage } from "@inertiajs/inertia-vue3";
+import { usePage } from "@inertiajs/vue3";
 
 import { useMessage, useNotification } from "naive-ui";
 const message = useMessage();
 
 watch(
-  () => usePage().props.value.errors,
+  () => usePage().props.errors,
   (v) => {
     // Loop any possible page errors and display the message
-    if (usePage().props.value.errors) {
-      for (const [key, value] of Object.entries(usePage().props.value.errors)) {
+    if (usePage().props.errors) {
+      for (const [key, value] of Object.entries(usePage().props.errors)) {
         // Display a message using the helper
         handleMessage("error", value);
       }
@@ -22,22 +22,22 @@ watch(
 
 // Check if there is a flash message and display it
 onMounted(() => {
-  if (usePage().props.value.flash) {
+  if (usePage().props.flash) {
     handleMessage(
-      usePage().props.value.flash.type,
-      usePage().props.value.flash.message
+      usePage().props.flash.type,
+      usePage().props.flash.message
     );
   }
 });
 
 watch(
-  () => usePage().props.value.flash,
+  () => usePage().props.flash,
   (v) => {
     // If there is any message we can display it
-    if (usePage().props.value.flash) {
+    if (usePage().props.flash) {
       handleMessage(
-        usePage().props.value.flash.type,
-        usePage().props.value.flash.message
+        usePage().props.flash.type,
+        usePage().props.flash.message
       );
     }
   }

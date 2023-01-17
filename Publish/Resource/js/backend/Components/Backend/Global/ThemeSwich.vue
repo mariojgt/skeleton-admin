@@ -94,7 +94,7 @@
 
 <script setup>
 import { watch, onMounted } from "vue";
-import { usePage } from "@inertiajs/inertia-vue3";
+import { usePage } from "@inertiajs/vue3";
 
 const avaliablesThemes = [
   "light",

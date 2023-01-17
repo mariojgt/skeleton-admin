@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 // Import the from components
 import {
@@ -114,7 +114,7 @@ const submitForm = () => {
     const form = {
         code: code,
     };
-    Inertia.post(route("user.2fa.enable"), form);
+    router.post(route("user.2fa.enable"), form);
 };
 // Remvoe the user aunteticator
 const removeAutenticator = () => {

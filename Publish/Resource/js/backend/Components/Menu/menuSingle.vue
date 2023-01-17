@@ -9,7 +9,7 @@
 
 <script setup>
 // Import the inersia script
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/vue3";
 // Dynamic import the all icons to one variable
 // import * as icons from "@mariojgt/masterui/packages/Icons";
 

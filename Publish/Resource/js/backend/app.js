@@ -1,13 +1,13 @@
 import { createApp, h } from "vue";
-import { createInertiaApp } from "@inertiajs/inertia-vue3";
-import { InertiaProgress } from "@inertiajs/progress";
+import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import naive from "naive-ui";
 import { useMessage } from 'naive-ui'
 
-InertiaProgress.init();
-
 createInertiaApp({
+    progress: {
+        color: '#29d',
+    },
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
@@ -17,4 +17,4 @@ createInertiaApp({
     },
 });
 
-InertiaProgress.init({ color: '#4B5563' });
+
