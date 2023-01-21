@@ -4,10 +4,7 @@
 
 # Skeleton-admin
 
-This is a base package for Laravel that scaffolds a basic but powerful admin panel, out of the box comes with both front and back end
-Login with 2 different controllers and model for both admin and normal users login, also it comes with a crudbuilder, vite and inersiajs.
-
-
+Introducing our base package for Laravel, designed to help you quickly and easily scaffold a powerful admin panel for your project. Out of the box, our package comes with both front and back-end login functionality, including separate controllers and models for both admin and normal user login. The package also includes a CRUD builder, Vite and InertiaJS, making it easy to manage and organize your data. Whether you're a beginner or an experienced developer, our package offers a flexible and customizable solution for your admin panel needs. Save time and streamline your development process with our all-in-one package.
 
 
 ## Badges
