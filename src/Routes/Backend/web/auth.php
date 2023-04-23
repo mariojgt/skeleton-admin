@@ -18,11 +18,13 @@ Route::group([
         Route::post('login/user', 'login')->name('skeleton.login.user');
     });
 
-    // User Registration
-    Route::controller(RegisterController::class)->group(function () {
-        Route::get('register', 'register')->name('skeleton.register');
-        Route::post('register/user', 'userRegister')->name('skeleton.register.user');
-    });
+    if (config('skeleton.backend_register_enable')) {
+        // User Registration
+        Route::controller(RegisterController::class)->group(function () {
+            Route::get('register', 'register')->name('skeleton.register');
+            Route::post('register/user', 'userRegister')->name('skeleton.register.user');
+        });
+    }
 
     // Password Reset
     Route::controller(ResetPassword::class)->group(function () {
