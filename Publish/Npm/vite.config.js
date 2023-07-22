@@ -8,6 +8,8 @@ export default defineConfig({
             '@': '/resources/vendor/SkeletonAdmin/js',
             '@frontend_components': '/resources/vendor/SkeletonAdmin/js/frontend/Components',
             '@backend_components': '/resources/vendor/SkeletonAdmin/js/backend/Components',
+            '@frontend_layout': '/resources/vendor/SkeletonAdmin/js/frontend/Layout',
+            '@backend_layout': '/resources/vendor/SkeletonAdmin/js/backend/Layout',
         },
     },
     plugins: [
