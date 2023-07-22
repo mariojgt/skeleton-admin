@@ -3,6 +3,13 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
+    resolve: {
+        alias: {
+            '@': '/resources/vendor/SkeletonAdmin/js',
+            '@frontend_components': '/resources/vendor/SkeletonAdmin/js/frontend/Components',
+            '@backend_components': '/resources/vendor/SkeletonAdmin/js/backend/Components',
+        },
+    },
     plugins: [
         laravel([
             'resources/vendor/SkeletonAdmin/js/backend/app.js', // Backend
