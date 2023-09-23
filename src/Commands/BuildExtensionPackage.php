@@ -48,11 +48,15 @@ class BuildExtensionPackage extends Command
     {
         // What is the project namespace
         $namespace = $this->ask(
-            'What is the project namespace?, example <fg=blue>Skeleton\\Blog\\</>',
+            'What is the project namespace?, example <fg=blue> Skeleton\Blog\ </>',
             'Skeleton\Blog\\'
         );
         // For the name space we to replace the \ with \\
-        $namespace = str_replace('\\', '\\\\', $namespace);
+        $namespace = str_replace('/', '\\\\', str_replace('\\', '\\\\', $namespace));
+        // Now make sure we append \\ at the end if not exist
+        if (!Str::endsWith($namespace, '\\')) {
+            $namespace = $namespace . '\\\\';
+        }
 
         // Ask the package name name
         $packageName = $this->ask(
@@ -62,19 +66,21 @@ class BuildExtensionPackage extends Command
         // This is the package name is pascal case
         $providerName = Str::studly($packageName) . 'ServiceProvider';
 
+        // Ask the composer prefix so we can append to the composer.json
         $composerPrefix = $this->ask(
-            'What is the composer prefix?, example <fg=blue>master-store</>, <fg=red>master-store</>',
+            'What is the composer prefix?, example <fg=blue>master-store</>, <fg=yellow>master-store</>',
             'skeleton'
         );
 
         // Ask the package description
         $description = $this->ask(
-            'What is the package description?, example <fg=blue>This is a blog</>, <fg=red>This is a blog</>',
+            'What is the package description?, example <fg=green>This is a blog</>, <fg=yellow>This is a blog</>',
             'this is a blog'
         );
+
         // Ask the frontend and backend controller name
         $controller = $this->ask(
-            'What is the controller name?, example <fg=blue>MasterStore</>, <fg=red>MasterStore</>',
+            'What is the controller name?, example <fg=blue>Home</>, <fg=red>Bank</>',
             'Blog'
         );
         // Check if there is the controller name on the string if not add it
