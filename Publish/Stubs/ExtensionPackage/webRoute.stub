@@ -1,0 +1,15 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use {{namespace}}Controllers\{{location}}\{{controller}};
+
+// Standard
+Route::group([
+    'middleware' => ['web'],
+    'prefix'     => '{{route_prefix}}',
+], function () {
+    // Add your normal routes in here
+    Route::controller({{controller}}::class)->group(function () {
+        Route::get('/{{name}}/{{location_lower}}', 'index')->name('home');
+    });
+});

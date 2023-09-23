@@ -1,0 +1,19 @@
+<?php
+
+namespace {{namespace}}Controllers\{{location}};
+
+use App\Http\Controllers\Controller;
+use Inertia\Inertia;
+
+class {{controller}} extends Controller
+{
+    /**
+     * @return [blade view]
+     */
+    public function index()
+    {
+        return Inertia::render('Vendor/{{name}}/home/index', [
+            'title'          => 'Home'
+        ]);
+    }
+}

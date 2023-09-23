@@ -1,0 +1,15 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::group([
+    'prefix'     => 'api/{{name}}',
+], function () {
+    Route::get('/{{name}}/{{location_lower}}', function (Request $request) {
+        return response()->json([
+            'meta'  => [
+                'message' => 'you made it!😎 {{location}}'
+            ]
+        ]);
+    });
+});

@@ -1,0 +1,38 @@
+{
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "keywords": [
+        "laravel"
+    ],
+    "type": "laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mario",
+            "email": "mariojgt2@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "mariojgt/skeleton-admin": "^1.0.2|@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "{{namespace}}": "src"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php artisan route:list"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "{{namespace}}{{provider}}"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

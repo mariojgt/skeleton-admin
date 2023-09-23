@@ -1,0 +1,69 @@
+<?php
+
+namespace {{namespace}};
+
+use Illuminate\Support\ServiceProvider;
+
+class {{provider}} extends ServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Load the commands
+        $this->loadCommands();
+
+        // Load backend routes
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/api/api.php');
+        // Load frontend routes
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/api/api.php');
+
+        // Load Migrations
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+    }
+
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->publish();
+    }
+
+    public function publish()
+    {
+        $this->publishes([
+            __DIR__ . '/../Publish/Config/'                     => config_path(''),
+            __DIR__ . '/../Publish/Resource/backend'            => resource_path('vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev'),
+            __DIR__ . '/../Publish/Resource/backend-components' => resource_path('vendor/SkeletonAdmin/js/backend/Components'),
+            __DIR__ . '/../Publish/Resource/frontend'           => resource_path('vendor/SkeletonAdmin/js/frontend'),
+            __DIR__ . '/../Publish/Resource/frontend-sass'      => resource_path('vendor/SkeletonAdmin/sass/frontend'),
+            __DIR__ . '/../Publish/Npm'                         => base_path(''),
+            __DIR__ . '/../Publish/Middleware'                  => app_path('Http/Middleware'),
+            __DIR__ . '/../Publish/Public/Animations'           => public_path('vendor/Animations'),
+        ]);
+    }
+
+    /**
+     * Inject the commands
+     * @return void
+     */
+    public function loadCommands() {
+        // Autoload all the commands from the folder Commands
+        if ($this->app->runningInConsole()) {
+            $availableCommandsPath =  __DIR__ . '/Commands';
+            // Now get all the commands classes
+            $commandClasses = array_map(function ($path) {
+                return '{{namespace}}\Commands\\' . basename($path, '.php');
+            }, glob($availableCommandsPath . '/*.php'));
+            $this->commands($commandClasses);
+        }
+    }
+}
