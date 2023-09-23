@@ -11,7 +11,6 @@ use Inertia\Inertia;
  */
 class CastleHelper
 {
-
     /**
      * This function will render the authentication page so the user can type the code
      * note that we can change this to use ajax, inertia js or any other way default use the blade file

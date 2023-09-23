@@ -20,7 +20,11 @@ class NotificationController extends Controller
         // Find the user
         $user = Auth::user();
         // Get the notifications not read
-        $notifications = $user->notifications()->where('read_at', null)->orderBy('created_at', 'desc')->take($amount)->get();
+        $notifications = $user->notifications()
+            ->where('read_at', null)
+            ->orderBy('created_at', 'desc')
+            ->take($amount)
+            ->get();
 
         return NotificationResource::collection($notifications);
     }

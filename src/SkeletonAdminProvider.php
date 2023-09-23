@@ -4,10 +4,6 @@ namespace Mariojgt\SkeletonAdmin;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Mariojgt\SkeletonAdmin\Commands\Install;
-use Mariojgt\SkeletonAdmin\Commands\Republish;
-use Mariojgt\SkeletonAdmin\Commands\RebuildMenu;
-use Mariojgt\SkeletonAdmin\Commands\TestNotification;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Listeners\SendUserVerifyListener;
 
@@ -26,15 +22,8 @@ class SkeletonAdminProvider extends ServiceProvider
             [SendUserVerifyListener::class, 'handle']
         );
 
-        // Load Required commands
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                Republish::class,
-                Install::class,
-                TestNotification::class,
-                RebuildMenu::class,
-            ]);
-        }
+        // Load the commands
+        $this->loadCommands();
 
         // Load custom middleware
         $this->middleware();
@@ -120,5 +109,17 @@ class SkeletonAdminProvider extends ServiceProvider
             'skeleton_guest',
             \Mariojgt\SkeletonAdmin\Middleware\SkeletonGuest::class
         );
+    }
+
+    public function loadCommands() {
+        // Autoload all the commands from the folder Commands
+        if ($this->app->runningInConsole()) {
+            $availableCommandsPath =  __DIR__ . '/Commands';
+            // Now get all the commands classes
+            $commandClasses = array_map(function ($path) {
+                return 'Mariojgt\\SkeletonAdmin\\Commands\\' . basename($path, '.php');
+            }, glob($availableCommandsPath . '/*.php'));
+            $this->commands($commandClasses);
+        }
     }
 }
