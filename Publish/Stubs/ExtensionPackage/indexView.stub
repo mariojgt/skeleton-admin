@@ -140,7 +140,7 @@
             <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-2 bg-base-100">
                 <div class="card-body">
                     <h2 class="my-4 text-4xl font-bold card-title">
-                        Top 10 UI Components
+                        Welcome to the {{location}}
                     </h2>
                     <div class="mb-4 space-x-2 card-actions">
                         <div class="badge badge-ghost">Colors</div>

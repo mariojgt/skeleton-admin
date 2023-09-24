@@ -6,9 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
-use Mariojgt\SkeletonAdmin\Models\User;
-use Mariojgt\SkeletonAdmin\Models\Admin;
-use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 /**
  * This command will create a extension package so you can create lets say a new blog package using skeleton admin as a base, so no need to manually create the package.
@@ -47,17 +44,7 @@ class BuildExtensionPackage extends Command
     public function handle()
     {
         // What is the project namespace
-        $namespace = $this->ask(
-            'What is the project namespace?, example <fg=blue> Skeleton\Blog\ </>',
-            'Skeleton\Blog\\'
-        );
-        // For the name space we to replace the \ with \\
-        $namespace = str_replace('/', '\\\\', str_replace('\\', '\\\\', $namespace));
-        // Now make sure we append \\ at the end if not exist
-        if (!Str::endsWith($namespace, '\\')) {
-            $namespace = $namespace . '\\\\';
-        }
-
+        $namespace = $this->getNamespace();
         // Ask the package name name
         $packageName = $this->ask(
             'What is the package name?, example <fg=blue>master-store</>, <fg=red>master-store</>',
@@ -65,28 +52,18 @@ class BuildExtensionPackage extends Command
         );
         // This is the package name is pascal case
         $providerName = Str::studly($packageName) . 'ServiceProvider';
-
         // Ask the composer prefix so we can append to the composer.json
         $composerPrefix = $this->ask(
             'What is the composer prefix?, example <fg=blue>master-store</>, <fg=yellow>master-store</>',
             'skeleton'
         );
-
         // Ask the package description
         $description = $this->ask(
             'What is the package description?, example <fg=green>This is a blog</>, <fg=yellow>This is a blog</>',
             'this is a blog'
         );
-
         // Ask the frontend and backend controller name
-        $controller = $this->ask(
-            'What is the controller name?, example <fg=blue>Home</>, <fg=red>Bank</>',
-            'Blog'
-        );
-        // Check if there is the controller name on the string if not add it
-        if (!Str::contains($controller, 'Controller')) {
-            $controller = $controller . 'Controller';
-        }
+        $controller = $this->getController();
 
         /*
         |--------------------------------------------------------------------------
@@ -98,6 +75,11 @@ class BuildExtensionPackage extends Command
         // Create the readme file
         $this->createReadme($packageName, $description);
 
+        /*
+        |--------------------------------------------------------------------------
+        | Create the basic packages files
+        |--------------------------------------------------------------------------
+        */
         // Create the provider
         $this->createProvider($packageName, $namespace, $providerName);
         // Create the Backend controller
@@ -105,7 +87,11 @@ class BuildExtensionPackage extends Command
         // Create the Frontend controller
         $this->createController($packageName, $namespace, $controller, 'Frontend');
 
-        // Create the install and republish command
+        /*
+        |--------------------------------------------------------------------------
+        | Create the install and republish command
+        |--------------------------------------------------------------------------
+        */
         $this->createInstallCommand($namespace, $packageName, $providerName);
         // Create the republish command
         $this->createRepublishCommand($namespace, $packageName);
@@ -121,15 +107,14 @@ class BuildExtensionPackage extends Command
         $composerJson['require'][$composerPrefix . '/' . $packageName] = '@dev';
         // Now add the path to the repositories
         $composerJson['repositories'][] = [
-            'type'    => 'path',
-            'url'     => 'packages/' . $packageName,
+            'type' => 'path',
+            'url' => 'packages/' . $packageName,
             'options' => [
                 'symlink' => true
             ]
         ];
         // Save the composer.json
         file_put_contents(base_path('composer.json'), json_encode($composerJson, JSON_PRETTY_PRINT));
-
         // Now run the composer update
         $this->info('Running composer update');
         $this->runComposer();
@@ -142,11 +127,42 @@ class BuildExtensionPackage extends Command
         $this->info('php artisan republish:' . $packageName . ' this will copy the resource files from back to the package');
     }
 
+    private function getController(): string
+    {
+        // Ask the frontend and backend controller name
+        $controller = $this->ask(
+            'What is the controller name?, example <fg=blue>Home</>, <fg=red>Bank</>',
+            'Blog'
+        );
+        // Check if there is the controller name on the string if not add it
+        if (!Str::contains($controller, 'Controller')) {
+            $controller = $controller . 'Controller';
+        }
+        return $controller;
+    }
+
+    private function getNamespace(): string
+    {
+        // What is the project namespace
+        $namespace = $this->ask(
+            'What is the project namespace?, example <fg=blue> Skeleton\Blog\ </>',
+            'Skeleton\Blog\\'
+        );
+        // For the name space we to replace the \ with \\
+        $namespace = str_replace('/', '\\\\', str_replace('\\', '\\\\', $namespace));
+        // Now make sure we append \\ at the end if not exist
+        if (!Str::endsWith($namespace, '\\')) {
+            $namespace = $namespace . '\\\\';
+        }
+        return $namespace;
+    }
+
     private function createVuePage(
         string $packageName,
         string $namespace,
         string $controller,
-        string $location, // Frontend or Backend
+        string $location,
+        // Frontend or Backend
     ): void {
         $location = strtolower($location);
         $viewLayout = $location == 'backend' ? '@backend_layout/App.vue' : '@frontend_layout/App.vue';
@@ -185,7 +201,7 @@ class BuildExtensionPackage extends Command
     private function runComposer(): void
     {
         // Run the build command
-        $process =  Process::start('composer update');
+        $process = Process::start('composer update');
         // and display the command output on while is running
         while ($process->running()) {
             // Now append the output to the file in a new line using 1 second delay
@@ -197,7 +213,8 @@ class BuildExtensionPackage extends Command
         string $packageName,
         string $namespace,
         string $controller,
-        string $location, // Frontend or Backend,
+        string $location,
+        // Frontend or Backend,
         string $routeType = 'web' // web or api
     ): void {
         $routePrefix = $location == 'Backend' ? 'admin' : strtolower($packageName);
@@ -230,6 +247,14 @@ class BuildExtensionPackage extends Command
         );
     }
 
+    /**
+     * Create the republish command
+     *
+     * @param string $namespace
+     * @param string $packageName
+     *
+     * @return void
+     */
     private function createRepublishCommand(
         string $namespace,
         string $packageName,
@@ -256,6 +281,15 @@ class BuildExtensionPackage extends Command
         );
     }
 
+    /**
+     * Create the package laravel provider
+     *
+     * @param string $namespace // The package name
+     * @param string $packageName // The package namespace
+     * @param string $provider // The controller name
+     *
+     * @return void
+     */
     private function createInstallCommand(
         string $namespace,
         string $packageName,
@@ -285,6 +319,16 @@ class BuildExtensionPackage extends Command
         );
     }
 
+    /**
+     * Create the package laravel provider
+     *
+     * @param string $packageName // The package name
+     * @param string $namespace // The package namespace
+     * @param string $controller // The controller name
+     * @param string $location // The location
+     *
+     * @return void
+     */
     private function createController(
         string $packageName,
         string $namespace,
@@ -329,6 +373,15 @@ class BuildExtensionPackage extends Command
         $this->createRoute($packageName, $namespace, $controller, $location, 'api');
     }
 
+    /**
+     * Create the package laravel provider
+     *
+     * @param string $packageName // The package name
+     * @param string $namespace // The package namespace
+     * @param string $providerName // The provider name
+     *
+     * @return void
+     */
     private function createProvider(
         string $packageName,
         string $namespace,
