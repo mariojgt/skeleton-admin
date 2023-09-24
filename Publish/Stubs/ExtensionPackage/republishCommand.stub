@@ -55,6 +55,11 @@ class Republish extends Command
             $bar
         );
 
+        $npmFolder = __DIR__ . '/../../Publish/Npm/';
+        // Create the $npmFolder
+        if (!File::exists($npmFolder)) {
+            File::makeDirectory($npmFolder);
+        }
         // Now we copy the vite.config.js file
         $this->moveFileOrFolder(
             base_path('vite.config.js'),

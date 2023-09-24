@@ -127,6 +127,11 @@ class BuildExtensionPackage extends Command
         $this->info('php artisan republish:' . $packageName . ' this will copy the resource files from back to the package');
     }
 
+    /**
+     * Return the right controller name
+     *
+     * @return string
+     */
     private function getController(): string
     {
         // Ask the frontend and backend controller name

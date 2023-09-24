@@ -40,14 +40,9 @@ class {{provider}} extends ServiceProvider
     public function publish()
     {
         $this->publishes([
-            __DIR__ . '/../Publish/Config/'                     => config_path(''),
-            __DIR__ . '/../Publish/Resource/backend'            => resource_path('vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev'),
-            __DIR__ . '/../Publish/Resource/backend-components' => resource_path('vendor/SkeletonAdmin/js/backend/Components'),
-            __DIR__ . '/../Publish/Resource/frontend'           => resource_path('vendor/SkeletonAdmin/js/frontend'),
-            __DIR__ . '/../Publish/Resource/frontend-sass'      => resource_path('vendor/SkeletonAdmin/sass/frontend'),
-            __DIR__ . '/../Publish/Npm'                         => base_path(''),
-            __DIR__ . '/../Publish/Middleware'                  => app_path('Http/Middleware'),
-            __DIR__ . '/../Publish/Public/Animations'           => public_path('vendor/Animations'),
+            __DIR__ . '/../Publish/Resource' => resource_path('vendor/SkeletonAdmin'),
+            __DIR__ . '/../Publish/Public'   => public_path('vendor/Skeleton'),
+            __DIR__ . '/../Publish/Npm'      => base_path(''),
         ]);
     }
 
