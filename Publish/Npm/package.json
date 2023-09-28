@@ -28,7 +28,7 @@
         "@mariojgt/masterui": "^0.2.1",
         "@mdi/js": "^7.0.96",
         "@vitejs/plugin-vue": "^4.0.0",
-        "daisyui": "^2.51.3",
+        "daisyui": "^3.8.1",
         "sortablejs": "^1.15.0",
         "vue": "^3.2.45",
         "vue-loader": "^17.0.1"

@@ -9,7 +9,6 @@
 
                         <input-password v-model="password" label="Password" name="password" id="password"
                             placeholder="type your password" />
-
                         <input-password v-model="password_confirmation" label="Password Confirm"
                             name="password_confirmation" id="password_confirmation"
                             placeholder="type your Password Confirmation" />
@@ -51,9 +50,15 @@ const props = defineProps({
         type: String,
         default: "",
     },
+    email: {
+        type: String,
+        default: "",
+    },
 });
 
-console.log(props);
+onMounted(() => {
+    email = props.email;
+});
 
 const submitForm = () => {
     const form = {

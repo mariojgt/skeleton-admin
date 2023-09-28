@@ -5,20 +5,20 @@
                 <form @submit.prevent="submitForm">
                     <div class="px-5 py-7">
                         <input-field v-model="first_name" label="First Name" type="text" name="first_name"
-                            id="first_name" placeholder="type your First Name" />
+                            id="first_name" placeholder="Type your First Name" />
 
                         <input-field v-model="last_name" label="Last Name" type="text" name="last_name" id="last_name"
-                            placeholder="type your Last Name" />
+                            placeholder="Type your Last Name" />
 
                         <input-field v-model="email" label="Email" type="email" name="email" id="email"
-                            placeholder="type your email" />
+                            placeholder="Type your email" />
 
                         <input-password v-model="password" label="Password" name="password" id="password"
-                            placeholder="type your password" />
+                            placeholder="Type your password" />
 
                         <input-password v-model="password_confirmation" label="Password Confirm"
                             name="password_confirmation" id="password_confirmation"
-                            placeholder="type your Password Confirmation" />
+                            placeholder="Type your Password Confirmation" />
 
                         <div class="form-control pt-10">
                             <submit name="Register" @click="submitForm" />

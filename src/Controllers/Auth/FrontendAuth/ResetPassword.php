@@ -47,11 +47,12 @@ class ResetPassword extends Controller
      *
      * @return [blade view]
      */
-    public function passwordReset($token)
+    public function passwordReset(Request $request, $token)
     {
         return Inertia::render('Auth/Frontend/ResetPassword', [
             'token'   => $token,
-            'isAdmin' => true,     // Dynamic update the logo
+            'isAdmin' => true,              // Dynamic update the logo
+            'email'   => $request->email,
         ]);
     }
 

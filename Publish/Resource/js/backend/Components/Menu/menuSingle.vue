@@ -1,6 +1,6 @@
 <template>
     <li>
-        <Link :href="routeLink" class="capitalize">
+        <Link :href="routeLink" class="capitalize font-bold">
         <!-- <component :is="DynamicIcon" /> -->
         {{ props.menuItem.menu_label }}
         </Link>

@@ -1,12 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Home\HomeController;
 use Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Profile\ProfileController;
 use Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Dashboard\DashboardController;
 
 Route::group([
-    'middleware' => ['web', 'auth', '2fa'],
+    'middleware' => ['web', 'auth', 'verified', '2fa'],
     'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
     // Warn the user need to be verify

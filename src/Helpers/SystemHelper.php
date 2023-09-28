@@ -9,7 +9,7 @@ class SystemHelper
     public function localVersion()
     {
         $liveVersion  = $this->liveVersion();
-        $localVersion = '1.0.5';
+        $localVersion = '1.1.0';
         // Check if the local version is the same as the live version
         if ($liveVersion == $localVersion) {
             return [

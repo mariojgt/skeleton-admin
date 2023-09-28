@@ -1,36 +1,24 @@
 <template>
-    <div class="
-      navbar
-      sticky
-      top-0
-      z-30
-      mb-2
-      shadow-lg
-      bg-opacity-90
-      backdrop-blur
-      transition-all
-      duration-100
-      bg-base-100
-      text-base-content
-    ">
-        <div class="flex">
-            <!-- {{-- Trigger the side menu --}} -->
-            <span class="
-          tooltip tooltip-bottom
-          before:text-xs before:content-[attr(data-tip)]
-        " data-tip="Menu">
-                <label for="nav-drawer" class="btn btn-square btn-primary">
+    <div
+        class="navbar sticky top-0 z-30 mb-2 shadow-lg bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content">
+        <div class="flex-none">
+            <button class="btn btn-square btn-ghost">
+                <label for="my-drawer" class="">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         class="inline-block w-6 h-6 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                        </path>
                     </svg>
                 </label>
-            </span>
+            </button>
         </div>
         <div class="flex-1 hidden px-2 mx-2 lg:flex">
             <Link :href="homeRoute">
-            <span class="text-lg text-primary font-bold"> skeleton backend </span>
+            <a href="/" aria-current="page" aria-label="Homepage" class="flex-0 btn btn-ghost px-2"
+                data-svelte-h="svelte-pw6yxt">
+                <div class="font-title inline-flex text-lg md:text-2xl"><span class="lowercase">Skeleton</span>-<span
+                        class="text-primary">Backend</span></div>
+            </a>
             </Link>
         </div>
         <div class="flex-1 lg:flex-none">
