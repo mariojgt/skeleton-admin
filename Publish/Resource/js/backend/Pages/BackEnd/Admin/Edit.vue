@@ -4,13 +4,13 @@
             <TabGroup>
                 <TabList class="flex space-x-1 rounded-xl p-1 tabs">
                     <Tab v-slot="{ selected }">
-                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Tab 1</a>
+                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Deatils</a>
                     </Tab>
                     <Tab v-slot="{ selected }">
-                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Tab 2</a>
+                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Security</a>
                     </Tab>
                     <Tab v-slot="{ selected }">
-                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">Tab 3</a>
+                        <a class="tab tab-lg tab-bordered" :class="selected ? 'tab-active' :''">2fa</a>
                     </Tab>
                 </TabList>
                 <TabPanels class="mt-2">

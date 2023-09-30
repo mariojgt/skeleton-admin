@@ -157,10 +157,10 @@ class Install extends Command
         $request = new Request();
         $adminPassword = Str::random(10);
         $request->merge([
-            'first_name' => 'Admin',
-            'last_name' => 'Admin',
-            'email' => $userEmail,
-            'password' => $adminPassword,
+            'first_name'            => 'Admin',
+            'last_name'             => 'Admin',
+            'email'                 => $userEmail,
+            'password'              => $adminPassword,
             'password_confirmation' => $adminPassword,
         ]);
         $registerController = new BackendRegisterController();
@@ -171,10 +171,10 @@ class Install extends Command
         $request = new Request();
         $userPassword = Str::random(10);
         $request->merge([
-            'first_name' => 'User',
-            'last_name' => 'User',
-            'email' => $userEmail,
-            'password' => $userPassword,
+            'first_name'            => 'User',
+            'last_name'             => 'User',
+            'email'                 => $userEmail,
+            'password'              => $userPassword,
             'password_confirmation' => $userPassword,
         ]);
         $registerController = new FrontendRegisterController();

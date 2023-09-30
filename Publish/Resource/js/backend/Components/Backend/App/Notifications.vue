@@ -12,7 +12,7 @@
             </div>
         </div>
         <div tabindex="0" class="flex shadow menu dropdown-content bg-primary rounded-box w-96">
-            <ul class="menu py-3 shadow-lg bg-base-100 rounded-box" v-if="notifications.lenght >= 0" >
+            <ul class="menu py-3 shadow-lg bg-base-100 rounded-box" v-if="notificationsCount > 0" >
                 <li v-for="(item, index) in notifications" :key="index" class="pb-0">
                     <div class="flex pd overflow-hidden">
                         <div class="flex items-center pr-10">

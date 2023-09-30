@@ -33,9 +33,9 @@ class AuthApiController extends Controller
         $credentials = $request->only('email', 'password');
 
         // Try login
-        if (Auth::guard('skeleton_admin')->attempt($credentials)) {
+        if (backendGuard()->attempt($credentials)) {
             // Return the sanctum token that will be used in the api
-            $token = Auth::guard('skeleton_admin')->user()->createToken(Request('device_name'))->plainTextToken;
+            $token = backendGuard()->user()->createToken(Request('device_name'))->plainTextToken;
             // Return the token
             return response()->json([
                 'raw_token' => $token,

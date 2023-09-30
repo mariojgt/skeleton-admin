@@ -26,7 +26,10 @@
     "autoload": {
         "psr-4": {
             "Mariojgt\\SkeletonAdmin\\": "src"
-        }
+        },
+        "files": [
+            "src/Autoload/SkeletonFuctions.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

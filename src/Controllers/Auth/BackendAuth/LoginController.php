@@ -45,7 +45,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         // Try login Note the you have the guard
-        if (Auth::guard('skeleton_admin')->attempt($credentials)) {
+        if (backendGuard()->attempt($credentials)) {
             return Redirect::route('skeleton-admin.home')->with('success', 'Welcome :)');
         } else {
             return Redirect::route('skeleton.login')->with('error', 'Credentials do not match');
@@ -66,7 +66,7 @@ class LoginController extends Controller
         $verification = $authenticatorHandle->logout();
 
         // Logout the user
-        Auth::guard('skeleton_admin')->logout();
+        backendGuard()->logout();
         // Redirect to the login page
         return Redirect::route('skeleton.login')->with('success', 'By :)');
     }
@@ -125,7 +125,7 @@ class LoginController extends Controller
         }
 
         // Logout the user and redirect him to the home page
-        Auth::guard('skeleton_admin')->logout();
+        backendGuard()->logout();
 
         // Return to the the login page as success
         return Redirect::route('login')->with('error', 'User need to be verify!');

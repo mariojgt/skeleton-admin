@@ -38,9 +38,9 @@ class AdminController extends Controller
     {
         // Get current user else the login admin
         if (empty($admin)) {
-            $adminInfo = Auth::guard('skeleton_admin')->user();
+            $adminInfo = backendGuard()->user();
         } else {
-            $adminInfo = Auth::guard('skeleton_admin');
+            $adminInfo = backendGuard();
         }
 
         // Start the user authenticator so we can enalbe or disable the 2FA and other options
@@ -48,15 +48,15 @@ class AdminController extends Controller
         // Authenticator information
         $authenticatorInfo = [];
         // First we check if the user is uisng the authenticator
-        if (Auth::guard('skeleton_admin')->user()->twoStepsEnable()) {
+        if (backendGuard()->user()->twoStepsEnable()) {
             $authenticatorInfo = [
-                'is_enable'    => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
-                'backup_codes' => json_decode(Auth::guard('skeleton_admin')->user()->getCodes->codes),
+                'is_enable'    => backendGuard()->user()->twoStepsEnable(),
+                'backup_codes' => json_decode(backendGuard()->user()->getCodes->codes),
             ];
         } else {
             $authenticatorInfo = [
-                'codeinfo'     => $authenticator->generateCode(Auth::guard('skeleton_admin')->user()->email),
-                'is_enable'    => Auth::guard('skeleton_admin')->user()->twoStepsEnable(),
+                'codeinfo'     => $authenticator->generateCode(backendGuard()->user()->email),
+                'is_enable'    => backendGuard()->user()->twoStepsEnable(),
             ];
         }
 
@@ -121,7 +121,7 @@ class AdminController extends Controller
         ]);
 
         // Check if the two factor is enable
-        if (Auth::guard('skeleton_admin')->user()->twoStepsEnable()) {
+        if (backendGuard()->user()->twoStepsEnable()) {
             // Validate the code to make sure it has 6 digits
             $request->validate([
                 'code' => 'required|digits:6',
@@ -162,7 +162,7 @@ class AdminController extends Controller
 
         // if true we can sync the user
         if ($verification) {
-            Auth::guard('skeleton_admin')->user()->syncAuthenticator(Session::get('authenticator_key'));
+            backendGuard()->user()->syncAuthenticator(Session::get('authenticator_key'));
             // Return success
             return Redirect::back()
                 ->with('success', 'code sync with success.');
@@ -197,7 +197,7 @@ class AdminController extends Controller
         }
 
         // Start the user authenticator so we can enable or disable the 2FA and other options
-        Auth::guard('skeleton_admin')->user()->getCodes->delete();
+        backendGuard()->user()->getCodes->delete();
 
         return Redirect::back()
             ->with('success', 'Authenticator Removed');

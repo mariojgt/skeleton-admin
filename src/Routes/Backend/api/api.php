@@ -5,6 +5,7 @@ use Mariojgt\Builder\Controllers\TableBuilderApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Media\MediaController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Search\SearchController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
@@ -24,6 +25,12 @@ Route::group([
     Route::controller(NavigationController::class)->group(function () {
         // Get Admin notifications
         Route::put('/admin/api/navigation/{navigation}', 'menuUpdate')->name('admin.api.navigation.update');
+    });
+
+    // Admin update the navigation
+    Route::controller(SearchController::class)->group(function () {
+        // Get Admin notifications
+        Route::get('/admin/api/search', 'index')->name('admin.api.search');
     });
 
     // BUILDER Table api controller

@@ -18,9 +18,14 @@ class NotificationsController extends Controller
     public function index($amount = 10)
     {
         // Find the admin the user
-        $user = Auth::guard('skeleton_admin')->user();
+        $user = backendGuard()->user();
         // Get the notifications not read
-        $notifications = $user->notifications()->where('read_at', null)->orderBy('created_at', 'desc')->take($amount)->get();
+        $notifications = $user
+            ->notifications()
+            ->where('read_at', null)
+            ->orderBy('created_at', 'desc')
+            ->take($amount)
+            ->get();
 
         return NotificationResource::collection($notifications);
     }
@@ -33,7 +38,7 @@ class NotificationsController extends Controller
     public function read()
     {
         // Find the user
-        $user = Auth::guard('skeleton_admin')->user();
+        $user = backendGuard()->user();
         // Get the notifications not read
         $notifications = $user->notifications()->where('read_at', null)->get();
 
