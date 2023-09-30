@@ -57,10 +57,10 @@ class SearchController extends Controller
                 foreach ($result as $key => $data) {
                     $route = route($item['route'], $key);
                     $lastRoute = explode('/', $route);
-                    $lastRoute = $lastRoute[count($lastRoute) - 2] .'/'. $lastRoute[count($lastRoute) - 1];
+                    $lastRoute = $lastRoute[count($lastRoute) - 2] . '/' . $lastRoute[count($lastRoute) - 1];
                     $serachLoopItem['search'][] = [
-                        'result'     => $data,
-                        'route'      => route($item['route'], $key),
+                        'result' => $data,
+                        'route' => route($item['route'], $key),
                         'last_route' => $lastRoute,
                     ];
                 }
@@ -69,7 +69,16 @@ class SearchController extends Controller
                 $validSearchItems[$modelName] = $serachLoopItem;
             }
         }
-
-        return $validSearchItems;
+        if (empty($validSearchItems)) {
+            return [
+                'data' => $validSearchItems,
+                'status' => false,
+            ];
+        } else {
+            return [
+                'data' => $validSearchItems,
+                'status' => true,
+            ];
+        }
     }
 }

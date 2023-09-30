@@ -2,7 +2,7 @@
     <Layout>
         <Table :columns="props.columns" :model="props.model" :endpoint="props.endpoint"
             :endpoint-delete="props.endpointDelete" :endpoint-create="props.endpointCreate"
-            :endpoint-edit="props.endpointEdit" :table-title="'Roles'" :permission="props.permission" />
+            :endpoint-edit="props.endpointEdit" :table-title="'Roles'" :permission="props.permission" :custom_edit_route="props.custom_edit_route" />
     </Layout>
 </template>
 
@@ -41,6 +41,10 @@ const props = defineProps({
         default: "",
     },
     permission: {
+        type: String,
+        default: "",
+    },
+    custom_edit_route: {
         type: String,
         default: "",
     },

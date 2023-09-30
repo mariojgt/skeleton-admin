@@ -35,6 +35,9 @@ Route::group([
     Route::controller(RoleController::class)->group(function () {
         // Profile Edit
         Route::get('/role/index', 'index')->name('admin.role.index');
+        Route::get('/role/edit/{role}', 'edit')->name('admin.role.edit');
+        Route::patch('/role/edit/{role}', 'update')->name('admin.role.update');
+        Route::patch('/role/edit/perm/sync/{role}', 'syncPerm')->name('admin.role.perm.update');
     });
 
     // Admin permission management

@@ -13,9 +13,62 @@
                         </svg>
                     </button>
                     <ul tabindex="0"
-                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box max-h-[400px] w-[500px] overflow-y-auto"
-                        :class="searchResultEmpty > 0 ? 'hidden' : 'block'">
-                        <div v-for="(item, index) in searchResult" :key="index">
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box max-h-[400px] w-[500px] overflow-y-auto">
+                        <div v-if="search.length === 0">
+                            <li>
+                                <div class="">
+                                    <div class="flex justify-between">
+                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                        <div>
+                                            Type to search ...
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div v-else-if="searchResult.status === false">
+                            <li>
+                                <div class="">
+                                    <div class="flex justify-between">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                                        </svg>
+                                        <div>
+                                            No Result ...
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div v-else-if="searching">
+                            <li>
+                                <div class="">
+                                    <div class="flex justify-between">
+                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                        <div>
+                                            Searching ...
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div v-else v-for="(item, index) in searchResult.data" :key="index">
                             <li v-for="(data, key) in item.search" :key="key">
                                 <Link :href="data.route" class="bg-base-200 mb-1 flex justify-between">
                                 <div class="text-md font-bold">
@@ -51,17 +104,17 @@ import { computed } from "vue";
 import { useMessage } from "naive-ui";
 const message = useMessage();
 
-
 let search = $ref([]);
 let debounce = $ref([]);
 let searchResult = $ref([]);
+let searching = $ref(false);
 
 const fetchSearch = async () => {
     // Check the length of the search
     if (search.length < 3) {
         return;
     }
-
+    searching = true;
     // Clear any existing debounce event
     clearTimeout(debounce);
     // Update and log the counts after 500 miliseconds
@@ -70,15 +123,9 @@ const fetchSearch = async () => {
             .get(route("admin.api.search", { search: search }))
             .then(function (response) {
                 searchResult = response.data;
+                searching = false;
             })
             .catch(function (error) { });
     }, 500);
 };
-
-// Computeed the search result to check if it is empty
-const searchResultEmpty = computed(() => {
-    return searchResult.length == 0;
-});
-
-
 </script>
