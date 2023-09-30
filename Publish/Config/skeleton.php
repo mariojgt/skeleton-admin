@@ -1,5 +1,11 @@
 <?php
 
+use Mariojgt\SkeletonAdmin\Models\Role;
+use Mariojgt\SkeletonAdmin\Models\User;
+use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Models\Navigation;
+use Mariojgt\SkeletonAdmin\Models\Permission;
+
 return [
     /**
      * If disable users Can't register in the website.
@@ -35,4 +41,44 @@ return [
      * Routes prefix front end.
      */
     'route_prefix_front' => 'user',
+
+    'backend_search_config' => [
+        Admin::class => [
+            'search_fiels' => [
+                'first_name',
+                'email',
+            ],
+            'route' => 'admin.edit',
+            'pluck' => 'email',
+        ],
+        Role::class => [
+            'search_fiels' => [
+                'name',
+            ],
+            'route' => 'admin.role.index',
+            'pluck' => 'name',
+        ],
+        Permission::class => [
+            'search_fiels' => [
+                'name',
+            ],
+            'route' => 'admin.permission.index',
+            'pluck' => 'name',
+        ],
+        Navigation::class => [
+            'search_fiels' => [
+                'menu_label',
+            ],
+            'route' => 'admin.navigation.index',
+            'pluck' => 'menu_label',
+        ],
+        User::class => [
+            'search_fiels' => [
+                'first_name',
+                'email',
+            ],
+            'route' => 'user.edit',
+            'pluck' => 'email',
+        ],
+    ]
 ];
