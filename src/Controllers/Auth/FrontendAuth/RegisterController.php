@@ -40,27 +40,29 @@ class RegisterController extends Controller
         // Validate the user Note the small update in the password verification
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
-            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'   => ['required', 'confirmed', Password::min(8)->uncompromised()],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Password::min(8)->uncompromised()],
         ]);
 
         DB::beginTransaction();
         // Register the user in the database
-        $user             = new User();
+        $user = new User();
         $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->email      = $request->email;
-        $user->password   = Hash::make($request->password);
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
         $user->save();
 
         // Send the notification to the user
-        $user->notify(new GenericNotification(
-            'Welcome',
-            'info',
-            'Account created successfully.',
-            'icon'
-        ));
+        $user->notify(
+            new GenericNotification(
+                'Welcome',
+                'info',
+                'Account created successfully.',
+                'icon'
+            )
+        );
 
         // Send the verification to the user
         if (config('skeleton.frontend_email_verify')) {
@@ -78,7 +80,6 @@ class RegisterController extends Controller
                     ->with('error', 'The email service is not setup correctly, please contact the administrator.');
             }
         } else {
-
             // Verify the user
             $user->email_verified_at = now();
             $user->save();

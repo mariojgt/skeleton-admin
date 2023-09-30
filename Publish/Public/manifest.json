@@ -1,11 +1,286 @@
 {
-  "resources/vendor/SkeletonAdmin/js/backend/app.js": {
-    "file": "assets/Backend_js.216bc9d0.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/app.js",
-    "isEntry": true,
+  "_App-a363e5da.js": {
+    "file": "assets/App-a363e5da.js",
     "imports": [
-      "_preset.8feab997.js"
+      "_FlashMessage-ca00558d.js",
+      "_preset-4ee70171.js",
+      "_dark-43c43102.js"
+    ]
+  },
+  "_App-b3e07711.js": {
+    "file": "assets/App-b3e07711.js",
+    "imports": [
+      "_FlashMessage-cf3fef03.js",
+      "_preset-4ee70171.js",
+      "_dark-43c43102.js"
+    ]
+  },
+  "_FlashMessage-ca00558d.js": {
+    "file": "assets/FlashMessage-ca00558d.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "_FlashMessage-cf3fef03.js": {
+    "file": "assets/FlashMessage-cf3fef03.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "_Input-bc115587.js": {
+    "file": "assets/Input-bc115587.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "_Link-0ecdff30.js": {
+    "file": "assets/Link-0ecdff30.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "_Login-6a017401.js": {
+    "file": "assets/Login-6a017401.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_FlashMessage-cf3fef03.js"
+    ]
+  },
+  "_Login-cc04eb97.js": {
+    "file": "assets/Login-cc04eb97.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_FlashMessage-ca00558d.js"
+    ]
+  },
+  "_Password-4005e7cd.js": {
+    "file": "assets/Password-4005e7cd.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "_Submit-703cdd04.js": {
+    "file": "assets/Submit-703cdd04.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "_Table-ec4a3a55.js": {
+    "file": "assets/Table-ec4a3a55.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Input-bc115587.js",
+      "_Password-4005e7cd.js",
+      "_use-resolve-button-type-48508f1f.js"
+    ]
+  },
+  "__plugin-vue_export-helper-c27b6911.js": {
+    "file": "assets/_plugin-vue_export-helper-c27b6911.js"
+  },
+  "_dark-43c43102.js": {
+    "file": "assets/dark-43c43102.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "_preset-4ee70171.js": {
+    "file": "assets/preset-4ee70171.js"
+  },
+  "_use-resolve-button-type-48508f1f.js": {
+    "file": "assets/use-resolve-button-type-48508f1f.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ]
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Index.vue": {
+    "file": "assets/Index-8232a9b9.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-6a017401.js",
+      "_Input-bc115587.js",
+      "_Link-0ecdff30.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js",
+      "_FlashMessage-cf3fef03.js"
     ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Index.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Register.vue": {
+    "file": "assets/Register-594a823c.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-6a017401.js",
+      "_Input-bc115587.js",
+      "_Link-0ecdff30.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js",
+      "_FlashMessage-cf3fef03.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Register.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Reset.vue": {
+    "file": "assets/Reset-1eece805.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-6a017401.js",
+      "_Input-bc115587.js",
+      "_Link-0ecdff30.js",
+      "_Submit-703cdd04.js",
+      "_FlashMessage-cf3fef03.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Reset.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/ResetPassword.vue": {
+    "file": "assets/ResetPassword-e4e57bf2.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-6a017401.js",
+      "_Input-bc115587.js",
+      "_Link-0ecdff30.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js",
+      "_FlashMessage-cf3fef03.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/ResetPassword.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue": {
+    "file": "assets/AutenticatorManager-53ff0c5f.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Input-bc115587.js",
+      "_Submit-703cdd04.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/EditDetails.vue": {
+    "file": "assets/EditDetails-f319d914.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Input-bc115587.js",
+      "_Submit-703cdd04.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/EditDetails.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue": {
+    "file": "assets/PasswordUpdate-cdbb7cbb.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Input-bc115587.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Edit.vue": {
+    "file": "assets/Edit-2ba623bb.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-b3e07711.js",
+      "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/EditDetails.vue",
+      "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue",
+      "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue",
+      "_use-resolve-button-type-48508f1f.js",
+      "_FlashMessage-cf3fef03.js",
+      "_dark-43c43102.js",
+      "_Input-bc115587.js",
+      "_Submit-703cdd04.js",
+      "_Password-4005e7cd.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Edit.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Dashboard/Index.vue": {
+    "file": "assets/Index-cc619d2b.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-b3e07711.js",
+      "_FlashMessage-cf3fef03.js",
+      "_dark-43c43102.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Dashboard/Index.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/Index.vue": {
+    "file": "assets/Index-b13639de.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-b3e07711.js",
+      "_Table-ec4a3a55.js",
+      "_FlashMessage-cf3fef03.js",
+      "_dark-43c43102.js",
+      "_Input-bc115587.js",
+      "_Password-4005e7cd.js",
+      "_use-resolve-button-type-48508f1f.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/Index.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionItems/MenuItem.vue": {
+    "file": "assets/MenuItem-3b747c29.js",
+    "imports": [
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_preset-4ee70171.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionItems/MenuItem.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.css": {
+    "file": "assets/PositionManage-3ea76a33.css",
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.css"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.vue": {
+    "css": [
+      "assets/PositionManage-3ea76a33.css"
+    ],
+    "file": "assets/PositionManage-0156783e.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-b3e07711.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_FlashMessage-cf3fef03.js",
+      "_dark-43c43102.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Permissions/Index.vue": {
+    "file": "assets/Index-e61a17fe.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-b3e07711.js",
+      "_Table-ec4a3a55.js",
+      "_FlashMessage-cf3fef03.js",
+      "_dark-43c43102.js",
+      "_Input-bc115587.js",
+      "_Password-4005e7cd.js",
+      "_use-resolve-button-type-48508f1f.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Permissions/Index.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Index.vue": {
+    "file": "assets/Index-5b54deb2.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-b3e07711.js",
+      "_Table-ec4a3a55.js",
+      "_FlashMessage-cf3fef03.js",
+      "_dark-43c43102.js",
+      "_Input-bc115587.js",
+      "_Password-4005e7cd.js",
+      "_use-resolve-button-type-48508f1f.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Index.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/backend/app.js": {
     "dynamicImports": [
       "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Index.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Register.vue",
@@ -21,15 +296,129 @@
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Permissions/Index.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Index.vue"
-    ]
+    ],
+    "file": "assets/Backend_js-fc177fcf.js",
+    "imports": [
+      "_preset-4ee70171.js"
+    ],
+    "isEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/backend/app.js"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Index.vue": {
+    "file": "assets/Index-71294fc1.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-cc04eb97.js",
+      "_Input-bc115587.js",
+      "_Link-0ecdff30.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js",
+      "_FlashMessage-ca00558d.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Index.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Register.vue": {
+    "file": "assets/Register-9c79b97e.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-cc04eb97.js",
+      "_Input-bc115587.js",
+      "_Link-0ecdff30.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js",
+      "_FlashMessage-ca00558d.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Register.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Reset.vue": {
+    "file": "assets/Reset-d380d9e0.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-cc04eb97.js",
+      "_Input-bc115587.js",
+      "_Link-0ecdff30.js",
+      "_Submit-703cdd04.js",
+      "_FlashMessage-ca00558d.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Reset.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue": {
+    "file": "assets/ResetPassword-5e9e1443.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Login-cc04eb97.js",
+      "_Input-bc115587.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js",
+      "_Link-0ecdff30.js",
+      "_FlashMessage-ca00558d.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Dashboard/Index.vue": {
+    "file": "assets/Index-91fda3ff.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-a363e5da.js",
+      "_FlashMessage-ca00558d.js",
+      "_dark-43c43102.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Dashboard/Index.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue": {
+    "file": "assets/AutenticatorManager-e57d4ec4.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Input-bc115587.js",
+      "_Submit-703cdd04.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue": {
+    "file": "assets/EditDetails-12f38730.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Input-bc115587.js",
+      "_Submit-703cdd04.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue": {
+    "file": "assets/PasswordUpdate-1daf3858.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_Input-bc115587.js",
+      "_Password-4005e7cd.js",
+      "_Submit-703cdd04.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue": {
+    "file": "assets/Edit-b118972c.js",
+    "imports": [
+      "_preset-4ee70171.js",
+      "_App-a363e5da.js",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue",
+      "_FlashMessage-ca00558d.js",
+      "_dark-43c43102.js",
+      "_Input-bc115587.js",
+      "_Submit-703cdd04.js",
+      "_Password-4005e7cd.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/app.js": {
-    "file": "assets/Frontend_js.70d90ec5.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/app.js",
-    "isEntry": true,
-    "imports": [
-      "_preset.8feab997.js"
-    ],
     "dynamicImports": [
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Register.vue",
@@ -40,400 +429,22 @@
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue"
-    ]
-  },
-  "_preset.8feab997.js": {
-    "file": "assets/preset.8feab997.js"
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Index.vue": {
-    "file": "assets/Index.c41925cf.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Index.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.c9c919e6.js",
-      "_Input.fb0a027a.js",
-      "_Link.08d363fe.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js",
-      "_FlashMessage.97809d8d.js"
-    ]
-  },
-  "_Login.c9c919e6.js": {
-    "file": "assets/Login.c9c919e6.js",
-    "imports": [
-      "_preset.8feab997.js",
-      "_FlashMessage.97809d8d.js"
-    ]
-  },
-  "_Input.fb0a027a.js": {
-    "file": "assets/Input.fb0a027a.js",
-    "imports": [
-      "_preset.8feab997.js"
-    ]
-  },
-  "_Link.08d363fe.js": {
-    "file": "assets/Link.08d363fe.js",
-    "imports": [
-      "_preset.8feab997.js"
-    ]
-  },
-  "_Password.715f7c1f.js": {
-    "file": "assets/Password.715f7c1f.js",
-    "imports": [
-      "_preset.8feab997.js"
-    ]
-  },
-  "_Submit.dbf024dd.js": {
-    "file": "assets/Submit.dbf024dd.js",
-    "imports": [
-      "_preset.8feab997.js"
-    ]
-  },
-  "_FlashMessage.97809d8d.js": {
-    "file": "assets/FlashMessage.97809d8d.js",
-    "imports": [
-      "_preset.8feab997.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Register.vue": {
-    "file": "assets/Register.73a543d8.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Register.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.c9c919e6.js",
-      "_Input.fb0a027a.js",
-      "_Link.08d363fe.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js",
-      "_FlashMessage.97809d8d.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Reset.vue": {
-    "file": "assets/Reset.32dc733a.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Reset.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.c9c919e6.js",
-      "_Input.fb0a027a.js",
-      "_Link.08d363fe.js",
-      "_Submit.dbf024dd.js",
-      "_FlashMessage.97809d8d.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/ResetPassword.vue": {
-    "file": "assets/ResetPassword.f8313c0d.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/ResetPassword.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.c9c919e6.js",
-      "_Input.fb0a027a.js",
-      "_Link.08d363fe.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js",
-      "_FlashMessage.97809d8d.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue": {
-    "file": "assets/AutenticatorManager.f4924542.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Input.fb0a027a.js",
-      "_Submit.dbf024dd.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/EditDetails.vue": {
-    "file": "assets/EditDetails.851520db.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/EditDetails.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Input.fb0a027a.js",
-      "_Submit.dbf024dd.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue": {
-    "file": "assets/PasswordUpdate.2a4e72ab.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Input.fb0a027a.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Edit.vue": {
-    "file": "assets/Edit.262dd594.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Edit.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_App.35efb0dc.js",
-      "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/EditDetails.vue",
-      "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue",
-      "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue",
-      "_FlashMessage.97809d8d.js",
-      "_dark.69aa3750.js",
-      "_Input.fb0a027a.js",
-      "_Submit.dbf024dd.js",
-      "_Password.715f7c1f.js"
-    ]
-  },
-  "_App.35efb0dc.js": {
-    "file": "assets/App.35efb0dc.js",
-    "imports": [
-      "_FlashMessage.97809d8d.js",
-      "_preset.8feab997.js",
-      "_dark.69aa3750.js"
-    ]
-  },
-  "_dark.69aa3750.js": {
-    "file": "assets/dark.69aa3750.js",
-    "imports": [
-      "_preset.8feab997.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Dashboard/Index.vue": {
-    "file": "assets/Index.cb2ab939.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Dashboard/Index.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_App.35efb0dc.js",
-      "_FlashMessage.97809d8d.js",
-      "_dark.69aa3750.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/Index.vue": {
-    "file": "assets/Index.1048275f.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/Index.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_App.35efb0dc.js",
-      "_Table.1adc1191.js",
-      "_FlashMessage.97809d8d.js",
-      "_dark.69aa3750.js",
-      "_Input.fb0a027a.js",
-      "_Password.715f7c1f.js"
-    ]
-  },
-  "_Table.1adc1191.js": {
-    "file": "assets/Table.1adc1191.js",
-    "imports": [
-      "_preset.8feab997.js",
-      "_Input.fb0a027a.js",
-      "_Password.715f7c1f.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionItems/MenuItem.vue": {
-    "file": "assets/MenuItem.e8c56983.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionItems/MenuItem.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "__plugin-vue_export-helper.cdc0426e.js",
-      "_preset.8feab997.js"
-    ]
-  },
-  "__plugin-vue_export-helper.cdc0426e.js": {
-    "file": "assets/_plugin-vue_export-helper.cdc0426e.js"
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.vue": {
-    "file": "assets/PositionManage.d9580abd.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_App.35efb0dc.js",
-      "__plugin-vue_export-helper.cdc0426e.js",
-      "_FlashMessage.97809d8d.js",
-      "_dark.69aa3750.js"
     ],
-    "css": [
-      "assets/PositionManage.3ea76a33.css"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Permissions/Index.vue": {
-    "file": "assets/Index.3ccb0c24.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Permissions/Index.vue",
-    "isDynamicEntry": true,
+    "file": "assets/Frontend_js-802266c0.js",
     "imports": [
-      "_preset.8feab997.js",
-      "_App.35efb0dc.js",
-      "_Table.1adc1191.js",
-      "_FlashMessage.97809d8d.js",
-      "_dark.69aa3750.js",
-      "_Input.fb0a027a.js",
-      "_Password.715f7c1f.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Index.vue": {
-    "file": "assets/Index.74dbe6da.js",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Index.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_App.35efb0dc.js",
-      "_Table.1adc1191.js",
-      "_FlashMessage.97809d8d.js",
-      "_dark.69aa3750.js",
-      "_Input.fb0a027a.js",
-      "_Password.715f7c1f.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Index.vue": {
-    "file": "assets/Index.9f6c1c2f.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Index.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.90a4ea09.js",
-      "_Input.fb0a027a.js",
-      "_Link.08d363fe.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js",
-      "_FlashMessage.ab562ab9.js"
-    ]
-  },
-  "_Login.90a4ea09.js": {
-    "file": "assets/Login.90a4ea09.js",
-    "imports": [
-      "_preset.8feab997.js",
-      "_FlashMessage.ab562ab9.js"
-    ]
-  },
-  "_FlashMessage.ab562ab9.js": {
-    "file": "assets/FlashMessage.ab562ab9.js",
-    "imports": [
-      "_preset.8feab997.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Register.vue": {
-    "file": "assets/Register.dc48764b.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Register.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.90a4ea09.js",
-      "_Input.fb0a027a.js",
-      "_Link.08d363fe.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js",
-      "_FlashMessage.ab562ab9.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Reset.vue": {
-    "file": "assets/Reset.64d150ef.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Reset.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.90a4ea09.js",
-      "_Input.fb0a027a.js",
-      "_Link.08d363fe.js",
-      "_Submit.dbf024dd.js",
-      "_FlashMessage.ab562ab9.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue": {
-    "file": "assets/ResetPassword.e00f1427.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Login.90a4ea09.js",
-      "_Input.fb0a027a.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js",
-      "_Link.08d363fe.js",
-      "_FlashMessage.ab562ab9.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Dashboard/Index.vue": {
-    "file": "assets/Index.a7e15888.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Dashboard/Index.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_App.1867a43c.js",
-      "_FlashMessage.ab562ab9.js",
-      "_dark.69aa3750.js"
-    ]
-  },
-  "_App.1867a43c.js": {
-    "file": "assets/App.1867a43c.js",
-    "imports": [
-      "_FlashMessage.ab562ab9.js",
-      "_preset.8feab997.js",
-      "_dark.69aa3750.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue": {
-    "file": "assets/AutenticatorManager.f28095d1.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Input.fb0a027a.js",
-      "_Submit.dbf024dd.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue": {
-    "file": "assets/EditDetails.fb757275.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Input.fb0a027a.js",
-      "_Submit.dbf024dd.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue": {
-    "file": "assets/PasswordUpdate.7d84e7f4.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_Input.fb0a027a.js",
-      "_Password.715f7c1f.js",
-      "_Submit.dbf024dd.js"
-    ]
-  },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue": {
-    "file": "assets/Edit.5c4dbd95.js",
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "_preset.8feab997.js",
-      "_App.1867a43c.js",
-      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue",
-      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue",
-      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue",
-      "_FlashMessage.ab562ab9.js",
-      "_dark.69aa3750.js",
-      "_Input.fb0a027a.js",
-      "_Submit.dbf024dd.js",
-      "_Password.715f7c1f.js"
-    ]
+      "_preset-4ee70171.js"
+    ],
+    "isEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/app.js"
   },
   "resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss": {
-    "file": "assets/backendApp.3ac2765a.css",
-    "src": "resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss",
-    "isEntry": true
-  },
-  "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.css": {
-    "file": "assets/PositionManage.3ea76a33.css",
-    "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.css"
+    "file": "assets/backendApp-608132a0.css",
+    "isEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss"
   },
   "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss": {
-    "file": "assets/frontendApp.3ac2765a.css",
-    "src": "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss",
-    "isEntry": true
+    "file": "assets/backendApp-608132a0.css",
+    "isEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss"
   }
 }

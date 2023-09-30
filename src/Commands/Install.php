@@ -2,9 +2,16 @@
 
 namespace Mariojgt\SkeletonAdmin\Commands;
 
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Mariojgt\Magnifier\Controllers\MediaFolderController;
+use Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder;
+use Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\RegisterController as BackendRegisterController;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\RegisterController as FrontendRegisterController;
+use Mariojgt\SkeletonAdmin\Models\User;
 
 class Install extends Command
 {
@@ -39,6 +46,9 @@ class Install extends Command
      */
     public function handle()
     {
+        // Ask the user if it wants to create a frontend and backend login
+        $userEmail = $this->ask('You like to create a default user? (type a valid email)');
+
         // Delete the default laravel user migration
         $userMigration = 'database/migrations/2014_10_12_000000_create_users_table.php';
         if (file_exists(base_path($userMigration))) {
@@ -53,6 +63,16 @@ class Install extends Command
 
         // Run the seeder
         $this->runSeeders();
+
+        if (!empty($userEmail)) {
+            // Validation the email
+            if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
+                $this->error('The email is not valid');
+                return;
+            } else {
+                $this->createFrontAndBackUser($userEmail);
+            }
+        }
 
         // Cache the routes
         Artisan::call('optimize:clear');
@@ -69,12 +89,12 @@ class Install extends Command
     {
         // Run the database seeder
         Artisan::call('db:seed', [
-            '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder',
+            '--class' => RolesPermissionSeeder::class,
         ]);
 
         // Run the navigation seeder
         Artisan::call('db:seed', [
-            '--class' => 'Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder',
+            '--class' => NavigationSeeder::class,
         ]);
     }
 
@@ -86,37 +106,37 @@ class Install extends Command
         // Install Sanctum
         Artisan::call('vendor:publish', [
             '--provider' => 'Laravel\Sanctum\SanctumServiceProvider',
-            '--force'    => true,
+            '--force' => true,
         ]);
 
         // Install the castle package
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\Castle\CastleProvider',
-            '--force'    => true,
+            '--force' => true,
         ]);
 
         // The cookie package
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\Biscotto\BiscottoProvider',
-            '--force'    => true,
+            '--force' => true,
         ]);
 
         // Publish spatie permission
         Artisan::call('vendor:publish', [
             '--provider' => 'Spatie\Permission\PermissionServiceProvider',
-            '--force'    => true,
+            '--force' => true,
         ]);
 
         // Publish the builder package
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\Builder\BuilderProvider',
-            '--force'    => true,
+            '--force' => true,
         ]);
 
         // Publish the media library package
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\Magnifier\MagnifierProvider',
-            '--force'    => true,
+            '--force' => true,
         ]);
         // Call migrations
         Artisan::call('migrate');
@@ -127,7 +147,42 @@ class Install extends Command
         // Copy the need file to make the skeleton to work
         Artisan::call('vendor:publish', [
             '--provider' => 'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',
-            '--force'    => true,
+            '--force' => true,
         ]);
+    }
+
+    private function createFrontAndBackUser(string $userEmail): void
+    {
+        // Create the Admin user
+        $request = new Request();
+        $adminPassword = Str::random(10);
+        $request->merge([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'email' => $userEmail,
+            'password' => $adminPassword,
+            'password_confirmation' => $adminPassword,
+        ]);
+        $registerController = new BackendRegisterController();
+        $registerController->userRegister($request);
+        $this->info('The Admin was created with the password: (' . $adminPassword . ')');
+
+        // Create the User user
+        $request = new Request();
+        $userPassword = Str::random(10);
+        $request->merge([
+            'first_name' => 'User',
+            'last_name' => 'User',
+            'email' => $userEmail,
+            'password' => $userPassword,
+            'password_confirmation' => $userPassword,
+        ]);
+        $registerController = new FrontendRegisterController();
+        $registerController->userRegister($request);
+        // Find the user and verify the email
+        $user = User::where('email', $userEmail)->first();
+        $user->email_verified_at = now();
+        $user->save();
+        $this->info('The User was created with the password: (' . $userPassword . ')');
     }
 }
