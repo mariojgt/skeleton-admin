@@ -55,7 +55,7 @@ return [
             'search_fiels' => [
                 'name',
             ],
-            'route' => 'admin.role.index',
+            'route' => 'admin.role.edit',
             'pluck' => 'name',
         ],
         Permission::class => [

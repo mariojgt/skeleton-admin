@@ -41,12 +41,17 @@ class RoleController extends Controller
                 'type'      => 'text',   // Type text,email,password,date,timestamp
             ],
             [
-                'label'     => 'Guard',
-                'key'       => 'guard_name',
-                'sortable'  => true,
-                'canCreate' => true,
-                'canEdit'   => true,
-                'type'      => 'text',
+                'label'          => 'Guard',
+                'key'            => 'guard_name',
+                'sortable'       => true,
+                'canCreate'      => true,
+                'canEdit'        => true,
+                'type'           => 'select',
+                'select_options' => [
+                    'skeleton_admin' => 'backend',
+                    'web'            => 'frontend',
+                    'api'            => 'api',
+                ]
             ],
             [
                 'label'     => 'Created At',

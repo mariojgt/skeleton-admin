@@ -23,15 +23,20 @@
                         </form>
                     </TabPanel>
                     <TabPanel>
-                        <div class="flex justify-between" v-for="(item, index) in props.permissions" :key="index">
-                            <div v-for="(itemLoop, key) in item" :key="key" >
-                                <Toogle
-                                    @change="autoSubmitPer"
-                                    v-model="rolePer[index][itemLoop.name]"
-                                    :label="itemLoop.name"
-                                    type="text"
-                                    placeholder="type your Guard Name"
-                                />
+                        <div v-for="(item, index) in props.permissions" :key="index">
+                            <div class="flex flex-col mb-7">
+                                <h3 class="text-2xl font-bold">{{ index }}</h3>
+                                <div class="flex justify-between" >
+                                    <div v-for="(itemLoop, key) in item" :key="key">
+                                        <Toogle
+                                            @change="autoSubmitPer"
+                                            v-model="rolePer[index][itemLoop.name]"
+                                            :label="itemLoop.name"
+                                            type="text"
+                                            placeholder="type your Guard Name"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </TabPanel>

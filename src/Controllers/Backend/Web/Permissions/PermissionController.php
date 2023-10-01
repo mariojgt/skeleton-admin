@@ -44,7 +44,12 @@ class PermissionController extends Controller
                 'sortable'  => true,
                 'canCreate' => true,
                 'canEdit'   => true,
-                'type'      => 'text',
+                'type'           => 'select',
+                'select_options' => [
+                    'skeleton_admin' => 'backend',
+                    'web'            => 'frontend',
+                    'api'            => 'api',
+                ]
             ],
             [
                 'label'     => 'Created At',

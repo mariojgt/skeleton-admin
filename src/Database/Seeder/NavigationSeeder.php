@@ -48,6 +48,13 @@ class NavigationSeeder extends Seeder
                 'icon'       => 'navigation',
                 'guard'      => 'skeleton_admin',
             ],
+            [
+                'parent_id'  => 4,
+                'menu_label' => 'navigation position',
+                'route'      => 'admin.navigation.position',
+                'icon'       => 'navigation',
+                'guard'      => 'skeleton_admin',
+            ],
         ];
 
         // Loop the menuOptions and create it
