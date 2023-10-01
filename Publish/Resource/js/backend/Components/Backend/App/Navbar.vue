@@ -33,7 +33,7 @@
                 <div tabindex="0">
                     <div class="avatar">
                         <div class="rounded-full w-10 h-10 m-1">
-                            <img src="https://i.pravatar.cc/300" />
+                            <img :src="usePage().props.avatar" />
                         </div>
                     </div>
                 </div>
@@ -74,6 +74,7 @@ import logo from "../Global/AdminLogo.vue";
 import notification from "./Notifications.vue";
 import ThemeSwich from "../Global/ThemeSwich.vue";
 import Search from "./Search.vue";
+import { usePage } from "@inertiajs/vue3";
 
 // Links
 const profileLink = route("admin.edit");

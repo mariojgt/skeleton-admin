@@ -47,6 +47,7 @@ class AdminController extends Controller
         $authenticator = new AuthenticatorHandle();
         // Authenticator information
         $authenticatorInfo = [];
+
         // First we check if the user is uisng the authenticator
         if (backendGuard()->user()->twoStepsEnable()) {
             $authenticatorInfo = [
@@ -64,9 +65,9 @@ class AdminController extends Controller
         $roles = Role::where('guard_name', 'skeleton_admin')->pluck('name', 'id');
 
         return Inertia::render('BackEnd/Admin/Edit', [
-            'authenticator' => $authenticatorInfo,
-            'admin'        => new AdminResource($adminInfo),
-            'roles'        => $roles,
+            'autenticator' => $authenticatorInfo,
+            'admin'              => new AdminResource($adminInfo),
+            'roles'              => $roles,
         ]);
     }
 

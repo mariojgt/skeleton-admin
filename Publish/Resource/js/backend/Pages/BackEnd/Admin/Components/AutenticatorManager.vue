@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="px-5 py-7">
-            <div v-if="props.autenticatorInfo.is_enable == false" class="card shadow-lg compact side bg-base-100">
+            <div v-if="props.autenticator.is_enable === false" class="card shadow-lg compact side bg-base-100">
                 <div class="flex-row items-center space-x-4 card-body">
                     <div>
-                        <div class="rounded-full w-60 h-60 shadow">
-                            <div v-html="props.autenticatorInfo.codeinfo.qr_code"></div>
+                        <div class="w-full shadow border-primary border">
+                            <div v-html="props.autenticator.codeinfo.qr_code"></div>
                         </div>
                     </div>
                     <div class="w-full">
@@ -15,7 +15,7 @@
                         </h2>
                         <p class="text-base-content text-opacity-40">
                             Case you can,t use the qr code, you can enter the code manually.
-                            <strong>{{ props.autenticatorInfo.codeinfo.secret }}</strong>
+                            <strong>{{ props.autenticator.codeinfo.secret }}</strong>
                         </p>
                         <div>
                             <input-field v-model="code" label="Code" type="text" placeholder="type your code" />
@@ -74,10 +74,10 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    autenticatorInfo: {
+    autenticator: {
         type: Object,
         default: () => ({}),
-    },
+    }
 });
 
 let adminInformation = $ref([]);
@@ -119,7 +119,7 @@ const printCodes = () => {
     mywindow.document.write("<tr><th>Code</th><th>used</th></tr>");
     // Create a table row for each object
     for (const [key, value] of Object.entries(
-        props.autenticatorInfo.backup_codes
+        props.autenticator.backup_codes
     )) {
         mywindow.document.write("<tr>");
         mywindow.document.write(`<td>${value.code}</td>`);

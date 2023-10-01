@@ -21,7 +21,7 @@
                         <PasswordUpdate :admin-info="props.admin.data" :autenticator-info="props.autenticator" />
                     </TabPanel>
                     <TabPanel>
-                        <AutenticatorManager :admin-info="props.admin.data" :autenticator-info="props.autenticator" />
+                        <AutenticatorManager :admin-info="props.admin.data" :autenticator="props.autenticator" />
                     </TabPanel>
                 </TabPanels>
             </TabGroup>

@@ -1,6 +1,6 @@
 {
-  "_App-22aa391d.js": {
-    "file": "assets/App-22aa391d.js",
+  "_App-4b85cdce.js": {
+    "file": "assets/App-4b85cdce.js",
     "imports": [
       "_FlashMessage-918fa9e2.js",
       "_preset-2a80df8a.js",
@@ -162,7 +162,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/ResetPassword.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue": {
-    "file": "assets/AutenticatorManager-8d3b8183.js",
+    "file": "assets/AutenticatorManager-dafc0f4a.js",
     "imports": [
       "_preset-2a80df8a.js",
       "_Input-eca47ed3.js",
@@ -193,10 +193,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Edit.vue": {
-    "file": "assets/Edit-7cafce63.js",
+    "file": "assets/Edit-945f1707.js",
     "imports": [
       "_preset-2a80df8a.js",
-      "_App-22aa391d.js",
+      "_App-4b85cdce.js",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/EditDetails.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue",
@@ -212,10 +212,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Dashboard/Index.vue": {
-    "file": "assets/Index-bbbca91a.js",
+    "file": "assets/Index-0a15f0c8.js",
     "imports": [
       "_preset-2a80df8a.js",
-      "_App-22aa391d.js",
+      "_App-4b85cdce.js",
       "_FlashMessage-918fa9e2.js",
       "_dark-13c6dfca.js"
     ],
@@ -223,10 +223,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Dashboard/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/Index.vue": {
-    "file": "assets/Index-e963278d.js",
+    "file": "assets/Index-26bce5bd.js",
     "imports": [
       "_preset-2a80df8a.js",
-      "_App-22aa391d.js",
+      "_App-4b85cdce.js",
       "_Table-5fd3addc.js",
       "_FlashMessage-918fa9e2.js",
       "_dark-13c6dfca.js",
@@ -255,10 +255,10 @@
     "css": [
       "assets/PositionManage-3ea76a33.css"
     ],
-    "file": "assets/PositionManage-035d5528.js",
+    "file": "assets/PositionManage-f1ef97bd.js",
     "imports": [
       "_preset-2a80df8a.js",
-      "_App-22aa391d.js",
+      "_App-4b85cdce.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_FlashMessage-918fa9e2.js",
       "_dark-13c6dfca.js"
@@ -267,10 +267,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Navigation/PositionManage.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Permissions/Index.vue": {
-    "file": "assets/Index-6c0cbb5a.js",
+    "file": "assets/Index-cea0bc82.js",
     "imports": [
       "_preset-2a80df8a.js",
-      "_App-22aa391d.js",
+      "_App-4b85cdce.js",
       "_Table-5fd3addc.js",
       "_FlashMessage-918fa9e2.js",
       "_dark-13c6dfca.js",
@@ -283,10 +283,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Permissions/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Edit.vue": {
-    "file": "assets/Edit-6d859c45.js",
+    "file": "assets/Edit-282e1c3b.js",
     "imports": [
       "_preset-2a80df8a.js",
-      "_App-22aa391d.js",
+      "_App-4b85cdce.js",
       "_Input-eca47ed3.js",
       "_Submit-7f230278.js",
       "_Toogle-b85e6510.js",
@@ -299,10 +299,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Index.vue": {
-    "file": "assets/Index-745b8374.js",
+    "file": "assets/Index-5944c9c7.js",
     "imports": [
       "_preset-2a80df8a.js",
-      "_App-22aa391d.js",
+      "_App-4b85cdce.js",
       "_Table-5fd3addc.js",
       "_FlashMessage-918fa9e2.js",
       "_dark-13c6dfca.js",
@@ -332,7 +332,7 @@
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Edit.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Role/Index.vue"
     ],
-    "file": "assets/Backend_js-00991f64.js",
+    "file": "assets/Backend_js-4627587c.js",
     "imports": [
       "_preset-2a80df8a.js"
     ],
@@ -473,12 +473,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/app.js"
   },
   "resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss": {
-    "file": "assets/backendApp-b8fb2eec.css",
+    "file": "assets/backendApp-b820a8f7.css",
     "isEntry": true,
     "src": "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss"
   },
   "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss": {
-    "file": "assets/backendApp-b8fb2eec.css",
+    "file": "assets/backendApp-b820a8f7.css",
     "isEntry": true,
     "src": "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss"
   }
