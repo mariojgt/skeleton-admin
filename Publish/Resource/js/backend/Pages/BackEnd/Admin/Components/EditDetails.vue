@@ -68,6 +68,6 @@ const submitForm = () => {
         email: adminInformation.email,
         role: adminInformation.role.id,
     };
-    Inertia.patch(route("admin.update", adminInformation.id), form);
+    router.patch(route("admin.update", adminInformation.id), form);
 };
 </script>
