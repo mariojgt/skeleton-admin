@@ -74,11 +74,6 @@ class SkeletonAdminProvider extends ServiceProvider
             __DIR__ . '/../Publish/InersiaRequest/handleRequest' => app_path('Http/Middleware'),
         ]);
 
-        // Publish the inertia helpers
-        $this->publishes([
-            __DIR__.'/../Publish/InersiaRequest/helpers' => app_path('Helpers/'),
-        ]);
-
         // Publish now view for the inertia were we going to render the page
         $this->publishes([
             __DIR__ . '/../Publish/InersiaRequest/appLayout' => resource_path('views/skeleton-admin'),
