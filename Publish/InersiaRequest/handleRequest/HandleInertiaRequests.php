@@ -72,6 +72,7 @@ class HandleInertiaRequests extends Middleware
             'flash'      => $this->handleFlashMessage($request),
             'app'        => config('app.name'),
             'navigation' => NavigationResource::collection(Navigation::where('guard', 'skeleton_admin')->whereNull('parent_id')->get()),
+            'avatar' => backendGuard()?->user()?->admin_avatar,
         ]);
     }
 

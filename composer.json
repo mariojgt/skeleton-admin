@@ -19,7 +19,7 @@
         "tightenco/ziggy": "^1.5",
         "mariojgt/castle": "^2.0.1",
         "mariojgt/biscotto": "^1.0",
-        "mariojgt/builder": "^1.1.1",
+        "mariojgt/builder": "^1.1.2",
         "mariojgt/magnifier": "^1.0",
         "spatie/laravel-permission": "^5.7"
     },
