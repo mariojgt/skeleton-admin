@@ -80,5 +80,7 @@ return [
             'route' => 'user.edit',
             'pluck' => 'email',
         ],
-    ]
+    ],
+
+    'front_end_notification_user_model' => User::class,
 ];

@@ -8,6 +8,13 @@ use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 
 class NotificationController extends Controller
 {
+    protected $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = config('skeleton.front_end_notification_user_model');
+    }
+
     /**
      * Return the last notifications.
      *
@@ -17,8 +24,9 @@ class NotificationController extends Controller
      */
     public function index($amount = 10)
     {
-        // Find the user
-        $user = Auth::user();
+        // Find the user and cast to gamedev user
+        $user = $this->userModel::find(Auth::user()->id);
+
         // Get the notifications not read
         $notifications = $user->notifications()
             ->where('read_at', null)
@@ -37,7 +45,7 @@ class NotificationController extends Controller
     public function read()
     {
         // Find the user
-        $user = Auth::user();
+        $user = $this->userModel::find(Auth::user()->id);
         // Get the notifications not read
         $notifications = $user->notifications()->where('read_at', null)->get();
 
