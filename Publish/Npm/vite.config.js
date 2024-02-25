@@ -41,5 +41,11 @@ export default defineConfig({
                 Frontend_scss:'resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss',
             },
         },
-    }
+    },
+    server: {
+        host: '0.0.0.0',
+        hmr: {
+            host: 'localhost'
+        }
+    },
 });
