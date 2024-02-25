@@ -6,12 +6,12 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\Magnifier\Controllers\MediaFolderController;
 use Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder;
 use Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\RegisterController as BackendRegisterController;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\RegisterController as FrontendRegisterController;
-use Mariojgt\SkeletonAdmin\Models\User;
 
 class Install extends Command
 {
@@ -138,6 +138,7 @@ class Install extends Command
             '--provider' => 'Mariojgt\Magnifier\MagnifierProvider',
             '--force' => true,
         ]);
+
         // Call migrations
         Artisan::call('migrate');
 
@@ -180,7 +181,7 @@ class Install extends Command
         $registerController = new FrontendRegisterController();
         $registerController->userRegister($request);
         // Find the user and verify the email
-        $user = User::where('email', $userEmail)->first();
+        $user = Admin::where('email', $userEmail)->first();
         $user->email_verified_at = now();
         $user->save();
         $this->info('The User was created with the password: (' . $userPassword . ')');
