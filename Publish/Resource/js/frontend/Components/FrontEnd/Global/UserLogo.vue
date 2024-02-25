@@ -1,15 +1,15 @@
 <template>
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        :class="props.full == 'true' ? 'max-w-sm rounded-lg' : ''"
+
         viewBox="0 0 163 124"
         width="{{ props.width ?? 163 }}"
         height="{{ props.height ?? 124 }}"
     >
-        <rect fill="hsla(var(--p) / var(--tw-bg-opacity))" width="120.96" height="117.96" x="0" y="0"></rect>
+        <rect fill="#fff" width="120.96" height="117.96" x="0" y="0"></rect>
         <g
-            fill="white"
-            color="white"
+            fill="black"
+            color="black"
             transform="translate(35.48 12) scale(0.5)"
         >
             <svg
