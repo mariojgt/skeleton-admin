@@ -14,9 +14,6 @@ use Mariojgt\SkeletonAdmin\Models\User;
 
 class LoginController extends Controller
 {
-    /**
-     * @return [blade view]
-     */
     public function index()
     {
         return Inertia::render('Auth/Frontend/Index', [
@@ -24,16 +21,8 @@ class LoginController extends Controller
         ]);
     }
 
-    /**
-     * Try login the user.
-     *
-     * @param Request $request
-     *
-     * @return [blade view]
-     */
     public function login(Request $request)
     {
-        // Validate the user
         $request->validate([
             'email'    => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
@@ -49,13 +38,6 @@ class LoginController extends Controller
         }
     }
 
-    /**
-     * Logout the user and send to the login page.
-     *
-     * @param Request $request
-     *
-     * @return [redirect]
-     */
     public function logout(Request $request)
     {
         Auth::logout();
@@ -63,15 +45,6 @@ class LoginController extends Controller
         return Redirect::route('login')->with('success', 'By :)');
     }
 
-    /**
-     * Verify the user account based in the link.
-     *
-     * @param Request $request
-     * @param mixed   $userId
-     * @param mixed   $expiration
-     *
-     * @return [Redirect]
-     */
     public function verify(Request $request, $userId, $expiration)
     {
         $userId     = decrypt($userId);
@@ -90,15 +63,9 @@ class LoginController extends Controller
             event(new Verified($user));
         }
 
-        // Return to the the login page as success
         return Redirect::route('login')->with('success', 'User verify with success!');
     }
 
-    /**
-     * Double check if the user needs verification before go the the next request.
-     *
-     * @return [Redirect]
-     */
     public function needVerify()
     {
         // In here we check if we want to send the user a need verification
@@ -110,7 +77,6 @@ class LoginController extends Controller
         // Logout the user and redirect him to the home page
         Auth::logout();
 
-        // Return to the the login page as success
         return Redirect::route('login')->with('error', 'User need to be verify!');
     }
 }

@@ -14,9 +14,6 @@ use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class ResetPassword extends Controller
 {
-    /**
-     * @return [blade view]
-     */
     public function index()
     {
         return Inertia::render('Auth/Frontend/Reset', [
@@ -24,13 +21,6 @@ class ResetPassword extends Controller
         ]);
     }
 
-    /**
-     * Send a link so the user can reset the password.
-     *
-     * @param Request $request
-     *
-     * @return [redirect]
-     */
     public function reset(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -42,11 +32,6 @@ class ResetPassword extends Controller
         return Redirect::back()->with('success', 'Password link sent with success.');
     }
 
-    /**
-     * @param mixed $token
-     *
-     * @return [blade view]
-     */
     public function passwordReset(Request $request, $token)
     {
         return Inertia::render('Auth/Frontend/ResetPassword', [
@@ -56,13 +41,6 @@ class ResetPassword extends Controller
         ]);
     }
 
-    /**
-     * Change the user password.
-     *
-     * @param Request $request
-     *
-     * @return [Redirect]
-     */
     public function passwordChange(Request $request)
     {
         $request->validate([
@@ -70,6 +48,7 @@ class ResetPassword extends Controller
             'email'    => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
+
         // Using laravel default password reset
         Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),

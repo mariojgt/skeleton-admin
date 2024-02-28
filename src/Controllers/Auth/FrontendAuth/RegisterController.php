@@ -15,9 +15,6 @@ use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class RegisterController extends Controller
 {
-    /**
-     * @return [blade view]
-     */
     public function register()
     {
         return Inertia::render('Auth/Frontend/Register', [
@@ -25,13 +22,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Register a new user to the application.
-     *
-     * @param Request $request
-     *
-     * @return [redirect]
-     */
     public function userRegister(Request $request)
     {
         if (config('skeleton.frontend_register_enable') == false) {
@@ -85,9 +75,8 @@ class RegisterController extends Controller
             $user->save();
             DB::commit();
 
-            // Login the user using the guard
             auth()->login($user);
-            // Redirect to the dashboard
+
             return Redirect::route('user.home')
                 ->with('success', 'Account Created with success, Welcome to the Dashboard.');
         }

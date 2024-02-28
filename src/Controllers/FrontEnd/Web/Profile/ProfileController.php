@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Profile;
+namespace Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Web\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,16 +10,12 @@ use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Models\User;
-use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
+use Mariojgt\SkeletonAdmin\Resource\FrontEnd\UserResource;
 
 class ProfileController extends Controller
 {
     /**
      * Create new admin.
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
     public function store(Request $request)
     {
@@ -28,10 +24,6 @@ class ProfileController extends Controller
 
     /**
      * Edit the admin.
-     *
-     * @param null $admin
-     *
-     * @return [type]
      */
     public function edit($user = null)
     {
@@ -42,11 +34,9 @@ class ProfileController extends Controller
             $user = User::find($user);
         }
 
-        // Start the user authenticator so we can enable or disable the 2FA and other options
         $authenticator = new AuthenticatorHandle();
-        // Authenticator information
         $authenticatorInfo = [];
-        // First we check if the user is uisng the autenticator
+        // First we check if the user is using the authenticator
         if (Auth::user()->twoStepsEnable()) {
             $authenticatorInfo = [
                 'is_enable'    => Auth::user()->twoStepsEnable(),
@@ -67,10 +57,6 @@ class ProfileController extends Controller
 
     /**
      * Update admin profile.
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
     public function update(Request $request, User $user)
     {
@@ -92,11 +78,6 @@ class ProfileController extends Controller
 
     /**
      * Handle the password update.
-     *
-     * @param Request $request
-     * @param Admin   $admin
-     *
-     * @return [type]
      */
     public function updatePassword(Request $request, User $user)
     {
@@ -131,10 +112,6 @@ class ProfileController extends Controller
 
     /**
      * Check if the code that the user type match with the authenticator.
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
     public function enable2fa(Request $request)
     {
@@ -160,10 +137,6 @@ class ProfileController extends Controller
 
     /**
      * Function Remove the 2FA.
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
     public function removeAutenticator(Request $request)
     {
@@ -182,7 +155,7 @@ class ProfileController extends Controller
                 ->with('error', 'Code Is Not Valid.');
         }
 
-        // Start the user autenticator so we can enalbe or disable the 2FA and other options
+        // Start the user authenticator so we can enable or disable the 2FA and other options
         Auth::user()->getCodes->delete();
 
         return Redirect::back()

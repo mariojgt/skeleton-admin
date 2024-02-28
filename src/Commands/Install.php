@@ -46,14 +46,13 @@ class Install extends Command
      */
     public function handle()
     {
-        // Ask the user if it wants to create a frontend and backend login
-        $userEmail = $this->ask('You like to create a default user? (type a valid email)');
-
         // Delete the default laravel user migration
         $userMigration = 'database/migrations/2014_10_12_000000_create_users_table.php';
         if (file_exists(base_path($userMigration))) {
             unlink(base_path($userMigration));
         }
+
+        Artisan::call('migrate:fresh');
 
         // Call the function that will publish all the packages files
         $this->publishPackages();
@@ -64,15 +63,8 @@ class Install extends Command
         // Run the seeder
         $this->runSeeders();
 
-        if (!empty($userEmail)) {
-            // Validation the email
-            if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
-                $this->error('The email is not valid');
-                return;
-            } else {
-                $this->createFrontAndBackUser($userEmail);
-            }
-        }
+        // Create the admin and user user
+        $this->createFrontAndBackUser("admin@default.com");
 
         // Cache the routes
         Artisan::call('optimize:clear');

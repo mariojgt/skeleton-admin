@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
 /**
- * Test the notifications, automatic crea notifications and send them to the users for testing
+ * Test the notifications, automatic create notifications and send them to the users for testing
  */
 class RebuildMenu extends Command
 {

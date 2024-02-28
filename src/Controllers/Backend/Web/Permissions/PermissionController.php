@@ -8,9 +8,6 @@ use Mariojgt\SkeletonAdmin\Models\Permission;
 
 class PermissionController extends Controller
 {
-    /**
-     * @return [blade view]
-     */
     public function index()
     {
         // Build the breadcrumb
@@ -24,19 +21,19 @@ class PermissionController extends Controller
         // Table columns
         $columns = [
             [
-                'label'     => 'Id',    // Display name
-                'key'       => 'id',    // Table column key
-                'sortable'  => true,    // Can be use in the filter
-                'canCreate' => false,   // Can be use in the create form
-                'canEdit'   => false,   // Can be use in the edit form
+                'label'     => 'Id',
+                'key'       => 'id',
+                'sortable'  => true,
+                'canCreate' => false,
+                'canEdit'   => false,
             ],
             [
-                'label'     => 'Name',   // Display name
-                'key'       => 'name',   // Table column key
-                'sortable'  => true,     // Can be use in the filter
-                'canCreate' => true,     // Can be use in the create form
-                'canEdit'   => true,     // Can be use in the edit form
-                'type'      => 'text',   // Type text,email,password,date,timestamp
+                'label'     => 'Name',
+                'key'       => 'name',
+                'sortable'  => true,
+                'canCreate' => true,
+                'canEdit'   => true,
+                'type'      => 'text',
             ],
             [
                 'label'     => 'Guard',
@@ -87,7 +84,6 @@ class PermissionController extends Controller
                 'guard'          => 'skeleton_admin',
                 // You can use permission or role up to you
                 'type'          => 'permission',
-                // The permission name or role
                 'key' => [
                     'store'  => 'create-permission',
                     'update' => 'edit-permission',

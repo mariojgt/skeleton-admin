@@ -6,10 +6,6 @@ class Gravatar
 {
     /**
      * Function to turn email to gravatar code.
-     *
-     * @param string $email - $email address to convert
-     *
-     * @return string - Gravatar code
      */
     private static function createGravatar($email)
     {
@@ -18,24 +14,14 @@ class Gravatar
 
     /**
      * Function to create a url for gravatar.
-     *
-     * @param string $code - Gravatar code
-     * @param int    $size - Size of Gravatar to grab
-     *
-     * @return url - Url to get gravatar from
      */
     public static function gravatarUrl($code, $size = 50)
     {
-        return '//www.gravatar.com/avatar/'.$code.'?s=350&d=mp';
+        return '//www.gravatar.com/avatar/' . $code . '?s=350&d=mp';
     }
 
     /**
      * Function to display a gravatar.
-     *
-     * @param string $email - Email Address
-     * @param int    $size  - Size of gravatar
-     *
-     * @return html - display the gravatar
      */
     public static function displayGravatar($email, $size = 35, $class = '')
     {
@@ -44,15 +30,12 @@ class Gravatar
         } else {
             $code = self::createGravatar($email);
             $url = self::gravatarUrl($code, $size);
-            echo '<img src="'.$url.'" class="img-avatar img-fluid" />';
+            echo '<img src="' . $url . '" class="img-avatar img-fluid" />';
         }
     }
 
     /**
-     * @param string $email
-     * @param int    $size
-     *
-     * @return [type]
+     * Function to return a gravatar url.
      */
     public static function gravatar($email, $size = 35)
     {

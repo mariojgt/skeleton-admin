@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\SkeletonAdmin\Controllers\Frontend\Api\Notifications;
+namespace Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Api\Notifications;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -17,14 +17,10 @@ class NotificationController extends Controller
 
     /**
      * Return the last notifications.
-     *
-     * @param int $amount
-     *
-     * @return [type]
      */
     public function index($amount = 10)
     {
-        // Find the user and cast to gamedev user
+        // Find the user and cast to dynamic user
         $user = $this->userModel::find(Auth::user()->id);
 
         // Get the notifications not read
@@ -39,8 +35,6 @@ class NotificationController extends Controller
 
     /**
      * Read all the user notifications.
-     *
-     * @return json [true|false]
      */
     public function read()
     {

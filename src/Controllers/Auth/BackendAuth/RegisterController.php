@@ -15,9 +15,6 @@ use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class RegisterController extends Controller
 {
-    /**
-     * @return [blade view]
-     */
     public function register()
     {
         return Inertia::render('Auth/Backend/Register', [
@@ -25,13 +22,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Register a new user to the application.
-     *
-     * @param Request $request
-     *
-     * @return [redirect]
-     */
     public function userRegister(Request $request)
     {
         // Check if the registration is enable
@@ -39,7 +29,6 @@ class RegisterController extends Controller
             return Redirect::back()->with('error', 'Sorry but registration has been disable.');
         }
 
-        // Validate the user Note the small update in the password verification
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name'  => ['required', 'string', 'max:255'],
@@ -49,7 +38,6 @@ class RegisterController extends Controller
 
         DB::beginTransaction();
 
-        // Register The user
         $user             = new Admin();
         $user->first_name = $request->first_name;
         $user->last_name  = $request->last_name;
@@ -57,14 +45,11 @@ class RegisterController extends Controller
         $user->password   = Hash::make($request->password);
         $user->save();
 
-        // If not send the email of user verification
         $user->email_verified_at = Carbon::now();
         $user->save();
 
-        // Assign the Administrator role
         $user->assignRole('Administrator');
 
-        // Send the notification to the user
         $user->notify(new GenericNotification(
             'Welcome',
             'info',

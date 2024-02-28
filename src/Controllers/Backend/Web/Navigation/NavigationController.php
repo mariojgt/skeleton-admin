@@ -10,9 +10,6 @@ use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
 
 class NavigationController extends Controller
 {
-    /**
-     * @return [blade view]
-     */
     public function index()
     {
         // Build the breadcrumb
@@ -80,11 +77,7 @@ class NavigationController extends Controller
     }
 
     /**
-     * This function will allow us to manage the naviation menu drag and drop
-     *
-     * @param Request $request
-     *
-     * @return [type]
+     * This function will allow us to manage the navigation menu drag and drop
      */
     public function position(Request $request)
     {

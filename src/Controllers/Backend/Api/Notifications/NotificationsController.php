@@ -3,17 +3,12 @@
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Mariojgt\SkeletonAdmin\Resource\Common\NotificationResource;
 
 class NotificationsController extends Controller
 {
     /**
      * Return the last notifications.
-     *
-     * @param int $amount
-     *
-     * @return [type]
      */
     public function index($amount = 10)
     {
@@ -32,8 +27,6 @@ class NotificationsController extends Controller
 
     /**
      * Read all the user notifications.
-     *
-     * @return [type]
      */
     public function read()
     {

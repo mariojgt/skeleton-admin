@@ -14,13 +14,6 @@ use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class AuthApiController extends Controller
 {
-    /**
-     * User login
-     *
-     * @param Request $request
-     *
-     * @return [type]
-     */
     public function login(Request $request)
     {
         $request->validate([
@@ -29,7 +22,7 @@ class AuthApiController extends Controller
             'device_name' => ['required', 'string'],
         ]);
 
-        // Credentials for the login
+
         $credentials = $request->only('email', 'password');
 
         // Try login
@@ -50,10 +43,6 @@ class AuthApiController extends Controller
 
     /**
      * Logout the user
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
     public function logout(Request $request)
     {
@@ -90,7 +79,6 @@ class AuthApiController extends Controller
 
         DB::beginTransaction();
 
-        // Register The user
         $user                    = new Admin();
         $user->first_name        = $request->first_name;
         $user->last_name         = $request->last_name;
@@ -119,8 +107,6 @@ class AuthApiController extends Controller
 
     /**
      * Get the broker to be used during password reset.
-     *
-     * @return PasswordBroker
      */
     protected function broker()
     {
@@ -129,10 +115,6 @@ class AuthApiController extends Controller
 
     /**
      * Send a link so the user can reset the password.
-     *
-     * @param Request $request
-     *
-     * @return [redirect]
      */
     public function reset(Request $request)
     {

@@ -25,7 +25,7 @@ class SendUserVerifyListener
      *
      * @return void
      */
-    public function handle(UserVerifyEvent $event)
+    public function handle(UserVerifyEvent $event) : void
     {
         Mail::to($event->user)->send(new UserVerifyEmail($event->user));
     }

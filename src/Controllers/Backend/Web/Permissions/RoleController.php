@@ -10,9 +10,6 @@ use Mariojgt\SkeletonAdmin\Models\Permission;
 
 class RoleController extends Controller
 {
-    /**
-     * @return [blade view]
-     */
     public function index()
     {
         // Build the breadcrumb
@@ -26,19 +23,19 @@ class RoleController extends Controller
         // Table columns
         $columns = [
             [
-                'label'     => 'Id',    // Display name
-                'key'       => 'id',    // Table column key
-                'sortable'  => true,    // Can be use in the filter
-                'canCreate' => false,   // Can be use in the create form
-                'canEdit'   => false,   // Can be use in the edit form
+                'label'     => 'Id',
+                'key'       => 'id',
+                'sortable'  => true,
+                'canCreate' => false,
+                'canEdit'   => false,
             ],
             [
-                'label'     => 'Name',   // Display name
-                'key'       => 'name',   // Table column key
-                'sortable'  => true,     // Can be use in the filter
-                'canCreate' => true,     // Can be use in the create form
-                'canEdit'   => true,     // Can be use in the edit form
-                'type'      => 'text',   // Type text,email,password,date,timestamp
+                'label'     => 'Name',
+                'key'       => 'name',
+                'sortable'  => true,
+                'canCreate' => true,
+                'canEdit'   => true,
+                'type'      => 'text',
             ],
             [
                 'label'          => 'Guard',
@@ -102,7 +99,6 @@ class RoleController extends Controller
 
     public function edit(Request $request, Role $role) {
 
-        // Build the breadcrumb
         $breadcrumb = [
             [
                 'label' => 'Role',
@@ -110,7 +106,7 @@ class RoleController extends Controller
             ]
         ];
 
-        // System avaliable permissions and group by guard
+        // System available permissions and group by guard
         $permissions = Permission::all()->groupBy('guard_name');
         $rolePermissions = [];
         foreach ($permissions as $key => $item) {

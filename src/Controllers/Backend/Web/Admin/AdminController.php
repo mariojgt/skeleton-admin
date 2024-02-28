@@ -19,8 +19,6 @@ class AdminController extends Controller
      * Create new admin.
      *
      * @param Request $request
-     *
-     * @return [type]
      */
     public function store(Request $request)
     {
@@ -29,10 +27,6 @@ class AdminController extends Controller
 
     /**
      * Edit the admin.
-     *
-     * @param null $admin
-     *
-     * @return [type]
      */
     public function edit($admin = null)
     {
@@ -43,7 +37,7 @@ class AdminController extends Controller
             $adminInfo = backendGuard();
         }
 
-        // Start the user authenticator so we can enalbe or disable the 2FA and other options
+        // Start the user authenticator so we can enable or disable the 2FA and other options
         $authenticator = new AuthenticatorHandle();
         // Authenticator information
         $authenticatorInfo = [];
@@ -73,10 +67,6 @@ class AdminController extends Controller
 
     /**
      * Update admin profile.
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
     public function update(Request $request, Admin $admin)
     {
@@ -107,11 +97,6 @@ class AdminController extends Controller
 
     /**
      * Handle the password update.
-     *
-     * @param Request $request
-     * @param Admin   $admin
-     *
-     * @return [type]
      */
     public function updatePassword(Request $request, Admin $admin)
     {
@@ -146,10 +131,6 @@ class AdminController extends Controller
 
     /**
      * Check if the code that the user type match with the authenticator.
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
     public function enable2fa(Request $request)
     {
@@ -176,12 +157,8 @@ class AdminController extends Controller
 
     /**
      * Function Remove the 2FA.
-     *
-     * @param Request $request
-     *
-     * @return [type]
      */
-    public function removeAuthenticato(Request $request)
+    public function removeAuthenticator(Request $request)
     {
         // Validate the code to make sure it has 6 digits
         $request->validate([

@@ -14,9 +14,6 @@ use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class ResetPassword extends Controller
 {
-    /**
-     * @return [inertia]
-     */
     public function index()
     {
         return Inertia::render('Auth/Backend/Reset', [
@@ -24,39 +21,22 @@ class ResetPassword extends Controller
         ]);
     }
 
-    /**
-     * Get the broker to be used during password reset.
-     *
-     * @return PasswordBroker
-     */
     protected function broker()
     {
         return Password::broker('admins');
     }
 
-    /**
-     * Send a link so the user can reset the password.
-     *
-     * @param Request $request
-     *
-     * @return [redirect]
-     */
     public function reset(Request $request)
     {
         $request->validate(['email' => 'required|email']);
 
-        $response = $this->broker()->sendResetLink(
+        $this->broker()->sendResetLink(
             $request->only('email')
         );
 
         return Redirect::back()->with('success', 'Password link sent with success.');
     }
 
-    /**
-     * @param mixed $token
-     *
-     * @return [blade view]
-     */
     public function passwordReset($token)
     {
         return Inertia::render('Auth/Backend/ResetPassword', [
@@ -65,13 +45,6 @@ class ResetPassword extends Controller
         ]);
     }
 
-    /**
-     * Change the user password.
-     *
-     * @param Request $request
-     *
-     * @return [Redirect]
-     */
     public function passwordChange(Request $request)
     {
         $request->validate([
@@ -81,7 +54,7 @@ class ResetPassword extends Controller
         ]);
 
         // Reset the admin password based in the broker
-        $response = $this->broker()->reset(
+        $this->broker()->reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([

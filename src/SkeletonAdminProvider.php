@@ -22,13 +22,10 @@ class SkeletonAdminProvider extends ServiceProvider
             [SendUserVerifyListener::class, 'handle']
         );
 
-        // Load the commands
         $this->loadCommands();
 
-        // Load custom middleware
-        $this->middleware();
+        $this->loadMiddleware();
 
-        // Load skeleton views
         $this->loadViewsFrom(__DIR__ . '/views', 'skeleton-admin');
 
         // Load backend routes
@@ -98,7 +95,7 @@ class SkeletonAdminProvider extends ServiceProvider
     /**
      * Load some custom middleware required by the package.
      */
-    public function middleware()
+    public function loadMiddleware()
     {
         $this->app['router']->aliasMiddleware(
             'skeleton_guest',

@@ -3,7 +3,6 @@
 namespace Mariojgt\SkeletonAdmin\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Skeleton admin middleware, will manage the backend.
