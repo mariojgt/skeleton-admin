@@ -55,14 +55,6 @@ class Republish extends Command
             $bar
         );
 
-        // Now we copy the vite.config.js file
-        $this->moveFileOrFolder(
-            base_path('vite.config.js'),
-            __DIR__ . '/../../Publish/Npm/vite.config.js',
-            $bar,
-            true
-        );
-
         // Now we copy the tailwind file
         $this->moveFileOrFolder(
             base_path('vite.config.js'),
