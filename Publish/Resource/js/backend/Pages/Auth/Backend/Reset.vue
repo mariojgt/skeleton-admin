@@ -1,19 +1,16 @@
 <template>
     <layout title="Backend Reset Password">
         <template v-slot:form>
-            <div>
-                <form @submit.prevent="submitForm">
-                    <div class="px-5 py-7">
-                        <input-field v-model="email" label="Email" type="email" name="email" id="email"
-                            placeholder="type your email" />
+            <form @submit.prevent="submitForm">
+                <div class="w-full">
+                    <input-field v-model="email" label="Email" type="email" name="email" id="email"
+                        placeholder="Type your email" />
 
-                        <div class="form-control pt-10">
-                            <submit @click="submitForm" name="Request Password" />
-                        </div>
+                    <div class="form-control pt-10">
+                        <submit @click="submitForm" name="Request Password" class="btn btn-secondary" />
                     </div>
-                </form>
-                <!-- <Link href="/about-us">Go to about us</Link> -->
-            </div>
+                </div>
+            </form>
         </template>
 
         <template v-slot:links>
@@ -27,7 +24,7 @@
 import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/vue3";
-import Layout from "../../../Layout/Login.vue";
+import Layout from "@backend_layout/Login.vue";
 
 // Page links
 const registerLink = route("skeleton.register");

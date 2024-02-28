@@ -36,10 +36,12 @@ import { Link } from "@inertiajs/vue3";
 import Layout from "../../../Layout/Login.vue";
 
 // Import the from components
-import InputField from "@mariojgt/masterui/packages/Input/index";
-import InputPassword from "@mariojgt/masterui/packages/Password/index";
-import Submit from "@mariojgt/masterui/packages/Submit/index";
-import LinkButton from "@mariojgt/masterui/packages/Link/index";
+import {
+    InputField,
+    Submit,
+    InputPassword,
+    LinkButton
+} from "@mariojgt/masterui/packages/index";
 
 let email = $ref("");
 let password = $ref("");

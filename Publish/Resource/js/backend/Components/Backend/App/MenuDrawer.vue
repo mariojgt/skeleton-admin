@@ -28,12 +28,10 @@
     </aside>
 </template>
 
-<script setup>
-import { usePage } from "@inertiajs/vue3";
-import { watch, onMounted } from "vue";
-import menuItemHandle from "../../Menu/MenuHandle.vue";
+<script setup lang="ts" >
+    import { usePage } from "@inertiajs/vue3";
+    import { watch, onMounted } from "vue";
+    import menuItemHandle from "../../Menu/MenuHandle.vue";
 
-const menu = usePage().props.navigation.data;
+    const menu = usePage().props.navigation.data;
 </script>
-
-<style></style>

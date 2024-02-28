@@ -44,6 +44,14 @@ class NavigationController extends Controller
                 'canCreate' => false,
                 'canEdit'   => false,
                 'type'      => 'text',
+            ],
+            [
+                'label'     => 'Icon',
+                'key'       => 'icon',
+                'sortable'  => true,
+                'canCreate' => false,
+                'canEdit'   => true,
+                'type'      => 'icon',
             ]
         ];
 

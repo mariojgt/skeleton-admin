@@ -1,34 +1,27 @@
 <template>
     <layout title="Backend Register">
         <template v-slot:form>
-            <div>
-                <form @submit.prevent="submitForm">
-                    <div class="px-5 py-7">
-                        <input-field v-model="first_name" label="First Name" type="text" name="name" id="name"
-                            placeholder="type your name" />
+            <form @submit.prevent="submitForm">
+                <div class="flex justify-between gap-4">
+                    <input-field v-model="first_name" label="First Name" type="text" name="name" id="name"
+                        placeholder="Type your name"  class="w-full" />
+                    <input-field v-model="last_name" label="Last Name" type="text" name="name" id="name"
+                        placeholder="Type your name" class="w-full" />
+                </div>
+                <input-field v-model="email" label="Email" type="email" name="email" id="email"
+                    placeholder="Type your email" />
 
-                        <input-field v-model="last_name" label="Last Name" type="text" name="name" id="name"
-                            placeholder="type your name" />
+                <input-password v-model="password" label="Password" name="password" id="password"
+                    placeholder="Type your password" />
 
-                        <input-field v-model="email" label="Email" type="email" name="email" id="email"
-                            placeholder="type your email" />
+                <input-password v-model="password_confirmation" label="Password Confirm" name="password_confirmation"
+                    id="password_confirmation" placeholder="Type your Password Confirmation" />
 
-                        <input-password v-model="password" label="Password" name="password" id="password"
-                            placeholder="type your password" />
-
-                        <input-password v-model="password_confirmation" label="Password Confirm"
-                            name="password_confirmation" id="password_confirmation"
-                            placeholder="type your Password Confirmation" />
-
-                        <div class="form-control pt-10">
-                            <submit @click="submitForm" name="Register" />
-                        </div>
-                    </div>
-                </form>
-                <!-- <Link href="/about-us">Go to about us</Link> -->
-            </div>
+                <div class="form-control pt-10">
+                    <submit @click="submitForm" name="Register" class="btn btn-secondary" />
+                </div>
+            </form>
         </template>
-
         <template v-slot:links>
             <link-button name="Login" :link="loginLink" />
         </template>
@@ -39,7 +32,7 @@
 import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/vue3";
-import Layout from "../../../Layout/Login.vue";
+import Layout from "@backend_layout/Login.vue";
 
 // Page links
 const loginLink = route("skeleton.login");

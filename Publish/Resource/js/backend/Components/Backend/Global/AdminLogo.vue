@@ -6,7 +6,7 @@
         width="{{ props.width ?? 163 }}"
         height="{{ props.height ?? 124 }}"
     >
-        <rect fill="hsla(var(--p) / var(--tw-bg-opacity))" width="170.8" height="117" x="0" y="0"></rect>
+        <rect fill="oklch(var(--p))" width="170.8" height="117" x="0" y="0"></rect>
         <g
             fill="hsla(var(--pc)/var(--tw-text-opacity,1))"
             color="white"

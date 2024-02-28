@@ -28,7 +28,7 @@
                                 <h3 class="text-2xl font-bold">{{ index }}</h3>
                                 <div class="flex justify-between" >
                                     <div v-for="(itemLoop, key) in item" :key="key">
-                                        <Toogle
+                                        <Toggle
                                             @change="autoSubmitPer"
                                             v-model="rolePer[index][itemLoop.name]"
                                             :label="itemLoop.name"
@@ -58,7 +58,7 @@ import {
     InputPassword,
     Submit,
     SelectInput,
-    Toogle,
+    Toggle,
 } from "@mariojgt/masterui/packages/index";
 
 const props = defineProps({

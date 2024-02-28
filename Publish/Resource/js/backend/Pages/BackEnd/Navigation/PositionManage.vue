@@ -56,7 +56,7 @@ setTimeout(() => {
             // sort: '{{ $sort ?? false }}',
             sort: true,
             ghostClass: "bg-primary",   // Class name for the drop placeholder
-            chosenClass: "bg-primary",   // Class name for the chosen item
+            chosenClass: "on-selected",   // Class name for the chosen item
             dragClass: "bg-primary",   // Class name for the dragging item
             animation: 150,
             fallbackOnBody: true,
@@ -111,3 +111,11 @@ const props = defineProps({
     },
 });
 </script>
+
+<style>
+
+.on-selected {
+    @apply bg-primary text-primary-content;
+}
+
+</style>

@@ -63,8 +63,10 @@
 import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 // Import the from components
-import InputField from "@mariojgt/masterui/packages/Input/index";
-import Submit from "@mariojgt/masterui/packages/Submit/index";
+import {
+    InputField,
+    Submit
+} from "@mariojgt/masterui/packages/index";
 
 // FIelds Values
 

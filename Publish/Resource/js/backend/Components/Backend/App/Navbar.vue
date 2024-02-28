@@ -1,9 +1,9 @@
 <template>
     <div
-        class="navbar sticky top-0 z-30 mb-2 shadow-lg bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-300 text-base-content">
+        class="navbar sticky top-0 z-30 shadow-lg bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content">
         <div class="flex-none">
             <button class="btn btn-square btn-ghost">
-                <label for="my-drawer" class="">
+                <label for="my-drawer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         class="inline-block w-6 h-6 stroke-current">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
@@ -12,7 +12,7 @@
                 </label>
             </button>
         </div>
-        <div class="flex-1 hidden px-2 mx-2 lg:flex">
+        <div class="flex-1 hidden lg:flex">
             <Link :href="homeRoute">
             <a href="/" aria-current="page" aria-label="Homepage" class="flex-0 btn btn-ghost px-2"
                 data-svelte-h="svelte-pw6yxt">

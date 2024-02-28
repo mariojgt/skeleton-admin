@@ -18,7 +18,7 @@
       </n-notification-provider>
     </n-message-provider>
   </n-loading-bar-provider>
-  <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+  <footer class="footer footer-center p-4 bg-base-300 font-bold">
     <div>
       <p>
         Copyright © {{ currentYear }} - All right reserved by
@@ -33,8 +33,8 @@
 <script setup>
 import { watch, onMounted } from "vue";
 // Call the auth wrhaper compnent
-import AuthWraper from "../Components/Auth/AuthWrap.vue";
-import FlashMessage from "../Components/Backend/Global/FlashMessage.vue";
+import AuthWraper from "@backend_components/Auth/AuthWrap.vue";
+import FlashMessage from "@backend_components/Backend/Global/FlashMessage.vue";
 
 const props = defineProps({
   title: {

@@ -21,13 +21,15 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
-// Import the from components
-import InputField from "@mariojgt/masterui/packages/Input/index";
-import InputPassword from "@mariojgt/masterui/packages/Password/index";
-import Submit from "@mariojgt/masterui/packages/Submit/index";
-import LinkButton from "@mariojgt/masterui/packages/Link/index";
 
-// FIelds Values
+import {
+    InputField,
+    Submit,
+    InputPassword,
+    LinkButton
+} from "@mariojgt/masterui/packages/index";
+
+// Field Values
 let password = $ref("");
 let password_confirmation = $ref("");
 let code = $ref("");

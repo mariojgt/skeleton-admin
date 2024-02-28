@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('parent_id')->nullable();
             $table->string('menu_label');
             $table->string('route');
-            $table->string('icon')->nullable();
+            $table->longText('icon')->nullable();
             $table->string('guard')->default('web');
             $table->integer('sort_order')->nullable();
             $table->timestamps();

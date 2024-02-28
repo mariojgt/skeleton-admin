@@ -5,17 +5,17 @@
                 <form @submit.prevent="submitForm">
                     <div class="px-5 py-7">
                         <input-field v-model="email" label="Email" type="email" name="email" id="email"
-                            placeholder="type your email" />
+                            placeholder="Type your email" />
 
                         <input-password v-model="password" label="Password" name="password" id="password"
-                            placeholder="type your password" />
+                            placeholder="Type your password" />
 
                         <input-password v-model="password_confirmation" label="Password Confirm"
                             name="password_confirmation" id="password_confirmation"
-                            placeholder="type your Password Confirmation" />
+                            placeholder="Type your Password Confirmation" />
 
                         <div class="form-control pt-10">
-                            <submit @click="submitForm" name="Reset" />
+                            <submit @click="submitForm" name="Reset" class="btn btn-secondary" />
                         </div>
                     </div>
                 </form>
@@ -34,7 +34,7 @@
 import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/vue3";
-import Layout from "../../../Layout/Login.vue";
+import Layout from "@backend_layout/Login.vue";
 
 // Page links
 const registerLink = route("skeleton.register");
