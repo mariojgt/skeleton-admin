@@ -8,7 +8,7 @@ Route::group([
     'middleware' => ['web', 'auth', 'verified', '2fa'],
     'prefix' => config('skeleton.route_prefix_front'),
 ], function () {
-    Route::get('/user/home', [DashboardController::class, 'index'])->name('user.home');
+    // Route::get('/user/home', [DashboardController::class, 'index'])->name('user.home');
 
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/user/edit/{user?}', 'edit')->name('user.edit');
