@@ -1,10 +1,10 @@
 <template>
-    <div class="drawer">
+    <div class="drawer grid min-h-screen">
         <input id="my-drawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
             <!-- Required so the flash message works -->
             <n-message-provider>
-                <Navbar v-if="homePage" />
+                <Navbar />
             </n-message-provider>
             <div :class="homePage ? 'h-full p-10' : ''">
                 <n-loading-bar-provider>
@@ -24,7 +24,7 @@
                     </n-message-provider>
                 </n-loading-bar-provider>
             </div>
-            <Footer v-if="homePage" />
+            <Footer style="grid-row: 3;" />
         </div>
         <div class="drawer-side z-40" style="scroll-behavior: smooth; scroll-padding-top: 5rem;" >
             <label for="my-drawer" class="drawer-overlay"></label>

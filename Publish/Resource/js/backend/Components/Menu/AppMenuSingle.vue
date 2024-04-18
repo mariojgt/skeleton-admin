@@ -1,9 +1,9 @@
 <template>
     <div class="rounded">
-        <div class="w-24 h-24 hover:bg-secondary hover:text-white mx-auto mb-2 rounded-lg hover:shadow-lg bg-base-100 border shadow-lg hover:scale-125 transition duration-500 cursor-pointer" @click="navigateRoute" >
+        <div class="w-24 h-24 hover:bg-secondary hover:text-neutral-950 hover:border-neutral-950 mx-auto mb-2 rounded-lg hover:shadow-lg bg-base-100 border shadow-lg hover:scale-125 transition duration-500 cursor-pointer" @click="navigateRoute" >
             <div class="p-1" v-html="props.menuItem.icon"/>
         </div>
-        <p class="text-center font-bold">{{ props.menuItem.menu_label }}</p>
+        <p class="text-base-content text-center font-bold">{{ props.menuItem.menu_label }}</p>
     </div>
 </template>
 

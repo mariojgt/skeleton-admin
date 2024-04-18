@@ -1,11 +1,9 @@
 <template>
-    <Layout >
+    <Layout :homePage="false" >
         <div class="h-screen flex">
-            <div class="w-full skeleton-bg pt-10">
-                <div class="grid grid-cols-4 gap-4">
-                    <div v-for="(item, index) in menu" :key="index">
-                        <MenuApp :menuItem="item" />
-                    </div>
+            <div class="w-full skeleton-bg2 pt-20">
+                <div class="grid sm:grid-cols-6 grid-cols-2">
+                    <MenuApp v-for="(item, index) in menu" :key="index" :menuItem="item" class="opacity-90" />
                     <LogoutApp/>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="navbar sticky top-0 z-30 shadow-lg bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content">
+        class="navbar sticky top-0 z-30 shadow-lg bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content border-b border-primary">
         <div class="flex-none">
             <button class="btn btn-square btn-ghost">
                 <label for="my-drawer">

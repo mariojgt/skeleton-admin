@@ -14,7 +14,7 @@
       </div>
       <div class="text-center lg:text-left">
         <h1 class="text-5xl font-bold">{{ props.title }}</h1>
-        <p class="py-6">
+        <p class="py-6 text-2xl">
           Welcome to the frontend login, in here you have a very basic
           dashboard, with user profile management, Thank you for download
           skeleton-admin please don't forget to share this package, now go and

@@ -1,6 +1,6 @@
 <template>
-    <div class="text-center min-h-screen skeleton-bg">
-        <div class="p-20" >
+    <div class="text-center min-h-screen skeleton-bg flex justify-center">
+        <div class="p-20 w-1/3">
             <!-- <div class="text-center lg:text-left">
                 <h1 class="text-5xl font-bold">{{ props.title }}</h1>
                 <p class="py-6">
@@ -10,7 +10,7 @@
                     create your amazing application.
                 </p>
             </div> -->
-            <div class="card flex-shrink-0 w-full bg-base-300 border border-primary opacity-95 shadow-primary">
+            <div class="card flex-shrink-0 w-full bg-base-300 border border-primary opacity-90 shadow-primary">
                 <div class="card-body text-center">
                     <div class="avatar justify-center">
                         <div class="w-32 rounded">

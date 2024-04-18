@@ -20,7 +20,7 @@ export default defineConfig({
             'resources/vendor/SkeletonAdmin/js/frontend/app.js', // Frontend
             'resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss', // Frontend
         ]),
-          vue({
+        vue({
             template: {
                 transformAssetUrls: {
                     base: null,

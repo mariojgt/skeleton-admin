@@ -18,7 +18,6 @@
                 <!-- <Link href="/about-us">Go to about us</Link> -->
             </div>
         </template>
-
         <template v-slot:links>
             <link-button name="Register" link="register" />
             <link-button name="Forgot password" link="forgot-password" />

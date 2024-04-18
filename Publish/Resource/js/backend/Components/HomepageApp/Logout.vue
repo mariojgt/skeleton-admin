@@ -1,7 +1,7 @@
 <template>
     <div class="rounded" @click="logout" >
         <div
-            class="w-24 h-24 hover:bg-secondary hover:text-white mx-auto mb-2 rounded-lg hover:shadow-lg bg-base-100 border shadow-lg hover:scale-125 transition duration-500 cursor-pointer">
+            class="w-24 h-24 hover:bg-secondary hover:text-neutral-950 hover:border-l-neutral-950 mx-auto mb-2 rounded-lg hover:shadow-lg bg-base-100 border shadow-lg hover:scale-125 transition duration-500 cursor-pointer">
             <div class="p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor">
