@@ -10,7 +10,7 @@
                     create your amazing application.
                 </p>
             </div> -->
-            <div class="card flex-shrink-0 w-full bg-base-300 border border-primary opacity-90 shadow-primary">
+            <div class="card flex-shrink-0 w-full bg-base-300 border border-primary opacity-85 shadow-primary">
                 <div class="card-body text-center">
                     <div class="avatar justify-center">
                         <div class="w-32 rounded">
