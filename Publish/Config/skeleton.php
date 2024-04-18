@@ -83,4 +83,10 @@ return [
     ],
 
     'front_end_notification_user_model' => User::class,
+
+    'themes' => [
+        'forest',
+        'master',
+        'admin'
+    ],
 ];

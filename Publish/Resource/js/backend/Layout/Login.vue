@@ -56,7 +56,7 @@ const loadLocalStorageTheme = async () => {
     // Add the data-theme attribute
     html.setAttribute("data-theme", theme);
   } else {
-    html.setAttribute("data-theme", "forest");
+    html.setAttribute("data-theme", "admin");
   }
 };
 

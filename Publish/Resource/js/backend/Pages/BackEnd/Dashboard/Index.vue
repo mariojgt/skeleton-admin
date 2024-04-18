@@ -1,5 +1,5 @@
 <template>
-    <Layout :homePage="false" >
+    <Layout :homePage="true" >
         <div class="h-screen flex">
             <div class="w-full skeleton-bg2 pt-20">
                 <div class="grid sm:grid-cols-6 grid-cols-2">

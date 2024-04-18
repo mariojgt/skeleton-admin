@@ -4,9 +4,9 @@
         <div class="drawer-content">
             <!-- Required so the flash message works -->
             <n-message-provider>
-                <Navbar />
+                <Navbar :homePage="homePage" />
             </n-message-provider>
-            <div :class="homePage ? 'h-full p-10' : ''">
+            <div class="bg-neutral" :class="homePage ? '' : 'h-full p-10'">
                 <n-loading-bar-provider>
                     <n-message-provider>
                         <n-notification-provider>
@@ -47,7 +47,7 @@ import { usePage } from "@inertiajs/vue3";
 const props = defineProps({
     homePage: {
         type: Boolean,
-        default: true
+        default: false
     },
 });
 

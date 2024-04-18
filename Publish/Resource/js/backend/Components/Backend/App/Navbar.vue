@@ -1,7 +1,7 @@
 <template>
     <div
         class="navbar sticky top-0 z-30 shadow-lg bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content border-b border-primary">
-        <div class="flex-none">
+        <div class="flex-none" v-if="!homePage" >
             <button class="btn btn-square btn-ghost">
                 <label for="my-drawer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -16,7 +16,7 @@
             <Link :href="homeRoute">
             <a href="/" aria-current="page" aria-label="Homepage" class="flex-0 btn btn-ghost px-2"
                 data-svelte-h="svelte-pw6yxt">
-                <div class="font-title inline-flex text-lg md:text-2xl"><span class="lowercase">Skeleton</span>-<span
+                <div class="font-title inline-flex text-lg md:text-2xl"><span class="lowercase">Skeleton </span>-<span
                         class="text-primary">Backend</span></div>
             </a>
             </Link>
@@ -75,6 +75,14 @@ import notification from "./Notifications.vue";
 import ThemeSwich from "../Global/ThemeSwich.vue";
 import Search from "./Search.vue";
 import { usePage } from "@inertiajs/vue3";
+
+// Page props
+const props = defineProps({
+    homePage: {
+        type: Boolean,
+        default: false
+    },
+});
 
 // Links
 const profileLink = route("admin.edit");

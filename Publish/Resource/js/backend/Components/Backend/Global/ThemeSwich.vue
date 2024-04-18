@@ -17,6 +17,7 @@
         ></path>
       </svg>
       <span class="hidden md:inline">Theme</span>
+
       <svg
         width="12px"
         height="12px"
@@ -96,37 +97,7 @@
 import { watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
-const avaliablesThemes = [
-  "light",
-  "dark",
-  "cupcake",
-  "bumblebee",
-  "emerald",
-  "corporate",
-  "synthwave",
-  "retro",
-  "cyberpunk",
-  "valentine",
-  "halloween",
-  "garden",
-  "forest",
-  "aqua",
-  "lofi",
-  "pastel",
-  "fantasy",
-  "wireframe",
-  "black",
-  "luxury",
-  "dracula",
-  "cmyk",
-  "autumn",
-  "business",
-  "acid",
-  "lemonade",
-  "night",
-  "coffee",
-  "winter",
-];
+const avaliablesThemes = usePage().props.themes;
 
 let selectedTheme = $ref(null);
 
@@ -149,7 +120,7 @@ const loadLocalStorageTheme = async () => {
   // Get the theme from the local storage
   const theme = localStorage.getItem("theme-backend");
   // Add the data-theme attribute
-  html.setAttribute("data-theme", theme);
+  html.setAttribute("data-theme", theme ?? "admin");
   selectedTheme = theme;
 };
 
