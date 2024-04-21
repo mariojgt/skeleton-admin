@@ -177,5 +177,11 @@ class Install extends Command
         $user->email_verified_at = now();
         $user->save();
         $this->info('The User was created with the password: (' . $userPassword . ')');
+
+        // Create a txt file with the user and password
+        $file = fopen(base_path('user.txt'), 'w');
+        fwrite($file, 'Admin: ' . $userEmail . ' Password: ' . $adminPassword . PHP_EOL);
+        fwrite($file, 'User: ' . $userEmail . ' Password: ' . $userPassword . PHP_EOL);
+        fclose($file);
     }
 }
