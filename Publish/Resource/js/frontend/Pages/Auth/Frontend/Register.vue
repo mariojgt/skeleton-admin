@@ -5,20 +5,20 @@
                 <form @submit.prevent="submitForm">
                     <div class="px-5 py-7">
                         <input-field v-model="first_name" label="First Name" type="text" name="first_name"
-                            id="first_name" placeholder="Type your First Name" />
+                            id="first_name" placeholder="type your First Name" />
 
                         <input-field v-model="last_name" label="Last Name" type="text" name="last_name" id="last_name"
-                            placeholder="Type your Last Name" />
+                            placeholder="type your Last Name" />
 
                         <input-field v-model="email" label="Email" type="email" name="email" id="email"
-                            placeholder="Type your email" />
+                            placeholder="type your email" />
 
                         <input-password v-model="password" label="Password" name="password" id="password"
-                            placeholder="Type your password" />
+                            placeholder="type your password" />
 
                         <input-password v-model="password_confirmation" label="Password Confirm"
                             name="password_confirmation" id="password_confirmation"
-                            placeholder="Type your Password Confirmation" />
+                            placeholder="type your Password Confirmation" />
 
                         <div class="form-control pt-10">
                             <submit name="Register" @click="submitForm" />
@@ -40,8 +40,7 @@
 import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/vue3";
-import Layout from "../../../Layout/Login.vue";
-
+import Layout from "@frontend_layout/App.vue";
 // Import the from components
 import {
     InputField,

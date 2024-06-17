@@ -4,7 +4,7 @@
 import { watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
-import { useMessage, useNotification } from "naive-ui";
+import { useMessage } from "naive-ui";
 const message = useMessage();
 
 watch(

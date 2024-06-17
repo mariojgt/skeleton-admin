@@ -1,14 +1,24 @@
 <template>
     <layout title="Frontend Login">
-        <template v-slot:form>
+        <template #form>
             <div>
                 <form @submit.prevent="submitForm">
                     <div class="px-5 py-7">
-                        <input-field v-model="email" label="Email" type="email" name="email" id="email"
-                            placeholder="type your email" />
-
-                        <input-password v-model="password" label="Password" name="password" id="password"
-                            placeholder="type your password" />
+                        <input-field
+                            id="email"
+                            v-model="email"
+                            label="Email"
+                            type="email"
+                            name="email"
+                            placeholder="type your email"
+                        />
+                        <input-password
+                            id="password"
+                            v-model="password"
+                            label="Password"
+                            name="password"
+                            placeholder="type your password"
+                        />
 
                         <div class="form-control pt-10">
                             <submit @click="submitForm" />
@@ -18,17 +28,16 @@
                 <!-- <Link href="/about-us">Go to about us</Link> -->
             </div>
         </template>
-        <template v-slot:links>
+
+        <template #links>
             <link-button name="Register" link="register" />
             <link-button name="Forgot password" link="forgot-password" />
         </template>
     </layout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
-import { Link } from "@inertiajs/vue3";
 import Layout from "../../../Layout/Login.vue";
 
 // Import the from components
@@ -39,10 +48,10 @@ import {
     LinkButton,
 } from "@mariojgt/masterui/packages/index";
 
-let email = $ref("");
-let password = $ref("");
+let email = $ref("") as string;
+let password = $ref("") as string;
 
-const props = defineProps({
+defineProps({
     title: {
         type: String,
         default: "mariojgt is heredude",

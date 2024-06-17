@@ -13,8 +13,10 @@
         </div>
       </div>
       <div class="text-center lg:text-left">
-        <h1 class="text-5xl font-bold">{{ props.title }}</h1>
-        <p class="py-6 text-2xl">
+        <h1 class="text-5xl font-bold">
+{{ props.title }}
+</h1>
+        <p class="py-6">
           Welcome to the frontend login, in here you have a very basic
           dashboard, with user profile management, Thank you for download
           skeleton-admin please don't forget to share this package, now go and
@@ -25,10 +27,7 @@
   </div>
 </template>
 
-<script setup>
-import { watch, onMounted } from "vue";
-import { usePage } from "@inertiajs/vue3";
-
+<script setup lang="ts">
 import userLogo from "../FrontEnd/Global/UserLogo.vue";
 
 const props = defineProps({

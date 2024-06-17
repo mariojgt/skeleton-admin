@@ -6,10 +6,10 @@
           <n-config-provider :theme="darkTheme">
             <FlashMessage />
             <auth-wraper :title="props.title">
-              <template v-slot:form>
+              <template #form>
                 <slot name="form" />
               </template>
-              <template v-slot:links>
+              <template #links>
                 <slot name="links" />
               </template>
             </auth-wraper>
@@ -22,16 +22,17 @@
     <div>
       <p>
         Copyright © {{ currentYear }} - All right reserved by
-        <a target="_blank" href="https://github.com/mariojgt/skeleton-admin"
-          >Skeleton-admin</a
-        >
+        <a
+        target="_blank"
+        href="https://github.com/mariojgt/skeleton-admin"
+        >Skeleton-admin</a>
       </p>
     </div>
   </footer>
 </template>
 
-<script setup>
-import { watch, onMounted } from "vue";
+<script setup lang="ts">
+import { onMounted } from "vue";
 // Call the auth wrhaper compnent
 import AuthWraper from "../Components/Auth/AuthWrap.vue";
 import FlashMessage from "../Components/FrontEnd/Global/FlashMessage.vue";

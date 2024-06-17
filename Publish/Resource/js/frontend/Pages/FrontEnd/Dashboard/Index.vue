@@ -382,9 +382,7 @@
 
 <script setup>
 import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
-import { Link } from "@inertiajs/vue3";
-import Layout from "../../../Layout/App.vue";
+import Layout from "@frontend_layout/App.vue";
 
 let email = $ref("");
 let password = $ref("");

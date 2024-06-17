@@ -1,14 +1,14 @@
 <template>
-    <div class="drawer">
-        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <div>
+        <input id="my-drawer" type="checkbox" class="drawer-toggle">
         <div class="drawer-content">
             <!-- Required so the flash message works -->
             <n-message-provider>
-                <Navbar />
+                <Navbar v-if="showHeader" />
             </n-message-provider>
-            <div class="px-6 py-8">
-                <!-- handle the breadcrumb -->
-                <Breadcrumb />
+            <!-- handle the breadcrumb -->
+            <Breadcrumb />
+            <div>
                 <n-loading-bar-provider>
                     <n-message-provider>
                         <n-notification-provider>
@@ -23,30 +23,45 @@
                 </n-loading-bar-provider>
             </div>
             <!-- {{-- Footer --}} -->
-            <Footer />
+            <Footer v-if="showFooter" />
         </div>
-        <div class="drawer-side z-40" style="scroll-behavior: smooth; scroll-padding-top: 5rem;" >
-
-            <!-- <label for="my-drawer" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                <li><a>Sidebar Item 1</a></li>
-                <li><a>Sidebar Item 2</a></li>
-            </ul> -->
-
-            <label for="my-drawer" class="drawer-overlay"></label>
+        <div class="drawer-side z-50">
+            <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay" />
             <MenuDrawer />
         </div>
     </div>
 </template>
 
-<script setup>
-import { watch, onMounted } from "vue";
+<script setup lang="ts">
 import { darkTheme } from "naive-ui";
-import FlashMessage from "../Components/FrontEnd/Global/FlashMessage.vue";
-import Breadcrumb from "../Components/FrontEnd/App/Breadcrumb.vue";
-import Navbar from "../Components/FrontEnd/App/Navbar.vue";
-import Footer from "../Components/FrontEnd/App/Footer.vue";
-import MenuDrawer from "../Components/FrontEnd/App/MenuDrawer.vue";
+import FlashMessage from "@frontend_components/FrontEnd/Global/FlashMessage.vue";
+import { usePage } from "@inertiajs/vue3";
+import Breadcrumb from "@frontend_components/FrontEnd/App/Breadcrumb.vue";
+import Navbar from "@frontend_components/FrontEnd/App/Navbar.vue";
+import Footer from "@frontend_components/FrontEnd/App/Footer.vue";
+import MenuDrawer from "@frontend_components/FrontEnd/App/MenuDrawer.vue";
+import { onBeforeMount } from "vue";
+
+defineProps({
+    showHeader: {
+        type: Boolean,
+        default: true,
+    },
+    showFooter: {
+        type: Boolean,
+        default: true,
+    },
+});
+
+// on before mount we going to check if we have a flash message and if we do we going to display it
+onBeforeMount(() => {
+    if (usePage().props.title) {
+        const document = window.document;
+        document.title = usePage().props.title;
+    }
+});
+
 </script>
 
-<style></style>
+<style>
+</style>

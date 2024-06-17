@@ -9,6 +9,7 @@
 
                         <input-password v-model="password" label="Password" name="password" id="password"
                             placeholder="type your password" />
+
                         <input-password v-model="password_confirmation" label="Password Confirm"
                             name="password_confirmation" id="password_confirmation"
                             placeholder="type your Password Confirmation" />
@@ -29,19 +30,15 @@
     </layout>
 </template>
 
-<script setup>
+<script setup lang="ts" >
 import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
-import { Link } from "@inertiajs/vue3";
-import Layout from "../../../Layout/Login.vue";
+import Layout from "@frontend_layout/App.vue";
 
 // Import the from components
-import {
-    InputField,
-    Submit,
-    InputPassword,
-    LinkButton
-} from "@mariojgt/masterui/packages/index";
+import InputField from "@mariojgt/masterui/packages/Input/index";
+import InputPassword from "@mariojgt/masterui/packages/Password/index";
+import Submit from "@mariojgt/masterui/packages/Submit/index";
+import LinkButton from "@mariojgt/masterui/packages/Link/index";
 
 let email = $ref("");
 let password = $ref("");
@@ -52,14 +49,6 @@ const props = defineProps({
         type: String,
         default: "",
     },
-    email: {
-        type: String,
-        default: "",
-    },
-});
-
-onMounted(() => {
-    email = props.email;
 });
 
 const submitForm = () => {

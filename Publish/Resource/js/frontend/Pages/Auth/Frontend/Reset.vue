@@ -23,23 +23,19 @@
     </layout>
 </template>
 
-<script setup>
+<script setup lang="ts" >
 import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
-import { Link } from "@inertiajs/vue3";
-import Layout from "../../../Layout/Login.vue";
+import Layout from "@frontend_layout/App.vue";
 
 // Import the from components
 // Import the from components
 import {
     InputField,
-    InputPassword,
     Submit,
     LinkButton,
 } from "@mariojgt/masterui/packages/index";
 
 let email = $ref("");
-let password = $ref("");
 
 const props = defineProps({
     title: {

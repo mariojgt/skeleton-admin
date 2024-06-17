@@ -11,6 +11,8 @@ export default defineConfig({
             '@backend_components': '/resources/vendor/SkeletonAdmin/js/backend/Components',
             '@frontend_layout': '/resources/vendor/SkeletonAdmin/js/frontend/Layout',
             '@backend_layout': '/resources/vendor/SkeletonAdmin/js/backend/Layout',
+            '@frontend_types': '/resources/vendor/SkeletonAdmin/js/frontend/Types',
+            '@frontend_composable': '/resources/vendor/SkeletonAdmin/js/frontend/Composable',
         },
     },
     plugins: [
@@ -20,7 +22,7 @@ export default defineConfig({
             'resources/vendor/SkeletonAdmin/js/frontend/app.js', // Frontend
             'resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss', // Frontend
         ]),
-        vue({
+          vue({
             template: {
                 transformAssetUrls: {
                     base: null,

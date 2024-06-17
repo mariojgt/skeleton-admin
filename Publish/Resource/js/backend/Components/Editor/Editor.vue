@@ -1,8 +1,8 @@
 <template>
     <div>
         <Editor
-        :api-key="props.editor_key"
         v-model="editorValue"
+        :api-key="props.apiKey"
         :init="{
         plugins: 'lists link image table code help wordcount codesample importcss',
         toolbar: 'undo redo | image code | codesample',
@@ -32,7 +32,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from "axios";
 import Editor from "@tinymce/tinymce-vue";
 import FormData from 'form-data';
@@ -45,7 +45,7 @@ const props = defineProps({
         type: String,
         default: "",
     },
-    editor_key: {
+    apiKey: {
         type: String,
         default: null,
     },

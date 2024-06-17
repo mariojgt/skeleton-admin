@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin\AdminController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
@@ -16,12 +17,17 @@ Route::group([
         ->name('skeleton-admin.home');
 
     Route::controller(AdminController::class)->group(function () {
+        Route::get('/admin/index', 'index')->name('admin.admin.index');
         Route::get('/admin/edit/{admin?}', 'edit')->name('admin.edit');
         Route::patch('/admin/update/{admin}', 'update')->name('admin.update');
         Route::patch('/admin/update-password/{admin}', 'updatePassword')->name('admin.update-password');
         Route::patch('/admin/remove-authenticator', 'removeAuthenticator')
             ->name('admin.remove-authenticator');
         Route::post('/admin/2fa/enable', 'enable2fa')->name('admin.2fa.enable');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/user/index', 'index')->name('user.admin.index');
     });
 
     Route::controller(RoleController::class)->group(function () {
