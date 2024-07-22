@@ -1,0 +1,12 @@
+# Ignore specific directories
+Publish/Resource/js/backend/Components/Course/
+Publish/Resource/js/backend/Pages/BackEnd/Vendor/
+Publish/Resource/js/frontend/Components/FrontEnd/Admin/
+Publish/Resource/js/frontend/Components/FrontEnd/Blog/
+Publish/Resource/js/frontend/Components/FrontEnd/Comment/
+Publish/Resource/js/frontend/Components/FrontEnd/Course/
+Publish/Resource/js/frontend/Components/FrontEnd/Icons/
+Publish/Resource/js/frontend/Components/FrontEnd/Lesson/
+Publish/Resource/js/frontend/Components/FrontEnd/Utility/
+Publish/Resource/js/frontend/Components/FrontEnd/VideoPlayer/
+Publish/Resource/js/frontend/Pages/FrontEnd/Vendor/
