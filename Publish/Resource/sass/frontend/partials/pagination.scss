@@ -1,0 +1,9 @@
+.pointer-events-none {
+    pointer-events: none;
+}
+.pagination-container {
+    @apply flex flex-col items-center;
+}
+.cursor-not-allowed {
+    cursor: not-allowed;
+}

@@ -13,10 +13,10 @@
                 {{ notificationsCount }}
             </div>
         </button>
-        <div tabindex="0" class="flex shadow menu dropdown-content bg-base-content rounded-box w-96">
-            <ul class="menu py-3 shadow-lg bg-base-100 rounded-box" v-if="notificationsCount > 0">
-                <li v-for="(item, index) in notifications" :key="index" class="pb-0">
-                    <div class="flex pd overflow-hidden">
+        <div tabindex="0" class="flex shadow menu dropdown-content bg-base-100 rounded-box w-96">
+            <ul v-if="notificationsCount > 0" class="menu py-3 shadow-lg bg-base-100">
+                <li v-for="(item, index) in notifications" :key="index" class="pb-0 rounded-box mb-3">
+                    <div class="flex pd overflow-hidden border">
                         <div class="flex items-center pr-10">
                             <div class="avatar">
                                 <div class="w-12 mask mask-squircle" v-if="item.data.type == 'image'">
@@ -38,7 +38,7 @@
                     </div>
                 </li>
             </ul>
-            <ul class="text-neutral">
+            <ul class="text-neutral-content">
                 <li @click="readAll">
                     <a>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"

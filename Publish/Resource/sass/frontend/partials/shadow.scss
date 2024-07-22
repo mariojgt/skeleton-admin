@@ -1,0 +1,22 @@
+.master-shadow {
+    @apply shadow-[0px_3px_14px_2px_#8b60ed];
+}
+.master-shadow-home {
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+}
+
+.master-shadow-lesson-01 {
+    @apply shadow-[0px_3px_14px_2px_#00FF00];
+}
+
+.master-shadow-lesson-02 {
+    @apply shadow-[0px_3px_14px_2px_#ec454f];
+}
+
+.master-shadow-lesson-03 {
+    @apply shadow-[0px_3px_14px_2px_#ffc73c];
+}
+
+.master-shadow-lesson-04 {
+    box-shadow: 0px 3px 14px 2px rgba(255, 20, 147, 0.7);
+}

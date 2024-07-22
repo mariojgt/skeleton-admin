@@ -10,9 +10,9 @@
                 data-tip="Menu"
             >
                 <label for="my-drawer" class="flex items-center cursor-pointer">
-                    <logo width="100%" height="100%" class="h-10 mr-3" />
+                    <logo class="h-20" />
                     <span
-                        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+                        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white hidden lg:flex"
                         >The Dev Realm</span
                     >
                 </label>

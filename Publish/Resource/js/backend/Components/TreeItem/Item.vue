@@ -45,7 +45,6 @@
 
 <script setup lang="ts">
 // Dynamic import the all icons to one variable
-import * as icons from "@mariojgt/masterui/packages/Icons";
 import { computed } from "vue";
 
 /**
