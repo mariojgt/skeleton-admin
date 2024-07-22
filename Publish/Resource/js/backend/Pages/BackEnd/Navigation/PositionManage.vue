@@ -112,10 +112,4 @@ const props = defineProps({
 });
 </script>
 
-<style>
-
-.on-selected {
-    @apply bg-primary text-primary-content;
-}
-
-</style>
+<style></style>
