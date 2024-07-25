@@ -34,7 +34,7 @@ class LoginController extends Controller
         if (Auth::guard(config('skeleton.user_guard'))->attempt($credentials)) {
             return Redirect::route('user.home')->with('success', 'Welcome :)');
         } else {
-            return Redirect::route('login')->with('error', 'Credentials do not match');
+            return Redirect::back()->with('error', 'Credentials do not match');
         }
     }
 

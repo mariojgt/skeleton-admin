@@ -36,7 +36,7 @@ class ResetPassword extends Controller
     {
         return Inertia::render('Auth/Frontend/ResetPassword', [
             'token'   => $token,
-            'isAdmin' => true,              // Dynamic update the logo
+            'isAdmin' => true,
             'email'   => $request->email,
         ]);
     }
