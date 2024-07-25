@@ -32,7 +32,7 @@ class LoginController extends Controller
 
         // Try login Note the you have the guard
         if (Auth::guard(config('skeleton.user_guard'))->attempt($credentials)) {
-            return Redirect::route('user.home')->with('success', 'Welcome :)');
+            return Redirect::route(config('skeleton.front_end_login_redirect'))->with('success', 'Welcome :)');
         } else {
             return Redirect::back()->with('error', 'Credentials do not match');
         }
@@ -42,7 +42,7 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        return Redirect::route('login')->with('success', 'By :)');
+        return Redirect::route(config('skeleton.front_end_logout_redirect'))->with('success', 'By :)');
     }
 
     public function verify(Request $request, $userId, $expiration)
@@ -54,7 +54,7 @@ class LoginController extends Controller
 
         // Check if is expired
         if ($nowDate > $expiration) {
-            return Redirect::route('login')->with('error', 'Link Expired!');
+            return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('error', 'Link Expired!');
         }
 
         // Check if the user has been verify
@@ -63,7 +63,7 @@ class LoginController extends Controller
             event(new Verified($user));
         }
 
-        return Redirect::route('login')->with('success', 'User verify with success!');
+        return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('success', 'User verify with success!');
     }
 
     public function needVerify()
@@ -77,6 +77,6 @@ class LoginController extends Controller
         // Logout the user and redirect him to the home page
         Auth::logout();
 
-        return Redirect::route('login')->with('error', 'User need to be verify!');
+        return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('error', 'User need to be verify!');
     }
 }

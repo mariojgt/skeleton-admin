@@ -71,9 +71,6 @@ class ResetPassword extends Controller
             }
         );
 
-        // Set a session message on the session
-        session()->flash('success', 'Password updated with success.');
-
-        return Redirect::route('login');
+        return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('success', 'Password updated with success.');
     }
 }

@@ -77,7 +77,7 @@ class RegisterController extends Controller
 
             auth()->login($user);
 
-            return Redirect::route('user.home')
+            return Redirect::route(config('skeleton.front_end_register_redirect'))
                 ->with('success', 'Account Created with success, Welcome to the Dashboard.');
         }
     }

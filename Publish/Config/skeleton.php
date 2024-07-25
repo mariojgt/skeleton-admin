@@ -14,7 +14,14 @@ return [
     /**
      * If true we going to send an email to the user to verify his account.
      */
-    'frontend_email_verify' => true,
+    'frontend_email_verify'       => true,
+    /**
+     * Redirect after login, register, logout, verify for the front end.
+     */
+    'front_end_login_redirect'    => 'user.home',
+    'front_end_logout_redirect'   => 'user.home',
+    'front_end_register_redirect' => 'user.home',
+    'front_end_verify_redirect'   => 'login',
     /**
      * Enable or disable backend register.
      */
