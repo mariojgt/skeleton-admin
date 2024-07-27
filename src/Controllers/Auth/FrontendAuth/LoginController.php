@@ -61,6 +61,7 @@ class LoginController extends Controller
         if (!$user->hasVerifiedEmail()) {
             $user->markEmailAsVerified();
             event(new Verified($user));
+            Auth::guard(config('skeleton.user_guard'))->login($user);
         }
 
         return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('success', 'User verify with success!');
