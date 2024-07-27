@@ -59,6 +59,9 @@
         <div class="flex-none" v-if="isAuth">
             <notification />
         </div>
+        <div class="flex-none" >
+            <button class="btn btn-primary" @click="login" >Login</button>
+        </div>
         <div class="flex-none" v-if="isAuth">
             <div class="dropdown dropdown-end">
                 <div tabindex="0">
@@ -138,6 +141,11 @@ onMounted(() => {
     }
 });
 
+const emit = defineEmits(["login"]);
+
+const login = () => {
+    emit("login");
+};
 // Links
 const profileLink = route("user.edit");
 // Logout Route

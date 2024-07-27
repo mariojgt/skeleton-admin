@@ -1,0 +1,12 @@
+/* CSS for slide transition */
+.slide-enter-active, .slide-leave-active {
+    transition: transform 0.3s ease;
+  }
+
+  .slide-enter, .slide-leave-to /* .slide-leave-active in <2.1.8 */ {
+    transform: translateX(-100%);
+  }
+
+  .slide-enter-to, .slide-leave {
+    transform: translateX(0);
+  }
