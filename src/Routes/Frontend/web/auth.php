@@ -11,7 +11,7 @@ Route::group([
 ], function () {
     Route::controller(LoginController::class)->group(function () {
         Route::get('/login', 'index')->name('login');
-        Route::post('/login/user', 'login')->name('login.user')->middleware('verified');
+        Route::post('/login/user', 'login')->name('login.user');
     });
 
     Route::controller(RegisterController::class)->group(function () {

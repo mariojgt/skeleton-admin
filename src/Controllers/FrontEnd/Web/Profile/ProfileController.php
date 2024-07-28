@@ -2,25 +2,18 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Web\Profile;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
-use Mariojgt\Castle\Helpers\AuthenticatorHandle;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Mariojgt\SkeletonAdmin\Models\User;
-use Mariojgt\SkeletonAdmin\Resource\FrontEnd\UserResource;
+use Illuminate\Support\Facades\Redirect;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
+use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
 
 class ProfileController extends Controller
 {
-    /**
-     * Create new admin.
-     */
-    public function store(Request $request)
-    {
-        // code...
-    }
 
     /**
      * Edit the admin.

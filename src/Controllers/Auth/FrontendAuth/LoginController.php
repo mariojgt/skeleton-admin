@@ -32,6 +32,12 @@ class LoginController extends Controller
 
         // Try login Note the you have the guard
         if (Auth::guard(config('skeleton.user_guard'))->attempt($credentials)) {
+            // Check if the user has been verify
+            if (!Auth::user()->hasVerifiedEmail()) {
+                Auth::logout();
+
+                return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('error', 'User need to be verify!');
+            }
             return Redirect::route(config('skeleton.front_end_login_redirect'))->with('success', 'Welcome :)');
         } else {
             return Redirect::back()->with('error', 'Credentials do not match');
