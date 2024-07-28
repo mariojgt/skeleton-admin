@@ -1,0 +1,102 @@
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card {
+    position: relative;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    transition: transform 0.3s;
+    color: #fff;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-image {
+    width: 100%;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lessons-info, .time-info {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.card-title {
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    line-height: 1.5rem;
+}
+
+.edit-button {
+    background-color: #ffc107;
+    width: 100%;
+    padding: 0.5rem;
+    color: black;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.new-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    // background-color: #f87171;
+    @apply bg-yellow-300;
+    color: #000;
+    border-radius: 9999px;
+}
+
+.card {
+    @apply bg-dark-blue-400 border border-dark-blue-400;
+}
+
+// .card-normal {
+//     background-color: #1a1a1a;
+//     border: 2px solid #3b82f6;
+// }
+
+// .card-featured {
+//     background-color: #2c2c2c;
+//     border: 2px solid #ef4444;
+// }
+
+// .card-popular {
+//     background-color: #333333;
+//     border: 2px solid #fbbf24;
+// }
+
+// .card-new {
+//     background-color: #262626;
+//     border: 2px solid #ec4899;
+// }

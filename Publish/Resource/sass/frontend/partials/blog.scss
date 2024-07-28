@@ -1,0 +1,127 @@
+/* Base style for the blog content */
+.blog-content {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #e0e0e0; /* Light text color for readability on dark background */
+    padding: 20px;
+    border-radius: 8px;
+    margin: auto;
+}
+
+/* Headings */
+.blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5, .blog-content h6 {
+    // color: #ffdc35; /* Bright yellow color for headings */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.blog-content h1 {
+    font-size: 2.5em;
+}
+
+.blog-content h2 {
+    font-size: 2em;
+}
+
+.blog-content h3 {
+    font-size: 1.75em;
+}
+
+.blog-content h4 {
+    font-size: 1.5em;
+}
+
+.blog-content h5 {
+    font-size: 1.25em;
+}
+
+.blog-content h6 {
+    font-size: 1em;
+}
+
+/* Paragraphs */
+.blog-content p {
+    margin-bottom: 20px;
+    @apply text-gray-200 text-lg;
+}
+
+/* Strong text */
+.blog-content strong {
+    font-weight: bold;
+    color: #ffffff; /* White color for strong text */
+}
+
+/* Lists */
+.blog-content ul, .blog-content ol {
+    margin: 10px;
+    padding-left: 40px;
+}
+
+.blog-content li {
+    margin-bottom: 10px;
+    @apply text-lg;
+}
+
+/* Links */
+.blog-content a {
+    color: #ff6347; /* Tomato color for links */
+    text-decoration: none;
+}
+
+.blog-content a:hover {
+    text-decoration: underline;
+}
+
+/* Code blocks */
+.blog-content pre, .blog-content code {
+    background-color: #2e2e2e;
+    color: #dcdcdc;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Blockquotes */
+.blog-content blockquote {
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #333333;
+    border-left: 5px solid #ffdc35; /* Bright yellow border for blockquotes */
+    color: #cccccc;
+    font-style: italic;
+}
+
+/* Images */
+.blog-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+/* Tables */
+.blog-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.blog-content table, .blog-content th, .blog-content td {
+    border: 1px solid #555555;
+}
+
+.blog-content th, .blog-content td {
+    padding: 10px;
+    text-align: left;
+}
+
+.blog-content th {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.blog-content tr:nth-child(even) {
+    background-color: #2e2e2e;
+}

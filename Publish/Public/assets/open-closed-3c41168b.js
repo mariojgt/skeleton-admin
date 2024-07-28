@@ -1,0 +1,1 @@
+import{au as t,aW as i}from"./preset-030f2e51.js";let o=Symbol("Context");var l=(n=>(n[n.Open=1]="Open",n[n.Closed=2]="Closed",n[n.Closing=4]="Closing",n[n.Opening=8]="Opening",n))(l||{});function p(){return r()!==null}function r(){return t(o,null)}function s(n){i(o,n)}export{l as i,r as l,p as s,s as t};

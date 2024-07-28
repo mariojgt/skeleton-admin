@@ -1,0 +1,121 @@
+.lesson-series-01, .lesson-series-02, .lesson-series-03, .lesson-series-04 {
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Updated background and border colors for better contrast */
+.lesson-series-01 {
+    background: linear-gradient(0deg, rgba(0, 204, 255, 0.2), rgba(0, 102, 204, 0.2));
+    border: 1px solid rgba(0, 204, 255, 0.5);
+}
+
+.lesson-series-02 {
+    background: linear-gradient(180deg, rgba(255, 105, 180, 0.2), rgba(255, 20, 147, 0.2));
+    border: 1px solid rgba(255, 105, 180, 0.5);
+}
+
+.lesson-series-03 {
+    background: linear-gradient(0deg, rgba(255, 165, 0, 0.2), rgba(255, 69, 0, 0.2));
+    border: 1px solid rgba(255, 165, 0, 0.5);
+}
+
+.lesson-series-04 {
+    background: linear-gradient(0deg, rgba(138, 43, 226, 0.2), rgba(75, 0, 130, 0.2));
+    border: 1px solid rgba(138, 43, 226, 0.5);
+}
+
+.fancy-border {
+    background-opacity: 50%;
+    backdrop-blur: 10px;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 20, 147, 0.5);
+    box-shadow: 0 0 10px rgba(255, 20, 147, 0.5), 0 0 20px rgba(255, 20, 147, 0.5);
+}
+
+/* Keyframes for animated border effects */
+@keyframes shimmer-green {
+    0%, 100% {
+        border-color: rgba(0, 255, 0, 0.7);
+        box-shadow: 0 0 5px rgba(0, 255, 0, 0.7), 0 0 10px rgba(0, 255, 0, 0.7);
+    }
+    50% {
+        border-color: rgba(0, 255, 0, 0.5);
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+}
+
+@keyframes shimmer-blue {
+    0%, 100% {
+        border-color: rgba(0, 204, 255, 0.7);
+        box-shadow: 0 0 5px rgba(0, 204, 255, 0.7), 0 0 10px rgba(0, 204, 255, 0.7);
+    }
+    50% {
+        border-color: rgba(0, 204, 255, 0.5);
+        box-shadow: 0 0 15px rgba(0, 204, 255, 0.5), 0 0 20px rgba(0, 204, 255, 0.5);
+    }
+}
+
+@keyframes shimmer-pink {
+    0%, 100% {
+        border-color: rgba(255, 105, 180, 0.7);
+        box-shadow: 0 0 5px rgba(255, 105, 180, 0.7), 0 0 10px rgba(255, 105, 180, 0.7);
+    }
+    50% {
+        border-color: rgba(255, 105, 180, 0.5);
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.5), 0 0 20px rgba(255, 105, 180, 0.5);
+    }
+}
+
+@keyframes shimmer-orange {
+    0%, 100% {
+        border-color: rgba(255, 165, 0, 0.7);
+        box-shadow: 0 0 5px rgba(255, 165, 0, 0.7), 0 0 10px rgba(255, 165, 0, 0.7);
+    }
+    50% {
+        border-color: rgba(255, 165, 0, 0.5);
+        box-shadow: 0 0 15px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5);
+    }
+}
+
+/* Animated border classes */
+.border-animated-green {
+    border: 2px solid rgba(0, 255, 0, 0.7);
+    animation: shimmer-green 1.5s infinite alternate;
+}
+
+.border-animated-blue {
+    border: 2px solid rgba(0, 204, 255, 0.7);
+    animation: shimmer-blue 1.5s infinite alternate;
+}
+
+.border-animated-pink {
+    border: 2px solid rgba(255, 105, 180, 0.7);
+    animation: shimmer-pink 1.5s infinite alternate;
+}
+
+.border-animated-orange {
+    border: 2px solid rgba(255, 165, 0, 0.7);
+    animation: shimmer-orange 1.5s infinite alternate;
+}
+
+/* Editor styles */
+.fancy-editor a {
+    text-lg: bold;
+    color: rgba(255, 255, 0, 0.7);
+    text-align: center;
+    text-decoration: underline;
+}
+
+.fancy-editor strong {
+    color: rgba(0, 204, 255, 0.7);
+    font-weight: bold;
+}
+
+/* Glass border */
+.glass-border {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
