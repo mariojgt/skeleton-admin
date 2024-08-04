@@ -34,7 +34,7 @@
                 <div tabindex="0">
                     <div class="avatar">
                         <div class="rounded-full w-8 h-8 m-1">
-                            <img src="https://i.pravatar.cc/300" />
+                            <img :src="usePage().props.authUserInfo.data.avatar" />
                         </div>
                     </div>
                 </div>

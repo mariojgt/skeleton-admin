@@ -8,15 +8,14 @@
     >
         <template #title>
             <header class="text-center md:px-12 text-neutral">
-                <h2 class="text-4xl font-semibold">Type the authentication code.</h2>
+                <h2 class="text-4xl font-semibold">Please enter the Authentication Code</h2>
             </header>
         </template>
         <template #body>
-            <form @submit.prevent="submitForm" class="rounded-lg">
+            <form v-if="!recoveryMode" @submit.prevent="submitForm" class="rounded-lg">
                 <div class="px-5 py-7">
-
                     <input-field
-                        v-model="form.email"
+                        v-model="form.code"
                         label="Code"
                         name="code"
                         id="code"
@@ -26,7 +25,7 @@
                         :inputClass="inputClass"
                     />
 
-                    <div class="form-control pt-10">
+                    <div class="form-control pt-10 gap-2">
                         <button
                             type="submit"
                             class="btn btn-secondary w-full rounded-lg text-xl font-bold"
@@ -36,6 +35,42 @@
                     </div>
                 </div>
             </form>
+            <form v-if="recoveryMode" @submit.prevent="submitFormRecovery" class="rounded-lg">
+                <div class="px-5 py-7">
+                    <input-field
+                        v-model="form.code"
+                        label="Recovered Code"
+                        name="code"
+                        id="code"
+                        placeholder="Code"
+                        :messageClass="messageClass"
+                        :labelClass="labelClass"
+                        :inputClass="inputClass"
+                    />
+
+                    <div class="form-control pt-10 gap-2">
+                        <button
+                            type="submit"
+                            class="btn btn-secondary w-full rounded-lg text-xl font-bold"
+                        >
+                            Recover
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <button
+                v-if="!recoveryMode"
+                @click="enableRecoveryMode(true)"
+                class="btn btn-accent w-full rounded-lg text-xl font-bold"
+            >
+                Forgot Code
+            </button>
+            <button
+                v-if="recoveryMode"
+                @click="enableRecoveryMode(false)"
+                class="btn btn-accent w-full rounded-lg text-xl font-bold">
+                Back
+            </button>
         </template>
     </reusable-modal>
 </template>
@@ -52,16 +87,6 @@ import {
     ReusableModal,
 } from "@mariojgt/masterui/packages/index";
 
-const emit = defineEmits(["closeModal"]);
-
-const close = () => {
-    emit("closeModal", "isLoading");
-};
-
-const form = useForm({
-    email: ""
-});
-
 defineProps({
     isOpen: {
         type: Boolean,
@@ -69,10 +94,20 @@ defineProps({
     },
 });
 
+const emit = defineEmits(["closeModal"]);
+
+const close = () => {
+    emit("closeModal", "isLoading");
+};
+
+const form = useForm({
+    code: ""
+});
+
 const submitForm = () => {
     emit("isLoading", true);
-    form.post(route("password-reset.user"), {
-        preserveState: true,
+    form.post(route("castle.validate"), {
+        preserveState: false,
         onSuccess: () => {
             emit("isLoading", false);
             emit("closeModal");
@@ -82,4 +117,25 @@ const submitForm = () => {
         },
     });
 };
+
+const submitFormRecovery = () => {
+    emit("isLoading", true);
+    form.post(route("castle.unlock.backup.code"), {
+        preserveState: false,
+        onSuccess: () => {
+            emit("isLoading", false);
+            emit("closeModal");
+        },
+        onError: () => {
+            emit("isLoading", false);
+        },
+    });
+};
+
+let recoveryMode = $ref(false);
+
+const enableRecoveryMode = (enable: boolean = false) => {
+    recoveryMode = enable;
+};
+
 </script>

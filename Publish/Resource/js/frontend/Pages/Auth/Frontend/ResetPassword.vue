@@ -2,7 +2,7 @@
     <layout title="Frontend Reset">
         <hr class="theme-divider" />
         <section class="fancy-background03">
-            <div class="grid max-w-screen-xl px-4 py-8 mx-auto">
+            <div class="grid max-w-screen-xl px-4 py-8 mx-auto bg-secondary rounded-lg mt-10">
                 <!-- <div class="mr-auto place-self-center lg:col-span-7">
                     <h1 class="text-color-h1 text-6xl lg:text-8xl mb-4">
                         Check Out this amazing courses
@@ -42,7 +42,7 @@
                         />
 
                         <div class="form-control pt-10">
-                            <submit name="reset" @click="submitForm" />
+                            <submit name="Reset" @click="submitForm" />
                         </div>
                     </div>
                 </form>

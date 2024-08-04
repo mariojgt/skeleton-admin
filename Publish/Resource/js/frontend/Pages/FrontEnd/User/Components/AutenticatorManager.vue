@@ -53,13 +53,13 @@
                     <h2 class="my-4 text-4xl font-bold card-title">
                         Two Factor Autenticator Backup Codes
                         <div class="flex items-center justify-end gap-3">
-                            <button class="btn btn-primary" @click="printCodes">
+                            <button class="btn btn-secondary" @click="printCodes">
                                 Download Csv
                             </button>
 
                             <label
                                 for="my-modal-2"
-                                class="btn btn-primary modal-button"
+                                class="btn btn-secondary modal-button"
                                 >Remove Autenticator</label
                             >
                             <input
@@ -68,7 +68,7 @@
                                 class="modal-toggle"
                             />
                             <div class="modal">
-                                <div class="modal-box">
+                                <div class="modal-box bg-primary">
                                     <inputField
                                         v-model="code"
                                         label="Two Factor Autenticator Code"
@@ -80,7 +80,7 @@
                                     <div class="modal-action">
                                         <label
                                             for="my-modal-2"
-                                            class="btn btn-primary"
+                                            class="btn btn-secondary"
                                             @click="removeAutenticator"
                                             >Remove</label
                                         >
@@ -123,7 +123,7 @@
 </template>
 
 <script setup>
-import { router } from "@inertiajs/vue3";
+import { router} from "@inertiajs/vue3";
 import { onMounted } from "vue";
 
 // Import the from components
@@ -163,7 +163,7 @@ const removeAutenticator = () => {
     const form = {
         code: code,
     };
-    Inertia.patch(route("user.remove-autenticator"), form);
+    router.post(route("castle.unlock.backup.code"), form);
 };
 
 const printCodes = () => {

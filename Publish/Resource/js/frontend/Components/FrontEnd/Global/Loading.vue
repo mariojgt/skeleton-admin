@@ -5,7 +5,7 @@
         :isLarge="false"
         :showFooter="false"
         :showHeader="false"
-        modalClass="mb-4 lg:mb-6 not-format border-2 rounded p-2 bg-opacity-10 backdrop-blur transition-all border-animated-pink"
+        modalClass="mb-4 lg:mb-6 not-format border-2 rounded p-2 bg-opacity-10 backdrop-blur transition-all border-animated-blue"
     >
         <template #body>
             <div class="text-center">

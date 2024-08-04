@@ -119,3 +119,36 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+
+.tree-line {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .tree-line::before {
+    content: '';
+    position: absolute;
+    left: 0.75rem; /* Adjust to position the line correctly */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #4A5568; /* Adjust the color to your preference */
+  }
+  .tree-connector {
+    position: relative;
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+  }
+  .tree-connector::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 1.5rem;
+    height: 2px;
+    width: 1.5rem;
+    background-color: #4A5568; /* Adjust the color to your preference */
+  }
+  .tree-children {
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+  }

@@ -104,7 +104,7 @@ defineProps({
 const submitForm = async () => {
     emit("isLoading", true);
     form.post(route("login.user"), {
-        preserveState: true,
+        preserveState: false,
         onSuccess: () => {
             emit("isLoading", false);
             emit("closeModal");
