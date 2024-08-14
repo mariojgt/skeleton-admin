@@ -38,7 +38,7 @@ class LoginController extends Controller
 
                 return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('error', 'User need to be verify!');
             }
-            return Redirect::route(config('skeleton.front_end_login_redirect'))->with('success', 'Welcome :)');
+            return redirect()->back()->with('success', 'Welcome :)');
         } else {
             return Redirect::back()->with('error', 'Credentials do not match');
         }
