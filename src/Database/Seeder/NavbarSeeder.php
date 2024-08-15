@@ -27,7 +27,8 @@ class NavbarSeeder extends Seeder
                             </path>
                 </svg>',
                 'guard'       => 'skeleton_admin',
-                'is_frontend' => 0
+                'is_frontend' => 0,
+                'sort_order'  => 1,
             ],
             [
                 'menu_label' => 'Logout',
@@ -38,7 +39,8 @@ class NavbarSeeder extends Seeder
                         d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>',
                 'guard'       => 'skeleton_admin',
-                'is_frontend' => 0
+                'is_frontend' => 0,
+                'sort_order'  => 100,
             ],
         ];
 
@@ -50,6 +52,7 @@ class NavbarSeeder extends Seeder
                 'route'       => $role['route'],
                 'icon'        => $role['icon'],
                 'is_frontend' => $role['is_frontend'],
+                'sort_order'  => $role['sort_order'],
             ]);
         }
     }

@@ -72,7 +72,7 @@ class HandleInertiaRequests extends Middleware
     private function backendShare(Request $request)
     {
         $navbar = Cache::remember('navbar', 2592000, function () {
-            return NavbarResource::collection(Navbar::where('is_frontend', 0)->where('is_active', 1)->get());
+            return NavbarResource::collection(Navbar::where('is_frontend', 0)->where('is_active', 1)->orderBy('sort_order', 'ASC')->get());
         });
 
         return array_merge(parent::share($request), [

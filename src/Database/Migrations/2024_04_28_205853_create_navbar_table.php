@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('icon')->nullable();
             $table->boolean('is_frontend')->default(true);
             $table->boolean('is_active')->default(true);
+            $table->integer('sort_order')->nullable();
             $table->timestamps();
         });
     }
