@@ -5,7 +5,8 @@
     >
         <div class="card-body">
             <h2 class="card-title">
-                <component :is="DynamicIcon" v-if="DynamicIcon" />
+                <div :html="props.icon" v-if="props.icon"></div>
+                <!-- <component :is="DynamicIcon" v-if="DynamicIcon" /> -->
                 {{ props.itemName }}
             </h2>
             <p v-if="props.subTitle">
@@ -74,12 +75,12 @@ const props = defineProps({
 });
 
 // Dynamic import the icon component with computed property
-const DynamicIcon = computed(() => {
-    // If menu item is not null
-    if (props.icon) {
-        // Return the icon component
-        return icons[props.icon];
-    }
-    return null;
-});
+// const DynamicIcon = computed(() => {
+//     // If menu item is not null
+//     if (props.icon) {
+//         // Return the icon component
+//         return props.icon;
+//     }
+//     return null;
+// });
 </script>

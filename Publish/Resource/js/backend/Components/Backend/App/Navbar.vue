@@ -94,7 +94,11 @@ const props = defineProps({
 
 // Links
 const profileLink = route("admin.edit");
-const instructorLink = route("gamedev.instructor.index");
+try {
+    const instructorLink = route("gamedev.instructor.index");
+} catch (error) {
+    const instructorLink = null;
+}
 // Logout Route
 const logoutRoute = route("skeleton.logout");
 // Home route

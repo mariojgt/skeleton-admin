@@ -79,6 +79,10 @@ class Republish extends Command
             true
         );
 
+        // Delete extra files from other packages if they exist
+        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/backend/Pages/BackEnd/Vendor');
+        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/frontend/Pages/FrontEnd/Vendor');
+
         $bar->finish(); // Finish the progress bar
         $this->newLine();
         $this->info('The command was successful!');
