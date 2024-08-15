@@ -191,7 +191,7 @@ class BuildExtensionPackage extends Command
         ];
         $this->loadStubFileAndSave(
             'indexView',
-            resource_path('vendor/SkeletonAdmin/js/' . $location . '/Pages/Vendor/' . $packageName . '/home'),
+            resource_path('vendor/SkeletonAdmin/js/' . $location . '/Pages/Vendor/' . $packageName),
             'index',
             '.vue',
             $replace
