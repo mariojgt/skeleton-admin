@@ -7,7 +7,7 @@
             :endpoint-delete="props.endpointDelete"
             :endpoint-create="props.endpointCreate"
             :endpoint-edit="props.endpointEdit"
-            :table-title="'Product'"
+            :table-title="'Product Category'"
             :permission="props.permission"
             :custom_edit_route="props.custom_edit_route"
         />
@@ -15,9 +15,6 @@
 </template>
 
 <script setup>
-import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
-import { Link } from "@inertiajs/vue3";
 import Layout from "@backend_layout/App.vue";
 
 // Import the table component from the builder api
