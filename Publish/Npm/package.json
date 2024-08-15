@@ -30,7 +30,7 @@
     "@heroicons/vue": "^2.0.17",
     "@inertiajs/vue3": "^1.0.2",
     "@jamescoyle/vue-icon": "^0.1.2",
-    "@mariojgt/masterui": "^0.4.4",
+    "@mariojgt/masterui": "^0.4.5",
     "@mdi/js": "^7.0.96",
     "@rive-app/canvas": "^1.1.4",
     "@tinymce/tinymce-vue": "^5.1.0",

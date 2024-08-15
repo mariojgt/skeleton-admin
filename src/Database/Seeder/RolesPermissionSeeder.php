@@ -3,8 +3,9 @@
 namespace Mariojgt\SkeletonAdmin\Database\Seeder;
 
 use Illuminate\Database\Seeder;
-use Mariojgt\SkeletonAdmin\Models\Permission;
 use Mariojgt\SkeletonAdmin\Models\Role;
+use Mariojgt\SkeletonAdmin\Models\Permission;
+use Mariojgt\SkeletonAdmin\Enums\PermissionEnum;
 
 class RolesPermissionSeeder extends Seeder
 {
@@ -37,21 +38,25 @@ class RolesPermissionSeeder extends Seeder
         // Create permissions
         $permissions = [
             [
-                'name'       => 'create-permission',
+                'name'       => PermissionEnum::CreatePermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => 'edit-permission',
+                'name'       => PermissionEnum::EditPermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => 'delete-permission',
+                'name'       => PermissionEnum::DeletePermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => 'read-permission',
+                'name'       => PermissionEnum::ReadPermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
+            [
+                'name'       => PermissionEnum::AdminEdit->value,
+                'guard_name' => 'skeleton_admin',
+            ]
         ];
         // Loop the permissions and create them
         foreach ($permissions as $permission) {

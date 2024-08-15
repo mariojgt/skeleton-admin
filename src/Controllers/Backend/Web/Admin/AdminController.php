@@ -11,6 +11,7 @@ use Mariojgt\SkeletonAdmin\Models\Role;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
+use Mariojgt\SkeletonAdmin\Enums\PermissionEnum;
 use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
 
 class AdminController extends Controller
@@ -57,15 +58,7 @@ class AdminController extends Controller
                 'canCreate' => true,
                 'canEdit'   => false,
                 'type'      => FieldTypes::EMAIL->value,
-            ],
-            [
-                'label'     => 'Password',
-                'key'       => 'password',
-                'sortable'  => true,
-                'canCreate' => true,
-                'canEdit'   => true,
-                'type'      => FieldTypes::PASSWORD->value,
-            ],
+            ]
         ];
 
         return Inertia::render('BackEnd/Admin/Index', [
@@ -94,19 +87,24 @@ class AdminController extends Controller
                     'index'  => 'read-permission',
                 ],
             ]),
+            'custom_edit_route' => '/' . config('skeleton.route_prefix') . '/admin/edit/',
         ]);
     }
 
     /**
      * Edit the admin.
      */
-    public function edit($admin = null)
+    public function edit(Admin $admin = null)
     {
         // Get current user else the login admin
         if (empty($admin)) {
             $adminInfo = backendGuard()->user();
         } else {
-            $adminInfo = backendGuard();
+            $adminInfo = $admin;
+            if (!$adminInfo->hasPermissionTo(PermissionEnum::AdminEdit->value)) {
+                return Redirect::back()
+                    ->with('error', 'You do not have permission to edit this user');
+            }
         }
 
         // Start the user authenticator so we can enable or disable the 2FA and other options
@@ -115,15 +113,15 @@ class AdminController extends Controller
         $authenticatorInfo = [];
 
         // First we check if the user is uisng the authenticator
-        if (backendGuard()->user()->twoStepsEnable()) {
+        if ($adminInfo->twoStepsEnable()) {
             $authenticatorInfo = [
-                'is_enable'    => backendGuard()->user()->twoStepsEnable(),
-                'backup_codes' => json_decode(backendGuard()->user()->getCodes->codes),
+                'is_enable'    => $adminInfo->twoStepsEnable(),
+                'backup_codes' => json_decode($adminInfo->getCodes->codes),
             ];
         } else {
             $authenticatorInfo = [
-                'codeinfo'     => $authenticator->generateCode(backendGuard()->user()->email),
-                'is_enable'    => backendGuard()->user()->twoStepsEnable(),
+                'codeinfo'     => $authenticator->generateCode($adminInfo->email),
+                'is_enable'    => $adminInfo->twoStepsEnable(),
             ];
         }
 

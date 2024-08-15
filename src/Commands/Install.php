@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Database\Seeder\NavbarSeeder;
 use Mariojgt\Magnifier\Controllers\MediaFolderController;
 use Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder;
 use Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder;
@@ -87,6 +88,11 @@ class Install extends Command
         // Run the navigation seeder
         Artisan::call('db:seed', [
             '--class' => NavigationSeeder::class,
+        ]);
+
+        // Run the navigation seeder
+        Artisan::call('db:seed', [
+            '--class' => NavbarSeeder::class,
         ]);
     }
 

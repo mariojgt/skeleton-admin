@@ -4,7 +4,10 @@ namespace App\Http\Middleware;
 
 use Inertia\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Mariojgt\SkeletonAdmin\Models\Navbar;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
+use Mariojgt\SkeletonAdmin\Resource\Common\NavbarResource;
 use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
 
 class HandleInertiaRequests extends Middleware
@@ -68,10 +71,15 @@ class HandleInertiaRequests extends Middleware
      */
     private function backendShare(Request $request)
     {
+        $navbar = Cache::remember('navbar', 2592000, function () {
+            return NavbarResource::collection(Navbar::where('is_frontend', 0)->where('is_active', 1)->get());
+        });
+
         return array_merge(parent::share($request), [
             'flash'      => $this->handleFlashMessage($request),
             'app'        => config('app.name'),
             'navigation' => NavigationResource::collection(Navigation::where('guard', 'skeleton_admin')->get()),
+            'navbar'     => $navbar,
             'avatar'     => backendGuard()?->user()?->admin_avatar,
             'themes'     => config('skeleton.themes')
         ]);
