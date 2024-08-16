@@ -79,6 +79,8 @@ const props = defineProps({
     },
 });
 
+const emit = defineEmits(["closeLogin", "closeRegister", "closeLoading"]);
+
 /*
 |--------------------------------------------------------------------------
 | Login Modal
@@ -92,6 +94,7 @@ const openLogin = () => {
 const closeLogin = () => {
     showLogin = false;
     showRegister = false;
+    emit("closeLogin");
 };
 
 let showRegister = $ref(false);
