@@ -23,11 +23,11 @@ class GenericNotification extends Notification implements ShouldQueue
 
     public function __construct(string $title, string $icon, string $message, string $type = 'icon', bool $mail = false)
     {
-        $this->title = $title;    // Notification title
-        $this->icon = $icon;     // Notification icon // success, info, warning, error
+        $this->title   = $title;    // Notification title
+        $this->icon    = $icon;     // Notification icon // success, info, warning, error
         $this->message = $message;  // Notification message
-        $this->type = $type;     // can be a icon or image
-        $this->mail = $mail;     // Send mail notification default false
+        $this->type    = $type;     // can be a icon or image
+        $this->mail    = $mail;     // Send mail notification default false
     }
 
     public function via($notifiable)

@@ -8,7 +8,7 @@
     >
         <template #title>
             <header class="text-center md:px-12 text-neutral">
-                <h2 class="text-4xl font-semibold">Log In</h2>
+                <h2 class="text-4xl font-semibold">Sign in</h2>
             </header>
         </template>
         <template #body>
