@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\SkeletonAdmin\Controllers\Frontend\Api\Notifications\NotificationController;
+use Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Api\Notifications\NotificationController;
 
 Route::group([
     'middleware' => ['web', 'auth'],

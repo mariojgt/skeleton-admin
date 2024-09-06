@@ -1,6 +1,6 @@
 <template>
-    <div class="dropdown dropdown-end">
-        <div tabindex="0" class="m-1 btn btn-square btn-ghost">
+    <div class="dropdown dropdown-end z-50">
+        <div tabindex="0" class="m-1 btn btn-square btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 class="inline-block w-6 h-6 stroke-current text-neutral">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -11,8 +11,8 @@
                 {{ notificationsCount }}
             </div>
         </div>
-        <div tabindex="0" class="flex shadow menu dropdown-content bg-base-300 rounded-box w-96">
-            <ul class="menu py-3 shadow-lg bg-base-100">
+        <div tabindex="0" class="flex shadow menu dropdown-content bg-dark-200 rounded-box w-96">
+            <ul v-if="notifications.length > 0" class="menu py-3 shadow-lg bg-dark-400">
                 <li v-for="(item, index) in notifications" :key="index" class="pb-0">
                     <div class="flex pd overflow-hidden">
                         <div class="flex items-center pr-7">
@@ -28,17 +28,17 @@
                                 <h2 class="text-xl font-semibold text-base-content">
                                     {{ item.data.title }}
                                 </h2>
-                                <p class="text-base-content">
+                                <div class="text-base-content">
                                     {{ item.data.content }}
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
-            <ul class="menu bg-base-100">
+            <ul class="menu bg-dark-400">
                 <li @click="readAll">
-                    <a>
+                    <a class="flex justify-start" >
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neutral" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -57,6 +57,8 @@
 import { api } from "../../../Boot/axios.js";
 // Import the icon handle for the notification
 import Icon from "./NotificationIcon.vue";
+// Import the mounted function
+import { onMounted } from "vue";
 
 import { useMessage } from "naive-ui";
 const message = useMessage();
@@ -69,6 +71,7 @@ const fetchNotifications = async () => {
     api
         .get(route("user.api.notifications", 5))
         .then(function (response) {
+            console.log('asdasd');
             // Get the notifications
             notifications = response.data.data;
             // Count the notifications
@@ -81,13 +84,21 @@ const fetchNotifications = async () => {
         .catch(function (error) { });
 };
 
-fetchNotifications();
+onMounted(() => {
+    fetchNotifications();
+});
 
 // Set a timeout to fetch notifications every 25 seconds
 setInterval(fetchNotifications, 25000);
 
 const readAll = async () => {
-    api.post(route("user.api.notification.read"));
-    setTimeout(fetchNotifications, 1000);
+    await api.post(route("user.api.notification.read")).then(function (response) {
+        // Clear the notifications
+        notifications = [];
+        // Clear the count
+        notificationsCount = 0;
+        // Display a message
+        message.success("All notifications are read");
+    });
 };
 </script>
