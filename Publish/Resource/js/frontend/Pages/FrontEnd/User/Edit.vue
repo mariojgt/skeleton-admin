@@ -24,13 +24,14 @@
                             >2fa</a
                         >
                     </Tab>
-                    <Tab v-slot="{ selected }">
-                        <a
+                    <template v-for="(item, index) in extraLinks">
+                        <Link
                             class="btn btn-primary"
+                            :href="item"
                             :class="selected ? 'bg-secondary' : ''"
-                            >Subscription</a
-                        >
-                    </Tab>
+                            >{{ index }}
+                        </Link>
+                    </template>
                 </TabList>
                 <TabPanels class="mt-2">
                     <TabPanel>
@@ -48,11 +49,6 @@
                             :autenticator-info="props.autenticator"
                         />
                     </TabPanel>
-                    <TabPanel>
-                        <subscription-management
-                            :user-info="props.user.data"
-                        />
-                    </TabPanel>
                 </TabPanels>
             </TabGroup>
         </div>
@@ -60,8 +56,6 @@
 </template>
 
 <script setup>
-import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
 import { Link } from "@inertiajs/vue3";
 import Layout from "../../../Layout/App.vue";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
@@ -70,7 +64,6 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import EditDeatils from "./Components/EditDetails.vue";
 import PasswordUpdate from "./Components/PasswordUpdate.vue";
 import AutenticatorManager from "./Components/AutenticatorManager.vue";
-import subscriptionManagement from "./Components/SubscriptionManagement.vue";
 
 const props = defineProps({
     autenticator: {
@@ -80,7 +73,10 @@ const props = defineProps({
     user: {
         type: Object,
         default: () => ({}),
-        default: {},
+    },
+    extraLinks: {
+        type: Object,
+        default: () => ({}),
     },
 });
 </script>

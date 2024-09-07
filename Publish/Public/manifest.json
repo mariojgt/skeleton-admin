@@ -612,7 +612,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Course/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Generic/Index.vue": {
-    "file": "assets/Index-d57256c6.js",
+    "file": "assets/Index-9e298aa9.js",
     "imports": [
       "_App-fe863690.js",
       "_Table.vue_vue_type_script_setup_true_lang-58b96642.js",
@@ -699,7 +699,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Slider/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Slider/Index.vue": {
-    "file": "assets/Index-9e298aa9.js",
+    "file": "assets/Index-d57256c6.js",
     "imports": [
       "_App-fe863690.js",
       "_Table.vue_vue_type_script_setup_true_lang-58b96642.js",
@@ -1002,23 +1002,14 @@
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue"
   },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/SubscriptionManagement.vue": {
-    "file": "assets/SubscriptionManagement-2717dde5.js",
-    "imports": [
-      "_preset-e6c2fca6.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/SubscriptionManagement.vue"
-  },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue": {
-    "file": "assets/Edit-392b4ef9.js",
+    "file": "assets/Edit-d842820b.js",
     "imports": [
       "_preset-e6c2fca6.js",
       "_App.vue_vue_type_script_setup_true_lang-d0a27a6f.js",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue",
-      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/SubscriptionManagement.vue",
       "_tabs-80a1c1aa.js",
       "_FlashMessage-cd0df76e.js",
       "_ReusableModal-4032ffb3.js",
@@ -1191,8 +1182,37 @@
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/Index.vue"
   },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/SubscriptionManagement.vue": {
+    "file": "assets/SubscriptionManagement-3cd83c2d.js",
+    "imports": [
+      "_preset-e6c2fca6.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/SubscriptionManagement.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Index.vue": {
+    "file": "assets/Index-5b7d04f6.js",
+    "imports": [
+      "_App.vue_vue_type_script_setup_true_lang-d0a27a6f.js",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/SubscriptionManagement.vue",
+      "_preset-e6c2fca6.js",
+      "_FlashMessage-cd0df76e.js",
+      "_ReusableModal-4032ffb3.js",
+      "_micro-task-fb1273ba.js",
+      "_keyboard-ed283044.js",
+      "_hidden-5c4898ab.js",
+      "_open-closed-393d98dd.js",
+      "_axios-744ab111.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_Input.vue_vue_type_script_setup_true_lang-8699ddeb.js",
+      "_Password-dbf37774.js",
+      "_dark-88f5b820.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Index.vue"
+  },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue": {
-    "file": "assets/index-5b40af4e.js",
+    "file": "assets/index-fd6c6310.js",
     "imports": [
       "_preset-e6c2fca6.js",
       "_App.vue_vue_type_script_setup_true_lang-d0a27a6f.js",
@@ -1212,7 +1232,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/Vendor/skeleton-store/index.vue": {
-    "file": "assets/index-fd6c6310.js",
+    "file": "assets/index-5b40af4e.js",
     "imports": [
       "_preset-e6c2fca6.js",
       "_App.vue_vue_type_script_setup_true_lang-d0a27a6f.js",
@@ -1242,7 +1262,6 @@
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue",
-      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/SubscriptionManagement.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Blog/Index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Blog/View.vue",
@@ -1252,10 +1271,12 @@
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/Sidebar.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/SidebarControl.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/Index.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/SubscriptionManagement.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/Vendor/skeleton-store/index.vue"
     ],
-    "file": "assets/Frontend_js-82812159.js",
+    "file": "assets/Frontend_js-ffa10f12.js",
     "imports": [
       "_preset-e6c2fca6.js"
     ],

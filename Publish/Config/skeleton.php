@@ -96,4 +96,6 @@ return [
         'master',
         'admin'
     ],
+
+    'extra_profile_links' => []
 ];

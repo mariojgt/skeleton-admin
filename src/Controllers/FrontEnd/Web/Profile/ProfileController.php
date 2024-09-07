@@ -42,9 +42,13 @@ class ProfileController extends Controller
             ];
         }
 
+        // Extra links
+        $links = config('skeleton.extra_profile_links');
+
         return Inertia::render('FrontEnd/User/Edit', [
             'autenticator' => $authenticatorInfo,
             'user'         => new UserResource($user),
+            'extraLinks'   => $links,
         ]);
     }
 
