@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 
 // Import the from components

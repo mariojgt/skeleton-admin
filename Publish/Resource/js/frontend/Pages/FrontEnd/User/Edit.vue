@@ -4,16 +4,32 @@
             <TabGroup>
                 <TabList class="flex space-x-1 rounded-xl p-1 tabs">
                     <Tab v-slot="{ selected }">
-                        <a class="btn btn-primary"
-                                :class="selected ? 'bg-secondary' : ''">Deatils</a>
+                        <a
+                            class="btn btn-primary"
+                            :class="selected ? 'bg-secondary' : ''"
+                            >Deatils</a
+                        >
                     </Tab>
                     <Tab v-slot="{ selected }">
-                        <a class="btn btn-primary"
-                                :class="selected ? 'bg-secondary' : ''">Security</a>
+                        <a
+                            class="btn btn-primary"
+                            :class="selected ? 'bg-secondary' : ''"
+                            >Security</a
+                        >
                     </Tab>
                     <Tab v-slot="{ selected }">
-                        <a class="btn btn-primary"
-                                :class="selected ? 'bg-secondary' : ''">2fa</a>
+                        <a
+                            class="btn btn-primary"
+                            :class="selected ? 'bg-secondary' : ''"
+                            >2fa</a
+                        >
+                    </Tab>
+                    <Tab v-slot="{ selected }">
+                        <a
+                            class="btn btn-primary"
+                            :class="selected ? 'bg-secondary' : ''"
+                            >Subscription</a
+                        >
                     </Tab>
                 </TabList>
                 <TabPanels class="mt-2">
@@ -21,11 +37,21 @@
                         <edit-deatils :user-info="props.user.data" />
                     </TabPanel>
                     <TabPanel>
-                        <password-update :user-info="props.user.data" :autenticator-info="props.autenticator" />
+                        <password-update
+                            :user-info="props.user.data"
+                            :autenticator-info="props.autenticator"
+                        />
                     </TabPanel>
                     <TabPanel>
-                        <autenticator-manager :user-info="props.user.data"
-                                    :autenticator-info="props.autenticator" />
+                        <autenticator-manager
+                            :user-info="props.user.data"
+                            :autenticator-info="props.autenticator"
+                        />
+                    </TabPanel>
+                    <TabPanel>
+                        <subscription-management
+                            :user-info="props.user.data"
+                        />
                     </TabPanel>
                 </TabPanels>
             </TabGroup>
@@ -38,12 +64,13 @@ import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import { Link } from "@inertiajs/vue3";
 import Layout from "../../../Layout/App.vue";
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 
 // Tab Content
 import EditDeatils from "./Components/EditDetails.vue";
 import PasswordUpdate from "./Components/PasswordUpdate.vue";
 import AutenticatorManager from "./Components/AutenticatorManager.vue";
+import subscriptionManagement from "./Components/SubscriptionManagement.vue";
 
 const props = defineProps({
     autenticator: {

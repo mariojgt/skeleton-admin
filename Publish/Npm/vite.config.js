@@ -13,6 +13,7 @@ export default defineConfig({
             '@backend_layout': '/resources/vendor/SkeletonAdmin/js/backend/Layout',
             '@frontend_types': '/resources/vendor/SkeletonAdmin/js/frontend/Types',
             '@frontend_composable': '/resources/vendor/SkeletonAdmin/js/frontend/Composable',
+            '@builder': '/resources/vendor/Builder/Table',
         },
     },
     plugins: [
