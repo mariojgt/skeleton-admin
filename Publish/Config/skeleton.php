@@ -5,6 +5,8 @@ use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
 use Mariojgt\SkeletonAdmin\Models\Permission;
+use Mariojgt\GameDev\Models\User as GamedevUser;
+use Skeleton\Store\Models\User as SkeletonStore;
 
 return [
     /**
@@ -18,10 +20,10 @@ return [
     /**
      * Redirect after login, register, logout, verify for the front end.
      */
-    'front_end_login_redirect'    => 'user.home',
-    'front_end_logout_redirect'   => 'user.home',
-    'front_end_register_redirect' => 'user.home',
-    'front_end_verify_redirect'   => 'login',
+    'front_end_login_redirect'    => 'home',
+    'front_end_logout_redirect'   => 'home',
+    'front_end_register_redirect' => 'home',
+    'front_end_verify_redirect'   => 'home',
     /**
      * Enable or disable backend register.
      */
@@ -89,7 +91,10 @@ return [
         ],
     ],
 
-    'front_end_notification_user_model' => User::class,
+    'front_end_notification_user_model' => [
+        GamedevUser::class,
+        SkeletonStore::class
+    ],
 
     'themes' => [
         'forest',
@@ -97,5 +102,5 @@ return [
         'admin'
     ],
 
-    'extra_profile_links' => []
+    'extra_profile_links' => ['Subscription Management' => '/user/subscription/management']
 ];

@@ -20,15 +20,19 @@ class NotificationController extends Controller
      */
     public function index($amount = 10)
     {
-        // Find the user and cast to dynamic user
-        $user = $this->userModel::find(Auth::user()->id);
-
-        // Get the notifications not read
-        $notifications = $user->notifications()
-            ->where('read_at', null)
-            ->orderBy('created_at', 'desc')
-            ->take($amount)
-            ->get();
+        $notifications = [];
+        foreach ($this->userModel as $key => $model) {
+            $user = $model::find(Auth::user()->id);
+            if ($user) {
+                $notifications[] = $user->notifications()
+                    ->where('read_at', null)
+                    ->orderBy('created_at', 'desc')
+                    ->take($amount)
+                    ->get();
+            }
+        }
+        // Flatten the array
+        $notifications = collect($notifications)->flatten();
 
         return NotificationResource::collection($notifications);
     }
@@ -38,10 +42,19 @@ class NotificationController extends Controller
      */
     public function read()
     {
-        // Find the user
-        $user = $this->userModel::find(Auth::user()->id);
-        // Get the notifications not read
-        $notifications = $user->notifications()->where('read_at', null)->get();
+        $notifications = [];
+        foreach ($this->userModel as $key => $model) {
+            $user = $model::find(Auth::user()->id);
+            if ($user) {
+                $notifications[] = $user->notifications()
+                    ->where('read_at', null)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            }
+        }
+
+        // Flatten the array
+        $notifications = collect($notifications)->flatten();
 
         foreach ($notifications as $notification) {
             $notification->markAsRead();
