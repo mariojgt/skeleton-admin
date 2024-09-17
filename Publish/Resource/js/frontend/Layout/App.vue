@@ -77,6 +77,10 @@ const props = defineProps({
         type: String,
         default: "bg-dark-100",
     },
+    displayLoading: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const emit = defineEmits(["closeLogin", "closeRegister", "closeLoading"]);

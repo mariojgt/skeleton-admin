@@ -71,7 +71,6 @@ const fetchNotifications = async () => {
     api
         .get(route("user.api.notifications", 5))
         .then(function (response) {
-            console.log('asdasd');
             // Get the notifications
             notifications = response.data.data;
             // Count the notifications
