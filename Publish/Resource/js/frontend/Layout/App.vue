@@ -24,6 +24,7 @@
                                         @closeModal="closeLogin"
                                         @isLoading="loading"
                                     />
+                                    <Subscribe :is-open="displaySubscription" @close-modal="closeSubscription" @isLoading="loading" />
                                 </n-config-provider>
                             </n-dialog-provider>
                         </n-notification-provider>
@@ -51,6 +52,7 @@ import Footer from "@frontend_components/FrontEnd/App/Footer.vue";
 import MenuDrawer from "@frontend_components/FrontEnd/App/MenuDrawer.vue";
 import { onBeforeMount, watch, onMounted} from "vue";
 import AuthModal from "@frontend_components/Auth/AuthComponent.vue";
+import Subscribe from "@frontend_components/Payment/Subscription/subscribe.vue";
 
 const props = defineProps({
     showHeader: {
@@ -80,10 +82,14 @@ const props = defineProps({
     displayLoading: {
         type: Boolean,
         default: false,
+    },
+    displaySubscription: {
+        type: Boolean,
+        default: false,
     }
 });
 
-const emit = defineEmits(["closeLogin", "closeRegister", "closeLoading"]);
+const emit = defineEmits(["closeLogin", "closeRegister", "closeLoading", "closeSubscription"]);
 
 /*
 |--------------------------------------------------------------------------
@@ -145,6 +151,25 @@ watch(() => props.displayLoading, (value) => {
         closeLoading();
     }
 });
+
+/*
+|--------------------------------------------------------------------------
+| displaySubscription
+|--------------------------------------------------------------------------
+*/
+let displaySubscription = $ref(false);
+
+watch(() => props.displaySubscription, (value) => {
+    if (value) {
+        displaySubscription = true;
+    } else {
+        displaySubscription = false;
+    }
+});
+
+const closeSubscription = () => {
+    emit("closeSubscription");
+};
 
 // on before mount we going to check if we have a flash message and if we do we going to display it
 onBeforeMount(() => {

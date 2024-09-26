@@ -29,8 +29,8 @@
         <div class="flex items-center space-x-4">
             <ThemeSwich :disabled="true" />
             <template v-if="!isAuth" >
-                <button class="btn btn-primary btn-sm" @click="login">Sign in</button>
-                <button class="btn btn-secondary btn-sm" @click="register">Get Started or Free</button>
+                <button class="btn btn-primary btn-md" @click="login">Sign in</button>
+                <button class="btn btn-secondary btn-md" @click="register">Get Started or Free</button>
             </template>
             <template v-if="isAuth" >
                 <notification/>
