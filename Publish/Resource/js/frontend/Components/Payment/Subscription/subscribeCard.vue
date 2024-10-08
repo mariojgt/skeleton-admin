@@ -2,15 +2,15 @@
     <!-- Individual Plan -->
     <div class="bg-dark-blue-400 p-2 rounded-lg shadow-lg">
         <div class="card-body">
-            <div class="flex justify-between items-center mb-4">
-                <div class="flex items-center gap-2">
+            <div class="flex justify-end items-center mb-4">
+                <!-- <div class="flex items-center gap-2">
                     <button class="btn btn-outline btn-sm text-gray-400" @click="showAnnual = false">
                         Monthly
                     </button>
                     <button class="btn btn-outline btn-sm text-gray-400" @click="showAnnual = true">
                         Yearly
                     </button>
-                </div>
+                </div> -->
                 <h2 class="text-xl font-bold" v-if="!showAnnual" >${{ props.plan.price }}</h2>
                 <h2 class="text-xl font-bold" v-else >${{ props.plan.price * 12 }}</h2>
             </div>

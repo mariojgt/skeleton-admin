@@ -43,7 +43,6 @@ const inputClass = "w-full p-5 text-2xl input input-primary input-bordered";
 // Import the from components
 import { InputField, ReusableModal } from "@mariojgt/masterui/packages/index";
 import singleCard from "./subscribeCard.vue";
-
 import { api } from "../../../Boot/axios.js";
 
 defineProps({
@@ -71,7 +70,9 @@ const submitForm = (plan) => {
     .then(function (response) {
         window.location.href = response.data.session;
     })
-    .catch(function (error) {});
+    .catch(function (error) {
+        emit("isLoading", true);
+    });
 };
 
 let recoveryMode = $ref(false);
