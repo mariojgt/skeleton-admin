@@ -1,26 +1,34 @@
 <template>
-    <!-- Individual Plan -->
-    <div class="bg-dark-blue-400 p-2 rounded-lg shadow-lg">
-        <div class="card-body">
-            <div class="flex justify-end items-center mb-4">
-                <!-- <div class="flex items-center gap-2">
-                    <button class="btn btn-outline btn-sm text-gray-400" @click="showAnnual = false">
-                        Monthly
-                    </button>
-                    <button class="btn btn-outline btn-sm text-gray-400" @click="showAnnual = true">
-                        Yearly
-                    </button>
-                </div> -->
-                <h2 class="text-xl font-bold" v-if="!showAnnual" >${{ props.plan.price }}</h2>
-                <h2 class="text-xl font-bold" v-else >${{ props.plan.price * 12 }}</h2>
+    <!--Pricing Card-->
+    <div
+        class="flex flex-col mx-auto max-w-sm bg-dark-300 hover:bg-dark-700 rounded-lg transform hover:scale-105 transition-transform duration-300"
+    >
+        <div
+            v-if="props.isPopular"
+            class="uppercase bg-gradient-to-r from-teal-600 to-violet-600 rounded-t-2xl p-3 text-center text-white"
+        >
+            MOST POPULAR
+        </div>
+        <div v-else class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-t-2xl p-3 text-center text-white">
+            GOOD VALUE
+        </div>
+        <div class="p-6 xl:py-9 xl:px-12">
+            <h3 class="font-manrope text-2xl font-bold mb-3">{{ props.plan.name }}</h3>
+            <div class="flex justify-center mb-6">
+                <span
+                    class="font-manrope mr-2 text-6xl font-semibold text-white"
+                    >£{{ props.plan.price }}</span
+                >
             </div>
-            <h3 class="text-2xl font-semibold mb-4">{{ props.plan.name }}</h3>
-            <p class="text-gray-400 mb-6">
-                {{ props.plan.description }}
-            </p>
-            <button @click="selectPlan" class="btn btn-secondary w-full">Select Plan</button>
+            <p v-if="!props.plan.auto_renew" class="text-xl text-gray-100">One Time Payment</p>
+            <p v-else class="text-xl text-gray-100">Monthly (cancel anytime)</p>
+            <!--List-->
+            <div v-html="props.plan.description"></div>
+            <button @click="selectPlan" class="btn btn-secondary w-full mt-5">Select Plan</button>
+            <!--List End-->
         </div>
     </div>
+    <!--Pricing Card-->
 </template>
 
 <script setup lang="ts">
@@ -36,6 +44,10 @@ const props = defineProps({
     plan: {
         type: Object,
         default: () => {},
+    },
+    isPopular: {
+        type: Boolean,
+        default: false,
     },
 });
 </script>

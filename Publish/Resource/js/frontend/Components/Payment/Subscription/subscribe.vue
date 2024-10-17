@@ -2,9 +2,8 @@
     <reusable-modal
         :show="isOpen"
         @close="close"
-        :isLarge="true"
         :showFooter="false"
-        modalClass="bg-primary"
+        modalClass="bg-dark-100 border border-dark-300 border-animated-blue w-full max-w-7xl "
     >
         <template #title>
             <header class="text-center md:px-12 text-neutral">
@@ -20,13 +19,13 @@
         </template>
 
         <template #body>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
                 <template
                     v-for="(item, index) in usePage().props
                         .subscriptionsProducts.data"
                     :key="index"
                 >
-                    <singleCard :plan="item" @selectPlan="submitForm" />
+                    <singleCard :plan="item" @selectPlan="submitForm" :is-popular="index === 1" />
                 </template>
             </div>
         </template>
@@ -63,7 +62,7 @@ const form = useForm({
 });
 
 const submitForm = (plan) => {
-    emit("isLoading", true);
+    // emit("isLoading", true);
     api.post(route("stripe.subscribe"), {
         plan_id: plan.id,
     })
@@ -71,7 +70,7 @@ const submitForm = (plan) => {
         window.location.href = response.data.session;
     })
     .catch(function (error) {
-        emit("isLoading", true);
+        // emit("isLoading", true);
     });
 };
 
