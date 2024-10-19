@@ -19,7 +19,7 @@ class NavbarResource extends JsonResource
         return [
             'id'         => $this->id,
             'menu_label' => $this->menu_label,
-            'route'      => $this->route,
+            'route'      => route($this->route),
             'icon'       => $this->icon,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
