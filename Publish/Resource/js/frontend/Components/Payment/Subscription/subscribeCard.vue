@@ -17,7 +17,7 @@
             <div class="flex justify-center mb-6">
                 <span
                     class="font-manrope mr-2 text-6xl font-semibold text-white"
-                    >£{{ props.plan.price }}</span
+                    >{{ makeMoney(props.plan.price) }}</span
                 >
             </div>
             <p v-if="!props.plan.auto_renew" class="text-xl text-gray-100">One Time Payment</p>
@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import { makeMoney } from "@frontend_components/../Composable/Money.js";
 const emit = defineEmits(["selectPlan"]);
 const selectPlan = () => {
     // event to update the table
