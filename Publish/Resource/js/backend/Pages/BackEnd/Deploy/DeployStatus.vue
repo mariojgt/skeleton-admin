@@ -178,9 +178,9 @@
                             <button class="btn btn-error btn-sm" @click="cancelDeployment" >
                                 Cancel Deployment
                             </button>
-                            <button class="btn btn-ghost btn-sm">
+                            <!-- <button class="btn btn-ghost btn-sm">
                                 View Previous Deployment
-                            </button>
+                            </button> -->
                         </div>
                         <div class="flex gap-2">
                             <div class="badge badge-neutral">
@@ -288,6 +288,40 @@ const downloadLogs = () => {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
 };
+
+// Clipboard handling
+const handleCopyClick = async (text) => {
+  try {
+    // Try using the Clipboard API
+    if (window.isSecureContext && window.navigator?.clipboard) {
+      await window.navigator.clipboard.writeText(text);
+      copied.value = true;
+      setTimeout(() => {
+        copied.value = false;
+      }, 2000);
+      return;
+    }
+
+    // Fallback method using a temporary textarea
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    copied.value = true;
+    setTimeout(() => {
+      copied.value = false;
+    }, 2000);
+  } catch (error) {
+    console.error('Failed to copy text:', error);
+    // You could add an error notification here
+  }
+};
+
 
 const cancelDeployment = async () => {
     if (!confirm("Are you sure you want to cancel this deployment?")) return;
