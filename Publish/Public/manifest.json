@@ -407,7 +407,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Dashboard/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Deploy/DeployStatus.vue": {
-    "file": "assets/DeployStatus-3a2137a8.js",
+    "file": "assets/DeployStatus-d6b39146.js",
     "imports": [
       "_preset-dc82439c.js"
     ],
@@ -423,7 +423,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Deploy/DeployTable.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Deploy/Edit.vue": {
-    "file": "assets/Edit-387dad5c.js",
+    "file": "assets/Edit-53692cb3.js",
     "imports": [
       "_preset-dc82439c.js",
       "_App-0bcf1262.js",
@@ -704,7 +704,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Course/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Generic/Index.vue": {
-    "file": "assets/Index-5170a610.js",
+    "file": "assets/Index-444d589b.js",
     "imports": [
       "_App-0bcf1262.js",
       "_Table.vue_vue_type_script_setup_true_lang-6a7adbed.js",
@@ -793,7 +793,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Slider/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Slider/Index.vue": {
-    "file": "assets/Index-444d589b.js",
+    "file": "assets/Index-5170a610.js",
     "imports": [
       "_App-0bcf1262.js",
       "_Table.vue_vue_type_script_setup_true_lang-6a7adbed.js",
@@ -862,7 +862,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/skeleton-store/product/edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/skeleton-store/product/index.vue": {
-    "file": "assets/index-8f363edc.js",
+    "file": "assets/index-9b16b806.js",
     "imports": [
       "_App-0bcf1262.js",
       "_Table.vue_vue_type_script_setup_true_lang-6a7adbed.js",
@@ -966,7 +966,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Vendor/skeleton-store/product/edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/Vendor/skeleton-store/product/index.vue": {
-    "file": "assets/index-9b16b806.js",
+    "file": "assets/index-8f363edc.js",
     "imports": [
       "_App-0bcf1262.js",
       "_Table.vue_vue_type_script_setup_true_lang-6a7adbed.js",
@@ -1057,7 +1057,7 @@
       "resources/vendor/SkeletonAdmin/js/backend/Pages/Vendor/skeleton-store/product/index.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/Vendor/skeleton-store/productCategory/index.vue"
     ],
-    "file": "assets/Backend_js-951e4690.js",
+    "file": "assets/Backend_js-b69d36be.js",
     "imports": [
       "_preset-dc82439c.js"
     ],
@@ -1149,7 +1149,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/BackEnd/Vendor/skeleton-store/home/index.vue": {
-    "file": "assets/index-71f3da42.js",
+    "file": "assets/index-50b483f6.js",
     "imports": [
       "_preset-dc82439c.js",
       "_App.vue_vue_type_script_setup_true_lang-d7136bd1.js",
@@ -1374,7 +1374,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/EpisodeGuide.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/Sidebar.vue": {
-    "file": "assets/Sidebar-aa659a00.js",
+    "file": "assets/Sidebar-fd7941fa.js",
     "imports": [
       "_preset-dc82439c.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-62fe115a.js",
@@ -1482,7 +1482,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/ViewComponents/EpisodeGuide.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/ViewComponents/Sidebar.vue": {
-    "file": "assets/Sidebar-fd7941fa.js",
+    "file": "assets/Sidebar-aa659a00.js",
     "imports": [
       "_preset-dc82439c.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-62fe115a.js",
@@ -1544,7 +1544,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue": {
-    "file": "assets/index-50b483f6.js",
+    "file": "assets/index-71f3da42.js",
     "imports": [
       "_preset-dc82439c.js",
       "_App.vue_vue_type_script_setup_true_lang-d7136bd1.js",
