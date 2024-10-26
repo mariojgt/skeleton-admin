@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin\AdminController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Deploy\DeployController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navbar\NavbarController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
@@ -49,5 +50,11 @@ Route::group([
 
     Route::controller(NavbarController::class)->group(function () {
         Route::get('/navbar/index', 'index')->name('admin.navbar.index');
+    });
+
+    Route::controller(DeployController::class)->group(function () {
+        Route::get('/deploy/index', 'index')->name('admin.deploy.index');
+        Route::get('/deploy/edit/{deploy}', 'edit')->name('admin.deploy.edit');
+        Route::post('/deploy/edit/{deploy}', 'update')->name('admin.deploy.update');
     });
 });

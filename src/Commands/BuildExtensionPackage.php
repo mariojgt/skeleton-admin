@@ -513,11 +513,12 @@ class BuildExtensionPackage extends Command
         $replace = null
     ): void {
         $this->makePath($saveFilePath);
-
-        $stub = file_get_contents(__DIR__ . '../../../Publish/Stubs/ExtensionPackage/' . $stubFile . '.stub');
+        // based on the current __DIR__ we go back 2 folders and check if the file exist
+        $stub = file_get_contents(__DIR__ . '/Stubs/ExtensionPackage/' . $stubFile . '.stub');
         if (!empty($replace)) {
             $stub = str_replace($replace['variables'], $replace['values'], $stub);
         }
+
         file_put_contents($saveFilePath . '/' . $fileName . $fileExtension, $stub);
     }
 
@@ -530,6 +531,8 @@ class BuildExtensionPackage extends Command
      */
     private function makePath(string $path): void
     {
-        File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+        if (!File::isDirectory($path)) {
+            File::makeDirectory($path, 0777, true, true);
+        }
     }
 }
