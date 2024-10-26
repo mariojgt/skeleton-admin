@@ -57,4 +57,12 @@ Route::group([
         Route::get('/deploy/edit/{deploy}', 'edit')->name('admin.deploy.edit');
         Route::post('/deploy/edit/{deploy}', 'update')->name('admin.deploy.update');
     });
+
+    Route::prefix('deployments')->group(function () {
+        Route::get('/{id}', [DeployController::class, 'show'])->name('deployments.show');
+        Route::get('/{id}/logs', [DeployController::class, 'logs'])->name('deployments.logs');
+        Route::get('/{id}/logs/recent', [DeployController::class, 'recentLogs'])->name('deployments.logs.recent');
+        Route::get('/{id}/status', [DeployController::class, 'status'])->name('deployments.status');
+        Route::post('/{id}/cancel', [DeployController::class, 'cancel'])->name('deployments.cancel');
+    });
 });

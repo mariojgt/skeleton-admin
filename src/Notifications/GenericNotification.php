@@ -47,6 +47,17 @@ class GenericNotification extends Notification implements ShouldQueue
             ->line(new HtmlString($this->message));
     }
 
+    public function toDatabase($notifiable)
+    {
+        return [
+            'title' => $this->title,
+            'icon' => $this->icon,
+            'content' => $this->message,
+            'type' => $this->type,
+        ];
+    }
+
+    // This method is called if toDatabase() is not defined
     public function toArray($notifiable)
     {
         return [

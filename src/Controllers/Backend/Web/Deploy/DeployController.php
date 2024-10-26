@@ -5,15 +5,23 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Deploy;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\SkeletonAdmin\Models\Role;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
+use Mariojgt\SkeletonAdmin\Models\DeploymentLog;
 use Mariojgt\SkeletonAdmin\Models\WebhookConfig;
+use Mariojgt\SkeletonAdmin\Models\DeploymentOutputLog;
 use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
+use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
+use Mariojgt\SkeletonAdmin\Resource\Backend\DeploymentLogResource;
+use Mariojgt\SkeletonAdmin\Resource\Backend\DeploymentOutputLogResource;
 
 class DeployController extends Controller
 {
@@ -124,8 +132,9 @@ class DeployController extends Controller
         ];
 
         return Inertia::render('BackEnd/Deploy/Edit', [
-            'breadcrumb'      => $breadcrumb,
-            'deploy'          => $deploy
+            'breadcrumb'     => $breadcrumb,
+            'deploy'         => $deploy,
+            'deploymentLogs' => DeploymentLogResource::collection($deploy->deploymentLogs()->orderBy('id', 'desc')->paginate(10)),
         ]);
     }
 
@@ -151,5 +160,112 @@ class DeployController extends Controller
         $deploy->save();
 
         return back()->with('success', 'Deploy updated successfully');
+    }
+
+        /**
+     * Get deployment details
+     */
+    public function show($id)
+    {
+        $deployment = DeploymentLog::with(['webhookConfig', 'outputLogs'])
+            ->findOrFail($id);
+
+        return new DeploymentLogResource($deployment);
+    }
+
+    /**
+     * Get deployment logs
+     */
+    public function logs($id)
+    {
+        $deployment = DeploymentLog::findOrFail($id);
+        $logs = DeploymentOutputLog::where('deployment_log_id', $id)
+            ->orderBy('sequence', 'asc')
+            ->get();
+
+        return DeploymentOutputLogResource::collection($logs);
+    }
+
+    /**
+     * Get recent logs (for polling)
+     */
+    public function recentLogs($id, Request $request)
+    {
+        $lastSequence = $request->input('last_sequence', 0);
+
+        $logs = DeploymentOutputLog::where('deployment_log_id', $id)
+            ->where('sequence', '>', $lastSequence)
+            ->orderBy('sequence', 'asc')
+            ->get();
+
+        return DeploymentOutputLogResource::collection($logs);
+    }
+
+    /**
+     * Get deployment status
+     */
+    public function status($id)
+    {
+        $deployment = DeploymentLog::with(['webhookConfig'])->findOrFail($id);
+
+        return response()->json([
+            'status' => $deployment->status,
+            'progress' => [
+                'percentage' => $deployment->getProgress()['percentage'],
+                'completed' => $deployment->getProgress()['completed'],
+                'total' => $deployment->getProgress()['total'],
+            ],
+            'duration' => $deployment->getDurationInSeconds(),
+            'completed_at' => $deployment->completed_at,
+            'error_message' => $deployment->error_message,
+        ]);
+    }
+
+    /**
+     * Cancel deployment
+     */
+    public function cancel($id)
+    {
+        $deployment = DeploymentLog::findOrFail($id);
+
+        if ($deployment->status !== 'running') {
+            return response()->json([
+                'message' => 'Deployment is not running'
+            ], 400);
+        }
+
+        try {
+            DB::transaction(function () use ($deployment) {
+                // Update deployment status
+                $deployment->update([
+                    'status' => 'failed',
+                    'error_message' => 'Deployment cancelled by user',
+                    'completed_at' => now()
+                ]);
+
+                // Add cancellation log
+                DeploymentOutputLog::create([
+                    'deployment_log_id' => $deployment->id,
+                    'type' => 'error',
+                    'output' => 'Deployment cancelled by user',
+                    'sequence' => DeploymentOutputLog::where('deployment_log_id', $deployment->id)
+                        ->max('sequence') + 1
+                ]);
+
+                // Release lock
+                Cache::forget("deploy-lock-{$deployment->webhook_config_id}");
+            });
+
+            return new DeploymentLogResource($deployment->fresh(['webhookConfig', 'outputLogs']));
+        } catch (\Exception $e) {
+            Log::error('Failed to cancel deployment', [
+                'deployment_id' => $id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'message' => 'Failed to cancel deployment'
+            ], 500);
+        }
     }
 }

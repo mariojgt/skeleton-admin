@@ -32,7 +32,8 @@
                 <button class="btn btn-primary btn-md" @click="login">Sign in</button>
                 <button class="btn btn-secondary btn-md" @click="register">Get Started or Free</button>
             </template>
-            <template v-if="isAuth" >
+            <template v-if="isAuth">
+                <SearchSidebar />
                 <notification/>
                 <div class="dropdown dropdown-end">
                     <div tabindex="0">
@@ -71,7 +72,7 @@
 import { Link } from "@inertiajs/vue3";
 import notification from "./Notifications.vue";
 import { usePage } from "@inertiajs/vue3";
-
+import SearchSidebar from '@frontend_components/FrontEnd/Search/SearchSidebar.vue';
 import { onMounted } from "vue";
 import logo from "@frontend_components/FrontEnd/Icons/logoSimple.vue";
 import ThemeSwich from "@frontend_components/FrontEnd/Global/ThemeSwich.vue";
