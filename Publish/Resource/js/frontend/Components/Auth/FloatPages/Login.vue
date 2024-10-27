@@ -44,6 +44,14 @@
                         >
                             Login
                         </button>
+                        <!-- give the optiom to login with github -->
+                        <button
+                            type="button"
+                            @click="socialLiteRegister('github')"
+                            class="btn btn-gray-900 w-full rounded-lg text-xl font-bold mt-4"
+                        >
+                            Login with Github
+                        </button>
                         <div class="mt-4 flex flex-1 justify-between">
                             <a
                                 class="text-blue-100 font-bold text-xl hover:link"
@@ -66,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { useForm } from "@inertiajs/vue3";
+import { useForm, router } from "@inertiajs/vue3";
 
 // Import the from components
 import {
@@ -101,6 +109,8 @@ defineProps({
     },
 });
 
+
+
 const submitForm = async () => {
     emit("isLoading", true);
     form.post(route("login.user"), {
@@ -113,5 +123,10 @@ const submitForm = async () => {
             emit("isLoading", false);
         },
     });
+};
+
+const socialLiteRegister = async (provider: string) => {
+    // Redirect to the social login
+    window.location.href = route("social.redirect", provider);
 };
 </script>

@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin\AdminController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Deploy\DeployController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navbar\NavbarController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Social\SocialAuthController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navigation\NavigationController;
@@ -65,4 +67,11 @@ Route::group([
         Route::get('/{id}/status', [DeployController::class, 'status'])->name('deployments.status');
         Route::post('/{id}/cancel', [DeployController::class, 'cancel'])->name('deployments.cancel');
     });
+});
+
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/auth/{provider}/redirect', [SocialAuthController::class, 'redirect'])
+    ->name('social.redirect');
+    Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])
+        ->name('social.callback');
 });
