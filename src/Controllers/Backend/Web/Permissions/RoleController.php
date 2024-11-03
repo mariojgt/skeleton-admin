@@ -5,7 +5,9 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\SkeletonAdmin\Models\Role;
+use Mariojgt\Builder\Helpers\FormHelper;
 use Mariojgt\SkeletonAdmin\Models\Permission;
 
 class RoleController extends Controller
@@ -20,85 +22,72 @@ class RoleController extends Controller
             ]
         ];
 
-        // Table columns
-        $columns = [
-            [
-                'label'     => 'Id',
-                'key'       => 'id',
-                'sortable'  => true,
-                'canCreate' => false,
-                'canEdit'   => false,
-            ],
-            [
-                'label'     => 'Name',
-                'key'       => 'name',
-                'sortable'  => true,
-                'canCreate' => true,
-                'canEdit'   => true,
-                'type'      => 'text',
-            ],
-            [
-                'label'          => 'Guard',
-                'key'            => 'guard_name',
-                'sortable'       => true,
-                'canCreate'      => true,
-                'canEdit'        => true,
-                'type'           => 'select',
-                'select_options' => [
+        // Initialize form helper
+        $form = new FormHelper();
+        $formConfig = $form
+            // Add your fields
+            ->addIdField()
+            ->addField(
+                label: 'Name',
+                key: 'name',
+                type: FieldTypes::TEXT->value
+            )
+            ->addSelectWithOptions(
+                label: 'Guard',
+                key: 'guard_name',
+                options: [
                     'skeleton_admin' => 'backend',
-                    'web'            => 'frontend',
-                    'api'            => 'api',
+                    'web'           => 'frontend',
+                    'api'           => 'api',
                 ]
-            ],
-            [
-                'label'     => 'Created At',
-                'key'       => 'created_at',
-                'sortable'  => false,
-                'canCreate' => false,
-                'canEdit'   => true,
-                'type'      => 'date',
-            ],
-            [
-                'label'     => 'Updated At',
-                'key'       => 'updated_at',
-                'sortable'  => false,
-                'canCreate' => false,
-                'canEdit'   => true,
-                'type'      => 'timestamp',
-            ],
-        ];
-
-        return Inertia::render('BackEnd/Role/Index', [
-            'title'      => 'Role | Roles',
-            'breadcrumb' => $breadcrumb,
-            // Required for the generic builder table api
-            'endpoint'       => route('admin.api.generic.table'),
-            'endpointDelete' => route('admin.api.generic.table.delete'),
-            'endpointCreate' => route('admin.api.generic.table.create'),
-            'endpointEdit'   => route('admin.api.generic.table.update'),
-            // You table columns
-            'columns'        => $columns,
-            // The model where all those actions will take place
-            'model'          => encrypt(Role::class),
-            // If you want to protect your crud form you can use this below not required
-            'permission'     => encrypt([
-                'guard'          => 'skeleton_admin',
-                // You can use permission or role up to you
-                'type'          => 'permission',
-                // The permission name or role
-                'key' => [
+            )
+            ->addField(
+                label: 'Created At',
+                key: 'created_at',
+                sortable: false,
+                canCreate: false,
+                canEdit: true,
+                type: FieldTypes::DATE->value
+            )
+            ->addTimestampField(
+                label: 'Updated At',
+                key: 'updated_at',
+                canEdit: true
+            )
+            // Set endpoints
+            ->setEndpoints(
+                listEndpoint: route('admin.api.generic.table'),
+                deleteEndpoint: route('admin.api.generic.table.delete'),
+                createEndpoint: route('admin.api.generic.table.create'),
+                editEndpoint: route('admin.api.generic.table.update')
+            )
+            // Set model
+            ->setModel(Role::class)
+            // Set permissions
+            ->setPermissions(
+                guard: 'skeleton_admin',
+                type: 'permission',
+                permissions: [
                     'store'  => 'create-permission',
                     'update' => 'edit-permission',
                     'delete' => 'delete-permission',
                     'index'  => 'read-permission',
-                ],
-            ]),
-            'custom_edit_route' => '/' . config('skeleton.route_prefix') . '/role/edit/',
+                ]
+            )
+            // Set custom edit route
+            ->setCustomEditRoute('/' . config('skeleton.route_prefix') . '/role/edit/')
+            // Build final configuration
+            ->build();
+
+        return Inertia::render('BackEnd/Role/Index', [
+            'title'      => 'Role | Roles',
+            'breadcrumb' => $breadcrumb,
+            ...$formConfig
         ]);
     }
 
-    public function edit(Request $request, Role $role) {
-
+    public function edit(Request $request, Role $role)
+    {
         $breadcrumb = [
             [
                 'label' => 'Role',
@@ -123,7 +112,8 @@ class RoleController extends Controller
         ]);
     }
 
-    public function update(Request $request, Role $role) {
+    public function update(Request $request, Role $role)
+    {
 
         $validData = $request->validate([
           'name'       => 'required',
@@ -137,7 +127,8 @@ class RoleController extends Controller
         return back()->with('success', 'Role updated successfully');
     }
 
-    public function syncPerm(Request $request, Role $role) {
+    public function syncPerm(Request $request, Role $role)
+    {
 
         $permissions = $request->permissions;
         $synPerms = [];
