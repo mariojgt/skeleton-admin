@@ -15,7 +15,7 @@
                             <n-dialog-provider>
                                 <n-config-provider :theme="darkTheme">
                                     <FlashMessage />
-                                    <SeoManager :seo="usePage().props.seo" inDebugMode="true" />
+                                    <SeoManager :seo="usePage().props.seo" :inDebugMode="usePage().props.app_env === 'local'" />
                                     <slot />
                                     <Loading :isLoading="isLoading" />
                                     <AuthModal

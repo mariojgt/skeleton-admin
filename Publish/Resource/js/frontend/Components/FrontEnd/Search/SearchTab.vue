@@ -36,7 +36,7 @@
                             : 'text-gray-400 group-hover:text-gray-300'
                     "
                 >
-                    Chat With Lary
+                    Chat with Bob
                 </button>
                 <div
                     v-if="modelValue === 'chat'"
