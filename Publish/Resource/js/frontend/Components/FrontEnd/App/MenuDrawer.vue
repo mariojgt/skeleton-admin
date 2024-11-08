@@ -14,10 +14,10 @@
             </Link>
         </li>
         <li class="hover:bg-secondary rounded-lg mt-5" >
-            <a :href="store" >
+            <Link :href="store" >
                 <icon componentId="store" />
                 <span class="text-3xl">Store</span>
-            </a>
+            </Link>
         </li>
         <li class="hover:bg-secondary rounded-lg mt-5" >
             <Link :href="news">

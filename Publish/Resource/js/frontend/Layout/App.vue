@@ -15,6 +15,7 @@
                             <n-dialog-provider>
                                 <n-config-provider :theme="darkTheme">
                                     <FlashMessage />
+                                    <SeoManager :seo="usePage().props.seo" inDebugMode="true" />
                                     <slot />
                                     <Loading :isLoading="isLoading" />
                                     <AuthModal
@@ -53,6 +54,7 @@ import MenuDrawer from "@frontend_components/FrontEnd/App/MenuDrawer.vue";
 import { onBeforeMount, watch, onMounted} from "vue";
 import AuthModal from "@frontend_components/Auth/AuthComponent.vue";
 import Subscribe from "@frontend_components/Payment/Subscription/subscribe.vue";
+import SeoManager  from "@frontend_components/FrontEnd/Seo/SeoManager.vue";
 
 const props = defineProps({
     showHeader: {

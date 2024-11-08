@@ -34,9 +34,11 @@
                         class="fixed inset-y-0 right-0 max-w-full flex overflow-hidden bg-gray-900 shadow-xl"
                         @click.stop
                     >
-                        <div class="w-screen max-w-md">
+                        <div class="w-screen max-w-5xl">
                             <SearchTab v-model="activeTab" @close="isOpen = false" />
+                            <notification v-if="activeTab === 'notifications'" />
                             <div
+                            v-else-if="activeTab === 'search'"
                                 class="h-full flex flex-col bg-gray-900 shadow-xl"
                             >
                                 <!-- Search input section -->
@@ -90,7 +92,7 @@
                                                 v-if="item.length"
                                             >
                                                 <h3
-                                                    class="text-sm font-medium text-gray-400 mb-3"
+                                                    class="text-lg text-white mb-3 font-bold"
                                                 >
                                                     Suggested {{ index }}
                                                 </h3>
@@ -103,7 +105,7 @@
                                                         @click="
                                                             searchQuery = tag
                                                         "
-                                                        class="px-4 py-1.5 rounded-full text-sm bg-gray-800/50 text-gray-300 hover:bg-gray-700 transition-colors"
+                                                        class="px-4 py-1.5 rounded-full font-bold text-sm bg-gray-800/50 text-gray-300 hover:bg-blue-700 transition-colors"
                                                     >
                                                         {{ tag }}
                                                     </button>
@@ -117,7 +119,7 @@
                                             class="mb-8"
                                         >
                                             <h3
-                                                class="text-sm font-medium text-gray-400 mb-3"
+                                                class="text-lg text-white mb-3 font-bold"
                                             >
                                                 Courses
                                             </h3>
@@ -128,13 +130,13 @@
                                                     class="p-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-colors cursor-pointer"
                                                 >
                                                     <button
-                                                        class="flex items-center space-x-4 w-full"
                                                         @click="
                                                             openCourse(
                                                                 result.slug
                                                             )
                                                         "
                                                     >
+                                                    <div class="flex items-center space-x-4 w-full">
                                                         <img
                                                             class="h-12 w-12 rounded-lg object-cover"
                                                             :src="
@@ -156,6 +158,7 @@
                                                                 "
                                                             />
                                                         </div>
+                                                    </div>
                                                     </button>
                                                 </div>
                                             </div>
@@ -167,7 +170,7 @@
                                             class="mb-8"
                                         >
                                             <h3
-                                                class="text-sm font-medium text-gray-400 mb-3"
+                                                class="text-lg text-white mb-3 font-bold"
                                             >
                                                 Products
                                             </h3>
@@ -178,13 +181,14 @@
                                                     class="p-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-colors cursor-pointer"
                                                 >
                                                     <button
-                                                        class="flex items-center space-x-4 w-full"
+                                                        class="w-full"
                                                         @click="
                                                             openProduct(
                                                                 product.slug
                                                             )
                                                         "
                                                     >
+                                                    <div class="flex items-center space-x-4 w-full">
                                                         <img
                                                             class="h-12 w-12 rounded-lg object-cover"
                                                             :src="
@@ -193,26 +197,16 @@
                                                             "
                                                             :alt="product.title"
                                                         />
-                                                        <div
-                                                            class="flex-1 min-w-0"
-                                                        >
-                                                            <h4
-                                                                class="text-base font-medium text-gray-200 truncate"
-                                                                v-html="
-                                                                    highlightSearch(
-                                                                        product.name,
-                                                                        searchQuery
-                                                                    )
-                                                                "
-                                                            />
-                                                            <p
-                                                                class="text-sm text-gray-400 mt-1"
-                                                            >
-                                                                {{
-                                                                    product.price
-                                                                }}
-                                                            </p>
-                                                        </div>
+                                                        <h4
+                                                            class="text-base font-medium text-gray-200 truncate"
+                                                            v-html="
+                                                                highlightSearch(
+                                                                    product.name,
+                                                                    searchQuery
+                                                                )
+                                                            "
+                                                        />
+                                                    </div>
                                                     </button>
                                                 </div>
                                             </div>
@@ -235,6 +229,7 @@ import icon from "@frontend_components/FrontEnd/Icons/dynamicIcon.vue";
 import { api } from "../../../Boot/axios.js";
 import { router } from "@inertiajs/vue3";
 import SearchTab from "./SearchTab.vue";
+import notification from "./Notification.vue";
 
 const isOpen = ref(false);
 const searchQuery = ref("");
@@ -243,11 +238,16 @@ let suggestedSearches = $ref([]);
 let courseSearch = $ref([]);
 let productSearch = $ref([]); // New ref for products
 let activeTab = $ref("search");
+
 // Props
 const props = defineProps({
     buttonClass: {
         type: String,
         default: "m-1 btn btn-square btn-primary",
+    },
+    openNotification: {
+        type: Function,
+        default: () => {},
     },
 });
 
@@ -318,4 +318,16 @@ const openProduct = (slug) => {
     router.visit(route("store.view", slug));
     isOpen.value = false;
 };
+
+// Method to programmatically toggle notifications
+const openNotifications = () => {
+    isOpen.value = true;
+    activeTab = "notifications";
+    debouncedSearch();
+};
+
+// Expose the toggle method to parent components
+defineExpose({
+    openNotifications
+});
 </script>

@@ -33,8 +33,8 @@
                 <button class="btn btn-secondary btn-md" @click="register">Get Started or Free</button>
             </template>
             <template v-if="isAuth">
-                <SearchSidebar />
-                <notification/>
+                <SearchSidebar ref="searchComponentRef" />
+                <notification @open-notification="openNotification" />
                 <div class="dropdown dropdown-end">
                     <div tabindex="0">
                         <div class="avatar">
@@ -73,7 +73,7 @@ import { Link } from "@inertiajs/vue3";
 import notification from "./Notifications.vue";
 import { usePage } from "@inertiajs/vue3";
 import SearchSidebar from '@frontend_components/FrontEnd/Search/SearchSidebar.vue';
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import logo from "@frontend_components/FrontEnd/Icons/logoSimple.vue";
 import ThemeSwich from "@frontend_components/FrontEnd/Global/ThemeSwich.vue";
 
@@ -99,6 +99,12 @@ const login = () => {
 };
 const register = () => {
     emit("register");
+};
+
+const searchComponentRef = $ref(null);
+
+const openNotification = () => {
+    searchComponentRef.openNotifications();
 };
 
 // Links
