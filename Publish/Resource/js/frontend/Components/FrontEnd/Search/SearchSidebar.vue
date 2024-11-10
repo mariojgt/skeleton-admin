@@ -224,7 +224,8 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from "vue";
-import { debounce } from "lodash";
+import lodash from 'lodash';
+const { debounce } = lodash;
 import icon from "@frontend_components/FrontEnd/Icons/dynamicIcon.vue";
 import { api } from "../../../Boot/axios.js";
 import { router } from "@inertiajs/vue3";

@@ -164,3 +164,8 @@
 .ribbon-indigo::before, .ribbon-indigo::after, .ribbon-indigo span {
     @apply border-indigo-500 bg-indigo-500 bg-opacity-95;
 }
+
+.ribbon-blue-dark::before, .ribbon-blue-dark::after, .ribbon-blue-dark span {
+    border-color: #1c64f2 !important;
+    background-color: #1c64f2 !important;
+}
