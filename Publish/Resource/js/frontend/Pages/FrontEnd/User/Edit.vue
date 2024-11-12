@@ -1,32 +1,34 @@
 <template>
     <layout>
-        <div class="p-4 bg-dark-300 shadow-2xl m-10 rounded-lg">
+        <div class="p-4 bg-dark-300 shadow-2xl m-4 sm:m-10 rounded-lg">
             <TabGroup>
-                <TabList class="flex space-x-1 rounded-xl p-1 tabs">
+                <TabList
+                    class="flex flex-wrap space-x-1 rounded-xl p-1 tabs overflow-x-auto"
+                >
                     <Tab v-slot="{ selected }">
                         <a
-                            class="btn btn-primary"
+                            class="btn btn-primary text-sm sm:text-base"
                             :class="selected ? 'bg-secondary' : ''"
-                            >Deatils</a
+                            >Details</a
                         >
                     </Tab>
                     <Tab v-slot="{ selected }">
                         <a
-                            class="btn btn-primary"
+                            class="btn btn-primary text-sm sm:text-base"
                             :class="selected ? 'bg-secondary' : ''"
                             >Security</a
                         >
                     </Tab>
                     <Tab v-slot="{ selected }">
                         <a
-                            class="btn btn-primary"
+                            class="btn btn-primary text-sm sm:text-base"
                             :class="selected ? 'bg-secondary' : ''"
-                            >2fa</a
+                            >2FA</a
                         >
                     </Tab>
-                    <template v-for="(item, index) in extraLinks">
+                    <template v-for="(item, index) in extraLinks" :key="index">
                         <Link
-                            class="btn btn-primary"
+                            class="btn btn-primary text-sm sm:text-base"
                             :href="item"
                             :class="selected ? 'bg-secondary' : ''"
                             >{{ index }}
@@ -35,7 +37,7 @@
                 </TabList>
                 <TabPanels class="mt-2">
                     <TabPanel>
-                        <edit-deatils :user-info="props.user.data" />
+                        <edit-details :user-info="props.user.data" />
                     </TabPanel>
                     <TabPanel>
                         <password-update
@@ -61,7 +63,7 @@ import Layout from "../../../Layout/App.vue";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 
 // Tab Content
-import EditDeatils from "./Components/EditDetails.vue";
+import EditDetails from "./Components/EditDetails.vue";
 import PasswordUpdate from "./Components/PasswordUpdate.vue";
 import AutenticatorManager from "./Components/AutenticatorManager.vue";
 
@@ -80,3 +82,7 @@ const props = defineProps({
     },
 });
 </script>
+
+<style scoped>
+
+</style>

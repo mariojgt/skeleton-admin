@@ -1,0 +1,48 @@
+.btn-subscribe {
+    @apply
+    relative
+    px-6
+    py-3
+    rounded-lg
+    font-semibold
+    text-white
+    bg-[#328af1]
+    bg-gradient-to-r
+    from-[#328af1]
+    to-[#4096ff]
+    shadow-lg
+    shadow-[#328af1]/30
+    hover:shadow-xl
+    hover:shadow-[#328af1]/40
+    hover:scale-[1.02]
+    active:scale-[0.98]
+    transition-all
+    duration-200
+    overflow-hidden
+    focus:outline-none
+    focus:ring-2
+    focus:ring-[#328af1]/50
+    focus:ring-offset-2;
+}
+
+/* Add group class in your HTML instead */
+/* Then you can use this for the shine effect */
+.btn-subscribe-shine {
+    @apply
+    absolute
+    inset-0
+    w-full
+    h-full
+    bg-gradient-to-r
+    from-transparent
+    via-white/20
+    to-transparent
+    translate-x-[-200%]
+    transition-transform
+    duration-1000;
+}
+
+/* Add this for the group hover effect */
+.group:hover .btn-subscribe-shine {
+    @apply translate-x-[200%];
+}

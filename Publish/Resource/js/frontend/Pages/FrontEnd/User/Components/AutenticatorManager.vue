@@ -1,121 +1,80 @@
 <template>
-    <div>
-        <div class="px-5 py-7">
-            <div
-                v-if="props.autenticatorInfo.is_enable == false"
-            >
-                <div class="flex flex-row items-center space-x-4 card-body">
-                    <div class="rounded shadow p-4">
-                        <div
-                            v-html="props.autenticatorInfo.codeinfo.qr_code"
-                        ></div>
-                    </div>
-                    <div class="w-full">
-                        <h2 class="card-title text-lg font-semibold">
-                            Scan the QR code and enter the code to activate your
-                            two-factor authentication.
-                        </h2>
-                        <p class="text-base-content text-opacity-60">
-                            In case you can't use the QR code, you can enter the
-                            code manually.
-                            <strong>{{
-                                props.autenticatorInfo.codeinfo.secret
-                            }}</strong>
-                        </p>
-                        <div class="mt-4">
-                            <form
-                                @submit.prevent="submitForm"
-                                class="space-y-4"
-                            >
-                                <inputField
-                                    v-model="code"
-                                    label="Code"
-                                    type="text"
-                                    name="code"
-                                    placeholder="Type your code"
-                                    max="6"
-                                    messageClass="text-white text-xl bg-error rounded-lg p-2 opacity-90"
-                                    labelClass="text-3xl font-bold text-left"
-                                    inputClass="w-full p-5 text-2xl input input-primary input-bordered"
-                                />
-                                <submit
-                                    name="activate"
-                                    @click="submitForm"
-                                    class="btn btn-secondary"
-                                />
-                            </form>
-                        </div>
-                    </div>
+    <div class="max-w-lg mx-auto p-6 bg-dark-blue-300 rounded-lg shadow-lg space-y-6">
+        <h2 class="text-center text-2xl font-semibold text-white">
+            Two-Factor Authentication
+        </h2>
+
+        <div v-if="!props.autenticatorInfo.is_enable" class="space-y-6">
+            <div class="text-center">
+                <div class="p-4 bg-dark-200 rounded-lg inline-block">
+                    <div v-html="props.autenticatorInfo.codeinfo.qr_code"></div>
                 </div>
+                <p class="text-sm text-gray-400 mt-4">
+                    Scan this QR code to set up two-factor authentication. You can also enter the code manually:
+                    <span class="text-white font-semibold">{{ props.autenticatorInfo.codeinfo.secret }}</span>
+                </p>
             </div>
-            <div v-else>
-                <div class="card-body">
-                    <h2 class="my-4 text-4xl font-bold card-title">
-                        Two Factor Autenticator Backup Codes
-                        <div class="flex items-center justify-end gap-3">
-                            <button class="btn btn-secondary" @click="printCodes">
-                                Download Csv
-                            </button>
 
-                            <label
-                                for="my-modal-2"
-                                class="btn btn-secondary modal-button"
-                                >Remove Autenticator</label
-                            >
-                            <input
-                                type="checkbox"
-                                id="my-modal-2"
-                                class="modal-toggle"
-                            />
-                            <div class="modal">
-                                <div class="modal-box bg-primary">
-                                    <inputField
-                                        v-model="code"
-                                        label="Two Factor Autenticator Code"
-                                        type="text"
-                                        name="code"
-                                        placeholder="type your code"
-                                    />
+            <form @submit.prevent="submitForm" class="space-y-4">
+                <inputField
+                    v-model="code"
+                    label="Authentication Code"
+                    type="text"
+                    name="code"
+                    placeholder="Enter code"
+                    labelClass="block text-white font-medium mb-2"
+                    inputClass="w-full p-3 rounded-lg bg-gray-900 text-white placeholder-gray-500"
+                />
+                <button type="submit" class="w-full btn btn-secondary py-2">Activate</button>
+            </form>
+        </div>
 
-                                    <div class="modal-action">
-                                        <label
-                                            for="my-modal-2"
-                                            class="btn btn-secondary"
-                                            @click="removeAutenticator"
-                                            >Remove</label
-                                        >
-                                        <label for="my-modal-2" class="btn"
-                                            >Close</label
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </h2>
+        <div v-else>
+            <h3 class="text-xl font-medium text-white text-center">
+                Backup Codes
+            </h3>
+            <p class="text-center text-gray-400 mb-4">
+                Save these backup codes to access your account if you lose access to your authenticator.
+            </p>
 
-                    <div class="overflow-x-auto">
-                        <table class="table table-zebra w-full">
-                            <!-- head -->
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Used</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- row 1 -->
-                                <tr
-                                    v-for="(
-                                        item, index
-                                    ) in autenticatorInfo.backup_codes"
-                                    :key="index"
-                                >
-                                    <th>{{ item.code }}</th>
-                                    <th>{{ item.used }}</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="overflow-x-auto bg-gray-700 rounded-lg p-4">
+                <table class="w-full text-left text-gray-200">
+                    <thead>
+                        <tr>
+                            <th class="py-2">Code</th>
+                            <th class="py-2">Used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in autenticatorInfo.backup_codes" :key="index">
+                            <td class="py-2">{{ item.code }}</td>
+                            <td class="py-2">{{ item.used ? 'Yes' : 'No' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 mt-6">
+                <button class="w-full sm:w-auto btn btn-primary" @click="printCodes">Download CSV</button>
+                <button class="w-full sm:w-auto btn btn-secondary" @click="toggleModal">Remove Authenticator</button>
+            </div>
+        </div>
+
+        <!-- Modal for Removal Confirmation -->
+        <div v-if="showModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-gray-800 rounded-lg p-6 max-w-sm w-full text-center space-y-4">
+                <h4 class="text-lg font-semibold text-white">Confirm Removal</h4>
+                <inputField
+                    v-model="code"
+                    label="Enter Code"
+                    type="text"
+                    name="code"
+                    placeholder="Code to confirm"
+                    inputClass="w-full p-3 rounded-lg bg-gray-900 text-white placeholder-gray-500"
+                />
+                <div class="flex gap-4 justify-center">
+                    <button class="btn btn-primary" @click="removeAuthenticator">Confirm</button>
+                    <button class="btn" @click="toggleModal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -123,83 +82,46 @@
 </template>
 
 <script setup>
-import { router} from "@inertiajs/vue3";
-import { onMounted } from "vue";
-
-// Import the from components
-import { InputField, Submit } from "@mariojgt/masterui/packages/index";
-
-// FIelds Values
+import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
+import { InputField } from "@mariojgt/masterui/packages/index";
 
 // Page props
 const props = defineProps({
-    userInfo: {
-        type: Object,
-        default: () => ({}),
-    },
-    autenticatorInfo: {
-        type: Object,
-        default: () => ({}),
-    },
+    userInfo: Object,
+    autenticatorInfo: Object,
 });
 
-let userInformation = $ref([]);
+let code = ref("");
+let showModal = ref(false);
 
-onMounted(() => {
-    userInformation = props.userInfo;
-});
-
-let code = $ref("");
-
-// SubmitTheForm
+// Form submission
 const submitForm = () => {
-    const form = {
-        code: code,
-    };
-    router.post(route("user.2fa.enable"), form);
-};
-// Remvoe the user aunteticator
-const removeAutenticator = () => {
-    const form = {
-        code: code,
-    };
-    router.post(route("castle.unlock.backup.code"), form);
+    router.post(route("user.2fa.enable"), { code: code.value });
 };
 
+// Remove authenticator
+const removeAuthenticator = () => {
+    router.post(route("castle.unlock.backup.code"), { code: code.value });
+    toggleModal();
+};
+
+// Download codes
 const printCodes = () => {
-    let mywindow = window.open(
-        "",
-        "PRINT",
-        "height=650,width=900,top=100,left=150"
-    );
-    const title = "codes";
-    mywindow.document.write(`<html><head><title>${title}</title>`);
-    mywindow.document.write("</head><body>");
-    mywindow.document.write("<h1> Two Factor Autenticator Backup Codes </h1>");
+    const content = props.autenticatorInfo.backup_codes.map(
+        (item) => `${item.code},${item.used ? 'Yes' : 'No'}`
+    ).join('\n');
+    const blob = new Blob([content], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'backup_codes.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+};
 
-    // Create a table
-    mywindow.document.write("<table>");
-    mywindow.document.write("<tr><th>Code</th><th>used</th></tr>");
-    // Create a table row for each object
-    for (const [key, value] of Object.entries(
-        props.autenticatorInfo.backup_codes
-    )) {
-        mywindow.document.write("<tr>");
-        mywindow.document.write(`<td>${value.code}</td>`);
-        mywindow.document.write(`<td>${value.used}</td>`);
-        mywindow.document.write("</tr>");
-    }
-    // Close the table
-    mywindow.document.write("</table>");
-
-    mywindow.document.write("</body></html>");
-
-    mywindow.document.close(); // necessary for IE >= 10
-    mywindow.focus(); // necessary for IE >= 10*/
-
-    mywindow.print();
-    mywindow.close();
-
-    return true;
+// Toggle modal visibility
+const toggleModal = () => {
+    showModal.value = !showModal.value;
 };
 </script>
