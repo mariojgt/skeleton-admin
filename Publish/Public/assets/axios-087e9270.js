@@ -1,0 +1,1 @@
+import{J as t}from"./preset-fafa7a54.js";const o=t.create({});o.defaults.headers.common["X-Requested-With"]="XMLHttpRequest";o.interceptors.response.use(function(e){return e},function(e){const s=e.response.status;return s===401?console.log("401"):s===402?console.log("402"):s===403?console.log("403"):s===400&&console.log("400"),Promise.reject(e)});export{o as a};
