@@ -7,7 +7,7 @@
             <a href="#" @click="openProduct">
                 <img
                     class="mx-auto h-full object-cover transition duration-300 transform hover:scale-110 rounded-lg"
-                    :src="record.media[0].url.default"
+                    :src="record.media[0]?.url?.default"
                     :alt="record.name"
                 />
                 <ribbon :top="true" :left="false" color="orange"> New </ribbon>

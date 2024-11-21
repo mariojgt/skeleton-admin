@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="['drawer', isMobile ? 'drawer-end' : '']">
         <input id="my-drawer" type="checkbox" class="drawer-toggle">
         <div class="drawer-content">
             <!-- Required so the flash message works -->
@@ -202,6 +202,13 @@ onMounted(() => {
     }
 });
 
+let isMobile = $ref(false);
+
+onMounted(() => {
+    if (window.innerWidth < 1024) {
+        isMobile = true;
+    }
+});
 </script>
 
 <style>
