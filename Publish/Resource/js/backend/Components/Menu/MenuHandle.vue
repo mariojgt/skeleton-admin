@@ -1,11 +1,11 @@
 <template>
     <div>
-        <menuSingle :menuItem="props.menuItem" v-if="!props.menuItem.collection" />
-        <menuMultiple :menuItem="props.menuItem" v-else />
+        <menuSingle v-if="!props.menuItem.collection" :menu-item="props.menuItem" />
+        <menuMultiple v-else :menu-item="props.menuItem" />
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 import menuSingle from "./MenuSingle.vue";
 import menuMultiple from "./MenuMultiple.vue";
