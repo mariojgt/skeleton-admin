@@ -2,22 +2,12 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Social;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Mariojgt\Builder\Enums\FieldTypes;
-use Illuminate\Support\Facades\Session;
-use Mariojgt\SkeletonAdmin\Models\Role;
 use Mariojgt\SkeletonAdmin\Models\User;
-use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
-use Mariojgt\SkeletonAdmin\Models\Admin;
-use Mariojgt\Castle\Helpers\AuthenticatorHandle;
-use Mariojgt\SkeletonAdmin\Enums\PermissionEnum;
 use Mariojgt\SkeletonAdmin\Models\SocialAccount;
-use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
 
 class SocialAuthController extends Controller
 {

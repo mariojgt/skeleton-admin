@@ -3,18 +3,14 @@
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Deploy;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Mariojgt\Magnifier\Models\Media;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Process;
 use Mariojgt\SkeletonAdmin\Models\Admin;
-use Mariojgt\Magnifier\Resources\MediaResource;
 use Mariojgt\SkeletonAdmin\Models\DeploymentLog;
 use Mariojgt\SkeletonAdmin\Models\WebhookConfig;
 use Mariojgt\SkeletonAdmin\Models\DeploymentOutputLog;
 use Illuminate\Process\Exceptions\ProcessFailedException;
-use Illuminate\Support\Facades\Process as LaravelProcess;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class DeployWebhookController extends Controller

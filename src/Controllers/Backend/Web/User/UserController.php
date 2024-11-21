@@ -4,16 +4,9 @@ namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
-use Illuminate\Support\Facades\Session;
-use Mariojgt\SkeletonAdmin\Models\Role;
-use Illuminate\Support\Facades\Redirect;
 use Mariojgt\Builder\Helpers\FormHelper;
-use Mariojgt\SkeletonAdmin\Models\Admin;
-use Mariojgt\Castle\Helpers\AuthenticatorHandle;
-use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
 
 class UserController extends Controller
 {

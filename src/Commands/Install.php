@@ -47,11 +47,12 @@ class Install extends Command
      */
     public function handle()
     {
-        // Delete the default laravel user migration
-        $userMigration = 'database/migrations/2014_10_12_000000_create_users_table.php';
-        if (file_exists(base_path($userMigration))) {
-            unlink(base_path($userMigration));
-        }
+        // Define the migrations folder path
+        $migrationsPath = database_path('migrations');
+
+        // Delete all the migration files
+        $this->info('Deleting all the migration files...');
+        $this->deleteMigrationFiles($migrationsPath);
 
         Artisan::call('migrate:fresh');
 
@@ -72,6 +73,29 @@ class Install extends Command
 
         $this->newLine();
         $this->info('The command was successful!');
+    }
+
+    /**
+     * Delete all files in the specified directory.
+     *
+     * @param string $path
+     * @return void
+     */
+    protected function deleteMigrationFiles(string $path)
+    {
+        if (!is_dir($path)) {
+            $this->warn("The directory {$path} does not exist.");
+            return;
+        }
+
+        $files = glob("{$path}/*.php");
+
+        foreach ($files as $file) {
+            if (is_file($file)) {
+                unlink($file); // Delete the file
+                $this->info("Deleted: {$file}");
+            }
+        }
     }
 
     /**

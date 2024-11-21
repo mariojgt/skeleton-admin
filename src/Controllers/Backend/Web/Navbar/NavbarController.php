@@ -3,7 +3,6 @@
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navbar;
 
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;

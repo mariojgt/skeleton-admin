@@ -2,24 +2,15 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Deploy;
 
-use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
-use Mariojgt\Builder\Enums\FieldTypes;
-use Illuminate\Support\Facades\Session;
-use Mariojgt\SkeletonAdmin\Models\Role;
-use Illuminate\Support\Facades\Redirect;
-use Mariojgt\SkeletonAdmin\Models\Admin;
-use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Models\DeploymentLog;
 use Mariojgt\SkeletonAdmin\Models\WebhookConfig;
 use Mariojgt\SkeletonAdmin\Models\DeploymentOutputLog;
-use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
-use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 use Mariojgt\SkeletonAdmin\Resource\Backend\DeploymentLogResource;
 use Mariojgt\SkeletonAdmin\Resource\Backend\DeploymentOutputLogResource;
 
