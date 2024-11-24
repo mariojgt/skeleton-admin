@@ -20,15 +20,21 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasRoles;
     use HasPermissions;
 
-    /**
+   /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'username',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'stripe_id',
+        'avatar',
+        'registration_type',
+        'email_verified_at'
     ];
 
     /**

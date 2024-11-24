@@ -1,94 +1,115 @@
 /* Base style for the blog content */
 .blog-content {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #e0e0e0; /* Light text color for readability on dark background */
-    padding: 20px;
-    border-radius: 8px;
+    font-family: 'Roboto', Arial, sans-serif; /* Clean and modern sans-serif font */
+    line-height: 1.8;
+    color: #dcdcdc; /* Light text for good contrast on dark backgrounds */
+    background-color: #24253a; /* Match the description background */
+    padding: 30px;
+    border-radius: 10px;
     margin: auto;
+    // max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333333; /* Subtle border for definition */
 }
 
 /* Headings */
 .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5, .blog-content h6 {
-    // color: #ffdc35; /* Bright yellow color for headings */
-    margin-top: 20px;
-    margin-bottom: 10px;
-    line-height: 1.4;
+    color: #ffdc35; /* Yellow for headings to match the site's accents */
+    margin-top: 25px;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    font-family: 'Orbitron', sans-serif; /* A gaming-style display font */
+    text-transform: uppercase;
 }
 
 .blog-content h1 {
-    font-size: 2.5em;
+    font-size: 2.8em;
 }
 
 .blog-content h2 {
-    font-size: 2em;
+    font-size: 2.3em;
 }
 
 .blog-content h3 {
-    font-size: 1.75em;
+    font-size: 2em;
 }
 
 .blog-content h4 {
-    font-size: 1.5em;
+    font-size: 1.7em;
 }
 
 .blog-content h5 {
-    font-size: 1.25em;
+    font-size: 1.5em;
 }
 
 .blog-content h6 {
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 /* Paragraphs */
 .blog-content p {
-    margin-bottom: 20px;
-    @apply text-gray-200 text-lg;
+    margin-bottom: 25px;
+    font-size: 1.2em;
+    color: #dcdcdc; /* Light gray for paragraph text */
 }
 
 /* Strong text */
 .blog-content strong {
     font-weight: bold;
-    color: #ffffff; /* White color for strong text */
+    color: #ffdc35; /* Yellow for strong emphasis */
 }
 
 /* Lists */
 .blog-content ul, .blog-content ol {
-    margin: 10px;
+    margin: 15px;
     padding-left: 40px;
+    color: #dcdcdc; /* Match paragraph text */
+    list-style-type: circle; /* Use circles for list items */
 }
 
+/* Adjusting the bullet size for modern browsers */
+.blog-content ul li::marker, .blog-content ol li::marker {
+    font-size: 0.8em; /* Smaller size for bullets */
+    color: #ffdc35; /* Use the yellow accent color for bullets */
+}
+
+/* List Items */
 .blog-content li {
-    margin-bottom: 10px;
-    @apply text-lg;
+    margin-bottom: 12px;
+    font-size: 1.1em;
 }
 
 /* Links */
 .blog-content a {
-    color: #ff6347; /* Tomato color for links */
+    color: #0047ff; /* Match the site's blue for links */
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 .blog-content a:hover {
+    color: #ffdc35; /* Yellow on hover for consistency */
     text-decoration: underline;
 }
 
 /* Code blocks */
 .blog-content pre, .blog-content code {
-    background-color: #2e2e2e;
-    color: #dcdcdc;
-    padding: 10px;
-    border-radius: 4px;
-    font-family: 'Courier New', Courier, monospace;
+    background-color: #1b1b2f; /* Dark gray background to match the site */
+    color: #d4d4d4; /* Soft white for text */
+    padding: 15px;
+    border-radius: 6px;
+    font-family: 'Fira Code', monospace; /* Programmer-friendly font */
+    font-size: 0.95em;
+    overflow-x: auto;
 }
 
 /* Blockquotes */
 .blog-content blockquote {
-    margin: 20px 0;
-    padding: 10px 20px;
-    background-color: #333333;
-    border-left: 5px solid #ffdc35; /* Bright yellow border for blockquotes */
-    color: #cccccc;
+    margin: 25px 0;
+    padding: 15px 25px;
+    background-color: #24253a; /* Match the description box */
+    border-left: 5px solid #0047ff; /* Blue border for blockquotes */
+    color: #c5c5c5; /* Light gray for text */
     font-style: italic;
 }
 
@@ -98,30 +119,54 @@
     height: auto;
     display: block;
     margin: 20px 0;
-    border-radius: 8px;
+    border-radius: 10px;
+    border: 2px solid #333333; /* Subtle border */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* Tables */
 .blog-content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-}
-
-.blog-content table, .blog-content th, .blog-content td {
-    border: 1px solid #555555;
+    margin: 25px 0;
+    background-color: #1b1b2f;
+    border: 1px solid #333333;
+    color: #e0e0e0;
 }
 
 .blog-content th, .blog-content td {
-    padding: 10px;
+    padding: 15px;
     text-align: left;
+    border: 1px solid #444444;
 }
 
 .blog-content th {
-    background-color: #333333;
-    color: #ffffff;
+    background-color: #24253a; /* Match darker background */
+    color: #ffdc35;
+    text-transform: uppercase;
+    font-size: 1.1em;
 }
 
 .blog-content tr:nth-child(even) {
-    background-color: #2e2e2e;
+    background-color: #1a1a1a; /* Subtle alternating row color */
+}
+
+/* Buttons (Optional for Call-to-Actions) */
+.blog-content .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0047ff;
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.blog-content .btn:hover {
+    background-color: #ffdc35;
+    color: #1a1a1a;
 }

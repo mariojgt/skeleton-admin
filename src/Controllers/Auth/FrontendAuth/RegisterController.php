@@ -27,22 +27,18 @@ class RegisterController extends Controller
         if (config('skeleton.frontend_register_enable') == false) {
             return Redirect::back()->with('error', 'Sorry but registration has been disable.');
         }
-        // Validate the user Note the small update in the password verification
-        $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+
+        $validation = $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'first_name' => ['string', 'max:255'],
+            'last_name' => ['string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', Password::min(8)->uncompromised()],
         ]);
 
         DB::beginTransaction();
         // Register the user in the database
-        $user = new User();
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $user = User::create($validation);
 
         // Send the notification to the user
         $user->notify(

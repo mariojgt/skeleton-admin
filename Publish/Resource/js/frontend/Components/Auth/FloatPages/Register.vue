@@ -16,24 +16,12 @@
                 <div class="px-5 py-7">
 
                     <input-field
-                        v-model="form.first_name"
-                        label="First Name"
+                        v-model="form.username"
+                        label="Username"
                         type="text"
-                        name="first_name"
-                        id="first_name"
-                        placeholder="First Name"
-                        :messageClass="messageClass"
-                        :labelClass="labelClass"
-                        :inputClass="inputClass"
-                    />
-
-                    <input-field
-                        v-model="form.last_name"
-                        label="Last Name"
-                        type="text"
-                        name="last_name"
-                        id="last_name"
-                        placeholder="Last Name"
+                        name="username"
+                        id="username"
+                        placeholder="Username"
                         :messageClass="messageClass"
                         :labelClass="labelClass"
                         :inputClass="inputClass"
@@ -110,8 +98,7 @@ const alreadyHaveAccount = () => {
 };
 
 const form = useForm({
-    first_name: "",
-    last_name: "",
+    username: "",
     email: "",
     password: "",
 });

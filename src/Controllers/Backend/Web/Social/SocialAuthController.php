@@ -42,14 +42,14 @@ class SocialAuthController extends Controller
                 // Check if user with this email exists
                 $user = User::where('email', $socialUser->getEmail())->first();
 
-                if (!$user) {
+                if (empty($user)) {
                     // Create new user
                     $user = User::create([
-                        'name' => $socialUser->getName(),
-                        'email' => $socialUser->getEmail(),
-                        'avatar' => $socialUser->getAvatar(),
+                        'first_name'        => $socialUser->getName(),
+                        'email'             => $socialUser->getEmail(),
+                        'avatar'            => $socialUser->getAvatar(),
                         'registration_type' => $provider,
-                        'email_verified_at' => now(), // Social login emails are considered verified
+                        'email_verified_at' => now(),
                     ]);
                 }
 
