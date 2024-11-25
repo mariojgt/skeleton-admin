@@ -194,6 +194,7 @@ class Install extends Command
         $request = new Request();
         $userPassword = Str::random(10);
         $request->merge([
+            'username'              => Str::random(10),
             'first_name'            => 'User',
             'last_name'             => 'User',
             'email'                 => $userEmail,

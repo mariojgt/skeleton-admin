@@ -38,6 +38,10 @@ class RegisterController extends Controller
 
         DB::beginTransaction();
         // Register the user in the database
+
+        // Hash the password
+        $validation['password'] = Hash::make($validation['password']);
+
         $user = User::create($validation);
 
         // Send the notification to the user

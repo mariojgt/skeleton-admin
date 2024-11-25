@@ -26,10 +26,10 @@
             </Link>
         </li>
         <li class="hover:bg-secondary rounded-lg mt-5" >
-            <Link>
+            <a @click="openPricing">
                 <icon componentId="pricing" />
                 <span class="text-3xl" >Pricing</span>
-            </Link>
+            </a>
         </li>
     </ul>
 </template>
@@ -44,6 +44,14 @@ const homeRoute = route("home");
 const courses = route("course.index");
 const store = route("store.index");
 const news = route("news");
+
+
+const emit = defineEmits(["pricing"]);
+
+const openPricing = () => {
+    emit("pricing");
+};
+
 </script>
 
 <style>

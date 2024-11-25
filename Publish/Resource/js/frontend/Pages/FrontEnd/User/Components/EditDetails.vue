@@ -9,6 +9,15 @@
         </div>
         <form @submit.prevent="submitForm">
             <input-field
+                v-model="userInformation.username"
+                label="Username"
+                type="text"
+                placeholder="type your username"
+                messageClass="text-white text-xl bg-error mt-1 rounded-lg p-2 opacity-90"
+                inputClass="w-full p-5 text-2xl input input-primary input-bordered"
+                labelClass="text-3xl font-bold text-left"
+            />
+            <input-field
                 v-model="userInformation.first_name"
                 label="First Name"
                 type="text"

@@ -5,6 +5,7 @@
         :isLarge="true"
         :showFooter="false"
         modalClass="bg-primary"
+        :showModalBox="false"
     >
         <template #title>
             <header class="text-center md:px-12 text-neutral">

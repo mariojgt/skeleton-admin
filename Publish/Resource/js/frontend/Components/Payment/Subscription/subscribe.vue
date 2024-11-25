@@ -3,7 +3,8 @@
         :show="isOpen"
         @close="close"
         :showFooter="false"
-        modalClass="bg-dark-100 border border-dark-300 border-animated-blue w-full max-w-7xl "
+        modalClass="bg-dark-100 border border-dark-300 border-animated-blue w-full max-w-7xl"
+        :showModalBox="false"
     >
         <template #title>
             <header class="text-center md:px-12 text-neutral">

@@ -37,7 +37,7 @@
         </div>
         <div class="drawer-side z-50">
             <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay" />
-            <MenuDrawer />
+            <MenuDrawer @pricing="openSubscription" />
         </div>
     </div>
 </template>
@@ -171,6 +171,16 @@ watch(() => props.displaySubscription, (value) => {
 
 const closeSubscription = () => {
     emit("closeSubscription");
+    displaySubscription = false;
+};
+
+const openSubscription = () => {
+    displaySubscription = true;
+    // find the elemnt my-drawer and click it
+    const element = document.getElementById("my-drawer");
+    if (element) {
+        element.click();
+    }
 };
 
 // on before mount we going to check if we have a flash message and if we do we going to display it
