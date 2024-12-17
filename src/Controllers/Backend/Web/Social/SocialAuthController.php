@@ -41,11 +41,11 @@ class SocialAuthController extends Controller
             } else {
                 // Check if user with this email exists
                 $user = User::where('email', $socialUser->getEmail())->first();
-
                 if (empty($user)) {
                     // Create new user
                     $user = User::create([
                         'first_name'        => $socialUser->getName(),
+                        'username'          => $socialUser->getNickname(),
                         'email'             => $socialUser->getEmail(),
                         'avatar'            => $socialUser->getAvatar(),
                         'registration_type' => $provider,
