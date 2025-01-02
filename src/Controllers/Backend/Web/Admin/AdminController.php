@@ -119,7 +119,7 @@ class AdminController extends Controller
     public function update(Request $request, Admin $admin)
     {
         // Validate the email to make sure it is unique
-        $this->validate($request, [
+        $request->validate([
             'first_name' => 'required',
             'last_name'  => 'required',
             'email'      => 'required|email|unique:admins,email,'.$admin->id,

@@ -12,6 +12,7 @@ use Mariojgt\SkeletonAdmin\Models\WebhookConfig;
 use Mariojgt\SkeletonAdmin\Models\DeploymentOutputLog;
 use Illuminate\Process\Exceptions\ProcessFailedException;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
+use Mariojgt\SkeletonAdmin\Jobs\ExecuteDeployment;
 
 class DeployWebhookController extends Controller
 {
@@ -30,7 +31,7 @@ class DeployWebhookController extends Controller
         $payload = $request->json()->all();
         // Get repository and branch information
         $repositoryUrl = $payload['repository']['svn_url'] ?? '';
-        $branch = str_replace('refs/heads/', '', $payload['ref'] ?? '');
+        $branch = $payload['repository']['default_branch'] ?? '';
 
         // Find matching webhook configuration
         $config = WebhookConfig::where('repository_url', $repositoryUrl)
@@ -110,113 +111,7 @@ class DeployWebhookController extends Controller
 
     private function executeDeployment(WebhookConfig $config, DeploymentLog $log)
     {
-        try {
-            $log->update(['status' => 'running']);
-            $output = [];
-            $sequence = 0;
-
-            // Notify deployment start to all the admins
-            $admins = Admin::all();
-            foreach ($admins as $admin) {
-                $admin->notify(new GenericNotification(
-                    'Deployment Started',
-                    'info',
-                    'Deployment started for ' . $config->repository_url,
-                    'icon'
-                ));
-            }
-
-            // Change to deployment directory
-            chdir(base_path($config->deployment_path));
-
-            // Execute each command
-            foreach ($config->deployment_commands as $command) {
-                // Log command start
-                DeploymentOutputLog::create([
-                    'deployment_log_id' => $log->id,
-                    'command' => $command,
-                    'output' => "Starting command: {$command}",
-                    'type' => 'info',
-                    'sequence' => $sequence++
-                ]);
-
-                // Use Symfony Process for better output handling
-                $process = new Process(explode(' ', $command));
-                $process->setTimeout(3600);
-
-                $buffer = '';
-                $lastUpdate = microtime(true);
-
-                $process->start();
-
-                // Read output in real-time
-                $process->wait(function ($type, $buffer) use ($log, $command, &$sequence) {
-                    // Process::ERR is for stderr, Process::OUT is for stdout
-                    $outputType = $type === Process::ERR ? 'error' : 'info';
-
-                    // Create new log entry
-                    DeploymentOutputLog::create([
-                        'deployment_log_id' => $log->id,
-                        'command' => $command,
-                        'output' => $buffer,
-                        'type' => $outputType,
-                        'sequence' => $sequence++
-                    ]);
-                });
-
-                if (!$process->isSuccessful()) {
-                    // Log error
-                    DeploymentOutputLog::create([
-                        'deployment_log_id' => $log->id,
-                        'command' => $command,
-                        'output' => $process->getErrorOutput(),
-                        'type' => 'error',
-                        'sequence' => $sequence++
-                    ]);
-
-                    throw new ProcessFailedException($process);
-                }
-
-                // Log successful completion
-                DeploymentOutputLog::create([
-                    'deployment_log_id' => $log->id,
-                    'command' => $command,
-                    'output' => "Command completed successfully",
-                    'type' => 'success',
-                    'sequence' => $sequence++
-                ]);
-
-                $output[] = [
-                    'command' => $command,
-                    'output' => $process->getOutput(),
-                ];
-            }
-
-            // Update log with success
-            $log->update([
-                'status' => 'completed',
-                'output' => json_encode($output),
-                'completed_at' => now()
-            ]);
-        } catch (\Exception $e) {
-            // Log the error
-            DeploymentOutputLog::create([
-                'deployment_log_id' => $log->id,
-                'command' => $command ?? 'General Error',
-                'output' => $e->getMessage(),
-                'type' => 'error',
-                'sequence' => $sequence++
-            ]);
-
-            $log->update([
-                'status' => 'failed',
-                'error_message' => $e->getMessage(),
-                'output' => json_encode($output ?? []),
-                'completed_at' => now()
-            ]);
-        } finally {
-            Cache::forget("deploy-lock-{$config->id}");
-        }
+        ExecuteDeployment::dispatch($config, $log);
     }
 
     /**
