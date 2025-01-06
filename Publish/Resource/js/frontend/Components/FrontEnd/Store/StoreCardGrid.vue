@@ -10,7 +10,8 @@
                     :src="record.media[0]?.url?.default"
                     :alt="record.name"
                 />
-                <ribbon :top="true" :left="false" color="orange"> New </ribbon>
+                <ribbon v-if="!record.free_with_subscription" :top="true" :left="false" color="orange"> New </ribbon>
+                <ribbon v-else :top="true" :left="false" color="green"> Premiun is<br>Free </ribbon>
             </a>
         </div>
 
@@ -24,7 +25,7 @@
             >
 
             <!-- Ratings and Stats -->
-            <div class="mt-2 flex items-center gap-2">
+            <!-- <div class="mt-2 flex items-center gap-2">
                 <div class="flex items-center text-yellow-400">
                     <svg
                         class="h-5 w-5"
@@ -44,10 +45,9 @@
                             d="M12 .587l3.668 7.57L24 9.423l-6 5.857 1.413 8.23L12 18.836 4.587 23.51 6 15.28 0 9.423l8.332-1.266z"
                         />
                     </svg>
-                    <!-- Repeat for 5 stars -->
                 </div>
                 <p class="text-sm text-gray-400">(455 reviews)</p>
-            </div>
+            </div> -->
 
             <!-- Pricing and Buttons -->
             <div class="mt-4 flex items-center justify-between gap-4">
@@ -62,9 +62,21 @@
                     type="button"
                     class="btn btn-secondary"
                     @click="productCheckout"
-                >
+                    v-if="(!usePage().props.authUserInfo?.data?.has_subscription || !record.free_with_subscription) && !record.is_purchase"
+                    >
                     Buy Now
                 </button>
+                <span
+                    class="text-sm text-gray-400"
+                    v-else
+                >
+                    <span v-if="record.free_with_subscription">
+                        Free with Premium
+                    </span>
+                    <span v-else>
+                        Purchased
+                    </span>
+                </span>
             </div>
         </div>
     </div>

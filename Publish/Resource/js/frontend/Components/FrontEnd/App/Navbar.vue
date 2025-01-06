@@ -35,7 +35,7 @@
             <template v-if="isAuth">
                 <SearchSidebar ref="searchComponentRef" />
                 <notification @open-notification="openNotification" />
-                <div class="dropdown dropdown-end">
+                <div class="dropdown dropdown-end z-50">
                     <div tabindex="0">
                         <div class="avatar">
                             <div class="rounded-full w-10 h-10 m-1">

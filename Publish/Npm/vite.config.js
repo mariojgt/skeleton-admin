@@ -64,8 +64,13 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     if (!ssrBuild) {
         config.server = {
             host: '0.0.0.0',
+            port: 5173,
             hmr: {
-                host: '192.168.0.29'
+                host: '0.0.0.0',
+                protocol: 'ws'
+            },
+            watch: {
+                usePolling: true
             }
         };
     }

@@ -58,6 +58,6 @@ const submitForm = () => {
         password_confirmation: password_confirmation,
         code: code,
     };
-    Inertia.patch(route("admin.update-password", adminInformation.id), form);
+    router.patch(route("admin.update-password", adminInformation.id), form);
 };
 </script>
