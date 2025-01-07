@@ -1,127 +1,86 @@
 <template>
-    <div class="bg-gray-900 border-b border-gray-800">
-        <div class="flex items-center px-4 py-4 space-x-6">
-            <!-- Search Tab -->
-            <div
-                class="relative flex items-center cursor-pointer"
-                @click="updateActiveTab('search')"
-            >
-                <h2
-                    class="text-lg font-medium transition-colors duration-150"
-                    :class="
-                        modelValue === 'search'
-                            ? 'text-gray-200'
-                            : 'text-gray-400 hover:text-gray-300'
-                    "
-                >
-                    Search
-                </h2>
-                <div
-                    v-if="modelValue === 'search'"
-                    class="absolute -bottom-4 left-0 right-0 h-0.5 bg-blue-500"
-                ></div>
-            </div>
-
-            <!-- Chat With Lary Tab -->
-            <div
-                class="relative flex items-center space-x-2 cursor-pointer group"
-                @click="updateActiveTab('chat')"
-            >
-                <span class="text-gray-400 text-sm">//</span>
+    <div class="bg-dark-500/90 backdrop-blur-sm border-b border-gray-800/50">
+        <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+            <!-- Tabs Container -->
+            <div class="flex items-center gap-2 sm:gap-6 overflow-x-auto hide-scrollbar">
+                <!-- Search Tab -->
                 <button
-                    class="text-sm transition-colors duration-150"
-                    :class="
-                        modelValue === 'chat'
-                            ? 'text-gray-200'
-                            : 'text-gray-400 group-hover:text-gray-300'
-                    "
+                    class="flex items-center gap-2 min-w-max px-3 py-2 rounded-lg transition-all duration-300 relative group"
+                    :class="modelValue === 'search' ? 'text-white bg-dark-400' : 'text-gray-400 hover:text-gray-300'"
+                    @click="updateActiveTab('search')"
                 >
-                    Chat with Bob
+                    <Search class="w-4 h-4" />
+                    <span class="text-sm font-medium">Search</span>
+                    <div
+                        class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform origin-left transition-transform duration-300 scale-x-0"
+                        :class="{ 'scale-x-100': modelValue === 'search' }"
+                    ></div>
                 </button>
-                <div
-                    v-if="modelValue === 'chat'"
-                    class="absolute -bottom-4 left-0 right-0 h-0.5 bg-blue-500"
-                ></div>
-            </div>
 
-            <!-- Notifications Tab -->
-            <div
-                class="relative flex items-center space-x-2 cursor-pointer group"
-                @click="updateActiveTab('notifications')"
-            >
-                <span class="text-gray-400 text-sm">//</span>
+                <!-- Chat Tab -->
                 <button
-                    class="text-sm transition-colors duration-150"
-                    :class="
-                        modelValue === 'notifications'
-                            ? 'text-gray-200'
-                            : 'text-gray-400 group-hover:text-gray-300'
-                    "
+                    class="flex items-center gap-2 min-w-max px-3 py-2 rounded-lg transition-all duration-300 relative group"
+                    :class="modelValue === 'chat' ? 'text-white bg-dark-400' : 'text-gray-400 hover:text-gray-300'"
+                    @click="updateActiveTab('chat')"
                 >
-                    Notifications
+                    <MessageSquare class="w-4 h-4" />
+                    <span class="text-sm font-medium">Chat with Bob</span>
+                    <div
+                        class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform origin-left transition-transform duration-300 scale-x-0"
+                        :class="{ 'scale-x-100': modelValue === 'chat' }"
+                    ></div>
                 </button>
-                <div
-                    v-if="modelValue === 'notifications'"
-                    class="absolute -bottom-4 left-0 right-0 h-0.5 bg-blue-500"
-                ></div>
+
+                <!-- Notifications Tab -->
+                <button
+                    class="flex items-center gap-2 min-w-max px-3 py-2 rounded-lg transition-all duration-300 relative group"
+                    :class="modelValue === 'notifications' ? 'text-white bg-dark-400' : 'text-gray-400 hover:text-gray-300'"
+                    @click="updateActiveTab('notifications')"
+                >
+                    <Bell class="w-4 h-4" />
+                    <span class="text-sm font-medium">Notifications</span>
+                    <div
+                        class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform origin-left transition-transform duration-300 scale-x-0"
+                        :class="{ 'scale-x-100': modelValue === 'notifications' }"
+                    ></div>
+                </button>
             </div>
 
             <!-- Close Button -->
-            <div class="flex items-center justify-between">
-                <button
-                    @click="$emit('close')"
-                    class="text-gray-400 hover:text-gray-200"
-                >
-                    <span class="sr-only">Close panel</span>
-                    <svg
-                        class="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </button>
-            </div>
+            <button
+                @click="$emit('close')"
+                class="flex items-center justify-center w-8 h-8 rounded-lg bg-dark-400 text-gray-400 hover:text-white transition-colors duration-300"
+            >
+                <X class="w-5 h-5" />
+            </button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { Search, MessageSquare, Bell, X } from 'lucide-vue-next';
 
-// Props
 const props = defineProps({
     modelValue: {
         type: String,
         default: 'search'
-    },
-    endpoint: {
-        type: String,
-        default: ''
     }
 });
 
-// Emits
 const emit = defineEmits(['update:modelValue', 'close', 'tab-changed']);
 
-// Method to update active tab
 const updateActiveTab = (tab) => {
     emit('update:modelValue', tab);
     emit('tab-changed', tab);
 };
-
-// Optional: Watch for programmatic changes
-// Uncomment if you need to perform actions when tab changes from outside
-/*
-watch(() => props.modelValue, (newTab) => {
-    // Perform any actions needed when tab changes
-    console.log('Tab changed to:', newTab);
-});
-*/
 </script>
+
+<style scoped>
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+</style>

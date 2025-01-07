@@ -25,7 +25,7 @@
                                         @closeModal="closeLogin"
                                         @isLoading="loading"
                                     />
-                                    <Subscribe :is-open="displaySubscription" @close-modal="closeSubscription" @isLoading="loading" />
+                                    <Subscribe :is-open="displaySubscription" @close-modal="closeSubscription" @isLoading="loading" @login="openLogin" />
                                 </n-config-provider>
                             </n-dialog-provider>
                         </n-notification-provider>

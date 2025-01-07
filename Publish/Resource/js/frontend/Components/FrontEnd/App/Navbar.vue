@@ -1,69 +1,170 @@
+# Navbar.vue
 <template>
-    <div :class="headerBackground" class="navbar top-0 z-30 shadow-lg flex justify-between items-center p-2">
-        <!-- Logo and Branding -->
-        <div class="flex items-center rounded-md">
-            <label for="my-drawer" class="flex items-center cursor-pointer">
-                <logo class="h-20 w-20 hover:transform hover:scale-110 transition-transform hover:rotate-180" />
-                <span class="text-3xl font-bold text-white hidden lg:block">The Dev Realm</span>
-            </label>
-        </div>
+    <div class="relative">
+        <!-- Background with gradient and pattern -->
+        <div :class="[headerBackground, 'absolute inset-0 bg-gradient-to-r from-dark-600/98 to-dark-500/98 backdrop-blur-sm border-b border-gray-800/50']"></div>
 
-        <!-- Navigation Links (Hidden on Mobile) -->
-        <!-- <div class="hidden lg:flex space-x-4">
-            <Link :href="homeRoute" class="text-white hover:text-gray-300">Home</Link>
-            <Link :href="gamesRoute" class="text-white hover:text-gray-300">Games</Link>
-            <Link :href="contactRoute" class="text-white hover:text-gray-300">Contact</Link>
-        </div> -->
-
-        <!-- Search Bar -->
-        <!-- <div class="relative w-64">
-            <label class="sr-only" for="search">Search</label>
-            <input class="h-8 w-full rounded-full border-none bg-white px-4 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" id="search" type="search" placeholder="Search website..." />
-            <button type="button" class="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 transition hover:text-gray-700">
-                <span class="sr-only">Search</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </button>
-        </div> -->
-        <div class="flex items-center space-x-4">
-            <ThemeSwich :disabled="true" />
-            <template v-if="!isAuth" >
-                <button class="btn btn-primary btn-md" @click="login">Sign in</button>
-                <button class="btn btn-secondary btn-md" @click="register">Get Started or Free</button>
-            </template>
-            <template v-if="isAuth">
-                <SearchSidebar ref="searchComponentRef" />
-                <notification @open-notification="openNotification" />
-                <div class="dropdown dropdown-end z-50">
-                    <div tabindex="0">
-                        <div class="avatar">
-                            <div class="rounded-full w-10 h-10 m-1">
-                                <img :src="usePage().props.authUserInfo.data.avatar" />
-                            </div>
-                        </div>
+        <!-- Navbar Content -->
+        <div class="relative navbar z-30 flex justify-between items-center px-4 py-2">
+            <!-- Logo and Branding -->
+            <div class="flex items-center gap-3">
+                <label for="my-drawer" class="flex items-center gap-4 cursor-pointer group">
+                    <div class="relative">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-25 group-hover:opacity-75 blur transition-opacity duration-300"></div>
+                        <logo class="relative h-16 w-16 transform transition-all duration-500 group-hover:rotate-180" />
                     </div>
-                    <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                        <li>
-                            <Link :href="profileLink">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 mr-2 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                                My Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link :href="logoutRoute">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                                </svg>
-                                Logout
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-            </template>
+                    <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 hidden lg:block">
+                        The Dev Realm
+                    </span>
+                </label>
+            </div>
+
+            <!-- Right Side -->
+            <div class="flex items-center gap-6">
+                <!-- Theme Switch -->
+                <ThemeSwich :disabled="true" />
+
+                <!-- Not Authenticated -->
+                <template v-if="!isAuth">
+                    <button
+                        @click="login"
+                        class="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium transition-all duration-300"
+                    >
+                        Sign in
+                    </button>
+                    <button
+                        @click="register"
+                        class="px-4 py-2 rounded-lg bg-purple-500 hover:bg-purple-600 text-white font-medium transition-all duration-300"
+                    >
+                        Get Started for Free
+                    </button>
+                </template>
+
+                <!-- Authenticated -->
+                <template v-if="isAuth">
+                    <!-- Search Component -->
+                    <SearchSidebar ref="searchComponentRef" />
+
+                    <!-- Notifications -->
+                    <notification @open-notification="openNotification" />
+
+                    <!-- User Profile Dropdown -->
+                    <div class="dropdown dropdown-end">
+                        <!-- Avatar with Level Frame -->
+                        <div class="relative group cursor-pointer" tabindex="0">
+                            <!-- Avatar Base -->
+                            <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-dark-500">
+                                <img
+                                    :src="usePage().props.authUserInfo.data.avatar"
+                                    class="w-full h-full object-cover"
+                                />
+                            </div>
+
+                            <!-- Level Ring - Positioned on top -->
+                            <template v-if="userInfo.hasLevel">
+                                <div class="absolute -inset-3 rounded-full">
+                                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                                        <!-- Background Circle -->
+                                        <circle
+                                            cx="50" cy="50" r="45"
+                                            stroke="rgba(0,0,0,0.5)"
+                                            stroke-width="5"
+                                            fill="none"
+                                            class="text-dark-800"
+                                        />
+                                        <!-- Progress Background -->
+                                        <circle
+                                            cx="50" cy="50" r="45"
+                                            stroke="currentColor"
+                                            stroke-width="5"
+                                            fill="none"
+                                            class="text-blue-500/20"
+                                        />
+                                        <!-- Progress Bar -->
+                                        <circle
+                                            cx="50" cy="50" r="45"
+                                            stroke="url(#gradient)"
+                                            stroke-width="5"
+                                            fill="none"
+                                            :stroke-dasharray="circumference"
+                                            :stroke-dashoffset="dashOffset"
+                                            class="transform -rotate-90 origin-center transition-all duration-300"
+                                        />
+                                        <defs>
+                                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" style="stop-color: rgb(59, 130, 246);" />
+                                                <stop offset="100%" style="stop-color: rgb(168, 85, 247);" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+
+                                <!-- Level Badge - Adjusted position and made more prominent -->
+                                <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-sm font-bold text-white shadow-lg border-2 border-dark-800">
+                                    {{ userInfo.level }}
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Dropdown Menu -->
+                        <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-dark-200/90 backdrop-blur-sm rounded-xl border border-gray-800/50 w-72 mt-4">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-800/50">
+                                <div class="flex items-center gap-4">
+                                    <!-- User Avatar -->
+                                    <div class="w-16 h-16 rounded-lg overflow-hidden">
+                                        <img
+                                            :src="usePage().props.authUserInfo.data.avatar"
+                                            class="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <!-- User Details -->
+                                    <div class="flex-1">
+                                        <div class="font-bold text-white text-lg">{{ usePage().props.authUserInfo.data.name }}</div>
+                                        <template v-if="userInfo.hasLevel">
+                                            <div class="text-sm text-gray-400">Level {{ userInfo.level }}</div>
+                                            <div class="text-sm text-gray-400">{{ userInfo.currentXp }}/{{ userInfo.nextLevelXp }} XP to next level</div>
+                                        </template>
+                                        <div v-else class="text-sm text-gray-400">
+                                            Free Account
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- XP Progress Bar -->
+                                <template v-if="userInfo.hasLevel">
+                                    <div class="mt-4 h-2 w-full bg-dark-500 rounded-full overflow-hidden">
+                                        <div
+                                            class="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-300"
+                                            :style="{ width: `${(userInfo.currentXp / userInfo.nextLevelXp) * 100}%` }"
+                                        ></div>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Navigation Links -->
+                            <li>
+                                <Link
+                                    :href="profileLink"
+                                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300"
+                                >
+                                    <User class="w-5 h-5" />
+                                    My Profile
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="logoutRoute"
+                                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300"
+                                >
+                                    <LogOut class="w-5 h-5" />
+                                    Logout
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </template>
+            </div>
         </div>
     </div>
 </template>
@@ -73,18 +174,33 @@ import { Link } from "@inertiajs/vue3";
 import notification from "./Notifications.vue";
 import { usePage } from "@inertiajs/vue3";
 import SearchSidebar from '@frontend_components/FrontEnd/Search/SearchSidebar.vue';
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import logo from "@frontend_components/FrontEnd/Icons/logoSimple.vue";
 import ThemeSwich from "@frontend_components/FrontEnd/Global/ThemeSwich.vue";
+import { User, LogOut } from 'lucide-vue-next';
 
 let isAuth = $ref(false);
-// Check if there is a flash message and display it
-onMounted(() => {
-    if (usePage().props.isUserAuth) {
-        isAuth = usePage().props.isUserAuth;
-    }
+
+// Computed user info with level data
+const userInfo = computed(() => {
+    const userData = usePage().props.authUserInfo?.data || {};
+    return {
+        hasLevel: userData.has_subscription || false,
+        level: usePage().props.authUserInfo.data.level || 25,
+        currentXp: usePage().props.authUserInfo.data.xp || 50,
+        nextLevelXp: usePage().props.authUserInfo.data.next_level_xp || 100,
+    };
 });
 
+// Progress circle calculations
+const circumference = computed(() => 2 * Math.PI * 45);
+const dashOffset = computed(() => {
+    if (!userInfo.value.hasLevel) return 0;
+    const progress = userInfo.value.currentXp / userInfo.value.nextLevelXp;
+    return circumference.value * (1 - progress);
+});
+
+// Props
 const props = defineProps({
     headerBackground: {
         type: String,
@@ -92,11 +208,14 @@ const props = defineProps({
     },
 });
 
+// Emits
 const emit = defineEmits(["login", "register"]);
 
+// Methods
 const login = () => {
     emit("login");
 };
+
 const register = () => {
     emit("register");
 };
@@ -107,13 +226,14 @@ const openNotification = () => {
     searchComponentRef.openNotifications();
 };
 
-// Links
-const homeRoute = route("home");
-// const gamesRoute = route("games");
-// const contactRoute = route("contact");
+// Routes
 const profileLink = route("user.edit");
 const logoutRoute = route("logout.user");
-</script>
 
-<style>
-</style>
+// Lifecycle
+onMounted(() => {
+    if (usePage().props.isUserAuth) {
+        isAuth = usePage().props.isUserAuth;
+    }
+});
+</script>
