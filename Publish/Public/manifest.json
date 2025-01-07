@@ -49,12 +49,14 @@
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-43763e23.js"
     ]
   },
-  "_CourseTopic.vue_vue_type_script_setup_true_lang-04ee0de7.js": {
-    "file": "assets/CourseTopic.vue_vue_type_script_setup_true_lang-04ee0de7.js",
+  "_CourseTopic.vue_vue_type_script_setup_true_lang-1da126c2.js": {
+    "file": "assets/CourseTopic.vue_vue_type_script_setup_true_lang-1da126c2.js",
     "imports": [
       "_preset-fafa7a54.js",
       "_DifficultLevel.vue_vue_type_script_setup_true_lang-6b09f616.js",
-      "_Ribbon.vue_vue_type_script_setup_true_lang-72a9cad6.js"
+      "_graduation-cap-5817eb7e.js",
+      "_clock-4120c02b.js",
+      "_createLucideIcon-eef21fad.js"
     ]
   },
   "_DifficultLevel.vue_vue_type_script_setup_true_lang-6b09f616.js": {
@@ -79,6 +81,23 @@
     "file": "assets/FlashMessage-726b0cbd.js",
     "imports": [
       "_preset-fafa7a54.js"
+    ]
+  },
+  "_HeroSection01.vue_vue_type_script_setup_true_lang-c61e8d9d.js": {
+    "file": "assets/HeroSection01.vue_vue_type_script_setup_true_lang-c61e8d9d.js",
+    "imports": [
+      "_preset-fafa7a54.js",
+      "_play-921fac74.js",
+      "_code-a9dcbb14.js",
+      "_createLucideIcon-eef21fad.js"
+    ]
+  },
+  "_HeroSection02.vue_vue_type_script_setup_true_lang-73795c00.js": {
+    "file": "assets/HeroSection02.vue_vue_type_script_setup_true_lang-73795c00.js",
+    "imports": [
+      "_preset-fafa7a54.js",
+      "_createLucideIcon-eef21fad.js",
+      "_code-a9dcbb14.js"
     ]
   },
   "_Image.vue_vue_type_script_setup_true_lang-34775d45.js": {
@@ -155,12 +174,6 @@
       "_open-closed-8c4db5a7.js"
     ]
   },
-  "_Ribbon.vue_vue_type_script_setup_true_lang-72a9cad6.js": {
-    "file": "assets/Ribbon.vue_vue_type_script_setup_true_lang-72a9cad6.js",
-    "imports": [
-      "_preset-fafa7a54.js"
-    ]
-  },
   "_SearchSidebar-a8aa63a7.js": {
     "file": "assets/SearchSidebar-a8aa63a7.js",
     "imports": [
@@ -235,6 +248,24 @@
       "_preset-fafa7a54.js"
     ]
   },
+  "_clock-4120c02b.js": {
+    "file": "assets/clock-4120c02b.js",
+    "imports": [
+      "_createLucideIcon-eef21fad.js"
+    ]
+  },
+  "_code-a9dcbb14.js": {
+    "file": "assets/code-a9dcbb14.js",
+    "imports": [
+      "_createLucideIcon-eef21fad.js"
+    ]
+  },
+  "_createLucideIcon-eef21fad.js": {
+    "file": "assets/createLucideIcon-eef21fad.js",
+    "imports": [
+      "_preset-fafa7a54.js"
+    ]
+  },
   "_dark-7d5b4154.js": {
     "file": "assets/dark-7d5b4154.js",
     "imports": [
@@ -263,11 +294,23 @@
       "_keyboard-69fbd145.js"
     ]
   },
+  "_graduation-cap-5817eb7e.js": {
+    "file": "assets/graduation-cap-5817eb7e.js",
+    "imports": [
+      "_createLucideIcon-eef21fad.js"
+    ]
+  },
   "_hidden-81ff31ba.js": {
     "file": "assets/hidden-81ff31ba.js",
     "imports": [
       "_keyboard-69fbd145.js",
       "_preset-fafa7a54.js"
+    ]
+  },
+  "_house-ad6eba91.js": {
+    "file": "assets/house-ad6eba91.js",
+    "imports": [
+      "_createLucideIcon-eef21fad.js"
     ]
   },
   "_keyboard-69fbd145.js": {
@@ -282,8 +325,20 @@
       "_preset-fafa7a54.js"
     ]
   },
+  "_play-921fac74.js": {
+    "file": "assets/play-921fac74.js",
+    "imports": [
+      "_createLucideIcon-eef21fad.js"
+    ]
+  },
   "_preset-fafa7a54.js": {
     "file": "assets/preset-fafa7a54.js"
+  },
+  "_shopping-cart-206cbb00.js": {
+    "file": "assets/shopping-cart-206cbb00.js",
+    "imports": [
+      "_createLucideIcon-eef21fad.js"
+    ]
   },
   "_tabs-0e7f8a39.js": {
     "file": "assets/tabs-0e7f8a39.js",
@@ -1194,7 +1249,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/BackEnd/Vendor/skeleton-store/home/index.vue": {
-    "file": "assets/index-41fede55.js",
+    "file": "assets/index-1798130b.js",
     "imports": [
       "_preset-fafa7a54.js",
       "_App.vue_vue_type_script_setup_true_lang-6214aba5.js",
@@ -1360,10 +1415,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Blog/View.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/Index.vue": {
-    "file": "assets/Index-876058db.js",
+    "file": "assets/Index-795ce1ec.js",
     "imports": [
       "_App.vue_vue_type_script_setup_true_lang-6214aba5.js",
-      "_CourseTopic.vue_vue_type_script_setup_true_lang-04ee0de7.js",
+      "_CourseTopic.vue_vue_type_script_setup_true_lang-1da126c2.js",
       "_preset-fafa7a54.js",
       "_FlashMessage-726b0cbd.js",
       "_ReusableModal-95adb111.js",
@@ -1380,24 +1435,30 @@
       "_Money-a8d984ae.js",
       "_dark-7d5b4154.js",
       "_DifficultLevel.vue_vue_type_script_setup_true_lang-6b09f616.js",
-      "_Ribbon.vue_vue_type_script_setup_true_lang-72a9cad6.js"
+      "_graduation-cap-5817eb7e.js",
+      "_createLucideIcon-eef21fad.js",
+      "_clock-4120c02b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/View.vue": {
-    "file": "assets/View-134f3244.js",
+    "file": "assets/View-5992a188.js",
     "imports": [
       "_axios-087e9270.js",
       "_App.vue_vue_type_script_setup_true_lang-6214aba5.js",
       "_CommentBox-48c28620.js",
-      "_dynamicIcon.vue_vue_type_script_setup_true_lang-43763e23.js",
+      "_play-921fac74.js",
+      "_createLucideIcon-eef21fad.js",
+      "_clock-4120c02b.js",
       "_preset-fafa7a54.js",
       "_YouTube-33f3f570.js",
+      "_dynamicIcon.vue_vue_type_script_setup_true_lang-43763e23.js",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/Sidebar.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/PremiumPrompt.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/RelatedCourses.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/SidebarControl.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/EpisodeGuide.vue",
-      "_Money-a8d984ae.js",
       "_disclosure-f326b96a.js",
       "_FlashMessage-726b0cbd.js",
       "_ReusableModal-95adb111.js",
@@ -1408,9 +1469,13 @@
       "_SearchSidebar-a8aa63a7.js",
       "_Input.vue_vue_type_script_setup_true_lang-7234bc69.js",
       "_Password-85fd088f.js",
+      "_Money-a8d984ae.js",
       "_dark-7d5b4154.js",
       "_CommentsSingle.vue_vue_type_script_setup_true_lang-36eb510a.js",
       "__plugin-vue_export-helper-c27b6911.js",
+      "_house-ad6eba91.js",
+      "_graduation-cap-5817eb7e.js",
+      "_shopping-cart-206cbb00.js",
       "_DifficultLevel.vue_vue_type_script_setup_true_lang-6b09f616.js",
       "_use-resolve-button-type-b1b99412.js"
     ],
@@ -1428,13 +1493,44 @@
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/EpisodeGuide.vue"
   },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/PremiumPrompt.css": {
+    "file": "assets/PremiumPrompt-76c7644e.css",
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/PremiumPrompt.css"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/PremiumPrompt.vue": {
+    "css": [
+      "assets/PremiumPrompt-76c7644e.css"
+    ],
+    "file": "assets/PremiumPrompt-da1d26fe.js",
+    "imports": [
+      "_Money-a8d984ae.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_createLucideIcon-eef21fad.js",
+      "_graduation-cap-5817eb7e.js",
+      "_shopping-cart-206cbb00.js",
+      "_preset-fafa7a54.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/PremiumPrompt.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/RelatedCourses.vue": {
+    "file": "assets/RelatedCourses-f9587b26.js",
+    "imports": [
+      "_Money-a8d984ae.js",
+      "_createLucideIcon-eef21fad.js",
+      "_preset-fafa7a54.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/RelatedCourses.vue"
+  },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/Sidebar.vue": {
-    "file": "assets/Sidebar-7fdb50f0.js",
+    "file": "assets/Sidebar-6ad07323.js",
     "imports": [
       "_preset-fafa7a54.js",
-      "_dynamicIcon.vue_vue_type_script_setup_true_lang-43763e23.js",
+      "_house-ad6eba91.js",
+      "_createLucideIcon-eef21fad.js",
+      "_clock-4120c02b.js",
       "_disclosure-f326b96a.js",
-      "__plugin-vue_export-helper-c27b6911.js",
       "_keyboard-69fbd145.js",
       "_use-resolve-button-type-b1b99412.js",
       "_open-closed-8c4db5a7.js"
@@ -1443,11 +1539,13 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/Sidebar.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/SidebarControl.vue": {
-    "file": "assets/SidebarControl-51e50e15.js",
+    "file": "assets/SidebarControl-8491d6d2.js",
     "imports": [
-      "_dynamicIcon.vue_vue_type_script_setup_true_lang-43763e23.js",
-      "_SearchSidebar-a8aa63a7.js",
       "_preset-fafa7a54.js",
+      "_SearchSidebar-a8aa63a7.js",
+      "_house-ad6eba91.js",
+      "_createLucideIcon-eef21fad.js",
+      "_dynamicIcon.vue_vue_type_script_setup_true_lang-43763e23.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_axios-087e9270.js"
     ],
@@ -1481,12 +1579,38 @@
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Forum/Index.vue"
   },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/HeroSection01.vue": {
+    "file": "assets/HeroSection01-44fad917.js",
+    "imports": [
+      "_HeroSection01.vue_vue_type_script_setup_true_lang-c61e8d9d.js",
+      "_preset-fafa7a54.js",
+      "_play-921fac74.js",
+      "_createLucideIcon-eef21fad.js",
+      "_code-a9dcbb14.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/HeroSection01.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/HeroSection02.vue": {
+    "file": "assets/HeroSection02-27d08a77.js",
+    "imports": [
+      "_HeroSection02.vue_vue_type_script_setup_true_lang-73795c00.js",
+      "_preset-fafa7a54.js",
+      "_createLucideIcon-eef21fad.js",
+      "_code-a9dcbb14.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/HeroSection02.vue"
+  },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/Index.vue": {
-    "file": "assets/Index-845fc1cb.js",
+    "file": "assets/Index-bad0f09c.js",
     "imports": [
       "_App.vue_vue_type_script_setup_true_lang-6214aba5.js",
-      "_CourseTopic.vue_vue_type_script_setup_true_lang-04ee0de7.js",
+      "_CourseTopic.vue_vue_type_script_setup_true_lang-1da126c2.js",
       "_PostCard-d56a7a45.js",
+      "_HeroSection01.vue_vue_type_script_setup_true_lang-c61e8d9d.js",
+      "_HeroSection02.vue_vue_type_script_setup_true_lang-73795c00.js",
+      "_createLucideIcon-eef21fad.js",
       "_preset-fafa7a54.js",
       "_FlashMessage-726b0cbd.js",
       "_ReusableModal-95adb111.js",
@@ -1503,20 +1627,24 @@
       "_Money-a8d984ae.js",
       "_dark-7d5b4154.js",
       "_DifficultLevel.vue_vue_type_script_setup_true_lang-6b09f616.js",
-      "_Ribbon.vue_vue_type_script_setup_true_lang-72a9cad6.js",
-      "_UserSimpleDisplay-50731e37.js"
+      "_graduation-cap-5817eb7e.js",
+      "_clock-4120c02b.js",
+      "_UserSimpleDisplay-50731e37.js",
+      "_play-921fac74.js",
+      "_code-a9dcbb14.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/Index.vue": {
-    "file": "assets/Index-15669e1b.js",
+    "file": "assets/Index-76b0db4d.js",
     "imports": [
       "_App.vue_vue_type_script_setup_true_lang-6214aba5.js",
-      "_Ribbon.vue_vue_type_script_setup_true_lang-72a9cad6.js",
-      "_axios-087e9270.js",
       "_preset-fafa7a54.js",
+      "_axios-087e9270.js",
       "_Money-a8d984ae.js",
+      "_shopping-cart-206cbb00.js",
+      "_createLucideIcon-eef21fad.js",
       "_FlashMessage-726b0cbd.js",
       "_ReusableModal-95adb111.js",
       "_focus-management-c9bf9661.js",
@@ -1665,7 +1793,7 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/Vendor/skeleton-store/index.vue": {
-    "file": "assets/index-1798130b.js",
+    "file": "assets/index-41fede55.js",
     "imports": [
       "_preset-fafa7a54.js",
       "_App.vue_vue_type_script_setup_true_lang-6214aba5.js",
@@ -1705,9 +1833,13 @@
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/Index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/View.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/EpisodeGuide.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/PremiumPrompt.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/RelatedCourses.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/Sidebar.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/SidebarControl.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Forum/Index.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/HeroSection01.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/HeroSection02.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/Index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/Index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/View.vue",
@@ -1720,7 +1852,7 @@
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/Vendor/skeleton-store/index.vue"
     ],
-    "file": "assets/Frontend_js-b1241c0e.js",
+    "file": "assets/Frontend_js-28720ebc.js",
     "imports": [
       "_preset-fafa7a54.js"
     ],
@@ -1728,12 +1860,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/app.js"
   },
   "resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss": {
-    "file": "assets/backendApp-d893c652.css",
+    "file": "assets/backendApp-084a1294.css",
     "isEntry": true,
     "src": "resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss"
   },
   "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss": {
-    "file": "assets/frontendApp-80e6ac63.css",
+    "file": "assets/frontendApp-5cbf4cbc.css",
     "isEntry": true,
     "src": "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss"
   }

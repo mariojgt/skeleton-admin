@@ -44,6 +44,7 @@
     "daisyui": "^4.4.24        ",
     "flowbite": "^1.6.5",
     "form-data": "^4.0.0",
+    "lucide-vue-next": "^0.469.0",
     "prismjs": "^1.29.0",
     "sortablejs": "^1.15.0",
     "vue": "^3.5.12",
