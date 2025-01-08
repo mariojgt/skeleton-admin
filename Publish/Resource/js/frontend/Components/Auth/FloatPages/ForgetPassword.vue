@@ -44,7 +44,8 @@
 
 <script setup lang="ts">
 import { useForm } from "@inertiajs/vue3";
-
+import { useRecaptcha } from '../../../Composable/useRecaptcha';
+const { getToken, isLoading, error } = useRecaptcha();
 const messageClass = "text-white text-xl bg-error mt-1 rounded-lg p-2 opacity-90";
 const labelClass = "text-3xl font-bold text-left";
 const inputClass = "w-full p-5 text-2xl input input-primary input-bordered";
@@ -61,7 +62,8 @@ const close = () => {
 };
 
 const form = useForm({
-    email: ""
+    email: "",
+    recaptcha_token: "",
 });
 
 defineProps({
@@ -71,7 +73,8 @@ defineProps({
     },
 });
 
-const submitForm = () => {
+const submitForm = async () => {
+    form.recaptcha_token = await getToken('submit');
     emit("isLoading", true);
     form.post(route("password-reset.user"), {
         preserveState: true,

@@ -147,6 +147,9 @@ import { ref } from 'vue';
 import { Link, usePage, router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import logo from "@frontend_components/FrontEnd/Icons/logoSimple.vue";
+import { useRecaptcha } from '../../../Composable/useRecaptcha';
+const { getToken, isLoading, error } = useRecaptcha();
+
 // Update the imports at the top
 import {
     Mail, Loader2, AlertCircle, CheckCircle,
@@ -176,7 +179,8 @@ const subscribeNewsletter = async () => {
 
     try {
         await router.post(route('newsletter.subscribe'), {
-            email: email.value
+            email: email.value,
+            recaptcha_token: await getToken('submit')
         }, {
             preserveState: true,
             preserveScroll: true,

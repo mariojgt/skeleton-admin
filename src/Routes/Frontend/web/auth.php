@@ -11,17 +11,17 @@ Route::group([
 ], function () {
     Route::controller(LoginController::class)->group(function () {
         Route::get('/login', 'index')->name('login');
-        Route::post('/login/user', 'login')->name('login.user');
+        Route::post('/login/user', 'login')->name('login.user')->middleware(['recaptcha']);
     });
 
     Route::controller(RegisterController::class)->group(function () {
         Route::get('/register', 'register')->name('register.user');
-        Route::post('/register/user', 'userRegister')->name('register.user');
+        Route::post('/register/user', 'userRegister')->name('register.user')->middleware(['recaptcha']);
     });
 
     Route::controller(ResetPassword::class)->group(function () {
         Route::get('/forgot-password', 'index')->name('forgot-password');
-        Route::post('/password-reset', 'reset')->name('password-reset.user');
+        Route::post('/password-reset', 'reset')->name('password-reset.user')->middleware(['recaptcha']);
         Route::get('/password-reset/{token}', 'passwordReset')->name('password.reset');
         Route::post('/password-change', 'passwordChange')->name('password.change.user');
     });

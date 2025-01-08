@@ -76,7 +76,8 @@
 
 <script setup lang="ts">
 import { useForm, router } from "@inertiajs/vue3";
-
+import { useRecaptcha } from '../../../Composable/useRecaptcha';
+const { getToken, isLoading, error } = useRecaptcha();
 // Import the from components
 import {
     InputField,
@@ -101,6 +102,7 @@ const forgotPassword = () => {
 const form = useForm({
     email: "",
     password: "",
+    recaptcha_token: ""
 });
 
 defineProps({
@@ -113,6 +115,7 @@ defineProps({
 
 
 const submitForm = async () => {
+    form.recaptcha_token = await getToken('submit');
     emit("isLoading", true);
     form.post(route("login.user"), {
         preserveState: false,

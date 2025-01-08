@@ -102,6 +102,11 @@ class SkeletonAdminProvider extends ServiceProvider
             'skeleton_guest',
             \Mariojgt\SkeletonAdmin\Middleware\SkeletonGuest::class
         );
+
+        $this->app['router']->aliasMiddleware(
+            'recaptcha',
+            \Mariojgt\SkeletonAdmin\Middleware\ValidateRecaptcha::class
+        );
     }
 
     public function loadCommands() {
