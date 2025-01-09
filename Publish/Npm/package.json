@@ -29,7 +29,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.12",
     "@heroicons/vue": "^2.0.17",
-    "@inertiajs/vue3": "^1.2.0",
+    "@inertiajs/vue3": "^2.0",
     "@jamescoyle/vue-icon": "^0.1.2",
     "@mariojgt/masterui": "^0.4.7",
     "@mdi/js": "^7.0.96",

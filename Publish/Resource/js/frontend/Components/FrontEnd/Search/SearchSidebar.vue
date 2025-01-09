@@ -37,6 +37,7 @@
                         <div class="w-screen max-w-5xl">
                             <SearchTab v-model="activeTab" @close="isOpen = false" />
                             <notification v-if="activeTab === 'notifications'" />
+                            <bobAI v-if="activeTab === 'chat'" />
                             <div
                             v-else-if="activeTab === 'search'"
                                 class="h-full flex flex-col bg-gray-900 shadow-xl"
@@ -231,6 +232,7 @@ import { api } from "../../../Boot/axios.js";
 import { router } from "@inertiajs/vue3";
 import SearchTab from "./SearchTab.vue";
 import notification from "./Notification.vue";
+import bobAI from "./BobAI.vue";
 
 const isOpen = ref(false);
 const searchQuery = ref("");

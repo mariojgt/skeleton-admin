@@ -1,108 +1,168 @@
 <template>
-    <div tabindex="0" class="">
-        <ul v-if="notifications.length > 0" class="menu py-3 shadow-lg">
-            <li
-                v-for="(item, index) in notifications"
-                :key="index"
-                class="pb-0 border-b border-base-300 bg-dark-400 rounded-lg"
-            >
-                <div class="flex pd overflow-hidden">
-                    <div class="flex items-center pr-7">
-                        <div class="avatar">
-                            <div
-                                class="w-12 mask mask-squircle"
-                                v-if="item.data.type == 'image'"
-                            >
-                                <img :src="item.data.icon" />
-                            </div>
-                            <div v-else>
-                                <Icon :icon="item.data.icon" />
-                            </div>
-                        </div>
-                        <div class="mx-3">
-                            <h2 class="text-xl font-semibold text-base-content">
-                                {{ item.data.title }}
-                            </h2>
-                            <div class="text-base-content">
-                                {{ item.data.content }}
-                            </div>
-                        </div>
-                    </div>
+    <div class="relative w-full sm:w-auto" tabindex="0">
+      <div
+        v-if="notifications.length > 0"
+        class="absolute right-0 top-full mt-2 w-full bg-gray-900 rounded-xl shadow-2xl border border-gray-800 overflow-hidden"
+      >
+        <!-- Notifications List -->
+        <div class="max-h-96 overflow-y-auto">
+          <div
+            v-for="(item, index) in notifications"
+            :key="index"
+            class="px-4 py-3 border-b border-gray-800 last:border-b-0 hover:bg-gray-800 transition-colors duration-200"
+          >
+            <div class="flex items-center space-x-4">
+              <!-- Notification Icon -->
+              <div class="flex-shrink-0">
+                <div
+                  v-if="item.data.type === 'image'"
+                  class="w-12 h-12 rounded-full overflow-hidden"
+                >
+                  <img
+                    :src="item.data.icon"
+                    alt="Notification Icon"
+                    class="w-full h-full object-cover"
+                  />
                 </div>
-            </li>
-            <li
-                class="pb-0 border-b border-base-300 bg-dark-400 rounded-lg mt-5 hover:bg-red-500 hover:text-white"
-                @click="readAll"
-            >
-                <a class="flex justify-center">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-neutral"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                    </svg>
-                    Clear Notifications
-                </a>
-            </li>
-        </ul>
+                <div v-else class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center">
+                    <Icon :icon="item.data.icon" />
+                </div>
+              </div>
+
+              <!-- Notification Content -->
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-white truncate">
+                  {{ item.data.title }}
+                </p>
+                <p class="text-sm text-gray-400 truncate">
+                  {{ item.data.content }}
+                </p>
+              </div>
+
+              <!-- Notification Time -->
+              <div class="text-xs text-gray-500">
+                {{ item.date }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clear All Notifications -->
+        <div
+          v-if="notifications.length > 0"
+          class="sticky bottom-0 bg-gray-900 border-t border-gray-800"
+        >
+          <button
+            @click="readAll"
+            class="w-full px-4 py-3 flex items-center justify-center space-x-2 text-red-500 hover:bg-red-500/10 transition-colors duration-200"
+          >
+            <Trash2
+              :size="20"
+              class="text-red-500"
+            />
+            <span class="text-sm">Clear All Notifications</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div
+        v-else
+        class="absolute right-0 top-full mt-2 w-full bg-gray-900 rounded-xl shadow-2xl border border-gray-800 p-6 text-center"
+      >
+        <BellOff
+          :size="64"
+          class="text-gray-700 mx-auto mb-4"
+        />
+        <p class="text-gray-500">
+          No new notifications
+        </p>
+      </div>
     </div>
-</template>
+  </template>
 
-<script setup>
-// Import axios
-import { api } from "../../../Boot/axios.js";
-// Import the icon handle for the notification
-import Icon from "./NotificationIcon.vue";
-// Import the mounted function
-import { onMounted } from "vue";
+  <script setup>
+  import { ref, onMounted, onUnmounted } from 'vue';
+  import { api } from "../../../Boot/axios.js";
+  import Icon from "./NotificationIcon.vue";
+  import { useMessage } from "naive-ui";
 
-import { useMessage } from "naive-ui";
-const message = useMessage();
+  const message = useMessage();
+  const notifications = ref([]);
+  const notificationsCount = ref(0);
 
-let notifications = $ref([]);
-// Notifications count
-let notificationsCount = $ref(0);
+  // Fetch notifications
+  const fetchNotifications = async () => {
+    try {
+      const response = await api.get(route("user.api.notifications", 5));
+      notifications.value = response.data.data;
+      notificationsCount.value = notifications.value.length;
 
-const fetchNotifications = async () => {
-    api.get(route("user.api.notifications", 5))
-        .then(function (response) {
-            // Get the notifications
-            notifications = response.data.data;
-            // Count the notifications
-            notificationsCount = notifications.length;
-            // If is more them 0 we can display a message
-            if (notificationsCount > 0) {
-                message.success("You have new notifications");
-            }
-        })
-        .catch(function (error) {});
-};
+      if (notificationsCount.value > 0) {
+        message.success(`You have ${notificationsCount.value} new notification${notificationsCount.value > 1 ? 's' : ''}`);
+      }
+    } catch (error) {
+      console.error("Failed to fetch notifications", error);
+    }
+  };
 
-onMounted(() => {
+  // Read all notifications
+  const readAll = async () => {
+    try {
+      await api.post(route("user.api.notification.read"));
+      notifications.value = [];
+      notificationsCount.value = 0;
+      message.success("All notifications marked as read");
+    } catch (error) {
+      console.error("Failed to mark notifications as read", error);
+    }
+  };
+
+  // Format time for notifications
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMinutes = Math.round((now - date) / (1000 * 60));
+
+    if (diffMinutes < 1) return 'Just now';
+    if (diffMinutes < 60) return `${diffMinutes} min ago`;
+
+    const diffHours = Math.round(diffMinutes / 60);
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  // Fetch notifications on mount
+  let intervalId;
+  onMounted(() => {
     fetchNotifications();
-});
 
-// Set a timeout to fetch notifications every 25 seconds
-setInterval(fetchNotifications, 25000);
+    // Set interval to fetch notifications
+    intervalId = setInterval(fetchNotifications, 25000);
+  });
 
-const readAll = async () => {
-    await api
-        .post(route("user.api.notification.read"))
-        .then(function (response) {
-            // Clear the notifications
-            notifications = [];
-            // Clear the count
-            notificationsCount = 0;
-            // Display a message
-            message.success("All notifications are read");
-        });
-};
-</script>
+  // Clear interval on unmount
+  onUnmounted(() => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  });
+  </script>
+
+  <style scoped>
+  /* Custom scrollbar for dark mode */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #1F2937;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 4px;
+  }
+  </style>

@@ -113,6 +113,9 @@
                         <li>
                             <a href="#" @click="openPrivacy" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Privacy Policy</a>
                         </li>
+                        <li>
+                            <a href="#" @click="openRoadmap" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Roadmap</a>
+                        </li>
                         <!-- <li>
                             <Link href="/terms" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Terms of Service</Link>
                         </li>
@@ -229,5 +232,8 @@ const openShop = () => {
 };
 const openPrivacy = () => {
     router.visit(route("privacy.policy"));
+};
+const openRoadmap = () => {
+    router.visit(route("road.map"));
 };
 </script>

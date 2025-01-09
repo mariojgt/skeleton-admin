@@ -15,7 +15,7 @@
     "require": {
         "php": "^8.0",
         "laravel/sanctum": "^4.0",
-        "inertiajs/inertia-laravel": "^1.0.0",
+        "inertiajs/inertia-laravel": "^2.0.0",
         "tightenco/ziggy": "^1.5",
         "mariojgt/castle": "^2.0.1|@dev",
         "mariojgt/biscotto": "^1.0|@dev",
