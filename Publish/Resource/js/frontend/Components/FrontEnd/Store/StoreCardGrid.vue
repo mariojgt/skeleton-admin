@@ -23,7 +23,7 @@
             </div>
             <div v-else class="absolute top-3 right-3">
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-green-500 text-white shadow-lg">
-                    Premium is Free
+                    Free with Premium
                 </span>
             </div>
         </div>
