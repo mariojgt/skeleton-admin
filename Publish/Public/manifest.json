@@ -22,18 +22,18 @@
   "_App-f38c7bad.js": {
     "file": "assets/App-f38c7bad.js",
     "imports": [
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_preset-b90b9b08.js",
       "_dark-7de1eebc.js"
     ]
   },
-  "_App.vue_vue_type_script_setup_true_lang-981287be.js": {
+  "_App.vue_vue_type_script_setup_true_lang-964d745a.js": {
     "css": [
       "assets/App-93da7b63.css"
     ],
-    "file": "assets/App.vue_vue_type_script_setup_true_lang-981287be.js",
+    "file": "assets/App.vue_vue_type_script_setup_true_lang-964d745a.js",
     "imports": [
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
@@ -42,7 +42,7 @@
       "_preset-b90b9b08.js",
       "_index.esm-b2918197.js",
       "_ReusableModal-78d0db42.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_user-5bde1ce3.js",
       "_createLucideIcon-c54a04d6.js",
       "resources/vendor/SkeletonAdmin/js/frontend/app.js",
@@ -53,6 +53,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_send-01c9abcb.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
@@ -72,16 +73,17 @@
       "_index.esm-b2918197.js"
     ]
   },
-  "_CommentBox-6273ae65.js": {
+  "_CommentBox-65969e26.js": {
     "css": [
       "assets/CommentBox-4fe3922b.css"
     ],
-    "file": "assets/CommentBox-6273ae65.js",
+    "file": "assets/CommentBox-65969e26.js",
     "imports": [
       "_preset-b90b9b08.js",
       "_shield-check-f2627ceb.js",
-      "_SearchSidebar-1f02728d.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_SearchSidebar-10a1abc7.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_globe-e589eb89.js",
       "_createLucideIcon-c54a04d6.js",
       "_CommentsSingle-1c23573d.js",
       "__plugin-vue_export-helper-c27b6911.js",
@@ -115,14 +117,15 @@
       "__plugin-vue_export-helper-c27b6911.js"
     ]
   },
-  "_CourseTopic.vue_vue_type_script_setup_true_lang-587793bd.js": {
-    "file": "assets/CourseTopic.vue_vue_type_script_setup_true_lang-587793bd.js",
+  "_CourseTopic.vue_vue_type_script_setup_true_lang-1b3baa6a.js": {
+    "file": "assets/CourseTopic.vue_vue_type_script_setup_true_lang-1b3baa6a.js",
     "imports": [
       "_preset-b90b9b08.js",
       "_DifficultLevel.vue_vue_type_script_setup_true_lang-50f67218.js",
       "_graduation-cap-61230c8d.js",
       "_clock-83e0ad33.js",
-      "_createLucideIcon-c54a04d6.js"
+      "_createLucideIcon-c54a04d6.js",
+      "_compass-07c165f9.js"
     ]
   },
   "_DifficultLevel.vue_vue_type_script_setup_true_lang-50f67218.js": {
@@ -193,7 +196,7 @@
     "file": "assets/Login-bac8286e.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_FlashMessage-65cf7e3b.js"
+      "_FlashMessage-93f4c79f.js"
     ]
   },
   "_Money-0f722979.js": {
@@ -211,15 +214,16 @@
       "_chevron-right-9297b3c8.js"
     ]
   },
-  "_PaidItemsList.vue_vue_type_script_setup_true_lang-f85b8266.js": {
-    "file": "assets/PaidItemsList.vue_vue_type_script_setup_true_lang-f85b8266.js",
+  "_PaidItemsList.vue_vue_type_script_setup_true_lang-e41e596e.js": {
+    "file": "assets/PaidItemsList.vue_vue_type_script_setup_true_lang-e41e596e.js",
     "imports": [
       "_preset-b90b9b08.js",
       "_Money-0f722979.js",
       "_book-open-45bfbf31.js",
       "_clock-83e0ad33.js",
       "_createLucideIcon-c54a04d6.js",
-      "_calendar-1a62630a.js"
+      "_calendar-1a62630a.js",
+      "_package-d14ec67b.js"
     ]
   },
   "_Password-350de7e5.js": {
@@ -229,8 +233,8 @@
       "_preset-b90b9b08.js"
     ]
   },
-  "_PostBox-cff9c81a.js": {
-    "file": "assets/PostBox-cff9c81a.js",
+  "_PostBox-7b7598ad.js": {
+    "file": "assets/PostBox-7b7598ad.js",
     "imports": [
       "_preset-b90b9b08.js",
       "_axios-0c773085.js",
@@ -239,7 +243,7 @@
       "_createLucideIcon-c54a04d6.js",
       "_x-b0b4ae59.js",
       "_folder-open-c10cad14.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_shield-check-f2627ceb.js",
       "_chevron-down-f54a1641.js",
       "_info-b159d59c.js",
@@ -248,19 +252,21 @@
       "_code-0ce16765.js"
     ]
   },
-  "_PostCard-1dbf32fc.js": {
+  "_PostCard-0ead94f8.js": {
     "css": [
       "assets/PostCard-e3fe30a8.css"
     ],
-    "file": "assets/PostCard-1dbf32fc.js",
+    "file": "assets/PostCard-0ead94f8.js",
     "imports": [
       "_preset-b90b9b08.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_createLucideIcon-c54a04d6.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_zap-0a9be0bf.js",
+      "_star-17bb3c13.js",
       "_gamepad-2-08d13ba1.js",
       "_shield-check-f2627ceb.js",
-      "_SearchSidebar-1f02728d.js"
+      "_SearchSidebar-10a1abc7.js",
+      "_createLucideIcon-c54a04d6.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js"
     ]
   },
   "_ReusableModal-78d0db42.js": {
@@ -270,11 +276,11 @@
       "_preset-b90b9b08.js"
     ]
   },
-  "_SearchSidebar-1f02728d.js": {
+  "_SearchSidebar-10a1abc7.js": {
     "css": [
       "assets/SearchSidebar-a24f5d12.css"
     ],
-    "file": "assets/SearchSidebar-1f02728d.js",
+    "file": "assets/SearchSidebar-10a1abc7.js",
     "imports": [
       "_preset-b90b9b08.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
@@ -410,6 +416,12 @@
       "_createLucideIcon-c54a04d6.js"
     ]
   },
+  "_compass-07c165f9.js": {
+    "file": "assets/compass-07c165f9.js",
+    "imports": [
+      "_createLucideIcon-c54a04d6.js"
+    ]
+  },
   "_createLucideIcon-c54a04d6.js": {
     "file": "assets/createLucideIcon-c54a04d6.js",
     "imports": [
@@ -470,6 +482,12 @@
   },
   "_gamepad-2-08d13ba1.js": {
     "file": "assets/gamepad-2-08d13ba1.js",
+    "imports": [
+      "_createLucideIcon-c54a04d6.js"
+    ]
+  },
+  "_globe-e589eb89.js": {
+    "file": "assets/globe-e589eb89.js",
     "imports": [
       "_createLucideIcon-c54a04d6.js"
     ]
@@ -541,6 +559,12 @@
       "_preset-b90b9b08.js"
     ]
   },
+  "_package-d14ec67b.js": {
+    "file": "assets/package-d14ec67b.js",
+    "imports": [
+      "_createLucideIcon-c54a04d6.js"
+    ]
+  },
   "_play-6f70ce92.js": {
     "file": "assets/play-6f70ce92.js",
     "imports": [
@@ -580,6 +604,12 @@
       "_createLucideIcon-c54a04d6.js"
     ]
   },
+  "_star-17bb3c13.js": {
+    "file": "assets/star-17bb3c13.js",
+    "imports": [
+      "_createLucideIcon-c54a04d6.js"
+    ]
+  },
   "_tabs-3113ed32.js": {
     "file": "assets/tabs-3113ed32.js",
     "imports": [
@@ -606,6 +636,12 @@
       "_createLucideIcon-c54a04d6.js"
     ]
   },
+  "_trophy-01119447.js": {
+    "file": "assets/trophy-01119447.js",
+    "imports": [
+      "_createLucideIcon-c54a04d6.js"
+    ]
+  },
   "_use-resolve-button-type-a7c357fc.js": {
     "file": "assets/use-resolve-button-type-a7c357fc.js",
     "imports": [
@@ -625,6 +661,12 @@
       "_createLucideIcon-c54a04d6.js"
     ]
   },
+  "_zap-0a9be0bf.js": {
+    "file": "assets/zap-0a9be0bf.js",
+    "imports": [
+      "_createLucideIcon-c54a04d6.js"
+    ]
+  },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Index.vue": {
     "file": "assets/Index-02b049d0.js",
     "imports": [
@@ -635,7 +677,7 @@
       "_Password-350de7e5.js",
       "_Submit-5e6379c6.js",
       "_index.esm-b2918197.js",
-      "_FlashMessage-65cf7e3b.js"
+      "_FlashMessage-93f4c79f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Index.vue"
@@ -650,7 +692,7 @@
       "_Password-350de7e5.js",
       "_Submit-5e6379c6.js",
       "_index.esm-b2918197.js",
-      "_FlashMessage-65cf7e3b.js"
+      "_FlashMessage-93f4c79f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Register.vue"
@@ -664,7 +706,7 @@
       "_Link-ac41d6b2.js",
       "_index.esm-b2918197.js",
       "_Submit-5e6379c6.js",
-      "_FlashMessage-65cf7e3b.js"
+      "_FlashMessage-93f4c79f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/Reset.vue"
@@ -679,7 +721,7 @@
       "_Password-350de7e5.js",
       "_Submit-5e6379c6.js",
       "_index.esm-b2918197.js",
-      "_FlashMessage-65cf7e3b.js"
+      "_FlashMessage-93f4c79f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Auth/Backend/ResetPassword.vue"
@@ -728,7 +770,7 @@
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/PasswordUpdate.vue",
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Admin/Components/AutenticatorManager.vue",
       "_tabs-3113ed32.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -749,7 +791,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -773,7 +815,7 @@
     "imports": [
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js"
     ],
     "isDynamicEntry": true,
@@ -808,7 +850,7 @@
       "_Toggle-1f7e2e25.js",
       "_Chips.vue_vue_type_script_setup_true_lang-8bc401f8.js",
       "_tabs-3113ed32.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_keyboard-8b566b5e.js",
       "_use-resolve-button-type-a7c357fc.js",
@@ -824,7 +866,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -849,7 +891,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -874,7 +916,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -907,7 +949,7 @@
     "imports": [
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js"
     ],
     "isDynamicEntry": true,
@@ -919,7 +961,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -947,7 +989,7 @@
       "_index.esm-b2918197.js",
       "_Submit-5e6379c6.js",
       "_tabs-3113ed32.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_keyboard-8b566b5e.js",
       "_use-resolve-button-type-a7c357fc.js",
@@ -963,7 +1005,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -988,7 +1030,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1017,7 +1059,7 @@
       "_TextMultipleSelector-201d79a5.js",
       "_Toggle-1f7e2e25.js",
       "_Editor.vue_vue_type_script_setup_true_lang-a9a250cb.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_keyboard-8b566b5e.js",
       "_use-resolve-button-type-a7c357fc.js",
@@ -1044,7 +1086,7 @@
       "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Comments/CommentComponent.vue",
       "_index.esm-b2918197.js",
       "_ReusableModal-78d0db42.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "__plugin-vue_export-helper-c27b6911.js",
@@ -1074,7 +1116,7 @@
       "_TextMultipleSelector-201d79a5.js",
       "_Toggle-1f7e2e25.js",
       "_tabs-3113ed32.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_axios-0c773085.js",
       "_message-circle-78d7a2a9.js",
@@ -1097,12 +1139,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Course/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Generic/Index.vue": {
-    "file": "assets/Index-4cf2d1fc.js",
+    "file": "assets/Index-79a1e952.js",
     "imports": [
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1141,7 +1183,7 @@
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
       "_Submit-5e6379c6.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js"
     ],
     "isDynamicEntry": true,
@@ -1153,7 +1195,7 @@
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1181,7 +1223,7 @@
       "_index.esm-b2918197.js",
       "_Toggle-1f7e2e25.js",
       "_Editor.vue_vue_type_script_setup_true_lang-a9a250cb.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_keyboard-8b566b5e.js",
       "_use-resolve-button-type-a7c357fc.js",
@@ -1191,12 +1233,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Slider/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/GameDev/Slider/Index.vue": {
-    "file": "assets/Index-79a1e952.js",
+    "file": "assets/Index-4cf2d1fc.js",
     "imports": [
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1221,7 +1263,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1253,7 +1295,7 @@
       "_TextMultipleSelector-201d79a5.js",
       "_Toggle-1f7e2e25.js",
       "_tabs-3113ed32.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_keyboard-8b566b5e.js",
       "_use-resolve-button-type-a7c357fc.js",
@@ -1269,7 +1311,7 @@
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1289,12 +1331,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/skeleton-store/product/index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/BackEnd/Vendor/skeleton-store/productCategory/index.vue": {
-    "file": "assets/index-f404032c.js",
+    "file": "assets/index-60991e2b.js",
     "imports": [
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1319,7 +1361,7 @@
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1343,7 +1385,7 @@
     "imports": [
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js"
     ],
     "isDynamicEntry": true,
@@ -1361,7 +1403,7 @@
       "_Image.vue_vue_type_script_setup_true_lang-2215c83f.js",
       "_TextMultipleSelector-201d79a5.js",
       "_tabs-3113ed32.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_keyboard-8b566b5e.js",
       "_use-resolve-button-type-a7c357fc.js",
@@ -1377,7 +1419,7 @@
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1397,12 +1439,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/backend/Pages/Vendor/skeleton-store/product/index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/backend/Pages/Vendor/skeleton-store/productCategory/index.vue": {
-    "file": "assets/index-60991e2b.js",
+    "file": "assets/index-f404032c.js",
     "imports": [
       "_preset-b90b9b08.js",
       "_App-f38c7bad.js",
       "_Table.vue_vue_type_script_setup_true_lang-7061575d.js",
-      "_FlashMessage-65cf7e3b.js",
+      "_FlashMessage-93f4c79f.js",
       "_dark-7de1eebc.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
@@ -1476,7 +1518,7 @@
     "file": "assets/Index-145befdb.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_Link-ac41d6b2.js",
       "_Password-350de7e5.js",
@@ -1487,16 +1529,16 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Register.vue": {
-    "file": "assets/Register-18508570.js",
+    "file": "assets/Register-145dd418.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_Link-ac41d6b2.js",
       "_Password-350de7e5.js",
       "_Submit-5e6379c6.js",
       "_index.esm-b2918197.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1509,7 +1551,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -1522,6 +1564,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -1535,15 +1578,15 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Register.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Reset.vue": {
-    "file": "assets/Reset-8a85b6e2.js",
+    "file": "assets/Reset-c95528f1.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_Link-ac41d6b2.js",
       "_index.esm-b2918197.js",
       "_Submit-5e6379c6.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1556,7 +1599,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -1569,6 +1612,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -1582,15 +1626,15 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/Reset.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue": {
-    "file": "assets/ResetPassword-17fbc422.js",
+    "file": "assets/ResetPassword-75acae4e.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_Input.vue_vue_type_script_setup_true_lang-8998e423.js",
       "_index.esm-b2918197.js",
       "_Password-350de7e5.js",
       "_Submit-5e6379c6.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1603,7 +1647,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -1616,6 +1660,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -1629,11 +1674,11 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/Auth/Frontend/ResetPassword.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/BackEnd/Vendor/skeleton-store/home/index.vue": {
-    "file": "assets/index-a9aa99b1.js",
+    "file": "assets/index-7b6fc849.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_FlashMessage-93f4c79f.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1647,7 +1692,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -1660,6 +1705,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -1673,11 +1719,11 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/BackEnd/Vendor/skeleton-store/home/index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Dashboard/Index.vue": {
-    "file": "assets/Index-208aef82.js",
+    "file": "assets/Index-871d72e6.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_FlashMessage-93f4c79f.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1691,7 +1737,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -1704,6 +1750,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -1780,10 +1827,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue": {
-    "file": "assets/Edit-e68e70fe.js",
+    "file": "assets/Edit-8458cfa8.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/EditDetails.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/PasswordUpdate.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Components/AutenticatorManager.vue",
@@ -1791,7 +1838,7 @@
       "_shield-179861bc.js",
       "_shield-check-f2627ceb.js",
       "_tabs-3113ed32.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1804,7 +1851,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_send-01c9abcb.js",
@@ -1816,6 +1863,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_key-6e09cf1f.js",
       "_Money-0f722979.js",
@@ -1830,13 +1878,13 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/User/Edit.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Blog/Index.vue": {
-    "file": "assets/Index-d5cfcb7d.js",
+    "file": "assets/Index-10a61c00.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_PostCard-1dbf32fc.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_PostCard-0ead94f8.js",
       "_Pagination-81acb172.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1850,7 +1898,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -1863,6 +1911,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -1871,6 +1920,7 @@
       "_message-circle-78d7a2a9.js",
       "_SeoManager-c70493bc.js",
       "_dark-7de1eebc.js",
+      "_zap-0a9be0bf.js",
       "_database-27e0aefd.js",
       "_chevron-left-b9c7b72b.js",
       "_chevron-right-9297b3c8.js"
@@ -1886,18 +1936,18 @@
     "css": [
       "assets/View-056aecbe.css"
     ],
-    "file": "assets/View-68e47c68.js",
+    "file": "assets/View-040dfa0a.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_CommentBox-6273ae65.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_CommentBox-65969e26.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_preset-b90b9b08.js",
       "_CommentsSingle.vue_vue_type_style_index_0_scoped_93efcfb2_lang-40f97a7e.js",
-      "_PostBox-cff9c81a.js",
+      "_PostBox-7b7598ad.js",
       "_clock-83e0ad33.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_createLucideIcon-c54a04d6.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
       "_shield-check-f2627ceb.js",
@@ -1917,6 +1967,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_send-01c9abcb.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
@@ -1927,6 +1978,7 @@
       "_message-circle-78d7a2a9.js",
       "_SeoManager-c70493bc.js",
       "_dark-7de1eebc.js",
+      "_globe-e589eb89.js",
       "_CommentsSingle-1c23573d.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_chevron-down-f54a1641.js",
@@ -1945,25 +1997,26 @@
     "css": [
       "assets/Certificate-07262103.css"
     ],
-    "file": "assets/Certificate-a58b3d90.js",
+    "file": "assets/Certificate-e61a0055.js",
     "imports": [
       "_SeoManager-c70493bc.js",
       "_preset-b90b9b08.js",
-      "_createLucideIcon-c54a04d6.js",
+      "_trophy-01119447.js",
       "_shield-179861bc.js",
       "_gamepad-2-08d13ba1.js",
+      "_createLucideIcon-c54a04d6.js",
       "_download-4347e100.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/Certificate.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/Index.vue": {
-    "file": "assets/Index-e7c73cbc.js",
+    "file": "assets/Index-d2aaf348.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_CourseTopic.vue_vue_type_script_setup_true_lang-587793bd.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_CourseTopic.vue_vue_type_script_setup_true_lang-1b3baa6a.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -1977,7 +2030,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -1990,6 +2043,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -1999,17 +2053,18 @@
       "_SeoManager-c70493bc.js",
       "_dark-7de1eebc.js",
       "_DifficultLevel.vue_vue_type_script_setup_true_lang-50f67218.js",
-      "_graduation-cap-61230c8d.js"
+      "_graduation-cap-61230c8d.js",
+      "_compass-07c165f9.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/View.vue": {
-    "file": "assets/View-c432a462.js",
+    "file": "assets/View-ce1f8b87.js",
     "imports": [
       "_axios-0c773085.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_CommentBox-6273ae65.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_CommentBox-65969e26.js",
       "_play-6f70ce92.js",
       "_chevron-left-b9c7b72b.js",
       "_createLucideIcon-c54a04d6.js",
@@ -2026,7 +2081,7 @@
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/SidebarControl.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/EpisodeGuide.vue",
       "_disclosure-e9910491.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
@@ -2037,7 +2092,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_user-5bde1ce3.js",
       "_send-01c9abcb.js",
       "resources/vendor/SkeletonAdmin/js/frontend/app.js",
@@ -2048,6 +2103,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2056,6 +2112,7 @@
       "_message-circle-78d7a2a9.js",
       "_SeoManager-c70493bc.js",
       "_dark-7de1eebc.js",
+      "_globe-e589eb89.js",
       "_CommentsSingle-1c23573d.js",
       "_CommentsSingle.vue_vue_type_style_index_0_scoped_93efcfb2_lang-40f97a7e.js",
       "_chevron-down-f54a1641.js",
@@ -2139,10 +2196,10 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/Sidebar.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/SidebarControl.vue": {
-    "file": "assets/SidebarControl-56bfe9be.js",
+    "file": "assets/SidebarControl-7c48f448.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_house-95b711b1.js",
       "_createLucideIcon-c54a04d6.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
@@ -2156,14 +2213,14 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Course/ViewComponents/SidebarControl.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Forum/Index.vue": {
-    "file": "assets/Index-4c7469cb.js",
+    "file": "assets/Index-b73f41a0.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_PostCard-1dbf32fc.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_PostCard-0ead94f8.js",
       "_Pagination-81acb172.js",
-      "_PostBox-cff9c81a.js",
-      "_FlashMessage-93f4c79f.js",
+      "_PostBox-7b7598ad.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -2177,7 +2234,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2190,6 +2247,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2198,6 +2256,7 @@
       "_message-circle-78d7a2a9.js",
       "_SeoManager-c70493bc.js",
       "_dark-7de1eebc.js",
+      "_zap-0a9be0bf.js",
       "_database-27e0aefd.js",
       "_chevron-left-b9c7b72b.js",
       "_chevron-right-9297b3c8.js",
@@ -2237,16 +2296,16 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/HeroSection02.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/Index.vue": {
-    "file": "assets/Index-789244a7.js",
+    "file": "assets/Index-f87c0b7d.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_CourseTopic.vue_vue_type_script_setup_true_lang-587793bd.js",
-      "_PostCard-1dbf32fc.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_CourseTopic.vue_vue_type_script_setup_true_lang-1b3baa6a.js",
+      "_PostCard-0ead94f8.js",
       "_HeroSection01.vue_vue_type_script_setup_true_lang-e6203761.js",
       "_HeroSection02.vue_vue_type_script_setup_true_lang-fc6aaa16.js",
       "_book-open-45bfbf31.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -2260,7 +2319,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2272,6 +2331,7 @@
       "_house-95b711b1.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2282,6 +2342,8 @@
       "_dark-7de1eebc.js",
       "_DifficultLevel.vue_vue_type_script_setup_true_lang-50f67218.js",
       "_graduation-cap-61230c8d.js",
+      "_compass-07c165f9.js",
+      "_zap-0a9be0bf.js",
       "_chevron-right-9297b3c8.js",
       "_play-6f70ce92.js",
       "_code-0ce16765.js",
@@ -2291,14 +2353,14 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Home/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Legal/Guidelines.vue": {
-    "file": "assets/Guidelines-17483891.js",
+    "file": "assets/Guidelines-ffe9f1f1.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_preset-b90b9b08.js",
       "_createLucideIcon-c54a04d6.js",
       "_book-open-45bfbf31.js",
       "_message-circle-78d7a2a9.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
@@ -2311,7 +2373,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2323,6 +2385,7 @@
       "_house-95b711b1.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2335,16 +2398,16 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Legal/Guidelines.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Legal/PrivacyPolicy.vue": {
-    "file": "assets/PrivacyPolicy-62fbc54c.js",
+    "file": "assets/PrivacyPolicy-ad627e83.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_preset-b90b9b08.js",
       "_shield-179861bc.js",
       "_database-27e0aefd.js",
       "_createLucideIcon-c54a04d6.js",
       "_shield-check-f2627ceb.js",
       "_mail-6312a372.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
@@ -2356,7 +2419,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2368,6 +2431,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_key-6e09cf1f.js",
       "_Money-0f722979.js",
@@ -2387,13 +2451,13 @@
     "css": [
       "assets/RoadMap-e3b0c442.css"
     ],
-    "file": "assets/RoadMap-a157ed7b.js",
+    "file": "assets/RoadMap-e151f28a.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_createLucideIcon-c54a04d6.js",
       "_preset-b90b9b08.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
       "_clock-83e0ad33.js",
@@ -2405,7 +2469,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2418,6 +2482,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2431,12 +2496,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Legal/RoadMap.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Legal/Terms.vue": {
-    "file": "assets/Terms-314fa184.js",
+    "file": "assets/Terms-17971a7a.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_preset-b90b9b08.js",
       "_createLucideIcon-c54a04d6.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
@@ -2449,7 +2514,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2462,6 +2527,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2475,15 +2541,15 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Legal/Terms.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/Index.vue": {
-    "file": "assets/Index-abbdf9f1.js",
+    "file": "assets/Index-6170a7fb.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_preset-b90b9b08.js",
       "_axios-0c773085.js",
       "_Money-0f722979.js",
       "_shopping-cart-dbc53f01.js",
       "_createLucideIcon-c54a04d6.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
@@ -2496,7 +2562,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_user-5bde1ce3.js",
       "_send-01c9abcb.js",
@@ -2508,6 +2574,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2520,13 +2587,13 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/Index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/View.vue": {
-    "file": "assets/View-c99e975f.js",
+    "file": "assets/View-75940cb2.js",
     "imports": [
       "_axios-0c773085.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_preset-b90b9b08.js",
       "_Money-0f722979.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -2540,7 +2607,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_user-5bde1ce3.js",
       "_send-01c9abcb.js",
@@ -2552,6 +2619,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2598,16 +2666,76 @@
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/ViewComponents/SidebarControl.vue"
   },
-  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/PaidItemsList.vue": {
-    "file": "assets/PaidItemsList-6a1f7c63.js",
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Achievement.css": {
+    "file": "assets/Achievement-db92ce7b.css",
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Achievement.css"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Achievement.vue": {
+    "css": [
+      "assets/Achievement-db92ce7b.css"
+    ],
+    "file": "assets/Achievement-224de60b.js",
     "imports": [
-      "_PaidItemsList.vue_vue_type_script_setup_true_lang-f85b8266.js",
+      "_preset-b90b9b08.js",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/UserProfile.vue",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_shield-179861bc.js",
+      "_clock-83e0ad33.js",
+      "_trophy-01119447.js",
+      "_star-17bb3c13.js",
+      "_x-b0b4ae59.js",
+      "_code-0ce16765.js",
+      "_createLucideIcon-c54a04d6.js",
+      "_zap-0a9be0bf.js",
+      "_SearchSidebar-10a1abc7.js",
+      "_book-open-45bfbf31.js",
+      "_compass-07c165f9.js",
+      "_globe-e589eb89.js",
+      "_package-d14ec67b.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_FlashMessage-65cf7e3b.js",
+      "_triangle-alert-9a3c06c5.js",
+      "_shield-check-f2627ceb.js",
+      "_index.esm-b2918197.js",
+      "_ReusableModal-78d0db42.js",
+      "_transition-c810ac22.js",
+      "_focus-management-bfa3f621.js",
+      "_keyboard-8b566b5e.js",
+      "_hidden-a6a905be.js",
+      "_open-closed-def677aa.js",
+      "_user-5bde1ce3.js",
+      "resources/vendor/SkeletonAdmin/js/frontend/app.js",
+      "_mail-6312a372.js",
+      "_info-b159d59c.js",
+      "_gamepad-2-08d13ba1.js",
+      "_house-95b711b1.js",
+      "_crown-9f36e625.js",
+      "_lock-e84a1f43.js",
+      "_send-01c9abcb.js",
+      "_arrow-left-44d4d084.js",
+      "_key-6e09cf1f.js",
+      "_axios-0c773085.js",
+      "_Money-0f722979.js",
+      "_download-4347e100.js",
+      "_message-circle-78d7a2a9.js",
+      "_SeoManager-c70493bc.js",
+      "_dark-7de1eebc.js",
+      "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Achievement.vue"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/PaidItemsList.vue": {
+    "file": "assets/PaidItemsList-edcc0a59.js",
+    "imports": [
+      "_PaidItemsList.vue_vue_type_script_setup_true_lang-e41e596e.js",
       "_preset-b90b9b08.js",
       "_Money-0f722979.js",
       "_book-open-45bfbf31.js",
       "_createLucideIcon-c54a04d6.js",
       "_clock-83e0ad33.js",
-      "_calendar-1a62630a.js"
+      "_calendar-1a62630a.js",
+      "_package-d14ec67b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/PaidItemsList.vue"
@@ -2630,15 +2758,15 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/SubscriptionManagement.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Index.vue": {
-    "file": "assets/Index-91dd83a6.js",
+    "file": "assets/Index-ebea2570.js",
     "imports": [
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
       "_SubscriptionManagement.vue_vue_type_script_setup_true_lang-2c2e38e8.js",
-      "_PaidItemsList.vue_vue_type_script_setup_true_lang-f85b8266.js",
+      "_PaidItemsList.vue_vue_type_script_setup_true_lang-e41e596e.js",
       "_preset-b90b9b08.js",
       "_createLucideIcon-c54a04d6.js",
       "_tabs-3113ed32.js",
-      "_FlashMessage-93f4c79f.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_triangle-alert-9a3c06c5.js",
@@ -2651,7 +2779,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2664,6 +2792,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2673,17 +2802,36 @@
       "_SeoManager-c70493bc.js",
       "_dark-7de1eebc.js",
       "_calendar-1a62630a.js",
+      "_package-d14ec67b.js",
       "_use-resolve-button-type-a7c357fc.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Index.vue"
   },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/UserProfile.css": {
+    "file": "assets/UserProfile-9c34a5c4.css",
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/UserProfile.css"
+  },
+  "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/UserProfile.vue": {
+    "css": [
+      "assets/UserProfile-9c34a5c4.css"
+    ],
+    "file": "assets/UserProfile-0845bde4.js",
+    "imports": [
+      "_star-17bb3c13.js",
+      "_preset-b90b9b08.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_createLucideIcon-c54a04d6.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/UserProfile.vue"
+  },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue": {
-    "file": "assets/index-32a5fd85.js",
+    "file": "assets/index-98c0bbd8.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_FlashMessage-93f4c79f.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -2697,7 +2845,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2710,6 +2858,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2723,11 +2872,11 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue"
   },
   "resources/vendor/SkeletonAdmin/js/frontend/Pages/Vendor/skeleton-store/index.vue": {
-    "file": "assets/index-8b0e9f16.js",
+    "file": "assets/index-2c364fcf.js",
     "imports": [
       "_preset-b90b9b08.js",
-      "_App.vue_vue_type_script_setup_true_lang-981287be.js",
-      "_FlashMessage-93f4c79f.js",
+      "_App.vue_vue_type_script_setup_true_lang-964d745a.js",
+      "_FlashMessage-65cf7e3b.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_x-b0b4ae59.js",
       "_createLucideIcon-c54a04d6.js",
@@ -2741,7 +2890,7 @@
       "_keyboard-8b566b5e.js",
       "_hidden-a6a905be.js",
       "_open-closed-def677aa.js",
-      "_SearchSidebar-1f02728d.js",
+      "_SearchSidebar-10a1abc7.js",
       "_dynamicIcon.vue_vue_type_script_setup_true_lang-4bfb852c.js",
       "_axios-0c773085.js",
       "_user-5bde1ce3.js",
@@ -2754,6 +2903,7 @@
       "_book-open-45bfbf31.js",
       "_crown-9f36e625.js",
       "_lock-e84a1f43.js",
+      "_star-17bb3c13.js",
       "_arrow-left-44d4d084.js",
       "_shield-179861bc.js",
       "_key-6e09cf1f.js",
@@ -2801,13 +2951,15 @@
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/ViewComponents/EpisodeGuide.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/ViewComponents/Sidebar.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/Store/ViewComponents/SidebarControl.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Achievement.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/PaidItemsList.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Components/SubscriptionManagement.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/Index.vue",
+      "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/GameDev/User/UserProfile.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/FrontEnd/Vendor/skeleton-store/home/index.vue",
       "resources/vendor/SkeletonAdmin/js/frontend/Pages/Vendor/skeleton-store/index.vue"
     ],
-    "file": "assets/Frontend_js-4ae4c089.js",
+    "file": "assets/Frontend_js-61ac3296.js",
     "imports": [
       "_preset-b90b9b08.js"
     ],
@@ -2815,12 +2967,12 @@
     "src": "resources/vendor/SkeletonAdmin/js/frontend/app.js"
   },
   "resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss": {
-    "file": "assets/backendApp-f2339fe9.css",
+    "file": "assets/backendApp-04a3d1ee.css",
     "isEntry": true,
     "src": "resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss"
   },
   "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss": {
-    "file": "assets/frontendApp-364e8c7a.css",
+    "file": "assets/frontendApp-c10c1bad.css",
     "isEntry": true,
     "src": "resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss"
   }

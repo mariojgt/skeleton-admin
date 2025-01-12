@@ -154,6 +154,15 @@
                             </li>
                             <li>
                                 <Link
+                                    :href="achievements"
+                                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300"
+                                >
+                                    <User class="w-5 h-5" />
+                                    Achievements
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
                                     :href="logoutRoute"
                                     class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300"
                                 >
@@ -228,6 +237,7 @@ const openNotification = () => {
 
 // Routes
 const profileLink = route("user.edit");
+const achievements = route("profile.achievements");
 const logoutRoute = route("logout.user");
 
 // Lifecycle
