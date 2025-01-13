@@ -1,115 +1,119 @@
 /* Base style for the blog content */
 .blog-content {
-    font-family: 'Roboto', Arial, sans-serif; /* Clean and modern sans-serif font */
+    font-family: 'Roboto', Arial, sans-serif;
     line-height: 1.8;
-    color: #dcdcdc; /* Light text for good contrast on dark backgrounds */
-    background-color: #24253a; /* Match the description background */
+    color: #dcdcdc;
+    background-color: #24253a;
     padding: 30px;
     border-radius: 10px;
     margin: auto;
-    // max-width: 800px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border: 1px solid #333333; /* Subtle border for definition */
+    border: 1px solid #333333;
 }
 
 /* Headings */
-.blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5, .blog-content h6 {
-    color: #ffdc35; /* Yellow for headings to match the site's accents */
-    margin-top: 25px;
-    margin-bottom: 15px;
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+    color: #328AF1; /* Laracasts Blue */
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
     line-height: 1.3;
-    font-family: 'Orbitron', sans-serif; /* A gaming-style display font */
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: -0.025em;
 }
 
 .blog-content h1 {
-    font-size: 2.8em;
+    font-size: 2.25rem;
 }
 
 .blog-content h2 {
-    font-size: 2.3em;
+    font-size: 1.875rem;
 }
 
 .blog-content h3 {
-    font-size: 2em;
+    font-size: 1.5rem;
 }
 
 .blog-content h4 {
-    font-size: 1.7em;
+    font-size: 1.25rem;
 }
 
-.blog-content h5 {
-    font-size: 1.5em;
-}
-
+.blog-content h5,
 .blog-content h6 {
-    font-size: 1.2em;
+    font-size: 1.125rem;
 }
 
 /* Paragraphs */
 .blog-content p {
-    margin-bottom: 25px;
-    font-size: 1.2em;
-    color: #dcdcdc; /* Light gray for paragraph text */
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    color: #BAD9FC; /* Elements & Icons blue for better readability on dark */
 }
 
 /* Strong text */
 .blog-content strong {
-    font-weight: bold;
-    color: #ffdc35; /* Yellow for strong emphasis */
+    font-weight: 600;
+    color: #637BFF; /* Frameworks blue */
 }
 
 /* Lists */
-.blog-content ul, .blog-content ol {
-    margin: 15px;
-    padding-left: 40px;
-    color: #dcdcdc; /* Match paragraph text */
-    list-style-type: circle; /* Use circles for list items */
+.blog-content ul,
+.blog-content ol {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    color: #BAD9FC;
 }
 
-/* Adjusting the bullet size for modern browsers */
-.blog-content ul li::marker, .blog-content ol li::marker {
-    font-size: 0.8em; /* Smaller size for bullets */
-    color: #ffdc35; /* Use the yellow accent color for bullets */
-}
-
-/* List Items */
 .blog-content li {
-    margin-bottom: 12px;
-    font-size: 1.1em;
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
 }
 
 /* Links */
 .blog-content a {
-    color: #0047ff; /* Match the site's blue for links */
+    color: #21C8F6; /* Frameworks lighter blue */
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .blog-content a:hover {
-    color: #ffdc35; /* Yellow on hover for consistency */
-    text-decoration: underline;
+    color: #328AF1; /* Laracasts Blue */
+    border-bottom-color: currentColor;
 }
 
 /* Code blocks */
-.blog-content pre, .blog-content code {
-    background-color: #1b1b2f; /* Dark gray background to match the site */
-    color: #d4d4d4; /* Soft white for text */
-    padding: 15px;
-    border-radius: 6px;
-    font-family: 'Fira Code', monospace; /* Programmer-friendly font */
-    font-size: 0.95em;
+.blog-content pre,
+.blog-content code {
+    background-color: #253D63; /* DevOps dark blue */
+    color: #BAD9FC; /* Elements & Icons blue */
+    padding: 1rem;
+    border-radius: 0.375rem;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
     overflow-x: auto;
+}
+
+/* Inline code */
+.blog-content code:not(pre code) {
+    padding: 0.2em 0.4em;
+    font-size: 0.875em;
+    background-color: #253D63;
+    border-radius: 0.25rem;
 }
 
 /* Blockquotes */
 .blog-content blockquote {
-    margin: 25px 0;
-    padding: 15px 25px;
-    background-color: #24253a; /* Match the description box */
-    border-left: 5px solid #0047ff; /* Blue border for blockquotes */
-    color: #c5c5c5; /* Light gray for text */
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid #8B60ED; /* Languages purple */
+    background-color: #1a1b2e; /* Slightly lighter than main background */
+    color: #BAD9FC;
     font-style: italic;
 }
 
@@ -118,55 +122,47 @@
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 20px 0;
-    border-radius: 10px;
-    border: 2px solid #333333; /* Subtle border */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    border: 1px solid #333333;
 }
 
 /* Tables */
 .blog-content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
-    background-color: #1b1b2f;
-    border: 1px solid #333333;
-    color: #e0e0e0;
+    margin: 2rem 0;
+    font-size: 0.875rem;
+    background-color: #1a1b2e;
 }
 
-.blog-content th, .blog-content td {
-    padding: 15px;
+.blog-content th,
+.blog-content td {
+    padding: 0.75rem;
     text-align: left;
-    border: 1px solid #444444;
+    border-bottom: 1px solid #333333;
+    color: #BAD9FC;
 }
 
 .blog-content th {
-    background-color: #24253a; /* Match darker background */
-    color: #ffdc35;
-    text-transform: uppercase;
-    font-size: 1.1em;
+    background-color: #253D63; /* DevOps dark blue */
+    font-weight: 600;
+    color: #328AF1; /* Laracasts Blue */
 }
 
-.blog-content tr:nth-child(even) {
-    background-color: #1a1a1a; /* Subtle alternating row color */
-}
-
-/* Buttons (Optional for Call-to-Actions) */
+/* Buttons */
 .blog-content .btn {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #0047ff;
+    padding: 0.75rem 1.5rem;
+    background-color: #328AF1; /* Laracasts Blue */
     color: #ffffff;
-    font-size: 1em;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
 }
 
 .blog-content .btn:hover {
-    background-color: #ffdc35;
-    color: #1a1a1a;
+    background-color: #21C8F6; /* Frameworks lighter blue */
 }
