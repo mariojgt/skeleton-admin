@@ -103,6 +103,12 @@
                         <li>
                             <a href="#" @click="openShop" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Shop</a>
                         </li>
+                        <li>
+                            <a href="#" @click="openContact" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Contact</a>
+                        </li>
+                        <li>
+                            <a href="#" @click="openPricing" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Pricing</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -247,5 +253,11 @@ const openGuidelines = () => {
 };
 const openTerms = () => {
     router.visit(route("terms.of.service"));
+};
+const openContact = () => {
+    router.visit(route("contact.index"));
+};
+const openPricing = () => {
+    router.visit(route("pricing"));
 };
 </script>

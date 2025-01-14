@@ -1,131 +1,274 @@
 <template>
     <div class="flex-1 lg:flex-none">
-        <div class="form-control p-6">
-            <div class="relative">
-                <div class="dropdown dropdown-end">
-                    <input type="text" tabindex="0" placeholder="Search" v-model="search" @keyup="fetchSearch"
-                        class="w-full pr-16 input input-primary input-bordered" />
-                    <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-6 h-6 stroke-current">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </button>
-                    <ul tabindex="0"
-                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box max-h-[400px] w-[500px] overflow-y-auto">
-                        <div v-if="search.length === 0">
-                            <li>
-                                <div class="">
-                                    <div class="flex justify-between">
-                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                            </path>
-                                        </svg>
-                                        <div>
-                                            Type to search ...
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </div>
-                        <div v-else-if="searchResult.status === false">
-                            <li>
-                                <div class="">
-                                    <div class="flex justify-between">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
-                                        </svg>
-                                        <div>
-                                            No Result ...
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </div>
-                        <div v-else-if="searching">
-                            <li>
-                                <div class="">
-                                    <div class="flex justify-between">
-                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                            </path>
-                                        </svg>
-                                        <div>
-                                            Searching ...
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </div>
-                        <div v-else v-for="(item, index) in searchResult.data" :key="index">
-                            <li v-for="(data, key) in item.search" :key="key">
-                                <Link :href="data.route" class="bg-base-200 mb-1 flex justify-between">
-                                <div class="text-md font-bold">
-                                    <span class="text-primary text-md pr-1">{{ index }}</span> {{ data.result }}
-                                </div>
-                                <div class="text-md font-bold text-primary flex justify-between">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        {{ data.last_route }}
-                                    </div>
-                                </div>
-                                </Link>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
+      <div class="form-control p-6">
+        <div class="relative" ref="searchContainer">
+          <!-- Search Input -->
+          <div class="relative">
+            <input
+              type="text"
+              v-model="searchQuery"
+              @input="handleInput"
+              @keydown.down.prevent="handleArrowDown"
+              @keydown.up.prevent="handleArrowUp"
+              @keydown.enter.prevent="handleEnter"
+              @keydown.esc="clearSearch"
+              placeholder="Search..."
+              class="w-full pr-16 input input-primary input-bordered"
+              :class="{ 'input-error': hasError }"
+            />
+
+            <button
+              class="absolute top-0 right-0 rounded-l-none btn btn-primary"
+              @click="handleSearch"
+            >
+              <Loader2Icon v-if="isLoading" class="w-5 h-5 animate-spin" />
+              <SearchIcon v-else class="w-5 h-5" />
+            </button>
+          </div>
+
+          <!-- Results Dropdown -->
+          <div
+            v-show="showDropdown"
+            class="absolute z-50 w-full mt-2 bg-base-100 rounded-box shadow-lg"
+          >
+            <!-- Initial State -->
+            <div v-if="searchQuery.length < minChars" class="p-4 text-center text-base-content/60">
+              <SearchIcon class="w-5 h-5 mx-auto mb-2" />
+              Type at least {{ minChars }} characters to search
             </div>
+
+            <!-- Loading State -->
+            <div v-else-if="isLoading" class="p-4 text-center">
+              <div class="flex items-center justify-center space-x-2">
+                <Loader2Icon class="w-5 h-5 animate-spin" />
+                <span>Searching...</span>
+              </div>
+            </div>
+
+            <!-- No Results -->
+            <div v-else-if="hasNoResults" class="p-4 text-center text-base-content/60">
+              <FileQuestionIcon class="w-6 h-6 mx-auto mb-2" />
+              No results found for "{{ searchQuery }}"
+            </div>
+
+            <!-- Results List -->
+            <div v-else-if="hasResults" class="max-h-[400px] overflow-y-auto">
+              <div v-for="(category, categoryName) in searchResults.data" :key="categoryName">
+                <div class="px-4 py-2 text-sm font-semibold bg-base-200 flex items-center space-x-2">
+                  <FolderIcon class="w-4 h-4" />
+                  <span>{{ categoryName }}</span>
+                </div>
+                <div v-for="(item, index) in category.search" :key="index">
+                  <Link
+                    :href="item.route"
+                    class="block px-4 py-3 hover:bg-base-200 transition-colors duration-150"
+                    :class="{ 'bg-primary/10': selectedIndex === getItemIndex(categoryName, index) }"
+                    @click="handleItemClick(item)"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center space-x-3 flex-1">
+                        <div class="flex-shrink-0">
+                          <FileTextIcon class="w-5 h-5 text-primary" />
+                        </div>
+                        <div class="min-w-0">
+                          <div class="font-medium truncate">{{ item.result }}</div>
+                          <div class="text-sm text-base-content/60 flex items-center space-x-1">
+                            <HistoryIcon class="w-3 h-3" />
+                            <span class="truncate">{{ item.last_route }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex-shrink-0 ml-4">
+                        <ArrowRightIcon class="w-4 h-4" />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</template>
+  </template>
 
-<script setup>
-// Import axios
-import { api } from "../../../Boot/axios.js";
-import { Link } from "@inertiajs/vue3";
-import { computed } from "vue";
-import { useMessage } from "naive-ui";
-const message = useMessage();
+  <script setup lang="ts">
+  import { ref, computed, onMounted, onUnmounted } from 'vue';
+  import { Link } from '@inertiajs/vue3';
+  import { api } from "../../../Boot/axios.js";
+  import debounce from 'lodash/debounce';
+  import {
+    Search as SearchIcon,
+    Loader2 as Loader2Icon,
+    FileQuestion as FileQuestionIcon,
+    Folder as FolderIcon,
+    FileText as FileTextIcon,
+    History as HistoryIcon,
+    ArrowRight as ArrowRightIcon
+  } from 'lucide-vue-next';
 
-let search = $ref([]);
-let debounce = $ref([]);
-let searchResult = $ref([]);
-let searching = $ref(false);
+  // Types
+  interface SearchItem {
+    route: string;
+    result: string;
+    last_route: string;
+  }
 
-const fetchSearch = async () => {
-    // Check the length of the search
-    if (search.length < 3) {
-        return;
+  interface CategoryData {
+    search: SearchItem[];
+  }
+
+  interface SearchResponse {
+    status: boolean;
+    data: Record<string, CategoryData>;
+  }
+
+  // Props
+  const props = withDefaults(defineProps<{
+    minChars?: number;
+    debounceTime?: number;
+  }>(), {
+    minChars: 3,
+    debounceTime: 300
+  });
+
+  // State
+  const searchQuery = ref('');
+  const searchResults = ref<SearchResponse>({ status: false, data: {} });
+  const isLoading = ref(false);
+  const hasError = ref(false);
+  const showDropdown = ref(false);
+  const selectedIndex = ref(-1);
+  const searchContainer = ref<HTMLElement | null>(null);
+
+  // Computed
+  const hasResults = computed(() => {
+    return searchResults.value.status && Object.keys(searchResults.value.data).length > 0;
+  });
+
+  const hasNoResults = computed(() => {
+    return !isLoading.value && searchQuery.value.length >= props.minChars && !hasResults.value;
+  });
+
+  const totalItems = computed(() => {
+    if (!hasResults.value) return 0;
+    return Object.values(searchResults.value.data).reduce((total, category) => {
+      return total + category.search.length;
+    }, 0);
+  });
+
+  // Methods
+  const debouncedSearch = debounce(async () => {
+    if (searchQuery.value.length < props.minChars) {
+      searchResults.value = { status: false, data: {} };
+      isLoading.value = false;
+      return;
     }
-    searching = true;
-    // Clear any existing debounce event
-    clearTimeout(debounce);
-    // Update and log the counts after 500 miliseconds
-    debounce = setTimeout(function () {
-        api
-            .get(route("admin.api.search", { search: search }))
-            .then(function (response) {
-                searchResult = response.data;
-                searching = false;
-            })
-            .catch(function (error) { });
-    }, 500);
-};
-</script>
+
+    try {
+      isLoading.value = true;
+      hasError.value = false;
+      const response = await api.get<SearchResponse>(
+        route('admin.api.search', { search: searchQuery.value })
+      );
+      searchResults.value = response.data;
+      showDropdown.value = true;
+    } catch (error) {
+      hasError.value = true;
+      searchResults.value = { status: false, data: {} };
+    } finally {
+      isLoading.value = false;
+    }
+  }, props.debounceTime);
+
+  const handleInput = () => {
+    showDropdown.value = true;
+    hasError.value = false;
+    debouncedSearch();
+  };
+
+  const handleSearch = () => {
+    if (searchQuery.value.length >= props.minChars) {
+      debouncedSearch();
+    }
+  };
+
+  const clearSearch = () => {
+    searchQuery.value = '';
+    searchResults.value = { status: false, data: {} };
+    showDropdown.value = false;
+    selectedIndex.value = -1;
+  };
+
+  const getItemIndex = (category: string, itemIndex: number): number => {
+    let index = 0;
+    for (const [categoryName, categoryData] of Object.entries(searchResults.value.data)) {
+      if (categoryName === category) {
+        return index + itemIndex;
+      }
+      index += categoryData.search.length;
+    }
+    return -1;
+  };
+
+  const handleArrowDown = () => {
+    if (!hasResults.value) return;
+    selectedIndex.value = (selectedIndex.value + 1) % totalItems.value;
+  };
+
+  const handleArrowUp = () => {
+    if (!hasResults.value) return;
+    selectedIndex.value = selectedIndex.value <= 0 ? totalItems.value - 1 : selectedIndex.value - 1;
+  };
+
+  const handleEnter = () => {
+    if (!hasResults.value || selectedIndex.value === -1) return;
+
+    let currentIndex = 0;
+    for (const category of Object.values(searchResults.value.data)) {
+      for (const item of category.search) {
+        if (currentIndex === selectedIndex.value) {
+          window.location.href = item.route;
+          return;
+        }
+        currentIndex++;
+      }
+    }
+  };
+
+  const handleItemClick = (item: SearchItem) => {
+    clearSearch();
+  };
+
+  // Click outside handler
+  const handleClickOutside = (event: MouseEvent) => {
+    if (searchContainer.value && !searchContainer.value.contains(event.target as Node)) {
+      showDropdown.value = false;
+    }
+  };
+
+  // Lifecycle
+  onMounted(() => {
+    document.addEventListener('click', handleClickOutside);
+  });
+
+  onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside);
+    debouncedSearch.cancel();
+  });
+  </script>
+
+  <style scoped>
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  </style>

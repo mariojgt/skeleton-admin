@@ -194,7 +194,8 @@ let isAuth = $ref(false);
 const userInfo = computed(() => {
     const userData = usePage().props.authUserInfo?.data || {};
     return {
-        hasLevel: userData.has_subscription || false,
+        // hasLevel: userData.has_subscription || false,
+        hasLevel: true,
         level: usePage().props.authUserInfo.data.level || 25,
         currentXp: usePage().props.authUserInfo.data.xp || 50,
         nextLevelXp: usePage().props.authUserInfo.data.next_level_xp || 100,

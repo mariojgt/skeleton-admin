@@ -6,6 +6,8 @@
         :showFooter="false"
         modalClass="bg-dark-500/95 backdrop-blur-sm border border-gray-800/50"
         :showModalBox="false"
+        closeOnClick
+        :showClose="true"
     >
         <template #title>
             <header class="relative text-center px-8 py-6">

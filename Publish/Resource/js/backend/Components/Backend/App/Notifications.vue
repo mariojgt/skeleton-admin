@@ -1,96 +1,233 @@
 <template>
     <div class="dropdown dropdown-end">
-        <button class="btn btn-ghost btn-circle">
-            <div class="indicator">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-                <span class="badge badge-xs badge-primary indicator-item" v-show="notificationsCount > 0" ></span>
-            </div>
-            <div class="badge badge-primary" v-if="notificationsCount > 0">
-                {{ notificationsCount }}
-            </div>
-        </button>
-        <div tabindex="0" class="flex shadow menu dropdown-content bg-base-100 rounded-box w-96">
-            <ul v-if="notificationsCount > 0" class="menu py-3 shadow-lg bg-base-100">
-                <li v-for="(item, index) in notifications" :key="index" class="pb-0 rounded-box mb-3">
-                    <div class="flex pd overflow-hidden border">
-                        <div class="flex items-center pr-10">
-                            <div class="avatar">
-                                <div class="w-12 mask mask-squircle" v-if="item.data.type == 'image'">
-                                    <img :src="item.data.icon" />
-                                </div>
-                                <div v-else>
-                                    <Icon :icon="item.data.icon" />
-                                </div>
-                            </div>
-                            <div class="mx-3">
-                                <h2 class="text-xl font-semibold text-base-content">
-                                    {{ item.data.title }}
-                                </h2>
-                                <p class="text-base-content">
-                                    {{ item.data.content }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <ul class="text-neutral-content">
-                <li @click="readAll">
-                    <a>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        Clear Notifications
-                    </a>
-                </li>
-            </ul>
+      <!-- Notification Button -->
+      <button
+        class="btn btn-ghost btn-circle relative"
+        aria-label="Notifications"
+      >
+        <BellIcon class="h-5 w-5" />
+        <div
+          v-if="notificationCount > 0"
+          class="absolute -top-1 -right-1 flex items-center justify-center"
+        >
+          <div class="badge badge-primary badge-sm">{{ notificationCount }}</div>
         </div>
+      </button>
+
+      <!-- Dropdown Content -->
+      <div
+        tabindex="0"
+        class="dropdown-content z-30 shadow-lg menu bg-base-100 rounded-box w-96 overflow-hidden"
+      >
+        <!-- Notifications List -->
+        <div v-if="notifications.length > 0" class="max-h-[70vh] overflow-y-auto">
+          <TransitionGroup
+            enter-active-class="transition duration-200 ease-out"
+            enter-from-class="transform translate-x-full opacity-0"
+            enter-to-class="transform translate-x-0 opacity-100"
+            leave-active-class="transition duration-200 ease-in"
+            leave-from-class="transform translate-x-0 opacity-100"
+            leave-to-class="transform translate-x-full opacity-0"
+          >
+            <div
+              v-for="notification in notifications"
+              :key="notification.id"
+              class="border-b border-base-200 last:border-none"
+            >
+              <div class="flex items-start p-4 hover:bg-base-200 transition-colors duration-200">
+                <!-- Icon -->
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-10 h-10 rounded-full flex items-center justify-center"
+                    :class="getIconBgClass(notification.data.type)"
+                  >
+                    <component
+                      :is="getNotificationIcon(notification.data.type)"
+                      class="w-5 h-5"
+                      :class="getIconClass(notification.data.type)"
+                    />
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="ml-4 flex-1">
+                  <p class="text-sm font-medium text-base-content">
+                    {{ notification.data.title }}
+                  </p>
+                  <p class="mt-1 text-sm text-base-content/70">
+                    {{ notification.data.content }}
+                  </p>
+                  <p class="mt-2 text-xs text-base-content/50">
+                    {{ formatTimestamp(notification.created_at) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </TransitionGroup>
+        </div>
+
+        <!-- Empty State -->
+        <div
+          v-else
+          class="p-6 text-center text-base-content/70"
+        >
+          <BellOffIcon class="w-8 h-8 mx-auto mb-3 opacity-50" />
+          <p>No new notifications</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="border-t border-base-200">
+          <button
+            v-if="notificationCount > 0"
+            @click="handleClearAll"
+            class="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm text-base-content/70 hover:bg-base-200 transition-colors duration-200"
+          >
+            <TrashIcon class="w-4 h-4" />
+            Clear All Notifications
+          </button>
+          <button
+            v-else
+            @click="handleRefresh"
+            class="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm text-base-content/70 hover:bg-base-200 transition-colors duration-200"
+          >
+            <RefreshCwIcon
+              class="w-4 h-4"
+              :class="{ 'animate-spin': isLoading }"
+            />
+            Refresh
+          </button>
+        </div>
+      </div>
     </div>
-</template>
+  </template>
 
-<script setup >
-// Import axios
-import { api } from "../../../Boot/axios.js";
-// Import the icon handle for the notification
-import Icon from "./NotificationIcon.vue";
+  <script setup lang="ts">
+  import { ref, onMounted, onUnmounted } from 'vue';
+  import { useMessage } from 'naive-ui';
+  import { api } from "../../../Boot/axios.js";
+  import {
+    Bell as BellIcon,
+    BellOff as BellOffIcon,
+    Trash as TrashIcon,
+    RefreshCw as RefreshCwIcon,
+    AlertCircle as AlertCircleIcon,
+    CheckCircle as CheckCircleIcon,
+    Info as InfoIcon,
+    AlertTriangle as AlertTriangleIcon
+  } from 'lucide-vue-next';
 
-import { useMessage } from "naive-ui";
-const message = useMessage();
+  interface NotificationData {
+    type: 'success' | 'error' | 'warning' | 'info';
+    title: string;
+    content: string;
+    icon?: string;
+  }
 
-let notifications = $ref([]);
-// Notifications count
-let notificationsCount = $ref(0);
+  interface Notification {
+    id: string;
+    data: NotificationData;
+    created_at: string;
+  }
 
-const fetchNotifications = async () => {
-    api
-        .get(route("admin.api.notifications", 5))
-        .then(function (response) {
-            // Get the notifications
-            notifications = response.data.data;
-            // Count the notifications
-            notificationsCount = notifications.length;
-            // If is more them 0 we can display a message
-            if (notificationsCount > 0) {
-                message.success("You have new notifications");
-            }
-        })
-        .catch(function (error) { });
-};
+  // State
+  const notifications = ref<Notification[]>([]);
+  const notificationCount = ref(0);
+  const isLoading = ref(false);
+  const message = useMessage();
+  let pollingInterval: NodeJS.Timer;
 
-fetchNotifications();
+  // Methods
+  const fetchNotifications = async () => {
+    try {
+      isLoading.value = true;
+      const response = await api.get(route('admin.api.notifications', 5));
+      notifications.value = response.data.data;
+      notificationCount.value = notifications.value.length;
 
-// Set a timeout to fetch notifications every 25 seconds
-setInterval(fetchNotifications, 25000);
+      if (notificationCount.value > 0) {
+        message.success('You have new notifications');
+      }
+    } catch (error) {
+      message.error('Failed to fetch notifications');
+    } finally {
+      isLoading.value = false;
+    }
+  };
 
-const readAll = async () => {
-    api.post(route("admin.api.notification.read"));
-    // Fetch the notifications
+  const handleClearAll = async () => {
+    try {
+      isLoading.value = true;
+      await api.post(route('admin.api.notification.read'));
+      await fetchNotifications();
+      message.success('Notifications cleared');
+    } catch (error) {
+      message.error('Failed to clear notifications');
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  const handleRefresh = () => {
     fetchNotifications();
-};
-</script>
+  };
+
+  const getNotificationIcon = (type: string) => {
+    const icons = {
+      success: CheckCircleIcon,
+      error: AlertCircleIcon,
+      warning: AlertTriangleIcon,
+      info: InfoIcon,
+      default: BellIcon
+    };
+    return icons[type as keyof typeof icons] || icons.default;
+  };
+
+  const getIconBgClass = (type: string) => {
+    const classes = {
+      success: 'bg-success/10',
+      error: 'bg-error/10',
+      warning: 'bg-warning/10',
+      info: 'bg-info/10',
+      default: 'bg-primary/10'
+    };
+    return classes[type as keyof typeof classes] || classes.default;
+  };
+
+  const getIconClass = (type: string) => {
+    const classes = {
+      success: 'text-success',
+      error: 'text-error',
+      warning: 'text-warning',
+      info: 'text-info',
+      default: 'text-primary'
+    };
+    return classes[type as keyof typeof classes] || classes.default;
+  };
+
+  const formatTimestamp = (timestamp: string): string => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else {
+      return `${days} days ago`;
+    }
+  };
+
+  // Lifecycle
+  onMounted(() => {
+    fetchNotifications();
+    pollingInterval = setInterval(fetchNotifications, 25000);
+  });
+
+  onUnmounted(() => {
+    clearInterval(pollingInterval);
+  });
+  </script>
