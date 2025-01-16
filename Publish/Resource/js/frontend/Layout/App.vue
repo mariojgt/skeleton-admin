@@ -9,7 +9,7 @@
             <!-- handle the breadcrumb -->
             <Breadcrumb :backgroundClass="backgroundBreadcrumbClass" />
             <div>
-                <MaintenanceAlert v-if="usePage().props.maintenanceInfo.enabled" :maintenanceInfo="usePage().props.maintenanceInfo" />
+                <AlertSystem :alerts="usePage().props.activeAlerts" />
                 <n-loading-bar-provider>
                     <n-message-provider>
                         <n-notification-provider>
@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { darkTheme } from "naive-ui";
 import FlashMessage from "@frontend_components/FrontEnd/Global/FlashMessage.vue";
-import MaintenanceAlert from "@frontend_components/FrontEnd/Global/MaintenanceAlert.vue";
+import AlertSystem from "@frontend_components/FrontEnd/Global/AlertSystem.vue";
 import Loading from "@frontend_components/FrontEnd/Global/Loading.vue";
 import { usePage } from "@inertiajs/vue3";
 import Breadcrumb from "@frontend_components/FrontEnd/App/Breadcrumb.vue";
