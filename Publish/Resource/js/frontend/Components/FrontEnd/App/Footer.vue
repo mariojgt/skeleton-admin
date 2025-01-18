@@ -109,6 +109,9 @@
                         <li>
                             <a href="#" @click="openPricing" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Pricing</a>
                         </li>
+                        <li>
+                            <a href="#" @click="openLeaderboard" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">leaderboard</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -259,5 +262,8 @@ const openContact = () => {
 };
 const openPricing = () => {
     router.visit(route("pricing"));
+};
+const openLeaderboard = () => {
+    router.visit(route("leaderboard"));
 };
 </script>
