@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build-ssr": "vite build --ssr"
+    "build-ssr": "vite build --mode ssr"
   },
   "type": "module",
   "devDependencies": {
