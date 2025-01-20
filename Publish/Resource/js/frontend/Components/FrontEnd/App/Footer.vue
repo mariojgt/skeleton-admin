@@ -110,7 +110,7 @@
                             <a href="#" @click="openPricing" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Pricing</a>
                         </li>
                         <li>
-                            <a href="#" @click="openLeaderboard" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">leaderboard</a>
+                            <a href="#" @click="openLeaderboard" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Leaderboard</a>
                         </li>
                     </ul>
                 </div>

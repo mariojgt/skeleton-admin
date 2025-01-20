@@ -75,9 +75,9 @@
                         @selectPlan="submitForm"
                     />
                 </div>
-
-                <!-- Trust Indicators -->
-                <div class="mt-12 text-center">
+                <!-- Trust Indicators and Terms -->
+                <div class="mt-12 text-center space-y-6">
+                    <!-- Trust Indicators -->
                     <div class="flex items-center justify-center gap-8 text-gray-400">
                         <div class="flex items-center gap-2">
                             <ShieldCheck class="w-5 h-5 text-blue-400" />
@@ -92,6 +92,30 @@
                             <span>Cancel Anytime</span>
                         </div>
                     </div>
+
+                    <!-- Terms and Conditions Links -->
+                    <div class="text-sm text-gray-400">
+                        <p class="flex items-center justify-center gap-2">
+                            By subscribing, you agree to our
+                            <a
+                                href="/terms-of-service"
+                                class="text-blue-400 hover:text-blue-300 underline transition-colors duration-200 inline-flex items-center gap-1"
+                                target="_blank"
+                            >
+                                Terms of Service
+                                <ExternalLink class="w-3 h-3" />
+                            </a>
+                            and
+                            <a
+                                href="/privacy-policy"
+                                class="text-blue-400 hover:text-blue-300 underline transition-colors duration-200 inline-flex items-center gap-1"
+                                target="_blank"
+                            >
+                                Privacy Policy
+                                <ExternalLink class="w-3 h-3" />
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </template>
@@ -105,7 +129,7 @@ import { api } from "../../../Boot/axios.js";
 import SubscriptionCard from './subscribeCard.vue';
 import {
     Crown, BookOpen, Download, MessageCircle,
-    ShieldCheck, Clock, Repeat
+    ShieldCheck, Clock, Repeat, ExternalLink
 } from 'lucide-vue-next';
 
 const props = defineProps({

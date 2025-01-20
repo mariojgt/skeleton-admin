@@ -73,7 +73,7 @@
 
                 <!-- Text -->
                 <span class="text-lg font-medium relative z-10 transition-colors duration-300 group-hover:text-purple-400">
-                    Premium
+                    Pricing
                 </span>
 
                 <!-- Special Premium Indicator -->

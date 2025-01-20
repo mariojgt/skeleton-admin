@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import ReactivityTransform from '@vue-macros/reactivity-transform/vite'
+import ReactivityTransform from '@vue-macros/reactivity-transform/vite';
 
 // Create separate configs for client and SSR builds
 export default defineConfig(({ command, mode, ssrBuild }) => {
