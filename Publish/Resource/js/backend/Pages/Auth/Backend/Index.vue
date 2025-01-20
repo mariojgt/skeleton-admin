@@ -17,14 +17,17 @@
             </form>
         </template>
         <template v-slot:links>
-            <link-button name="Register" link="register" />
-            <link-button name="Forgot password" link="forgot-password" />
+            <Link class="btn btn-primary" href="/admin/register">
+                <span class="inline-block ml-1">Register</span>
+            </Link>
+            <Link class="btn btn-primary" href="/admin/forgot-password">
+                <span class="inline-block ml-1">Forgot password</span>
+            </Link>
         </template>
     </layout>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { Link, router } from "@inertiajs/vue3";
 import Layout from "@backend_layout/Login.vue";
 
@@ -32,8 +35,7 @@ import Layout from "@backend_layout/Login.vue";
 import {
     InputField,
     InputPassword,
-    Submit,
-    LinkButton,
+    Submit
 } from "@mariojgt/masterui/packages/index";
 
 let email = $ref("");

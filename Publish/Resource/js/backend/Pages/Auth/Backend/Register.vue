@@ -23,26 +23,23 @@
             </form>
         </template>
         <template v-slot:links>
-            <link-button name="Login" :link="loginLink" />
+            <Link class="btn btn-primary" href="/admin/login">
+                <span class="inline-block ml-1">Login</span>
+            </Link>
         </template>
     </layout>
 </template>
 
 <script setup>
 import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
 import { Link } from "@inertiajs/vue3";
 import Layout from "@backend_layout/Login.vue";
-
-// Page links
-const loginLink = route("skeleton.login");
 
 // Import the from components
 import {
     InputField,
     InputPassword,
-    Submit,
-    LinkButton,
+    Submit
 } from "@mariojgt/masterui/packages/index";
 
 let first_name = $ref("");
