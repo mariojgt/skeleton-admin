@@ -6,7 +6,6 @@
         class="relative z-[9999]"
     >
         <template v-for="alert in visibleAlerts" :key="alert.id">
-            <!-- Full Screen Alert -->
             <div
                 v-if="alert.is_full_screen"
                 class="fixed inset-0 z-[9999] bg-dark-500/90 backdrop-blur-md flex items-center justify-center p-4 overflow-hidden"
@@ -54,8 +53,11 @@
                             <div class="flex items-center space-x-4">
                                 <Clock class="w-8 h-8 text-yellow-400" />
                                 <div>
-                                    <p class="text-lg font-semibold text-white">
-                                        Scheduled Time
+                                    <p v-if="alert.type == 'info'" class="text-lg font-semibold text-white">
+                                        Ends at
+                                    </p>
+                                    <p v-else class="text-lg font-semibold text-white">
+                                        Scheduled at
                                     </p>
                                     <p class="text-gray-400">
                                         {{ formatDateTime(alert.scheduled_at) }}
