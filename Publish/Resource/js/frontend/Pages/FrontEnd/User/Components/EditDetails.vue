@@ -144,6 +144,7 @@ onMounted(() => {
 });
 
 const form = useForm({
+    username: userInformation.username,
     first_name: userInformation.first_name,
     last_name: userInformation.last_name,
     email: userInformation.email,
@@ -154,6 +155,7 @@ const submitForm = () => {
     form.first_name = userInformation.first_name;
     form.last_name = userInformation.last_name;
     form.email = userInformation.email;
+    form.username = userInformation.username;
 
     form.patch(route("user.update", userInformation.id), {
         preserveState: true,

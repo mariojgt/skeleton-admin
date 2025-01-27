@@ -57,21 +57,25 @@ class ProfileController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // Validate the email to make sure it is unique
-        $this->validate($request, [
+        // Validate the username and email to ensure they are unique
+        $data = $request->validate([
+            'username'   => 'required|unique:users,username,' . $user->id,
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email'      => 'required|email|unique:admins,email,' . $user->id,
+            'email'      => 'required|email|unique:users,email,' . $user->id,
         ]);
 
-        $user->first_name = Request('first_name');
-        $user->last_name  = Request('last_name');
-        $user->email      = Request('email');
+        // Update the user's profile with the validated data
+        $user->username = $data['username'];
+        $user->first_name = $data['first_name'];
+        $user->last_name  = $data['last_name'];
+        $user->email      = $data['email'];
         $user->save();
 
         return Redirect::back()
             ->with('success', 'Profile updated successfully');
     }
+
 
     /**
      * Handle the password update.
