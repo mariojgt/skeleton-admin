@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Mariojgt\SkeletonAdmin\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 use Mariojgt\SkeletonAdmin\Models\SocialAccount;
+use GuzzleHttp\Exception\ClientException;
 
 class SocialAuthController extends Controller
 {
@@ -45,7 +46,7 @@ class SocialAuthController extends Controller
                     // Create new user
                     $user = User::create([
                         'first_name'        => $socialUser->getName(),
-                        'username'          => $socialUser->getNickname(),
+                        'username'          => $socialUser->getNickname() ?? strtolower(str_replace(' ', '_', $socialUser->getName())),
                         'email'             => $socialUser->getEmail(),
                         'avatar'            => $socialUser->getAvatar(),
                         'registration_type' => $provider,
@@ -69,8 +70,19 @@ class SocialAuthController extends Controller
             Auth::login($user);
 
             return redirect()->route('home');
-        } catch (\Exception $e) {
+        } catch (ClientException $e) {
+            // Handle specific Guzzle client exceptions
             DB::rollBack();
+
+            $errorDetails = json_decode($e->getResponse()->getBody()->getContents(), true);
+
+            return redirect()->route('login')->withErrors([
+                'error' => 'Social login failed: ' . ($errorDetails['error_description'] ?? 'An unknown error occurred.'),
+            ]);
+        } catch (\Exception $e) {
+            // Handle general exceptions
+            DB::rollBack();
+
             return redirect()->route('login')
                 ->with('error', 'Unable to login with ' . ucfirst($provider) . '. Please try again.');
         }
