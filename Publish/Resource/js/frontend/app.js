@@ -2,7 +2,6 @@
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import naive from "naive-ui";
 import recaptchaPlugin from './Plugins/recaptcha';
 
 // Load reCAPTCHA site key from meta tag or window.__INITIAL_STATE__
@@ -25,7 +24,6 @@ createInertiaApp({
 
         // Initialize plugins
         app.use(plugin);
-        app.use(naive);
         app.use(recaptchaPlugin, {
             siteKey: RECAPTCHA_SITE_KEY,
         });

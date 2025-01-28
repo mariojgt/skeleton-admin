@@ -7,22 +7,12 @@
                 <Navbar :homePage="homePage" />
             </n-message-provider>
             <div class="bg-neutral" :class="homePage ? '' : 'h-full p-10'">
-                <n-loading-bar-provider>
-                    <n-message-provider>
-                        <n-notification-provider>
-                            <n-dialog-provider>
-                                <n-config-provider :theme="darkTheme">
-                                    <FlashMessage />
-                                    <div>
-                                        <!-- handle the breadcrumb -->
-                                        <Breadcrumb />
-                                        <slot />
-                                    </div>
-                                </n-config-provider>
-                            </n-dialog-provider>
-                        </n-notification-provider>
-                    </n-message-provider>
-                </n-loading-bar-provider>
+                <FlashMessage />
+                <div>
+                    <!-- handle the breadcrumb -->
+                    <Breadcrumb />
+                    <slot />
+                </div>
             </div>
             <Footer style="grid-row: 3;" />
         </div>
@@ -35,7 +25,6 @@
 
 <script setup>
 import { watch, onMounted } from "vue";
-import { darkTheme } from "naive-ui";
 import FlashMessage from "@backend_components/Backend/Global/FlashMessage.vue";
 import Breadcrumb from "@backend_components/Backend/App/Breadcrumb.vue";
 import Navbar from "@backend_components/Backend/App/Navbar.vue";

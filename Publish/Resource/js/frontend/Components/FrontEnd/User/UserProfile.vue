@@ -272,7 +272,7 @@ const frameStyles = computed(() => {
             borderColor: 'border-green-500',
             glowEffect: 'bg-gradient-to-br from-green-400/30 to-green-600/30 animate-pulse',
             borderDesign: 'border-2 border-green-400/30',
-            avatarBorder: 'border-green-500 animate-float',
+            avatarBorder: 'border-green-500 animate-float glow-uncommon-1 float-uncommon-1',
             levelBadge: 'bg-gradient-to-br from-green-400 to-green-600 text-white',
             nameStyle: 'text-green-300 font-semibold',
             xpBackground: 'bg-green-900/40 border-green-700',
@@ -289,7 +289,7 @@ const frameStyles = computed(() => {
             borderColor: 'border-green-600',
             glowEffect: 'bg-gradient-to-br from-green-500/40 to-green-700/40 animate-pulse',
             borderDesign: 'border-2 border-green-500/40 border-dashed',
-            avatarBorder: 'border-green-600 animate-float',
+            avatarBorder: 'border-green-600 animate-float glow-uncommon-2 float-uncommon-2',
             levelBadge: 'bg-gradient-to-br from-green-500 to-green-700 text-white shadow-lg',
             nameStyle: 'text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-green-500 font-bold',
             xpBackground: 'bg-green-900/50 border-green-800',
@@ -306,7 +306,7 @@ const frameStyles = computed(() => {
             borderColor: 'border-blue-500',
             glowEffect: 'bg-gradient-to-br from-blue-400/40 to-blue-600/40 animate-pulse',
             borderDesign: 'border-2 border-blue-400/40',
-            avatarBorder: 'border-blue-500 animate-float',
+            avatarBorder: 'border-blue-500 animate-float glow-rare-1 shine-effect float-rare-1',
             levelBadge: 'bg-gradient-to-br from-blue-400 to-blue-600 text-white shadow-lg',
             nameStyle: 'text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-400 font-bold',
             xpBackground: 'bg-blue-900/40 border-blue-700',
@@ -323,7 +323,7 @@ const frameStyles = computed(() => {
             borderColor: 'border-blue-600',
             glowEffect: 'bg-gradient-to-br from-blue-500/50 to-blue-700/50 animate-pulse',
             borderDesign: 'border-3 border-blue-500/50 border-double',
-            avatarBorder: 'border-blue-600 animate-float',
+            avatarBorder: 'border-blue-600 animate-float glow-rare-2 shine-effect float-rare-2',
             levelBadge: 'bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg',
             nameStyle: 'text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-400 to-blue-300 font-bold',
             xpBackground: 'bg-blue-900/50 border-blue-800',
@@ -478,6 +478,8 @@ const openAchievements = () => {
 </script>
 
 <style scoped>
+@reference "../../../../../css/frontend/app.css";
+
 /* Base animations */
 @keyframes floating {
     0%, 100% { transform: translateY(0); }
@@ -771,27 +773,6 @@ const openAchievements = () => {
         transparent
     );
     animation: rotate 4s linear infinite;
-}
-
-/* Utility combinations */
-.rarity-effect-uncommon-1 {
-    @apply glow-uncommon-1;
-    animation: float-uncommon-1 3s ease-in-out infinite;
-}
-
-.rarity-effect-uncommon-2 {
-    @apply glow-uncommon-2;
-    animation: float-uncommon-2 3s ease-in-out infinite;
-}
-
-.rarity-effect-rare-1 {
-    @apply glow-rare-1 shine-effect;
-    animation: float-rare-1 3s ease-in-out infinite;
-}
-
-.rarity-effect-rare-2 {
-    @apply glow-rare-2 shine-effect;
-    animation: float-rare-2 4s ease-in-out infinite;
 }
 
 /* Additional utility classes */

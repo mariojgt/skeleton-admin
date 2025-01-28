@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 import ReactivityTransform from '@vue-macros/reactivity-transform/vite';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(({ command, mode }) => {
     const ssrBuild = mode === 'ssr';
@@ -19,15 +20,17 @@ export default defineConfig(({ command, mode }) => {
                 '@frontend_types': '/resources/vendor/SkeletonAdmin/js/frontend/Types',
                 '@frontend_composable': '/resources/vendor/SkeletonAdmin/js/frontend/Composable',
                 '@builder': '/resources/vendor/Builder/Table',
+                '@css': './resources/vendor/SkeletonAdmin/css/frontend',
             },
         },
         plugins: [
+            tailwindcss(),
             laravel({
                 input: [
                     'resources/vendor/SkeletonAdmin/js/backend/app.js',
-                    'resources/vendor/SkeletonAdmin/sass/backend/backendApp.scss',
+                    'resources/vendor/SkeletonAdmin/css/backend/app.css',
                     'resources/vendor/SkeletonAdmin/js/frontend/app.js',
-                    'resources/vendor/SkeletonAdmin/sass/frontend/frontendApp.scss',
+                    'resources/vendor/SkeletonAdmin/css/frontend/app.css',
                 ],
                 ssr: 'resources/vendor/SkeletonAdmin/js/frontend/ssr.js',
                 refresh: true,

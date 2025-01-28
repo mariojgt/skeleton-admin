@@ -10,28 +10,18 @@
             <Breadcrumb :backgroundClass="backgroundBreadcrumbClass" />
             <div>
                 <AlertSystem :alerts="usePage().props.activeAlerts" />
-                <n-loading-bar-provider>
-                    <n-message-provider>
-                        <n-notification-provider>
-                            <n-dialog-provider>
-                                <n-config-provider :theme="darkTheme">
-                                    <FlashMessage />
-                                    <SeoManager :seo="usePage().props.seo" :inDebugMode="usePage().props.app_env === 'local'" />
-                                    <slot />
-                                    <Loading :isLoading="isLoading" />
-                                    <AuthModal
-                                        :showLogin="showLogin"
-                                        :showRegister="showRegister"
-                                        :showCodeWall="showWall"
-                                        @closeModal="closeLogin"
-                                        @isLoading="loading"
-                                    />
-                                    <Subscribe :is-open="displaySubscription" @close-modal="closeSubscription" @isLoading="loading" @login="openLogin" />
-                                </n-config-provider>
-                            </n-dialog-provider>
-                        </n-notification-provider>
-                    </n-message-provider>
-                </n-loading-bar-provider>
+                <FlashMessage />
+                <SeoManager :seo="usePage().props.seo" :inDebugMode="usePage().props.app_env === 'local'" />
+                <slot />
+                <Loading :isLoading="isLoading" />
+                <AuthModal
+                    :showLogin="showLogin"
+                    :showRegister="showRegister"
+                    :showCodeWall="showWall"
+                    @closeModal="closeLogin"
+                    @isLoading="loading"
+                />
+                <Subscribe :is-open="displaySubscription" @close-modal="closeSubscription" @isLoading="loading" @login="openLogin" />
             </div>
             <!-- {{-- Footer --}} -->
             <Footer v-if="showFooter" :backgroundClass="backgroundFooterClass" />
@@ -44,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import { darkTheme } from "naive-ui";
 import FlashMessage from "@frontend_components/FrontEnd/Global/FlashMessage.vue";
 import AlertSystem from "@frontend_components/FrontEnd/Global/AlertSystem.vue";
 import Loading from "@frontend_components/FrontEnd/Global/Loading.vue";

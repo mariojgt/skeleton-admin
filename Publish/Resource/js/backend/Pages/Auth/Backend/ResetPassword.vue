@@ -15,7 +15,7 @@
                             placeholder="Type your Password Confirmation" />
 
                         <div class="form-control pt-10">
-                            <submit @click="submitForm" name="Reset" class="btn btn-secondary" />
+                            <submit @click="submitForm" name="Reset" class="btn btn-primary btn-wide" />
                         </div>
                     </div>
                 </form>

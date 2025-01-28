@@ -18,7 +18,7 @@
                     id="password_confirmation" placeholder="Type your Password Confirmation" />
 
                 <div class="form-control pt-10">
-                    <submit @click="submitForm" name="Register" class="btn btn-secondary" />
+                    <submit @click="submitForm" name="Register" class="btn btn-primary btn-wide" />
                 </div>
             </form>
         </template>

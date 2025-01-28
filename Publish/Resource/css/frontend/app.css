@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+    /* Master */
+    --color-master-100: #f5f5f5;
+    --color-master-200: #ffdd55;
+    --color-master-300: #ffd251;
+    --color-master-400: #ffc74e;
+    --color-master-500: #febc4b;
+    --color-master-600: #fdb14a;
+    --color-master-700: #faa64a;
+    --color-master-800: #f79c4a;
+    --color-master-900: #f3914a;
+
+    /* Dark */
+    --color-dark-100: #0a0f19;
+    --color-dark-200: #0d1523;
+    --color-dark-300: #10192d;
+    --color-dark-400: #131d37;
+    --color-dark-500: #162141;
+    --color-dark-600: #19254b;
+    --color-dark-700: #1c2955;
+    --color-dark-800: #1f2d5f;
+    --color-dark-900: #223169;
+
+    /* Dark Blue */
+    --color-dark-blue-100: #0f1b2e;
+    --color-dark-blue-200: #122038;
+    --color-dark-blue-300: #152442;
+    --color-dark-blue-400: #18284c;
+    --color-dark-blue-500: #1b2c56;
+    --color-dark-blue-600: #1e3060;
+    --color-dark-blue-700: #21346a;
+    --color-dark-blue-800: #243874;
+    --color-dark-blue-900: #273c7e;
+}
+
+@source "../../../../views";
+@plugin "daisyui";
+@import "./partials/border-cards";
+@import "./partials/background";
+@import "./partials/button";
+@import "./partials/videoPlayer";
+@import "./partials/typography";
+@import "./partials/shadow";
+@import "./partials/card";
+@import "./partials/ribbon";
+@import "./partials/slide";
+@import "./partials/loader";
+@import "./partials/blog";

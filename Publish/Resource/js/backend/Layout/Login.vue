@@ -1,23 +1,13 @@
 <template>
-  <n-loading-bar-provider>
-    <n-message-provider>
-      <n-notification-provider>
-        <n-dialog-provider>
-          <n-config-provider :theme="darkTheme">
-            <FlashMessage />
-            <auth-wraper :title="props.title">
-              <template v-slot:form>
-                <slot name="form" />
-              </template>
-              <template v-slot:links>
-                <slot name="links" />
-              </template>
-            </auth-wraper>
-          </n-config-provider>
-        </n-dialog-provider>
-      </n-notification-provider>
-    </n-message-provider>
-  </n-loading-bar-provider>
+  <FlashMessage />
+    <auth-wraper :title="props.title">
+        <template v-slot:form>
+        <slot name="form" />
+        </template>
+        <template v-slot:links>
+        <slot name="links" />
+        </template>
+    </auth-wraper>
   <footer class="footer footer-center p-4 bg-base-300 font-bold">
     <div>
       <p>

@@ -7,7 +7,7 @@
                         placeholder="Type your email" />
 
                     <div class="form-control pt-10">
-                        <submit @click="submitForm" name="Request Password" class="btn btn-secondary" />
+                        <submit @click="submitForm" name="Request Password" class="btn btn-primary btn-wide" />
                     </div>
                 </div>
             </form>

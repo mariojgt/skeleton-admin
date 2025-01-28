@@ -271,7 +271,7 @@
 import { ref } from 'vue';
 import { api } from "../../../Boot/axios.js";
 import { usePage } from "@inertiajs/vue3";
-import { useMessage } from "naive-ui";
+import { startWindToast } from "@mariojgt/wind-notify/packages/index.js";
 import { onMounted } from "vue";
 import { router } from '@inertiajs/vue3';
 import MarkdownRenderer from "@frontend_components/FrontEnd/Comment/Markdown.vue";
@@ -301,7 +301,6 @@ const directives = {
     'click-outside': vClickOutside
 };
 
-const message = useMessage();
 const isPreviewMode = ref(false);
 const textareaRef = ref(null);
 const showDeleteModal = ref(false);
@@ -420,7 +419,7 @@ const submitComment = async () => {
     };
 
     if (!comment_title.value || !lesson_content.value || (!props.topitEdit?.id && !selected_channel.value)) {
-        message.error("Please fill in all required fields");
+        startWindToast('error', "Please fill in all required fields", 'error');
         return;
     }
 
@@ -431,14 +430,14 @@ const submitComment = async () => {
         }
 
         const response = await api.post(finalRoute, form);
-        message.success(response.data.message);
+        startWindToast('success', response.data.message, 'success');
         resetForm();
         emit("fresh-comments");
         emit("close");
     } catch (error) {
         if (error.response?.data?.errors) {
             Object.values(error.response.data.errors).forEach((errMsg) => {
-                message.error(errMsg[0]);
+                startWindToast('error', errMsg[0], 'error');
             });
         }
     }
@@ -448,13 +447,13 @@ const confirmDelete = async () => {
     if (deleteConfirmation.value === comment_title.value) {
         try {
             const response = await api.delete(route("forum.thread.edit", props.topitEdit?.id));
-            message.success(response.data.message);
+            startWindToast('success', response.data.message, 'success');
             showDeleteModal.value = false;
             router.visit(route("home"), { preserveScroll: 'errors' });
         } catch (error) {
             if (error.response?.data?.errors) {
                 Object.values(error.response.data.errors).forEach((errMsg) => {
-                    message.error(errMsg[0]);
+                    startWindToast('error', errMsg[0], 'error');
                 });
             }
         }

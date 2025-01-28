@@ -9,9 +9,7 @@
                     <input-password v-model="password" label="Password" name="password" id="password"
                         placeholder="Type your password" />
 
-                    <div class="form-control pt-10">
-                        <submit @click="submitForm" class="btn btn-secondary" />
-                    </div>
+                    <submit @click="submitForm" class="btn btn-primary btn-wide" />
                 </div>
                 <!-- <Link href="/about-us">Go to about us</Link> -->
             </form>

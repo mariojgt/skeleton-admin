@@ -3,9 +3,7 @@
 <script setup>
 import { watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/vue3";
-
-import { useMessage } from "naive-ui";
-const message = useMessage();
+import { startWindToast } from "@mariojgt/wind-notify/packages/index.js";
 
 watch(
   () => usePage().props.errors,
@@ -47,19 +45,19 @@ watch(
 const handleMessage = async (type, messageData) => {
   switch (type) {
     case "success":
-      message.success(messageData);
+        startWindToast('success', messageData, 'success');
       break;
     case "error":
-      message.error(messageData);
+        startWindToast('error', messageData, 'error');
       break;
     case "warning":
-      message.warning(messageData);
+        startWindToast('warning', messageData, 'warning');
       break;
     case "info":
-      message.info(messageData);
+        startWindToast('info', messageData, 'info');
       break;
     default:
-      message.info(messageData);
+        startWindToast('info', messageData, 'info');
       break;
   }
 };
