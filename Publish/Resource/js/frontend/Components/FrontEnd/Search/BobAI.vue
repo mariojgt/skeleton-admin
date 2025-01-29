@@ -488,7 +488,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-@reference "../../../../../css/frontend/app.css";
+@reference "@css/app.css";
 
 .scrollbar-thin {
     scrollbar-width: thin;

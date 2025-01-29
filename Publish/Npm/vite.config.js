@@ -3,6 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 import ReactivityTransform from '@vue-macros/reactivity-transform/vite';
 import tailwindcss from '@tailwindcss/vite';
+import path from 'path';
 
 export default defineConfig(({ command, mode }) => {
     const ssrBuild = mode === 'ssr';
@@ -20,7 +21,7 @@ export default defineConfig(({ command, mode }) => {
                 '@frontend_types': '/resources/vendor/SkeletonAdmin/js/frontend/Types',
                 '@frontend_composable': '/resources/vendor/SkeletonAdmin/js/frontend/Composable',
                 '@builder': '/resources/vendor/Builder/Table',
-                '@css': './resources/vendor/SkeletonAdmin/css/frontend',
+                '@css': path.resolve(__dirname, './resources/vendor/SkeletonAdmin/css/frontend'),
             },
         },
         plugins: [
@@ -52,7 +53,7 @@ export default defineConfig(({ command, mode }) => {
             ssr: ssrBuild,
         },
         ssr: {
-            noExternal: ['@mariojgt/masterui'], // Add any other packages used in SSR
+            noExternal: ['@mariojgt/masterui', '@mariojgt/wind-notify'], // Add any other packages used in SSR
         },
     };
 

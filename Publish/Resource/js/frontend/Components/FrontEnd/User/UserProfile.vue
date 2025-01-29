@@ -478,7 +478,7 @@ const openAchievements = () => {
 </script>
 
 <style scoped>
-@reference "../../../../../css/frontend/app.css";
+@reference "@css/app.css";
 
 /* Base animations */
 @keyframes floating {

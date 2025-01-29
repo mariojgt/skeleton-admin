@@ -1,8 +1,8 @@
-// Video container
+
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* This gives us a 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
 }
