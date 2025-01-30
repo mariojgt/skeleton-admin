@@ -53,7 +53,17 @@ export default defineConfig(({ command, mode }) => {
             ssr: ssrBuild,
         },
         ssr: {
-            noExternal: ['@mariojgt/masterui', '@mariojgt/wind-notify'], // Add any other packages used in SSR
+            noExternal: [
+                '@mariojgt/masterui',
+                '@mariojgt/wind-notify',
+                'dompurify',
+                'marked',
+                'turndown',
+                'lucide-vue-next',
+                'markdown-it',
+                'mdurl',
+                'uc.micro'
+            ],
         },
     };
 
