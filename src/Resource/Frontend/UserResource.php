@@ -1,5 +1,4 @@
 <?php
-
 namespace Mariojgt\SkeletonAdmin\Resource\Frontend;
 
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,7 +20,7 @@ class UserResource extends JsonResource
             'username'          => $this->username,
             'first_name'        => $this->first_name,
             'last_name'         => $this->last_name,
-            'avatar'            => Gravatar::gravatar($this->email),
+            'avatar'            => $this->getAvatarPath(),
             'email'             => $this->email,
             'email_verified_at' => $this->email_verified_at,
             'password'          => $this->password,

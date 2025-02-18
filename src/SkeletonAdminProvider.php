@@ -86,6 +86,11 @@ class SkeletonAdminProvider extends ServiceProvider
             __DIR__ . '/../Publish/Resource' => resource_path('vendor/SkeletonAdmin/'),
         ]);
 
+        // Publish the avatar folder
+        $this->publishes([
+            __DIR__ . '/../Publish/Avatars' => public_path('assets/avatars'),
+        ]);
+
         // Publish the public folder with the css and javascript pre compile
         $this->publishes([
             __DIR__ . '/../Publish/Public' => public_path('vendor/Skeleton'),

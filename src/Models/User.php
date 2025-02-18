@@ -6,6 +6,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Mariojgt\Castle\Trait\Castle;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
 use Spatie\Permission\Traits\HasPermissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,5 +60,32 @@ class User extends Authenticatable implements MustVerifyEmail
     public function socialAccounts()
     {
         return $this->hasMany(SocialAccount::class);
+    }
+
+    /**
+     * Get the avatar path
+     *
+     * @return string
+     */
+    public function getAvatarPath()
+    {
+        // If user has a custom avatar, use it
+        if (!empty($this->avatar) && $this->avatar !== null) {
+            // Check if it's a full URL or just a filename
+            if (filter_var($this->avatar, FILTER_VALIDATE_URL)) {
+                return $this->avatar;
+            }
+
+            // Check if it's a path from the avatars directory
+            if (str_contains($this->avatar, 'assets/avatars')) {
+                return asset($this->avatar);
+            }
+
+            // Otherwise assume it's just a filename
+            return asset('assets/avatars/' . $this->avatar);
+        }
+
+        // Fallback to Gravatar
+        return Gravatar::gravatar($this->email);
     }
 }

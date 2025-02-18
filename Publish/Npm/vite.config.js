@@ -55,14 +55,7 @@ export default defineConfig(({ command, mode }) => {
         ssr: {
             noExternal: [
                 '@mariojgt/masterui',
-                '@mariojgt/wind-notify',
-                'dompurify',
-                'marked',
-                'turndown',
-                'lucide-vue-next',
-                'markdown-it',
-                'mdurl',
-                'uc.micro'
+                '@mariojgt/wind-notify'
             ],
         },
     };

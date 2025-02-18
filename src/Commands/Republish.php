@@ -38,7 +38,7 @@ class Republish extends Command
      */
     public function handle()
     {
-        $bar = $this->output->createProgressBar(5);
+        $bar = $this->output->createProgressBar(6);
         $bar->start();
 
         // First we move the resources where we keep the css and js files
@@ -52,6 +52,13 @@ class Republish extends Command
         $this->moveFileOrFolder(
             public_path('vendor/Skeleton'),
             __DIR__ . '/../../Publish/Public/',
+            $bar
+        );
+
+        // Copy the avatar folder
+        $this->moveFileOrFolder(
+            public_path('assets/avatars'),
+            __DIR__ . '/../../Publish/Avatars',
             $bar
         );
 

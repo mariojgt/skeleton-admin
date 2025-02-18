@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\SkeletonAdmin\Models\User;
 use Illuminate\Support\Facades\Redirect;
@@ -14,7 +15,6 @@ use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
 
 class ProfileController extends Controller
 {
-
     /**
      * Edit the admin.
      */
@@ -63,6 +63,7 @@ class ProfileController extends Controller
             'first_name' => 'required',
             'last_name'  => 'required',
             'email'      => 'required|email|unique:users,email,' . $user->id,
+            'avatar'     => 'nullable|string',
         ]);
 
         // Update the user's profile with the validated data
@@ -70,12 +71,62 @@ class ProfileController extends Controller
         $user->first_name = $data['first_name'];
         $user->last_name  = $data['last_name'];
         $user->email      = $data['email'];
+
+        // Update avatar if provided
+        if (isset($data['avatar']) && !empty($data['avatar'])) {
+            $user->avatar = $data['avatar'];
+        }
+
         $user->save();
 
         return Redirect::back()
             ->with('success', 'Profile updated successfully');
     }
 
+    /**
+     * List available avatars.
+     */
+    public function listAvatars(Request $request)
+    {
+        $limit = $request->input('limit', 20);
+        $random = $request->boolean('random', true);
+
+        // Path to avatars directory
+        $avatarsPath = public_path('assets/avatars');
+
+        // Check if directory exists
+        if (!File::isDirectory($avatarsPath)) {
+            return response()->json([
+                'message' => 'Avatars directory not found',
+                'avatars' => []
+            ], 404);
+        }
+
+        // Get all avatar files
+        $avatarFiles = File::files($avatarsPath);
+        $avatars = [];
+
+        foreach ($avatarFiles as $file) {
+            if (in_array($file->getExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg'])) {
+                $avatars[] = [
+                    'id' => $file->getFilename(),
+                    'name' => $file->getFilenameWithoutExtension(),
+                    'path' => asset('assets/avatars/' . $file->getFilename()),
+                    'extension' => $file->getExtension(),
+                ];
+            }
+        }
+
+        // Randomize if requested
+        if ($random) {
+            shuffle($avatars);
+        }
+
+        // Limit the number of avatars returned
+        $avatars = array_slice($avatars, 0, $limit);
+
+        return response()->json($avatars);
+    }
 
     /**
      * Handle the password update.

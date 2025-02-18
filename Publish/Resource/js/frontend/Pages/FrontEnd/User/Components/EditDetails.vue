@@ -11,7 +11,10 @@
                     <div class="absolute -inset-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-75 blur transition-opacity duration-300 group-hover:opacity-100"></div>
 
                     <!-- Avatar Image -->
-                    <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-dark-400">
+                    <div
+                        class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-dark-400 cursor-pointer"
+                        @click="openAvatarPicker"
+                    >
                         <img
                             :src="userInformation.avatar"
                             alt="Profile Picture"
@@ -20,7 +23,7 @@
 
                         <!-- Hover Overlay -->
                         <div class="absolute inset-0 bg-dark-500/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Upload class="w-6 h-6 text-white" />
+                            <ImagePlus class="w-6 h-6 text-white" />
                         </div>
                     </div>
                 </div>
@@ -117,6 +120,14 @@
                 </button>
             </div>
         </form>
+
+        <!-- Avatar Picker Modal -->
+        <AvatarPicker
+            :is-open="showAvatarPicker"
+            :current-avatar="userInformation.avatar"
+            @close="showAvatarPicker = false"
+            @select="selectNewAvatar"
+        />
     </div>
 </template>
 
@@ -125,9 +136,9 @@ import { useForm, usePage } from "@inertiajs/vue3";
 import { onMounted, ref } from "vue";
 import {
     User, UserCircle, Mail,
-    Upload, Save
+    Save, ImagePlus
 } from 'lucide-vue-next';
-
+import AvatarPicker from '@frontend_components/FrontEnd/Profile/AvatarPicker.vue';
 const emit = defineEmits(["isLoading"]);
 
 const props = defineProps({
@@ -137,18 +148,28 @@ const props = defineProps({
     },
 });
 
-let userInformation = $ref([]);
+let userInformation = $ref({});
+const showAvatarPicker = ref(false);
 
 onMounted(() => {
     userInformation = props.userInfo;
 });
 
 const form = useForm({
-    username: userInformation.username,
-    first_name: userInformation.first_name,
-    last_name: userInformation.last_name,
-    email: userInformation.email,
+    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    avatar: '',
 });
+
+function openAvatarPicker() {
+    showAvatarPicker.value = true;
+}
+
+function selectNewAvatar(avatarPath) {
+    userInformation.avatar = avatarPath;
+}
 
 const submitForm = () => {
     emit("isLoading", true);
@@ -156,6 +177,7 @@ const submitForm = () => {
     form.last_name = userInformation.last_name;
     form.email = userInformation.email;
     form.username = userInformation.username;
+    form.avatar = userInformation.avatar;
 
     form.patch(route("user.update", userInformation.id), {
         preserveState: true,

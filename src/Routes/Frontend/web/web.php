@@ -21,4 +21,6 @@ Route::group([
             Route::post('/user/2fa/enable', 'enable2fa')->name('user.2fa.enable');
         });
     }
+
+    Route::get('/avatars', [ProfileController::class, 'listAvatars'])->name('avatars.list');
 });
