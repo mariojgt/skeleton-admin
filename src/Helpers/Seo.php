@@ -1,5 +1,4 @@
 <?php
-
 namespace Mariojgt\SkeletonAdmin\Helpers;
 
 class Seo
@@ -15,10 +14,36 @@ class Seo
     private $twitterHandle = '@thedevrealm';
     private $locale = 'en_US';
 
+    // Static instance for singleton pattern
+    private static $instance = null;
+
     public function __construct($title = null, $description = null)
     {
         $this->title = $title;
         $this->description = $description;
+    }
+
+    /**
+     * Get singleton instance
+     *
+     * @return \Mariojgt\SkeletonAdmin\Helpers\Seo
+     */
+    public static function getInstance()
+    {
+        if (static::$instance === null) {
+            static::$instance = new self();
+        }
+        return static::$instance;
+    }
+
+    /**
+     * Clean up instance - useful for request cycles
+     *
+     * @return void
+     */
+    public static function cleanup()
+    {
+        static::$instance = null;
     }
 
     public function setTitle($title)
@@ -97,5 +122,57 @@ class Seo
                 'url' => $this->url,
             ],
         ];
+    }
+
+    /**
+     * Render all SEO tags as HTML
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $html = '';
+
+        // Add basic meta tags
+        $html .= '<title>' . $this->title . '</title>' . PHP_EOL;
+
+        // Add meta tags
+        foreach ($this->toArray()['meta'] as $name => $content) {
+            if (!empty($content)) {
+                $html .= '<meta name="' . $name . '" content="' . $content . '" />' . PHP_EOL;
+            }
+        }
+
+        // Add Open Graph tags
+        foreach ($this->toArray()['og'] as $property => $content) {
+            if (!empty($content)) {
+                $html .= '<meta property="og:' . $property . '" content="' . $content . '" />' . PHP_EOL;
+            }
+        }
+
+        // Add Twitter tags
+        foreach ($this->toArray()['twitter'] as $property => $content) {
+            if (!empty($content)) {
+                $html .= '<meta name="twitter:' . $property . '" content="' . $content . '" />' . PHP_EOL;
+            }
+        }
+
+        // Add JSON-LD script
+        $html .= '<script type="application/ld+json">' . PHP_EOL;
+        $html .= json_encode($this->toArray()['jsonLd'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL;
+        $html .= '</script>' . PHP_EOL;
+
+        return $html;
+    }
+
+    /**
+     * Static method to render SEO tags
+     *
+     * @return string
+     */
+    public static function renderStatic()
+    {
+        $instance = static::getInstance();
+        return $instance->render();
     }
 }
