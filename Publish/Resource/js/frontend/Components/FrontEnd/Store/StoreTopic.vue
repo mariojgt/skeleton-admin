@@ -1,80 +1,72 @@
 # StoreTopic.vue
 <template>
   <div>
-    <!-- Hero Header Section -->
+    <!-- RPG-Styled Hero Header Section -->
     <div class="relative mb-16 text-center">
-      <!-- Background Elements -->
-      <div class="absolute inset-0 opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10"></div>
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+      <!-- Magical Background Elements -->
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#F19A1A]/10 to-[#8B60ED]/10"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#F19A1A]/10 rounded-full blur-3xl"></div>
+
+        <!-- RPG Rune Pattern -->
+        <div class="absolute inset-0 opacity-5"
+             style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M30 10 L40 20 L30 30 L20 20 Z M10 30 L20 40 L10 50 L0 40 Z M50 30 L60 40 L50 50 L40 40 Z\' fill=\'none\' stroke=\'%23F19A1A\' stroke-width=\'0.3\'/%3E%3C/svg%3E');
+                    background-size: 60px 60px;"></div>
       </div>
 
       <!-- Content -->
       <div class="relative">
-        <!-- Badges -->
+        <!-- RPG Badges -->
         <div class="flex justify-center gap-4 mb-6">
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 text-purple-400 backdrop-blur-sm">
-            <Code class="h-4 w-4" />
-            <span class="text-sm font-medium">Premium Source Code</span>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#F19A1A]/10 text-[#F19A1A] border border-[#F19A1A]/30">
+            <Scroll class="h-4 w-4" />
+            <span class="text-sm font-medium">Ancient Scrolls</span>
           </div>
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 backdrop-blur-sm">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#8B60ED]/10 text-[#8B60ED] border border-[#8B60ED]/30">
             <Package class="h-4 w-4" />
-            <span class="text-sm font-medium">Digital Assets</span>
+            <span class="text-sm font-medium">Magical Artifacts</span>
           </div>
         </div>
 
-        <!-- Main Title -->
+        <!-- Main Title with RPG Styling -->
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-          Discover Premium
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Digital Resources</span>
+          Rare &amp; Legendary
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F19A1A] to-[#FFC73C] animate-gradient"
+                style="animation: gradient-shift 8s ease infinite; background-size: 200% 200%;">
+            Treasures
+          </span>
         </h1>
 
-        <!-- Description -->
-        <p class="max-w-2xl mx-auto text-lg text-neutral-300 mb-8">
-          Explore our curated collection of high-quality source code, digital assets, and developer tools.
-          Build faster with battle-tested components and professional resources.
+        <!-- Description with RPG Styling -->
+        <p class="max-w-2xl mx-auto text-lg text-[#BAD9FC] mb-8">
+          Venture into our merchant's collection of rare code scrolls, magical assets, and
+          enchanted developer tools. Enhance your journey with these powerful artifacts.
         </p>
-
-        <!-- Stats -->
-        <!-- <div class="flex justify-center gap-8">
-          <div class="text-center">
-            <div class="text-2xl font-bold text-white mb-1">{{ usePage().props.storeCategories.data.length }}+</div>
-            <div class="text-sm text-neutral-400">Categories</div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-white mb-1">15+</div>
-            <div class="text-sm text-neutral-400">Products</div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-white mb-1">100+</div>
-            <div class="text-sm text-neutral-400">Downloads</div>
-          </div>
-        </div> -->
       </div>
     </div>
 
-    <!-- Featured Categories Section -->
+    <!-- Featured Categories Section with RPG Styling -->
     <div class="mb-12">
-      <!-- Section Header -->
+      <!-- Section Header with RPG Styling -->
       <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-3">
-          <div class="p-2 bg-purple-500/10 rounded-lg">
-            <Compass class="h-6 w-6 text-purple-400" />
+          <div class="p-2 bg-[#F19A1A]/10 rounded-lg border border-[#F19A1A]/30">
+            <Compass class="h-6 w-6 text-[#F19A1A]" />
           </div>
-          <h2 class="text-2xl font-bold text-white">Featured Topics</h2>
+          <h2 class="text-2xl font-bold text-white">Merchant's Wares</h2>
         </div>
 
-        <!-- View All Link -->
+        <!-- View All Link with RPG Styling -->
         <button
           @click="openCategorie('all')"
-          class="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors duration-300"
+          class="flex items-center gap-2 text-[#F19A1A] hover:text-[#FFC73C] transition-colors duration-300"
         >
-          <span>View All</span>
+          <span>Browse All</span>
           <ArrowRight class="h-4 w-4" />
         </button>
       </div>
 
-      <!-- Topics Grid -->
+      <!-- Topics Grid with RPG Styling -->
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
         <button
           v-for="category in usePage().props.storeCategories.data"
@@ -82,47 +74,66 @@
           @click="openCategorie(category.slug)"
           :class="[
             'group relative p-4 rounded-xl transition-all duration-300',
-            'bg-dark-400/90 backdrop-blur-sm border border-gray-800/50',
-            'hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-1',
-            'hover:border-purple-500/50',
-            selectedTopic === category.slug ? 'border-purple-500 bg-purple-500/10' : ''
+            'bg-[#1E2A42]/90 backdrop-blur-sm border-2',
+            'hover:shadow-lg hover:shadow-[#F19A1A]/10 hover:-translate-y-1',
+            selectedTopic === category.slug
+              ? 'border-[#F19A1A]/50 bg-[#F19A1A]/10'
+              : 'border-[#328AF1]/30'
           ]"
         >
-          <!-- Background Pattern -->
+          <!-- RPG Corner Elements -->
+          <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 opacity-50 transition-opacity duration-300 group-hover:opacity-80"
+               :class="selectedTopic === category.slug ? 'border-[#F19A1A]' : 'border-[#328AF1]'"></div>
+          <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 opacity-50 transition-opacity duration-300 group-hover:opacity-80"
+               :class="selectedTopic === category.slug ? 'border-[#F19A1A]' : 'border-[#328AF1]'"></div>
+          <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 opacity-50 transition-opacity duration-300 group-hover:opacity-80"
+               :class="selectedTopic === category.slug ? 'border-[#F19A1A]' : 'border-[#328AF1]'"></div>
+          <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 opacity-50 transition-opacity duration-300 group-hover:opacity-80"
+               :class="selectedTopic === category.slug ? 'border-[#F19A1A]' : 'border-[#328AF1]'"></div>
+
+          <!-- RPG Background Pattern -->
           <div class="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]"></div>
 
-          <!-- Topic Content -->
+          <!-- Topic Content with RPG Styling -->
           <div class="relative flex flex-col items-center gap-3">
-            <!-- Icon -->
+            <!-- Icon with RPG Styling -->
             <div
-              class="p-2 bg-dark-300 rounded-lg group-hover:bg-purple-500/10 transition-colors duration-300"
+              class="p-2 rounded-lg transition-colors duration-300"
+              :class="selectedTopic === category.slug ? 'bg-[#F19A1A]/10' : 'bg-[#253D63] group-hover:bg-[#F19A1A]/10'"
               v-html="category.icon"
             ></div>
 
-            <!-- Title -->
-            <span class="text-sm font-medium text-white group-hover:text-purple-400 transition-colors duration-300">
+            <!-- Title with RPG Styling -->
+            <span class="text-sm font-medium transition-colors duration-300"
+                  :class="selectedTopic === category.slug ? 'text-[#F19A1A]' : 'text-[#BAD9FC] group-hover:text-[#F19A1A]'">
               {{ category.name }}
             </span>
 
-            <!-- Count Badge -->
-            <span class="absolute -top-2 -right-2 px-2 py-1 text-xs font-medium rounded-full bg-purple-500/20 text-purple-300">
+            <!-- RPG Count Badge -->
+            <span class="absolute -top-2 -right-2 px-2 py-1 text-xs font-bold rounded-full border"
+                  :class="selectedTopic === category.slug
+                    ? 'bg-[#F19A1A]/20 text-[#F19A1A] border-[#F19A1A]/30'
+                    : 'bg-[#328AF1]/20 text-[#328AF1] border-[#328AF1]/30'">
               {{ category.product_count }}
             </span>
           </div>
 
-          <!-- Bottom Accent -->
+          <!-- RPG Bottom Accent -->
           <div
-            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500/50 to-pink-500/50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+            class="absolute bottom-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+            :class="selectedTopic === category.slug
+              ? 'bg-gradient-to-r from-[#F19A1A] to-[#FFC73C]'
+              : 'bg-gradient-to-r from-[#328AF1] to-[#21C8F6]'"
           ></div>
         </button>
       </div>
 
-      <!-- Active Filters -->
+      <!-- Active Filters with RPG Styling -->
       <div v-if="selectedTopic" class="mt-6 flex items-center gap-2">
-        <span class="text-sm text-neutral-400">Active Filter:</span>
+        <span class="text-sm text-[#BAD9FC]/70">Active Filter:</span>
         <button
           @click="openCategorie('all')"
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 transition-colors duration-300"
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-lg text-sm font-medium bg-[#F19A1A]/10 text-[#F19A1A] hover:bg-[#F19A1A]/20 transition-colors duration-300 border border-[#F19A1A]/30"
         >
           {{ selectedTopic }}
           <X class="h-4 w-4" />
@@ -135,7 +146,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
-import { Compass, ArrowRight, X, Code, Package } from 'lucide-vue-next';
+import { Compass, ArrowRight, X, Code, Package, Scroll } from 'lucide-vue-next';
 
 const props = defineProps({
   routeReload: {
@@ -158,3 +169,11 @@ const openCategorie = (category) => {
   });
 };
 </script>
+
+<style scoped>
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
