@@ -34,7 +34,7 @@
     "@inertiajs/vue3": "^2.0",
     "@jamescoyle/vue-icon": "^0.1.2",
     "@mariojgt/masterui": "^0.5.7",
-    "@mariojgt/wind-notify": "^1.0.3",
+    "@mariojgt/wind-notify": "^1.0.4",
     "@mdi/js": "^7.0.96",
     "@rive-app/canvas": "^1.1.4",
     "@tailwindcss/postcss": "^4.0.0",
