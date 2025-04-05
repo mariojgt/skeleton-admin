@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasRoles;
     use HasPermissions;
 
-   /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -32,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_name',
         'email',
         'password',
-        'stripe_id',
+        'gateway_customer_ids', // New JSON field replacing stripe_id
         'avatar',
         'registration_type',
         'email_verified_at'
@@ -55,8 +55,14 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'gateway_customer_ids' => 'json',
     ];
 
+    /**
+     * Get user's social accounts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function socialAccounts()
     {
         return $this->hasMany(SocialAccount::class);
@@ -87,5 +93,61 @@ class User extends Authenticatable implements MustVerifyEmail
 
         // Fallback to Gravatar
         return Gravatar::gravatar($this->email);
+    }
+
+    /**
+     * Get customer ID for a specific payment gateway
+     *
+     * @param string $gateway Gateway identifier (e.g., 'stripe', 'paypal')
+     * @return string|null Customer ID for the specified gateway or null if not found
+     */
+    public function getGatewayCustomerId(string $gateway): ?string
+    {
+        // First check the new gateway_customer_ids JSON field
+        if (!empty($this->gateway_customer_ids) && isset($this->gateway_customer_ids[$gateway])) {
+            return $this->gateway_customer_ids[$gateway];
+        }
+
+        // For backward compatibility with stripe_id
+        if ($gateway === 'stripe' && !empty($this->stripe_id)) {
+            return $this->stripe_id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Set customer ID for a specific payment gateway
+     *
+     * @param string $gateway Gateway identifier (e.g., 'stripe', 'paypal')
+     * @param string $customerId Customer ID to store
+     * @return self
+     */
+    public function setGatewayCustomerId(string $gateway, string $customerId): self
+    {
+        // Initialize gateway_customer_ids as empty array if null
+        if (empty($this->gateway_customer_ids)) {
+            $this->gateway_customer_ids = [];
+        }
+
+        // Set the customer ID for the specified gateway
+        $customerIds = $this->gateway_customer_ids;
+        $customerIds[$gateway] = $customerId;
+        $this->gateway_customer_ids = $customerIds;
+
+        $this->save();
+
+        return $this;
+    }
+
+    /**
+     * Check if user has a customer ID for a specific payment gateway
+     *
+     * @param string $gateway Gateway identifier (e.g., 'stripe', 'paypal')
+     * @return bool Whether user has a customer ID for the specified gateway
+     */
+    public function hasGatewayCustomerId(string $gateway): bool
+    {
+        return $this->getGatewayCustomerId($gateway) !== null;
     }
 }
