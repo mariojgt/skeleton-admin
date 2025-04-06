@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Listeners\SendUserVerifyListener;
+use Illuminate\Support\Facades\Notification;
+use Mariojgt\SkeletonAdmin\Channels\DiscordChannel;
 
 class SkeletonAdminProvider extends ServiceProvider
 {
@@ -39,6 +41,12 @@ class SkeletonAdminProvider extends ServiceProvider
 
         // Load Migrations
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+
+        // Load the Notifications
+        // Register the Discord channel
+        Notification::extend('discord', function ($app) {
+            return new DiscordChannel();
+        });
     }
 
     /**
