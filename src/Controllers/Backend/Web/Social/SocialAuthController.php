@@ -14,6 +14,8 @@ class SocialAuthController extends Controller
 {
     public function redirect($provider)
     {
+        activity()
+            ->log('User redirected to social login');
         return Socialite::driver($provider)->redirect();
     }
 
@@ -37,12 +39,13 @@ class SocialAuthController extends Controller
                     'provider_refresh_token' => $socialUser->refreshToken,
                     'token_expires_at' => isset($socialUser->expiresIn) ? now()->addSeconds($socialUser->expiresIn) : null,
                 ]);
-
                 $user = $socialAccount->user;
             } else {
                 // Check if user with this email exists
                 $user = User::where('email', $socialUser->getEmail())->first();
                 if (empty($user)) {
+                    activity()
+                        ->log('User created with social account');
                     // Create new user
                     $user = User::create([
                         'first_name'        => $socialUser->getName(),
@@ -69,6 +72,9 @@ class SocialAuthController extends Controller
             // Login user
             Auth::login($user);
 
+            activity()
+                ->causedBy($user)
+                ->log('User logged in with social account');
             return redirect()->route('home');
         } catch (ClientException $e) {
             // Handle specific Guzzle client exceptions

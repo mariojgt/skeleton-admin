@@ -22,7 +22,8 @@
         "mariojgt/builder": "^1.1.2|@dev",
         "mariojgt/magnifier": "^1.0|@dev",
         "spatie/laravel-permission": "^6.4",
-        "laravel/socialite": "^5.16"
+        "laravel/socialite": "^5.16",
+        "spatie/laravel-activitylog": "^4.10"
     },
     "autoload": {
         "psr-4": {
