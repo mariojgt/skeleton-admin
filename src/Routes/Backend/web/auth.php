@@ -14,6 +14,15 @@ Route::group([
         Route::post('login/user', 'login')->name('skeleton.login.user');
     });
 
+    // Request Magic Link
+    Route::post('magic-link', [LoginController::class, 'sendMagicLink'])->name('skeleton.login.magic');
+
+    // Handle Magic Link
+    Route::get('magic-login/{admin}', [LoginController::class, 'handleMagicLink'])
+        ->name('skeleton.magic.login')
+        ->middleware(['signed']);
+
+
     /*
     |--------------------------------------------------------------------------
     | Allow user to register if the config is enable

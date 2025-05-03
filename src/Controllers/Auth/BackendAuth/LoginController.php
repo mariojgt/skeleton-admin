@@ -2,13 +2,20 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Verified;
+use Inertia\Inertia;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Mariojgt\SkeletonAdmin\Models\Admin;
+use Skeleton\Store\Models\User;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
+use Mariojgt\SkeletonAdmin\Mail\MagicLoginLink;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
@@ -49,6 +56,39 @@ class LoginController extends Controller
 
         return Redirect::route('skeleton.login')->with('success', 'By :)');
     }
+
+    public function sendMagicLink(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email', 'exists:admins,email'],
+        ]);
+
+        $admin = Admin::where('email', $request->email)->firstOrFail();
+
+        // Generate signed URL (valid for 15 minutes)
+        $link = URL::temporarySignedRoute(
+            'skeleton.magic.login',
+            now()->addMinutes(15),
+            ['admin' => $admin->id, 'hash' => sha1($admin->email)]
+        );
+
+        // You can send this via email
+        Mail::to($admin->email)->send(new MagicLoginLink($link));
+
+        return back()->with('success', 'We sent you a magic login link!');
+    }
+
+    public function handleMagicLink(Request $request, Admin $admin)
+    {
+        if (! $request->hasValidSignature() || sha1($admin->email) !== $request->hash) {
+            abort(401, 'Invalid or expired login link.');
+        }
+
+        backendGuard()->login($admin);
+
+        return Redirect::route('skeleton-admin.home')->with('success', 'Logged in successfully!');
+    }
+
 
     public function verify(Request $request, $userId, $expiration)
     {
