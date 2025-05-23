@@ -7,58 +7,64 @@ use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
 
-class UserController extends Controller
+class UserController extends GenericCrudController
 {
-    public function index()
+    public function __construct()
     {
-        // Build the breadcrumb
-        $breadcrumb = [
-            [
-                'label' => 'Users',
-                'url'   => route('user.admin.index'),
-            ]
-        ];
+        $this->title = 'Users | Management'; // Adjusted title for clarity
+        $this->model = User::class;
+    }
 
-        // Initialize form helper
-        $form = new FormHelper();
-        $formConfig = $form
-            // Add fields
+    protected function getFormConfig(): FormHelper
+    {
+        return (new FormHelper())
             ->addIdField()
-            ->addField('First Name', 'first_name', type: FieldTypes::TEXT->value)
-            ->addField('Last Name', 'last_name', type: FieldTypes::TEXT->value)
-            ->addField('Email', 'email', type: FieldTypes::EMAIL->value)
-            ->addField('Password', 'password', type: FieldTypes::PASSWORD->value)
-            ->addField('Email Verified At', 'email_verified_at', type: FieldTypes::DATE->value)
-            // Set endpoints
-            ->setEndpoints(
-                listEndpoint: route('admin.api.generic.table'),
-                deleteEndpoint: route('admin.api.generic.table.delete'),
-                createEndpoint: route('admin.api.generic.table.create'),
-                editEndpoint: route('admin.api.generic.table.update')
+            ->addField(
+                label: 'First Name',
+                key: 'first_name',
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
+                type: FieldTypes::TEXT->value
             )
-            // Set model
-            ->setModel(User::class)
-            // Set permissions
-            ->setPermissions(
-                guard: 'skeleton_admin',
-                type: 'permission',
-                permissions: [
-                    'store'  => 'create-permission',
-                    'update' => 'edit-permission',
-                    'delete' => 'delete-permission',
-                    'index'  => 'read-permission',
-                ]
+            ->addField(
+                label: 'Last Name',
+                key: 'last_name',
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
+                type: FieldTypes::TEXT->value
             )
-            // Set custom edit route
-            ->setCustomEditRoute('/' . config('skeleton.route_prefix') . '/admin/edit/')
-            // Build final configuration
-            ->build();
-
-        return Inertia::render('BackEnd/User/Index', [
-            'title'      => 'Admin | Admin',
-            'breadcrumb' => $breadcrumb,
-            ...$formConfig
-        ]);
+            ->addField(
+                label: 'Email',
+                key: 'email',
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
+                unique: true, // Email should be unique
+                type: FieldTypes::EMAIL->value
+            )
+            ->addField(
+                label: 'Password',
+                key: 'password',
+                sortable: false, // Passwords are not typically sortable
+                canCreate: true,
+                canEdit: true, // Allow editing for password change (though often handled separately)
+                type: FieldTypes::PASSWORD->value
+            )
+            ->addTimestampField( // Using addTimestampField for email_verified_at
+                label: 'Email Verified At',
+                key: 'email_verified_at',
+                sortable: true,
+                canCreate: false, // Not manually set on creation
+                canEdit: false // Typically not editable manually
+            );
+            // If you have a custom edit route for users (e.g., for profile settings), you'd add it here:
+            // ->setCustomEditRoute(
+            //     route: route('admin.user.edit', ['user' => '{id}']), // Example, adjust as needed
+            //     customActionName: 'User Profile'
+            // );
     }
 }

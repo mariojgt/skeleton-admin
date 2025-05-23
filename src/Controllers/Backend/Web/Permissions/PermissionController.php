@@ -7,78 +7,53 @@ use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
 use Mariojgt\SkeletonAdmin\Models\Permission;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
 
-class PermissionController extends Controller
+class PermissionController extends GenericCrudController
 {
-    public function index()
+    public function __construct()
     {
-        // Build the breadcrumb
-        $breadcrumb = [
-            [
-                'label' => 'Permissions',
-                'url'   => route('admin.permission.index'),
-            ]
-        ];
+        $this->title = 'Permissions | Permissions';
+        $this->model = Permission::class;
+    }
 
-        // Initialize form helper
-        $form = new FormHelper();
-        $formConfig = $form
-            // Add fields
+    protected function getFormConfig(): FormHelper
+    {
+        return (new FormHelper())
             ->addIdField()
             ->addField(
                 label: 'Name',
                 key: 'name',
+                sortable: true, // Added sortable
+                canCreate: true, // Added canCreate
+                canEdit: true, // Added canEdit
+                unique: true, // Permissions usually have unique names
                 type: FieldTypes::TEXT->value
             )
             ->addSelectWithOptions(
                 label: 'Guard',
                 key: 'guard_name',
+                canCreate: true, // Added canCreate
+                canEdit: true, // Added canEdit
                 options: [
                     'skeleton_admin' => 'backend',
-                    'web'           => 'frontend',
-                    'api'           => 'api',
+                    'web'            => 'frontend',
+                    'api'            => 'api',
                 ]
             )
-            ->addField(
+            ->addTimestampField( // Using addTimestampField for created_at
                 label: 'Created At',
                 key: 'created_at',
-                sortable: false,
+                sortable: true, // Made sortable
                 canCreate: false,
-                canEdit: true,
-                type: FieldTypes::DATE->value
+                canEdit: false // Typically not editable manually
             )
             ->addTimestampField(
                 label: 'Updated At',
                 key: 'updated_at',
-                canEdit: true
-            )
-            // Set endpoints
-            ->setEndpoints(
-                listEndpoint: route('admin.api.generic.table'),
-                deleteEndpoint: route('admin.api.generic.table.delete'),
-                createEndpoint: route('admin.api.generic.table.create'),
-                editEndpoint: route('admin.api.generic.table.update')
-            )
-            // Set model
-            ->setModel(Permission::class)
-            // Set permissions
-            ->setPermissions(
-                guard: 'skeleton_admin',
-                type: 'permission',
-                permissions: [
-                    'store'  => 'create-permission',
-                    'update' => 'edit-permission',
-                    'delete' => 'delete-permission',
-                    'index'  => 'read-permission',
-                ]
-            )
-            // Build final configuration
-            ->build();
-
-        return Inertia::render('BackEnd/Permissions/Index', [
-            'title'      => 'Permissions | Permissions',
-            'breadcrumb' => $breadcrumb,
-            ...$formConfig
-        ]);
+                sortable: true, // Made sortable
+                canCreate: false,
+                canEdit: false // Typically not editable manually
+            );
     }
 }

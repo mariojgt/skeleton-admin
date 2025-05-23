@@ -7,28 +7,25 @@ use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
 use Mariojgt\SkeletonAdmin\Models\Navbar;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
 
-class NavbarController extends Controller
+class NavbarController extends GenericCrudController
 {
-    public function index()
+    public function __construct()
     {
-        $breadcrumb = [
-            [
-                'label' => 'Navbar',
-                'url'   => route('admin.navbar.index'),
-            ]
-        ];
+        $this->title = 'Navbar | Navbar';
+        $this->model = Navbar::class;
+    }
 
-        // Initialize form helper
-        $form = new FormHelper();
-        $formConfig = $form
-            // Add fields
+    protected function getFormConfig(): FormHelper
+    {
+        return (new FormHelper())
             ->addIdField()
             ->addField(
                 label: 'Menu Label',
                 key: 'menu_label',
                 sortable: true,
-                canCreate: false,
+                canCreate: true, // Changed to true to allow creation
                 canEdit: true,
                 type: FieldTypes::TEXT->value
             )
@@ -36,51 +33,28 @@ class NavbarController extends Controller
                 label: 'Route',
                 key: 'route',
                 sortable: true,
-                canCreate: false,
-                canEdit: false,
+                canCreate: true, // Changed to true to allow creation
+                canEdit: true, // Changed to true to allow editing
                 type: FieldTypes::TEXT->value
             )
             ->addIconField(
                 label: 'Icon',
                 key: 'icon',
                 sortable: true,
-                canCreate: false,
+                canCreate: true, // Changed to true to allow creation
                 canEdit: true
             )
             ->addBooleanField(
-                label: 'Is frontend',
-                key: 'is_frontend'
+                label: 'Is Frontend', // Corrected label for consistency
+                key: 'is_frontend',
+                canCreate: true, // Added to allow creation
+                canEdit: true // Added to allow editing
             )
             ->addBooleanField(
                 label: 'Is Active',
-                key: 'is_active'
-            )
-            // Set endpoints
-            ->setEndpoints(
-                listEndpoint: route('admin.api.generic.table'),
-                deleteEndpoint: route('admin.api.generic.table.delete'),
-                createEndpoint: route('admin.api.generic.table.create'),
-                editEndpoint: route('admin.api.generic.table.update')
-            )
-            // Set model
-            ->setModel(Navbar::class)
-            // Set permissions
-            ->setPermissions(
-                guard: 'skeleton_admin',
-                type: 'permission',
-                permissions: [
-                    'store'  => 'create-permission',
-                    'update' => 'edit-permission',
-                    'delete' => 'delete-permission',
-                    'index'  => 'read-permission',
-                ]
-            )
-            ->build();
-
-        return Inertia::render('BackEnd/Navbar/Index', [
-            'title'      => 'Navbar | Navbar',
-            'breadcrumb' => $breadcrumb,
-            ...$formConfig
-        ]);
+                key: 'is_active',
+                canCreate: true, // Added to allow creation
+                canEdit: true // Added to allow editing
+            );
     }
 }

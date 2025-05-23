@@ -132,13 +132,15 @@
 </template>
 
 <script setup>
-import { useForm, usePage } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 import { onMounted, ref } from "vue";
 import {
     User, UserCircle, Mail,
     Save, ImagePlus
 } from 'lucide-vue-next';
 import AvatarPicker from '@frontend_components/FrontEnd/Profile/AvatarPicker.vue';
+import { inject} from "vue";
+const route = inject('route');
 const emit = defineEmits(["isLoading"]);
 
 const props = defineProps({

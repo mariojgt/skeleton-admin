@@ -42,6 +42,10 @@
                     @isLoading="loading"
                     @login="openLogin"
                 />
+
+                <!-- Add the survey component here -->
+                <FeedbackSurvey v-if="showFeedbackSurvey" />
+                <BugReportComponent ref="bugReporter" />
             </div>
 
             <!-- Footer -->
@@ -65,10 +69,12 @@ import Breadcrumb from "@frontend_components/FrontEnd/App/Breadcrumb.vue";
 import Navbar from "@frontend_components/FrontEnd/App/Navbar.vue";
 import Footer from "@frontend_components/FrontEnd/App/Footer.vue";
 import MenuDrawer from "@frontend_components/FrontEnd/App/MenuDrawer.vue";
-import { onBeforeMount, watch, onMounted} from "vue";
+import { onBeforeMount, watch, onMounted, computed, ref } from "vue";
 import AuthModal from "@frontend_components/Auth/AuthComponent.vue";
 import Subscribe from "@frontend_components/Payment/Subscription/subscribe.vue";
-import SeoManager  from "@frontend_components/FrontEnd/Seo/SeoManager.vue";
+import SeoManager from "@frontend_components/FrontEnd/Seo/SeoManager.vue";
+import FeedbackSurvey from "@frontend_components/FrontEnd/Global/FeedbackSurvey.vue";
+import BugReportComponent from "@frontend_components/FrontEnd/Global/BugReportComponent.vue";
 
 const props = defineProps({
     showHeader: {
@@ -104,6 +110,9 @@ const props = defineProps({
         default: false,
     }
 });
+
+// Access the showFeedbackSurvey property from the view composer
+const showFeedbackSurvey = computed(() => usePage().props.showFeedbackSurvey || false);
 
 const emit = defineEmits(["closeLogin", "closeRegister", "closeLoading", "closeSubscription"]);
 
@@ -233,6 +242,52 @@ onMounted(() => {
         isMobile = true;
     }
 });
+
+/*
+|--------------------------------------------------------------------------
+| Bug Report Component
+|--------------------------------------------------------------------------
+*/
+const bugReporter = ref(null);
+
+// Function to handle clicks and detect repeated clicks on the same element
+const handleButtonClick = (event, identifier) => {
+    if (bugReporter.value) {
+        // Create a selector for the element to identify it
+        const selector = identifier || 'unknown-element';
+        bugReporter.value.registerMultipleClicks(selector, event);
+    }
+};
+
+// Add global click tracking to detect repeated clicks on any element
+onMounted(() => {
+    document.addEventListener('click', (event) => {
+        // Get a selector for the clicked element
+        const element = event.target;
+
+        // Skip if it's one of our demo buttons (those are handled explicitly)
+        if (element.closest('.interactive-demo-section')) {
+            return;
+        }
+
+        // Create a selector based on element attributes
+        let selector = element.tagName.toLowerCase();
+        if (element.id) {
+            selector += `#${element.id}`;
+        } else if (element.className && typeof element.className === 'string') {
+            // Get first class if there are multiple
+            const firstClass = element.className.split(' ')[0];
+            if (firstClass) {
+                selector += `.${firstClass}`;
+            }
+        }
+
+        // Register the click with the bug reporter
+        if (bugReporter.value) {
+            bugReporter.value.registerMultipleClicks(selector, event);
+        }
+    });
+});
 </script>
 
 <style>
@@ -268,5 +323,64 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(50, 138, 241, 0.5);
+}
+
+/* Interactive demo section styles */
+.interactive-demo-section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: rgba(15, 23, 42, 0.7);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(50, 138, 241, 0.2);
+}
+
+.primary-demo-button {
+    background: linear-gradient(to right, #3B82F6, #60A5FA);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+    transition: all 0.2s ease;
+}
+
+.primary-demo-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(59, 130, 246, 0.3);
+}
+
+.secondary-demo-button {
+    background: rgba(15, 23, 42, 0.6);
+    color: #CBD5E1;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    transition: all 0.2s ease;
+}
+
+.secondary-demo-button:hover {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: translateY(-2px);
+}
+
+.danger-demo-button {
+    background: linear-gradient(to right, #DC2626, #EF4444);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(220, 38, 38, 0.25);
+    transition: all 0.2s ease;
+}
+
+.danger-demo-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(220, 38, 38, 0.3);
 }
 </style>

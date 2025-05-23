@@ -38,9 +38,9 @@
 
 <script setup>
 import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
-import { Link } from "@inertiajs/vue3";
+import { inject } from "vue";
 import Layout from "@frontend_layout/App.vue";
+const route = inject('route');
 // Import the from components
 import {
     InputField,

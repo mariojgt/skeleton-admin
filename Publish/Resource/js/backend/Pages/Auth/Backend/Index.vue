@@ -6,9 +6,6 @@
                     <input-field v-model="email" label="Email" type="email" name="email" id="email"
                         placeholder="Type your email" />
 
-                    <input-password v-model="password" label="Password" name="password" id="password"
-                        placeholder="Type your password" />
-
                     <submit @click="submitForm" class="btn btn-primary btn-wide" />
                 </div>
                 <!-- <Link href="/about-us">Go to about us</Link> -->
@@ -37,7 +34,6 @@ import {
 } from "@mariojgt/masterui/packages/index";
 
 let email = $ref("");
-let password = $ref("");
 
 const props = defineProps({
     title: {
@@ -48,9 +44,8 @@ const props = defineProps({
 
 const submitForm = () => {
     const form = {
-        email: email,
-        password: password,
+        email: email
     };
-    router.post(route("skeleton.login.user"), form);
+    router.post(route('skeleton.login.magic'), form);
 };
 </script>

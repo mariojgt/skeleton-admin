@@ -75,9 +75,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, inject, watch } from 'vue';
 import { Check, Plus, Search, X } from 'lucide-vue-next';
 import axios from 'axios';
+const route = inject('route');
 
 const props = defineProps({
     isOpen: {

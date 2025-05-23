@@ -185,13 +185,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, inject } from "vue";
 import { router } from "@inertiajs/vue3";
 import {
     Shield, Key, Download,
     AlertTriangle
 } from 'lucide-vue-next';
 
+const route = inject('route');
 const props = defineProps({
     userInfo: Object,
     autenticatorInfo: Object,

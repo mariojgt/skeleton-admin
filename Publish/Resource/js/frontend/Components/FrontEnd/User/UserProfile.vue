@@ -193,10 +193,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref,onMounted,onUnmounted } from 'vue';
+import { computed, ref,onMounted,onUnmounted, inject } from 'vue';
 import { Star } from 'lucide-vue-next';
 import { router } from "@inertiajs/vue3";
 
+const route = inject('route');
 const props = defineProps({
     user: {
         type: Object,

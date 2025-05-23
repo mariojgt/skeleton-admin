@@ -268,7 +268,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, inject} from 'vue';
+const route = inject('route');
 import { api } from "../../../Boot/axios.js";
 import { usePage } from "@inertiajs/vue3";
 import { startWindToast } from "@mariojgt/wind-notify/packages/index.js";

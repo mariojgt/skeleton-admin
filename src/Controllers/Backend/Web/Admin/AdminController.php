@@ -14,58 +14,54 @@ use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Enums\PermissionEnum;
 use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
 
-class AdminController extends Controller
+class AdminController extends GenericCrudController
 {
-    public function index()
+    public function __construct()
     {
-         // Build the breadcrumb
-        $breadcrumb = [
-            [
-                'label' => 'Admins',
-                'url'   => route('admin.admin.index'),
-            ]
-        ];
+        $this->title = 'Admin | Admin';
+        $this->model = Admin::class;
+    }
 
-        // Initialize form helper
-        $form = new FormHelper();
-        $formConfig = $form
-            // Add fields
+    protected function getFormConfig(): FormHelper
+    {
+        return (new FormHelper())
             ->addIdField()
-            ->addField('First Name', 'first_name', type: FieldTypes::TEXT->value)
-            ->addField('Last Name', 'last_name', type: FieldTypes::TEXT->value)
-            ->addField('Password', 'password', type: FieldTypes::PASSWORD->value)
-            ->addField('Email', 'email', type: FieldTypes::EMAIL->value)
-            // Set endpoints
-            ->setEndpoints(
-                listEndpoint: route('admin.api.generic.table'),
-                deleteEndpoint: route('admin.api.generic.table.delete'),
-                createEndpoint: route('admin.api.generic.table.create'),
-                editEndpoint: route('admin.api.generic.table.update')
+            ->addField(
+                label: 'First Name',
+                key: 'first_name',
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
+                type: FieldTypes::TEXT->value
             )
-            // Set model
-            ->setModel(Admin::class)
-            // Set permissions
-            ->setPermissions(
-                guard: 'skeleton_admin',
-                type: 'permission',
-                permissions: [
-                    'store'  => 'create-permission',
-                    'update' => 'edit-permission',
-                    'delete' => 'delete-permission',
-                    'index'  => 'read-permission',
-                ]
+            ->addField(
+                label: 'Last Name',
+                key: 'last_name',
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
+                type: FieldTypes::TEXT->value
             )
-            // Set custom edit route
-            ->setCustomEditRoute('/' . config('skeleton.route_prefix') . '/admin/edit/')
-            // Build final configuration
-            ->build();
-
-        return Inertia::render('BackEnd/Admin/Index', [
-            'title'      => 'Admin | Admin',
-            'breadcrumb' => $breadcrumb,
-            ...$formConfig
-        ]);
+            ->addField(
+                label: 'Password',
+                key: 'password',
+                sortable: false, // Passwords are not sortable
+                canCreate: true,
+                canEdit: true,
+                type: FieldTypes::PASSWORD->value
+            )
+            ->addField(
+                label: 'Email',
+                key: 'email',
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
+                unique: true,
+                type: FieldTypes::EMAIL->value
+            )
+            ->setCustomEditRoute('/' . config('skeleton.route_prefix') . '/admin/edit/');
     }
 
     /**
@@ -122,7 +118,7 @@ class AdminController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email'      => 'required|email|unique:admins,email,'.$admin->id,
+            'email'      => 'required|email|unique:admins,email,' . $admin->id,
         ]);
 
         $admin->first_name = Request('first_name');

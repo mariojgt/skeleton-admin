@@ -47,6 +47,8 @@ import {
     Submit,
     LinkButton,
 } from "@mariojgt/masterui/packages/index";
+import { inject} from "vue";
+const route = inject('route');
 
 let email = $ref("") as string;
 let password = $ref("") as string;

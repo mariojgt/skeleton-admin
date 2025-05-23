@@ -54,7 +54,8 @@
 <script setup lang="ts" >
 import { useForm } from "@inertiajs/vue3";
 import Layout from "@frontend_layout/App.vue";
-
+import { inject} from "vue";
+const route = inject('route');
 // Import the from components
 import {
     InputField,

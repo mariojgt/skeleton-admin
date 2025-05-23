@@ -1,269 +1,296 @@
 <template>
-    <nav class="w-80 min-h-full bg-dark-900/95 backdrop-blur-md border-r border-cyan-900/30 relative overflow-hidden">
-        <!-- Animated Background with Pixels/Grid -->
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBjNDg2MyIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc>')] opacity-10">
+    <nav class="w-80 min-h-full bg-[#0F172A] bg-opacity-95 backdrop-blur-md border-r border-[#64FFDA]/20 relative overflow-hidden">
+      <!-- Premium Background Elements -->
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzY0RkZEQSIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc>')] opacity-10"></div>
+
+      <!-- Subtle Scanline Effect -->
+      <div class="absolute inset-0 bg-scanline opacity-5 pointer-events-none"></div>
+
+      <!-- Dynamic Accent Lighting -->
+      <div class="absolute top-0 right-0 w-full h-64 bg-gradient-to-b from-[#64FFDA]/5 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#8B5CF6]/5 to-transparent"></div>
+
+      <!-- Header with Brand Logo -->
+      <div class="relative px-6 pt-8 pb-4 mb-4">
+        <h1 class="text-2xl font-gaming text-[#64FFDA] tracking-wider flex items-center">
+          <Gamepad class="w-7 h-7 mr-3 text-[#64FFDA]" />
+          <span class="text-gradient-brand">Realm <span class="text-[#8B5CF6]">Game Dev</span></span>
+        </h1>
+        <!-- Sleek Divider -->
+        <div class="h-px bg-gradient-to-r from-[#64FFDA]/10 via-[#64FFDA]/50 to-[#64FFDA]/10 mt-4"></div>
+      </div>
+
+      <!-- Navigation Content -->
+      <div class="relative px-4 space-y-1">
+        <!-- Regular Nav Items with Better Visual Hierarchy -->
+        <Link
+          v-for="item in regularNavItems"
+          :key="item.name"
+          :href="item.route"
+          class="group relative flex items-center gap-3 p-3 rounded-lg transition-all duration-200 overflow-hidden"
+          :class="[
+            item.isActive
+              ? 'bg-[#1E293B] text-white'
+              : 'text-[#CBD5E1] hover:bg-[#1E293B]/50 hover:text-white'
+          ]"
+        >
+          <!-- Clean, Modern Hover State -->
+          <div
+            class="absolute inset-0 rounded-lg transition-opacity duration-200 opacity-0 group-hover:opacity-100"
+            :class="{ 'opacity-100': item.isActive }"
+          >
+            <!-- Active state accent -->
+            <div
+              v-if="item.isActive"
+              class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b"
+              :class="getItemAccentColor(item.name)">
+            </div>
+          </div>
+
+          <!-- Modern Icon Container -->
+          <div class="relative flex-shrink-0">
+            <component
+              :is="item.icon"
+              class="w-5 h-5 transition-all duration-200"
+              :class="[
+                item.isActive
+                  ? getItemIconColor(item.name)
+                  : 'text-[#CBD5E1] group-hover:text-white'
+              ]"
+            />
+          </div>
+
+          <!-- Clean Typography -->
+          <span
+            class="text-md font-medium relative transition-all duration-200"
+          >
+            {{ item.name }}
+          </span>
+
+          <!-- Level Badge - Cleaner Implementation -->
+          <div
+            v-if="item.isActive"
+            class="ml-auto bg-[#0F172A] px-2 py-0.5 rounded text-xs font-medium"
+            :class="getItemTextColor(item.name)"
+          >
+            LVL {{ item.level }}
+          </div>
+        </Link>
+
+        <!-- Divider before premium -->
+        <div class="h-px bg-[#64FFDA]/10 my-4"></div>
+
+        <!-- Premium Button with Modern Design -->
+        <button
+          @click.stop="openPricing"
+          class="group relative w-full flex items-center gap-3 p-3 rounded-lg transition-all duration-200 border border-[#F59E0B]/20 bg-[#1E293B]/40 hover:bg-[#1E293B]/60"
+        >
+          <!-- Modern Premium Effect -->
+          <div class="absolute inset-0 rounded-lg transition-opacity duration-200 opacity-0 group-hover:opacity-100">
+            <div class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[#F59E0B] to-[#FBBF24]"></div>
+          </div>
+
+          <!-- Premium Icon -->
+          <div class="relative flex-shrink-0">
+            <CreditCard class="w-5 h-5 text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors duration-200" />
+          </div>
+
+          <!-- Premium Text -->
+          <span class="text-md font-medium text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors duration-200">
+            Premium Access
+          </span>
+
+          <!-- Animated Badge -->
+          <div class="ml-auto">
+            <div class="relative px-2 py-0.5 bg-[#F59E0B]/20 rounded-full">
+              <span class="text-xs font-medium text-[#F59E0B]">UPGRADE</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- Recent Courses Section -->
+        <div class="mt-8">
+          <div class="text-sm font-medium text-[#CBD5E1] px-3 py-2">Recent Courses</div>
+
+          <!-- Recent Course Cards -->
+          <div class="space-y-2 mt-2">
+            <div v-for="(course, index) in recentCourses" :key="index"
+                 class="p-2 rounded-lg bg-[#1E293B]/50 hover:bg-[#1E293B] border border-[#64FFDA]/10 hover:border-[#64FFDA]/30 transition-all duration-200 cursor-pointer group">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded bg-[#0F172A] flex items-center justify-center">
+                  <component :is="course.icon" class="w-5 h-5" :class="course.iconColor" />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-medium text-white truncate">{{ course.title }}</div>
+                  <div class="text-xs text-[#CBD5E1] flex items-center gap-1">
+                    <Clock class="w-3 h-3" />
+                    {{ course.progress }}% Complete
+                  </div>
+                </div>
+                <div class="w-2 h-8 rounded-full bg-[#0F172A]">
+                  <div class="h-full rounded-full transition-all duration-300"
+                       :class="course.progressColor"
+                       :style="{ height: `${course.progress}%` }"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <!-- Scanline Effect -->
-        <div class="absolute inset-0 bg-scanline opacity-5 pointer-events-none"></div>
-
-        <!-- Header with Logo/Title -->
-        <div class="relative px-6 pt-8 pb-4 mb-2">
-            <h1 class="text-2xl font-gaming text-cyan-400 tracking-wider flex items-center">
-                <Zap class="w-7 h-7 mr-3" />
-                <span class="text-gradient-gaming">The Dev <span class="text-cyan-300">Realm</span></span>
-            </h1>
-            <div class="h-px bg-gradient-to-r from-cyan-500/10 via-cyan-400/50 to-cyan-500/10 mt-4 mb-2"></div>
-        </div>
-
-        <!-- Navigation Content -->
-        <div class="relative px-6 space-y-2">
-            <!-- Regular Nav Items -->
-            <Link
-                v-for="item in regularNavItems"
-                :key="item.name"
-                :href="item.route"
-                class="group relative flex items-center gap-4 p-3 rounded-md transition-all duration-300 overflow-hidden"
-                :class="[
-                    item.isActive
-                        ? 'bg-cyan-900/20 text-cyan-300 shadow-neon-cyan'
-                        : 'text-gray-400 hover:bg-dark-700/40 hover:text-cyan-200'
-                ]"
-            >
-                <!-- Background Animation -->
-                <div
-                    class="absolute inset-0 rounded-md transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                    :class="{ 'opacity-100': item.isActive }"
-                >
-                    <!-- Animated gradient border -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/10 to-purple-500/20 opacity-0 group-hover:opacity-100"
-                         :class="{ 'opacity-100 animate-pulse-slow': item.isActive }"></div>
-
-                    <!-- Hover effect -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-900/30 via-cyan-800/10 to-cyan-900/30 opacity-0 group-hover:opacity-100"></div>
-                </div>
-
-                <!-- Icon Container with Glow -->
-                <div class="relative">
-                    <div
-                        class="absolute inset-0 rounded-md transition-all duration-300"
-                        :class="item.isActive ? 'bg-cyan-500/30 blur-md animate-pulse-slow' : 'bg-transparent group-hover:bg-cyan-500/20 group-hover:blur-md'"
-                    ></div>
-                    <component
-                        :is="item.icon"
-                        class="w-5 h-5 relative z-10 transition-all duration-300"
-                        :class="item.isActive ? 'text-cyan-300 scale-110' : 'text-gray-400 group-hover:text-cyan-300 group-hover:scale-110'"
-                    />
-                </div>
-
-                <!-- Text with Pixel Font Effect -->
-                <span
-                    class="text-md font-medium font-gaming relative z-10 tracking-wide transition-all duration-300"
-                    :class="item.isActive ? 'text-cyan-300' : 'group-hover:text-cyan-300'"
-                >
-                    {{ item.name }}
-                </span>
-
-                <!-- Active Indicator - Energy Bar -->
-                <div v-if="item.isActive" class="absolute -right-6 top-0 h-full w-1.5 bg-gradient-to-b from-cyan-400 via-cyan-300 to-blue-500 opacity-80 transition-all duration-300 rounded-l animate-pulse-slow"></div>
-
-                <!-- XP Level Indicator (only for active items) -->
-                <div v-if="item.isActive" class="ml-auto relative bg-dark-800/80 px-2 py-0.5 rounded text-xs font-mono text-cyan-300 border border-cyan-500/30">
-                    LVL {{ item.level }}
-                </div>
-            </Link>
-
-            <!-- Premium Button (Styled as Special Item) -->
-            <button
-                @click.stop="openPricing"
-                class="group relative w-full flex items-center gap-4 p-3 mt-6 rounded-md transition-all duration-300 text-gray-300 hover:text-amber-300 overflow-hidden border border-amber-500/20"
-            >
-                <!-- Premium Background Effect with Animation -->
-                <div class="absolute inset-0 rounded-md transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-                    <div class="absolute inset-0 bg-gradient-to-r from-amber-900/30 via-amber-600/10 to-amber-900/30"></div>
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.2)_0%,_transparent_70%)] group-hover:animate-pulse-slow"></div>
-                </div>
-
-                <!-- Icon Container with Gold Effect -->
-                <div class="relative">
-                    <div class="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/30 rounded-full blur-md transition-all duration-300 group-hover:animate-pulse"></div>
-                    <Crown class="w-5 h-5 relative z-10 transition-colors duration-300 text-amber-400 group-hover:text-amber-300" />
-                </div>
-
-                <!-- Treasure Text -->
-                <span class="text-md font-gaming relative z-10 transition-colors duration-300 text-amber-400 group-hover:text-amber-300">
-                    PREMIUM ACCESS
-                </span>
-
-                <!-- Animated Indicator (Coin/Treasure) -->
-                <div class="ml-auto relative">
-                    <div class="absolute -inset-2 bg-amber-500/20 rounded-full blur-md animate-ping opacity-75"></div>
-                    <div class="relative w-3 h-3 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 flex items-center justify-center">
-                        <div class="w-1 h-1 rounded-full bg-amber-200"></div>
-                    </div>
-                </div>
-            </button>
-
-            <!-- Player Stats Preview -->
-            <!-- <div class="mt-8 pt-6 border-t border-cyan-900/30">
-                <div class="flex items-center mb-3">
-                    <Gamepad2 class="w-4 h-4 text-cyan-500 mr-2" />
-                    <h3 class="text-xs text-cyan-500 font-gaming tracking-wider">PLAYER STATS</h3>
-                </div>
-
-
-                <div class="space-y-3">
-                    <div>
-                        <div class="flex justify-between text-xs mb-1">
-                            <span class="text-gray-400">XP</span>
-                            <span class="text-cyan-400 font-mono">1250/2000</span>
-                        </div>
-                        <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
-                            <div class="h-full w-3/5 bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between text-xs mb-1">
-                            <span class="text-gray-400">TUTORIALS</span>
-                            <span class="text-green-400 font-mono">24/56</span>
-                        </div>
-                        <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
-                            <div class="h-full w-2/5 bg-gradient-to-r from-green-600 to-green-400 rounded-full"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </div>
+      </div>
     </nav>
-</template>
+  </template>
 
-<script setup>
-import { Link, usePage } from "@inertiajs/vue3";
-import {
-    Home, BookOpen, Store,
-    Newspaper, Crown,
-    Trophy, Gamepad2, Zap
-} from 'lucide-vue-next';
-import { computed } from 'vue';
+  <script setup>
+  import { Link, usePage, router } from "@inertiajs/vue3";
+  import {
+    Home, BookOpen, Store, Award,
+    Newspaper, CreditCard, Clock, Trophy,
+    Gamepad, Code, Brush, FileCode
+  } from 'lucide-vue-next';
+  import { computed, inject, ref } from 'vue';
 
-// Routes
-const homeRoute = route("home");
-const courses = route("course.index");
-const store = route("store.index");
-const news = route("news");
+  const route = inject('route');
 
-const emit = defineEmits(["pricing"]);
+  // Routes
+  const homeRoute = route("home");
+  const courses = route("course.index");
+  const store = route("store.index");
+  const news = route("news");
 
-const openPricing = (event) => {
+  const emit = defineEmits(["pricing"]);
+
+  const openPricing = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    emit("pricing");
-};
+    router.visit('/pricing');
+  };
 
-// Current route for active state
-const currentRoute = computed(() => usePage().url);
+  // Current route for active state
+  const currentRoute = computed(() => usePage().url);
 
-// Regular navigation items with gaming elements
-const regularNavItems = computed(() => [
+  // Regular navigation items with premium styling
+  const regularNavItems = computed(() => [
     {
-        name: 'Home',
-        icon: Home,
-        route: homeRoute,
-        isActive: currentRoute.value === homeRoute,
-        level: 12
+      name: 'Home',
+      icon: Home,
+      route: homeRoute,
+      isActive: currentRoute.value === homeRoute,
+      level: 12
     },
     {
-        name: 'Courses',
-        icon: BookOpen,
-        route: courses,
-        isActive: currentRoute.value === courses,
-        level: 8
+      name: 'Courses',
+      icon: BookOpen,
+      route: courses,
+      isActive: currentRoute.value === courses,
+      level: 8
     },
     {
-        name: 'Store',
-        icon: Store,
-        route: store,
-        isActive: currentRoute.value === store,
-        level: 5
+      name: 'Store',
+      icon: Store,
+      route: store,
+      isActive: currentRoute.value === store,
+      level: 5
     },
     {
-        name: 'News',
-        icon: Newspaper,
-        route: news,
-        isActive: currentRoute.value === news,
-        level: 3
-    },
-]);
-</script>
+      name: 'News',
+      icon: Newspaper,
+      route: news,
+      isActive: currentRoute.value === news,
+      level: 3
+    }
+  ]);
 
-<style scoped>
-/* Gaming Font - add @font-face or import if you have a specific gaming font */
-.font-gaming {
-  font-family: 'Oxanium', 'Rajdhani', sans-serif;
-  letter-spacing: 0.05em;
-}
+  // Recent courses
+  const recentCourses = [
+    // {
+    //   title: 'Unreal Engine 5 Mastery',
+    //   progress: 75,
+    //   icon: Code,
+    //   iconColor: 'text-[#64FFDA]',
+    //   progressColor: 'bg-[#64FFDA]'
+    // },
+    // {
+    //   title: 'Advanced Game Architecture',
+    //   progress: 45,
+    //   icon: FileCode,
+    //   iconColor: 'text-[#8B5CF6]',
+    //   progressColor: 'bg-[#8B5CF6]'
+    // },
+    // {
+    //   title: 'Game Art Fundamentals',
+    //   progress: 90,
+    //   icon: Brush,
+    //   iconColor: 'text-[#F59E0B]',
+    //   progressColor: 'bg-[#F59E0B]'
+    // }
+  ];
 
-/* Scanline effect */
-.bg-scanline {
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(0, 0, 0, 0.1) 50%
-  );
-  background-size: 100% 4px;
-  animation: scanline 10s linear infinite;
-}
+  // Color theme functions for different nav items
+  const getItemAccentColor = (name) => {
+    const colors = {
+      'Home': 'from-[#64FFDA] to-[#10B981]',
+      'Courses': 'from-[#8B5CF6] to-[#A78BFA]',
+      'Store': 'from-[#10B981] to-[#34D399]',
+      'News': 'from-[#F59E0B] to-[#FBBF24]'
+    };
+    return colors[name] || 'from-[#64FFDA] to-[#10B981]';
+  };
 
-/* Text gradient for gaming look */
-.text-gradient-gaming {
-  background: linear-gradient(to bottom, #4fe0ff, #38bdf8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
-}
+  const getItemIconColor = (name) => {
+    const colors = {
+      'Home': 'text-[#64FFDA]',
+      'Courses': 'text-[#8B5CF6]',
+      'Store': 'text-[#10B981]',
+      'News': 'text-[#F59E0B]'
+    };
+    return colors[name] || 'text-[#64FFDA]';
+  };
 
-/* Neon shadow for active items */
-.shadow-neon-cyan {
-  box-shadow: 0 0 5px rgba(8, 145, 178, 0.5),
-              inset 0 0 10px rgba(6, 182, 212, 0.3);
-}
+  const getItemTextColor = (name) => {
+    const colors = {
+      'Home': 'text-[#64FFDA]',
+      'Courses': 'text-[#8B5CF6]',
+      'Store': 'text-[#10B981]',
+      'News': 'text-[#F59E0B]'
+    };
+    return colors[name] || 'text-[#64FFDA]';
+  };
+  </script>
 
-/* Slower pulse animation */
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.8;
+  <style scoped>
+  /* Modern font */
+  .font-gaming {
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    letter-spacing: 0.05em;
   }
-  50% {
-    opacity: 0.4;
+
+  /* Premium scanline effect */
+  .bg-scanline {
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 0, 0, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    animation: scanline 15s linear infinite;
   }
-}
 
-.animate-pulse-slow {
-  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Scanline animation */
-@keyframes scanline {
-  0% {
-    background-position: 0 0;
+  /* Premium gradient text */
+  .text-gradient-brand {
+    background: linear-gradient(to bottom, #64FFDA, #10B981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
   }
-  100% {
-    background-position: 0 100%;
+
+  /* Clean scanline animation */
+  @keyframes scanline {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 0 100%;
+    }
   }
-}
-
-/* Dark theme custom colors */
-.bg-dark-900 {
-  background-color: #0c1117;
-}
-
-.bg-dark-800 {
-  background-color: #131c27;
-}
-
-.bg-dark-700 {
-  background-color: #192231;
-}
-</style>
+  </style>

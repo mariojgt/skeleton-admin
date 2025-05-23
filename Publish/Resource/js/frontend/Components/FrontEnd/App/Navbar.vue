@@ -1,8 +1,7 @@
-# Navbar.vue
 <template>
     <div class="relative">
-        <!-- Background with gradient and pattern -->
-        <div :class="[headerBackground, 'absolute inset-0 bg-gradient-to-r from-dark-600/98 to-dark-500/98 backdrop-blur-sm border-b border-gray-800/50']"></div>
+        <!-- Background with premium gradient and pattern -->
+        <div :class="[headerBackground, 'absolute inset-0 bg-gradient-to-r from-[#0F172A]/98 to-[#1E293B]/98 backdrop-blur-sm border-b border-[#64FFDA]/20']"></div>
 
         <!-- Navbar Content -->
         <div class="relative navbar z-30 flex justify-between items-center px-4 py-2">
@@ -10,10 +9,10 @@
             <div class="flex items-center gap-3">
                 <label for="my-drawer" class="flex items-center gap-4 cursor-pointer group">
                     <div class="relative">
-                        <div class="absolute -inset-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-25 group-hover:opacity-75 blur transition-opacity duration-300"></div>
+                        <div class="absolute -inset-2 bg-gradient-to-r from-[#64FFDA] to-[#8B5CF6] rounded-lg opacity-25 group-hover:opacity-75 blur transition-opacity duration-300"></div>
                         <logo class="relative h-16 w-16 transform transition-all duration-500 group-hover:rotate-180" />
                     </div>
-                    <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 hidden lg:block">
+                    <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#64FFDA] to-[#8B5CF6] hidden lg:block">
                         The Dev Realm
                     </span>
                 </label>
@@ -28,15 +27,15 @@
                 <template v-if="!isAuth">
                     <button
                         @click="login"
-                        class="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium transition-all duration-300"
+                        class="px-4 py-2 rounded-lg bg-[#1E293B] border border-[#64FFDA]/30 text-[#64FFDA] font-medium hover:bg-[#0F172A] hover:border-[#64FFDA] transition-all duration-300"
                     >
                         Sign in
                     </button>
                     <button
                         @click="register"
-                        class="px-4 py-2 rounded-lg bg-purple-500 hover:bg-purple-600 text-white font-medium transition-all duration-300"
+                        class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#64FFDA] to-[#10B981] text-[#0F172A] font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
                     >
-                        Get Started for Free
+                        Get Premium Access
                     </button>
                 </template>
 
@@ -53,7 +52,7 @@
                         <!-- Avatar with Level Frame -->
                         <div class="relative group cursor-pointer" tabindex="0">
                             <!-- Avatar Base -->
-                            <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-dark-500">
+                            <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#1E293B]">
                                 <img
                                     :src="usePage().props.authUserInfo.data.avatar"
                                     class="w-full h-full object-cover"
@@ -67,10 +66,10 @@
                                         <!-- Background Circle -->
                                         <circle
                                             cx="50" cy="50" r="45"
-                                            stroke="rgba(0,0,0,0.5)"
+                                            stroke="rgba(15, 23, 42, 0.5)"
                                             stroke-width="5"
                                             fill="none"
-                                            class="text-dark-800"
+                                            class="text-[#0F172A]"
                                         />
                                         <!-- Progress Background -->
                                         <circle
@@ -78,7 +77,7 @@
                                             stroke="currentColor"
                                             stroke-width="5"
                                             fill="none"
-                                            class="text-blue-500/20"
+                                            class="text-[#64FFDA]/20"
                                         />
                                         <!-- Progress Bar -->
                                         <circle
@@ -92,27 +91,27 @@
                                         />
                                         <defs>
                                             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                <stop offset="0%" style="stop-color: rgb(59, 130, 246);" />
-                                                <stop offset="100%" style="stop-color: rgb(168, 85, 247);" />
+                                                <stop offset="0%" style="stop-color: rgb(100, 255, 218);" />
+                                                <stop offset="100%" style="stop-color: rgb(139, 92, 246);" />
                                             </linearGradient>
                                         </defs>
                                     </svg>
                                 </div>
 
-                                <!-- Level Badge - Adjusted position and made more prominent -->
-                                <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-sm font-bold text-white shadow-lg border-2 border-dark-800">
+                                <!-- Level Badge - Adjusted position and made more premium -->
+                                <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-[#64FFDA] to-[#10B981] flex items-center justify-center text-sm font-bold text-[#0F172A] shadow-lg border-2 border-[#0F172A]">
                                     {{ userInfo.level }}
                                 </div>
                             </template>
                         </div>
 
                         <!-- Dropdown Menu -->
-                        <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-dark-200/90 backdrop-blur-sm rounded-xl border border-gray-800/50 w-72 mt-4">
+                        <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-[#1E293B]/90 backdrop-blur-sm rounded-xl border border-[#64FFDA]/20 w-72 mt-4">
                             <!-- User Info Section -->
-                            <div class="p-4 border-b border-gray-800/50">
+                            <div class="p-4 border-b border-[#64FFDA]/10">
                                 <div class="flex items-center gap-4">
                                     <!-- User Avatar -->
-                                    <div class="w-16 h-16 rounded-lg overflow-hidden">
+                                    <div class="w-16 h-16 rounded-lg overflow-hidden border border-[#64FFDA]/20">
                                         <img
                                             :src="usePage().props.authUserInfo.data.avatar"
                                             class="w-full h-full object-cover"
@@ -122,10 +121,10 @@
                                     <div class="flex-1">
                                         <div class="font-bold text-white text-lg">{{ usePage().props.authUserInfo.data.name }}</div>
                                         <template v-if="userInfo.hasLevel">
-                                            <div class="text-sm text-gray-400">Level {{ userInfo.level }}</div>
-                                            <div class="text-sm text-gray-400">{{ userInfo.currentXp }}/{{ userInfo.nextLevelXp }} XP to next level</div>
+                                            <div class="text-sm text-[#CBD5E1]">Level {{ userInfo.level }}</div>
+                                            <div class="text-sm text-[#CBD5E1]">{{ userInfo.currentXp }}/{{ userInfo.nextLevelXp }} XP to next level</div>
                                         </template>
-                                        <div v-else class="text-sm text-gray-400">
+                                        <div v-else class="text-sm text-[#CBD5E1]">
                                             Free Account
                                         </div>
                                     </div>
@@ -133,9 +132,9 @@
 
                                 <!-- XP Progress Bar -->
                                 <template v-if="userInfo.hasLevel">
-                                    <div class="mt-4 h-2 w-full bg-dark-500 rounded-full overflow-hidden">
+                                    <div class="mt-4 h-2 w-full bg-[#0F172A] rounded-full overflow-hidden">
                                         <div
-                                            class="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-300"
+                                            class="h-full bg-gradient-to-r from-[#64FFDA] to-[#8B5CF6] rounded-full transition-all duration-300"
                                             :style="{ width: `${(userInfo.currentXp / userInfo.nextLevelXp) * 100}%` }"
                                         ></div>
                                     </div>
@@ -146,27 +145,27 @@
                             <li>
                                 <Link
                                     :href="profileLink"
-                                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300"
+                                    class="flex items-center gap-3 px-4 py-3 text-[#CBD5E1] hover:text-white hover:bg-[#0F172A]"
                                 >
-                                    <User class="w-5 h-5" />
+                                    <User class="w-5 h-5 text-[#64FFDA]" />
                                     My Profile
                                 </Link>
                             </li>
                             <li>
                                 <Link
                                     :href="achievements"
-                                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300"
+                                    class="flex items-center gap-3 px-4 py-3 text-[#CBD5E1] hover:text-white hover:bg-[#0F172A]"
                                 >
-                                    <User class="w-5 h-5" />
+                                    <Trophy class="w-5 h-5 text-[#F59E0B]" />
                                     Achievements
                                 </Link>
                             </li>
                             <li>
                                 <Link
                                     :href="logoutRoute"
-                                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300"
+                                    class="flex items-center gap-3 px-4 py-3 text-[#CBD5E1] hover:text-white hover:bg-[#0F172A]"
                                 >
-                                    <LogOut class="w-5 h-5" />
+                                    <LogOut class="w-5 h-5 text-[#8B5CF6]" />
                                     Logout
                                 </Link>
                             </li>
@@ -183,18 +182,19 @@ import { Link } from "@inertiajs/vue3";
 import notification from "./Notifications.vue";
 import { usePage } from "@inertiajs/vue3";
 import SearchSidebar from '@frontend_components/FrontEnd/Search/SearchSidebar.vue';
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, inject } from "vue";
 import logo from "@frontend_components/FrontEnd/Icons/logoSimple.vue";
 import ThemeSwich from "@frontend_components/FrontEnd/Global/ThemeSwich.vue";
-import { User, LogOut } from 'lucide-vue-next';
+import { User, LogOut, Trophy } from 'lucide-vue-next';
 
+// Inject the route globally provided
+const route = inject('route');
 let isAuth = $ref(false);
 
 // Computed user info with level data
 const userInfo = computed(() => {
     const userData = usePage().props.authUserInfo?.data || {};
     return {
-        // hasLevel: userData.has_subscription || false,
         hasLevel: true,
         level: usePage().props.authUserInfo.data.level || 25,
         currentXp: usePage().props.authUserInfo.data.xp || 50,
@@ -214,7 +214,7 @@ const dashOffset = computed(() => {
 const props = defineProps({
     headerBackground: {
         type: String,
-        default: "magicpattern",
+        default: "bg-[#0F172A]",
     },
 });
 

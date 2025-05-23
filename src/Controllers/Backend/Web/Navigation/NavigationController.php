@@ -9,29 +9,25 @@ use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
 use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
 
-class NavigationController extends Controller
+class NavigationController extends GenericCrudController
 {
-    public function index()
+    public function __construct()
     {
-        // Build the breadcrumb
-        $breadcrumb = [
-            [
-                'label' => 'Navigation',
-                'url'   => route('admin.navigation.index'),
-            ]
-        ];
+        $this->title = 'Navigation | Navigation';
+        $this->model = Navigation::class;
+    }
 
-        // Initialize form helper
-        $form = new FormHelper();
-        $formConfig = $form
-            // Add fields
+    protected function getFormConfig(): FormHelper
+    {
+        return (new FormHelper())
             ->addIdField()
             ->addField(
                 label: 'Menu Label',
                 key: 'menu_label',
                 sortable: true,
-                canCreate: false,
+                canCreate: true, // Changed to true to allow creation
                 canEdit: true,
                 type: FieldTypes::TEXT->value
             )
@@ -39,45 +35,22 @@ class NavigationController extends Controller
                 label: 'Route',
                 key: 'route',
                 sortable: true,
-                canCreate: false,
-                canEdit: false,
+                canCreate: true, // Changed to true to allow creation
+                canEdit: true, // Changed to true to allow editing
                 type: FieldTypes::TEXT->value
             )
             ->addIconField(
                 label: 'Icon',
                 key: 'icon',
                 sortable: true,
-                canCreate: false,
+                canCreate: true, // Changed to true to allow creation
                 canEdit: true
             )
-            // Set endpoints
-            ->setEndpoints(
-                listEndpoint: route('admin.api.generic.table'),
-                deleteEndpoint: route('admin.api.generic.table.delete'),
-                createEndpoint: route('admin.api.generic.table.create'),
-                editEndpoint: route('admin.api.generic.table.update')
-            )
-            // Set model
-            ->setModel(Navigation::class)
-            // Set permissions
-            ->setPermissions(
-                guard: 'skeleton_admin',
-                type: 'permission',
-                permissions: [
-                    'store'  => 'create-permission',
-                    'update' => 'edit-permission',
-                    'delete' => 'delete-permission',
-                    'index'  => 'read-permission',
-                ]
-            )
-            // Build final configuration
-            ->build();
-
-        return Inertia::render('BackEnd/Navigation/Index', [
-            'title'      => 'Navigation | Navigation',
-            'breadcrumb' => $breadcrumb,
-            ...$formConfig
-        ]);
+            // Add a custom route for the "Position" action
+            ->setCustomPointRoute(
+                route: route('admin.navigation.position'),
+                customActionName: 'Position Management'
+            );
     }
 
     /**

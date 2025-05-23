@@ -69,6 +69,8 @@
                             <!-- Notification Tab -->
                             <notification v-if="activeTab === 'notifications'" />
 
+                            <!-- RPG Dashboard Tab -->
+                            <RPGDashboard v-if="activeTab === 'dashboard'" />
                             <!-- Chat Tab -->
                             <div v-if="activeTab === 'chat'" class="h-full">
                                 <template v-if="hasSubscription">
@@ -348,15 +350,17 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick, watch } from "vue";
+import { ref, computed, inject, onMounted, onUnmounted, nextTick, watch } from "vue";
+const route = inject('route');
 import lodash from 'lodash';
 const { debounce } = lodash;
 import icon from "@frontend_components/FrontEnd/Icons/dynamicIcon.vue";
 import { api } from "../../../Boot/axios.js";
-import { router, usePage, Link } from "@inertiajs/vue3";
+import { router, usePage } from "@inertiajs/vue3";
 import SearchTab from "./SearchTab.vue";
 import notification from "./Notification.vue";
-import bobAI from "./BobAI.vue";
+import bobAI from "../Ai/BobAI.vue";
+import RPGDashboard from './RPGDashboard.vue';
 import {
     Bot,
     Crown,
