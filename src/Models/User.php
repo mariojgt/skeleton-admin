@@ -4,6 +4,7 @@ namespace Mariojgt\SkeletonAdmin\Models;
 
 use Laravel\Sanctum\HasApiTokens;
 use Mariojgt\Castle\Trait\Castle;
+use App\Helpers\UserCreationManager;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
@@ -57,6 +58,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'gateway_customer_ids' => 'json',
     ];
+
+    /**
+     * Boot method for model events
+     */
+    protected static function booted()
+    {
+        // Automatically create a user level when a user is created
+        static::created(function ($user) {
+            UserCreationManager::onUserCreated($user);
+        });
+    }
 
     /**
      * Get user's social accounts

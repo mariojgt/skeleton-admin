@@ -14,7 +14,6 @@ class Seo
     private $twitterHandle = '@thedevrealm';
     private $locale = 'en_US';
 
-    // Static instance for singleton pattern
     private static $instance = null;
 
     public function __construct($title = null, $description = null)
@@ -23,11 +22,6 @@ class Seo
         $this->description = $description;
     }
 
-    /**
-     * Get singleton instance
-     *
-     * @return \Mariojgt\SkeletonAdmin\Helpers\Seo
-     */
     public static function getInstance()
     {
         if (static::$instance === null) {
@@ -36,57 +30,18 @@ class Seo
         return static::$instance;
     }
 
-    /**
-     * Clean up instance - useful for request cycles
-     *
-     * @return void
-     */
     public static function cleanup()
     {
         static::$instance = null;
     }
 
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setKeywords($keywords)
-    {
-        $this->keywords = $keywords;
-        return $this;
-    }
-
-    public function setImage($image)
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    public function setUrl($url)
-    {
-        $this->url = $url;
-        return $this;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-        return $this;
-    }
+    public function setTitle($title) { $this->title = $title; return $this; }
+    public function setDescription($description) { $this->description = $description; return $this; }
+    public function setKeywords($keywords) { $this->keywords = $keywords; return $this; }
+    public function setImage($image) { $this->image = $image; return $this; }
+    public function setUrl($url) { $this->url = $url; return $this; }
+    public function setType($type) { $this->type = $type; return $this; }
+    public function setAuthor($author) { $this->author = $author; return $this; }
 
     public function toArray()
     {
@@ -124,40 +79,47 @@ class Seo
         ];
     }
 
-    /**
-     * Render all SEO tags as HTML
-     *
-     * @return string
-     */
     public function render()
     {
         $html = '';
 
-        // Add basic meta tags
-        $html .= '<title>' . $this->title . '</title>' . PHP_EOL;
+        // Charset and viewport
+        $html .= '<meta charset="UTF-8">' . PHP_EOL;
+        $html .= '<meta name="viewport" content="width=device-width, initial-scale=1">' . PHP_EOL;
 
-        // Add meta tags
+        // Title
+        $html .= '<title>' . htmlspecialchars($this->title) . '</title>' . PHP_EOL;
+
+        // Meta tags
         foreach ($this->toArray()['meta'] as $name => $content) {
             if (!empty($content)) {
-                $html .= '<meta name="' . $name . '" content="' . $content . '" />' . PHP_EOL;
+                $html .= '<meta name="' . $name . '" content="' . htmlspecialchars($content) . '" />' . PHP_EOL;
             }
         }
 
-        // Add Open Graph tags
+        // Canonical tag
+        if (!empty($this->url)) {
+            $html .= '<link rel="canonical" href="' . htmlspecialchars($this->url) . '" />' . PHP_EOL;
+        }
+
+        // Favicon (customize path as needed)
+        $html .= '<link rel="icon" href="/favicon.ico" type="image/x-icon">' . PHP_EOL;
+
+        // Open Graph
         foreach ($this->toArray()['og'] as $property => $content) {
             if (!empty($content)) {
-                $html .= '<meta property="og:' . $property . '" content="' . $content . '" />' . PHP_EOL;
+                $html .= '<meta property="og:' . $property . '" content="' . htmlspecialchars($content) . '" />' . PHP_EOL;
             }
         }
 
-        // Add Twitter tags
+        // Twitter Card
         foreach ($this->toArray()['twitter'] as $property => $content) {
             if (!empty($content)) {
-                $html .= '<meta name="twitter:' . $property . '" content="' . $content . '" />' . PHP_EOL;
+                $html .= '<meta name="twitter:' . $property . '" content="' . htmlspecialchars($content) . '" />' . PHP_EOL;
             }
         }
 
-        // Add JSON-LD script
+        // JSON-LD Schema
         $html .= '<script type="application/ld+json">' . PHP_EOL;
         $html .= json_encode($this->toArray()['jsonLd'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL;
         $html .= '</script>' . PHP_EOL;
@@ -165,11 +127,6 @@ class Seo
         return $html;
     }
 
-    /**
-     * Static method to render SEO tags
-     *
-     * @return string
-     */
     public static function renderStatic()
     {
         $instance = static::getInstance();
