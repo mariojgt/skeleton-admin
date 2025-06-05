@@ -3,7 +3,6 @@
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Social;
 
 use Illuminate\Support\Facades\DB;
-use App\Helpers\UserCreationManager;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Mariojgt\SkeletonAdmin\Models\User;

@@ -16,7 +16,7 @@ class UserCreationManager
      * @param User $user
      * @return void
      */
-    public static function onUserCreated(User $user)  // Add 'static' here
+    public static function onUserCreated(User $user)
     {
         // Default plugin behavior - create user level if method exists
         if (method_exists($user, 'userLevel') && !$user->userLevel) {
