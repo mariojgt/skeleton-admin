@@ -92,8 +92,7 @@ return [
     ],
 
     'front_end_notification_user_model' => [
-        GamedevUser::class,
-        SkeletonStore::class
+        User::class
     ],
 
     'themes' => [
@@ -102,5 +101,5 @@ return [
         'admin'
     ],
 
-    'extra_profile_links' => ['Subscription Management' => '/user/subscription/management']
+    'extra_profile_links' => []
 ];

@@ -41,5 +41,5 @@ Route::group([
     'middleware' => ['web', 'auth'],
     'prefix'     => config('skeleton.route_prefix_front'),
 ], function () {
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout.user');
+    Route::any('/logout', [LoginController::class, 'logout'])->name('logout.user');
 });

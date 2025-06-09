@@ -1,994 +1,426 @@
 <template>
-  <Layout :title="title">
-    <div class="auth-container">
-      <div class="auth-card">
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+    <Head :title="title" />
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 opacity-30">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),transparent)]"></div>
+      <div class="absolute inset-0 bg-[conic-gradient(from_90deg_at_50%_50%,#000_0deg,#7877c6_180deg,#000_360deg)] opacity-20"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-lg">
+      <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+
         <!-- Header -->
-        <div class="auth-header">
-          <div class="logo">
-            <h1>🚀</h1>
+        <div class="text-center mb-8">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
           </div>
-          <h2>Create Account</h2>
-          <p>Join us today and get started</p>
+          <h1 class="text-2xl font-semibold text-white mb-2">Create account</h1>
+          <p class="text-slate-400">Join us today and get started</p>
         </div>
 
         <!-- Registration Form -->
-        <form @submit.prevent="handleRegister" class="auth-form" novalidate>
-          <!-- Username Field -->
-          <div class="form-group">
-            <label for="username" class="form-label">
-              Username
-              <span class="required">*</span>
-            </label>
-            <div class="input-wrapper">
+        <form @submit.prevent="handleRegister" class="space-y-6">
+
+          <!-- Name Fields -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-300">First Name</label>
               <input
-                id="username"
+                v-model="form.first_name"
                 type="text"
-                v-model="form.username"
-                :class="['form-input', { 'error': errors.username, 'valid': isUsernameValid }]"
-                placeholder="Choose a unique username"
-                autocomplete="username"
-                required
-                @blur="validateUsername"
-                @input="clearFieldError('username')"
+                :class="[
+                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500',
+                  errors.first_name ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                ]"
+                placeholder="John"
+                autocomplete="given-name"
               />
-              <div class="input-icon">👤</div>
+              <Transition name="slide-down">
+                <p v-if="errors.first_name" class="text-sm text-red-400">{{ errors.first_name }}</p>
+              </Transition>
             </div>
-            <Transition name="error">
-              <span v-if="errors.username" class="error-message">{{ errors.username }}</span>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-300">Last Name</label>
+              <input
+                v-model="form.last_name"
+                type="text"
+                :class="[
+                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500',
+                  errors.last_name ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                ]"
+                placeholder="Doe"
+                autocomplete="family-name"
+              />
+              <Transition name="slide-down">
+                <p v-if="errors.last_name" class="text-sm text-red-400">{{ errors.last_name }}</p>
+              </Transition>
+            </div>
+          </div>
+
+          <!-- Username Field -->
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-300">Username</label>
+            <div class="relative">
+              <input
+                v-model="form.username"
+                type="text"
+                :class="[
+                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500',
+                  errors.username ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                ]"
+                placeholder="johndoe"
+                autocomplete="username"
+              />
+              <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+            </div>
+            <Transition name="slide-down">
+              <p v-if="errors.username" class="text-sm text-red-400">{{ errors.username }}</p>
             </Transition>
           </div>
 
-          <!-- Name Fields Row -->
-          <div class="form-row">
-            <!-- First Name Field -->
-            <div class="form-group">
-              <label for="first_name" class="form-label">
-                First Name
-                <span class="required">*</span>
-              </label>
-              <div class="input-wrapper">
-                <input
-                  id="first_name"
-                  type="text"
-                  v-model="form.first_name"
-                  :class="['form-input', { 'error': errors.first_name, 'valid': isFirstNameValid }]"
-                  placeholder="Your first name"
-                  autocomplete="given-name"
-                  required
-                  @blur="validateFirstName"
-                  @input="clearFieldError('first_name')"
-                />
-              </div>
-              <Transition name="error">
-                <span v-if="errors.first_name" class="error-message">{{ errors.first_name }}</span>
-              </Transition>
-            </div>
-
-            <!-- Last Name Field -->
-            <div class="form-group">
-              <label for="last_name" class="form-label">
-                Last Name
-                <span class="required">*</span>
-              </label>
-              <div class="input-wrapper">
-                <input
-                  id="last_name"
-                  type="text"
-                  v-model="form.last_name"
-                  :class="['form-input', { 'error': errors.last_name, 'valid': isLastNameValid }]"
-                  placeholder="Your last name"
-                  autocomplete="family-name"
-                  required
-                  @blur="validateLastName"
-                  @input="clearFieldError('last_name')"
-                />
-              </div>
-              <Transition name="error">
-                <span v-if="errors.last_name" class="error-message">{{ errors.last_name }}</span>
-              </Transition>
-            </div>
-          </div>
-
           <!-- Email Field -->
-          <div class="form-group">
-            <label for="email" class="form-label">
-              Email Address
-              <span class="required">*</span>
-            </label>
-            <div class="input-wrapper">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-300">Email</label>
+            <div class="relative">
               <input
-                id="email"
-                type="email"
                 v-model="form.email"
-                :class="['form-input', { 'error': errors.email, 'valid': isEmailValid }]"
-                placeholder="Enter your email address"
+                type="email"
+                :class="[
+                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500',
+                  errors.email ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                ]"
+                placeholder="john@example.com"
                 autocomplete="email"
-                required
-                @blur="validateEmail"
-                @input="clearFieldError('email')"
               />
-              <div class="input-icon">📧</div>
+              <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
             </div>
-            <Transition name="error">
-              <span v-if="errors.email" class="error-message">{{ errors.email }}</span>
+            <Transition name="slide-down">
+              <p v-if="errors.email" class="text-sm text-red-400">{{ errors.email }}</p>
             </Transition>
           </div>
 
           <!-- Password Field -->
-          <div class="form-group">
-            <label for="password" class="form-label">
-              Password
-              <span class="required">*</span>
-            </label>
-            <div class="input-wrapper">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-300">Password</label>
+            <div class="relative">
               <input
-                id="password"
-                :type="showPassword ? 'text' : 'password'"
                 v-model="form.password"
-                :class="['form-input', { 'error': errors.password }]"
+                :type="showPassword ? 'text' : 'password'"
+                :class="[
+                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 pr-12',
+                  errors.password ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                ]"
                 placeholder="Create a strong password"
                 autocomplete="new-password"
-                required
-                @input="clearFieldError('password')"
               />
               <button
                 type="button"
-                @click="togglePassword"
-                class="password-toggle"
-                :title="showPassword ? 'Hide password' : 'Show password'"
+                @click="showPassword = !showPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
               >
-                <span v-if="showPassword">👁️</span>
-                <span v-else>👁️‍🗨️</span>
+                <svg v-if="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                </svg>
+                <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
               </button>
             </div>
-            <Transition name="error">
-              <span v-if="errors.password" class="error-message">{{ errors.password }}</span>
+
+            <!-- Password Strength -->
+            <Transition name="slide-down">
+              <div v-if="form.password" class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div
+                      :class="[
+                        'h-full transition-all duration-300',
+                        passwordStrengthClass === 'weak' ? 'bg-red-500' :
+                        passwordStrengthClass === 'medium' ? 'bg-yellow-500' : 'bg-emerald-500'
+                      ]"
+                      :style="{ width: passwordStrengthPercent + '%' }"
+                    ></div>
+                  </div>
+                  <span :class="[
+                    'text-xs font-medium',
+                    passwordStrengthClass === 'weak' ? 'text-red-400' :
+                    passwordStrengthClass === 'medium' ? 'text-yellow-400' : 'text-emerald-400'
+                  ]">
+                    {{ passwordStrengthText }}
+                  </span>
+                </div>
+              </div>
             </Transition>
 
-            <!-- Password Strength Indicator -->
-            <div v-if="form.password" class="password-strength">
-              <div class="strength-label">Password Strength:</div>
-              <div class="strength-bar">
-                <div
-                  class="strength-fill"
-                  :class="passwordStrengthClass"
-                  :style="{ width: passwordStrengthPercent + '%' }"
-                ></div>
-              </div>
-              <div class="strength-text" :class="passwordStrengthClass">
-                {{ passwordStrengthText }}
-              </div>
-            </div>
+            <Transition name="slide-down">
+              <p v-if="errors.password" class="text-sm text-red-400">{{ errors.password }}</p>
+            </Transition>
           </div>
 
           <!-- Confirm Password Field -->
-          <div class="form-group">
-            <label for="password_confirmation" class="form-label">
-              Confirm Password
-              <span class="required">*</span>
-            </label>
-            <div class="input-wrapper">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-300">Confirm Password</label>
+            <div class="relative">
               <input
-                id="password_confirmation"
-                :type="showConfirmPassword ? 'text' : 'password'"
                 v-model="form.password_confirmation"
-                :class="['form-input', { 'error': errors.password_confirmation || passwordMismatch, 'valid': passwordsMatch }]"
+                :type="showConfirmPassword ? 'text' : 'password'"
+                :class="[
+                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 pr-12',
+                  errors.password_confirmation || passwordMismatch ? 'border-red-500/50 bg-red-500/5' :
+                  passwordsMatch ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-white/10 hover:border-white/20'
+                ]"
                 placeholder="Confirm your password"
                 autocomplete="new-password"
-                required
-                @input="clearFieldError('password_confirmation')"
               />
               <button
                 type="button"
-                @click="toggleConfirmPassword"
-                class="password-toggle"
-                :title="showConfirmPassword ? 'Hide password' : 'Show password'"
+                @click="showConfirmPassword = !showConfirmPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
               >
-                <span v-if="showConfirmPassword">👁️</span>
-                <span v-else>👁️‍🗨️</span>
+                <svg v-if="showConfirmPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                </svg>
+                <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
               </button>
             </div>
-            <Transition name="error">
-              <span v-if="errors.password_confirmation" class="error-message">{{ errors.password_confirmation }}</span>
-              <span v-else-if="passwordMismatch && form.password_confirmation" class="error-message">Passwords do not match</span>
+            <Transition name="slide-down">
+              <p v-if="errors.password_confirmation" class="text-sm text-red-400">{{ errors.password_confirmation }}</p>
+              <p v-else-if="passwordMismatch && form.password_confirmation" class="text-sm text-red-400">Passwords do not match</p>
+              <p v-else-if="passwordsMatch && form.password_confirmation" class="text-sm text-emerald-400">Passwords match ✓</p>
             </Transition>
           </div>
 
           <!-- Terms Checkbox -->
-          <div class="form-group checkbox-group">
-            <label class="checkbox-label">
+          <div class="space-y-2">
+            <label class="flex items-start gap-3 cursor-pointer">
               <input
-                type="checkbox"
                 v-model="form.terms"
-                class="checkbox-input"
-                required
+                type="checkbox"
+                class="w-5 h-5 mt-0.5 bg-white/5 border border-white/20 rounded text-emerald-500 focus:ring-emerald-500/50 focus:ring-2"
               />
-              <span class="checkmark"></span>
-              <span class="checkbox-text">
+              <span class="text-sm text-slate-300 leading-relaxed">
                 I agree to the
-                <Link href="#" class="link">Terms of Service</Link>
+                <Link href="#" class="text-emerald-400 hover:text-emerald-300 transition-colors">Terms of Service</Link>
                 and
-                <Link href="#" class="link">Privacy Policy</Link>
+                <Link href="#" class="text-emerald-400 hover:text-emerald-300 transition-colors">Privacy Policy</Link>
               </span>
             </label>
-            <Transition name="error">
-              <span v-if="!form.terms && formSubmitted" class="error-message">You must agree to the terms</span>
+            <Transition name="slide-down">
+              <p v-if="!form.terms && formSubmitted" class="text-sm text-red-400">You must agree to the terms</p>
             </Transition>
           </div>
 
           <!-- Submit Button -->
           <button
             type="submit"
-            class="btn-primary"
-            :disabled="!canSubmit || processing"
+            :disabled="processing || !canSubmit"
+            class="w-full bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
           >
-            <Transition name="spinner" mode="out-in">
-              <span v-if="processing" class="spinner" key="spinner"></span>
-              <span v-else key="text">Create Account</span>
-            </Transition>
+            <span v-if="processing" class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Creating account...
+            </span>
+            <span v-else>Create account</span>
           </button>
         </form>
 
         <!-- Divider -->
-        <div class="divider">
-          <span>or</span>
+        <div class="flex items-center my-6">
+          <div class="flex-1 border-t border-white/10"></div>
+          <span class="px-4 text-slate-400 text-sm">or</span>
+          <div class="flex-1 border-t border-white/10"></div>
         </div>
 
-        <!-- Footer Links -->
-        <div class="auth-footer">
-          <div class="auth-links">
-            <span>Already have an account?</span>
-            <Link :href="route('user.login')" class="link">
-              Sign in
-            </Link>
+        <!-- Footer -->
+        <div class="text-center text-sm text-slate-400">
+          Already have an account?
+          <Link :href="route('login')" class="text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
+            Sign in
+          </Link>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="mt-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-white mb-4 text-center">Why join us?</h3>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">Lightning Fast</p>
+              <p class="text-xs text-slate-400">Built for speed and performance</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">Enterprise Security</p>
+              <p class="text-xs text-slate-400">Bank-level encryption and protection</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">24/7 Support</p>
+              <p class="text-xs text-slate-400">Always here when you need us</p>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Additional Info Card -->
-      <div class="info-card">
-        <h3>🎉 Welcome to Skeleton Admin</h3>
-        <p>Join thousands of users who trust our platform for their admin needs.</p>
-        <div class="features">
-          <div class="feature">✨ Modern Interface</div>
-          <div class="feature">🔒 Secure & Reliable</div>
-          <div class="feature">⚡ Lightning Fast</div>
-        </div>
-      </div>
     </div>
-  </Layout>
+  </div>
 </template>
 
-<script>
-import { ref, reactive, computed, nextTick } from 'vue'
-import { router, Link } from '@inertiajs/vue3'
-import Layout from '../../../Layout/Login.vue'
+<script setup>
+import { ref, computed } from 'vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
 
-export default {
-  name: 'RegisterIndex',
-  components: {
-    Layout,
-    Link
+defineProps({
+  title: {
+    type: String,
+    default: 'Create Account'
   },
-  props: {
-    title: {
-      type: String,
-      default: 'Create Account'
-    },
-    errors: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  setup(props) {
-    const processing = ref(false)
-    const showPassword = ref(false)
-    const showConfirmPassword = ref(false)
-    const fieldErrors = ref({})
-    const formSubmitted = ref(false)
-
-    const form = reactive({
-      username: '',
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      terms: false
-    })
-
-    // Validation computed properties
-    const isUsernameValid = computed(() => {
-      return form.username && form.username.length >= 3 && /^[a-zA-Z0-9_]+$/.test(form.username)
-    })
-
-    const isFirstNameValid = computed(() => {
-      return form.first_name && form.first_name.trim().length >= 2
-    })
-
-    const isLastNameValid = computed(() => {
-      return form.last_name && form.last_name.trim().length >= 2
-    })
-
-    const isEmailValid = computed(() => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      return form.email && emailRegex.test(form.email)
-    })
-
-    const passwordMismatch = computed(() => {
-      return form.password && form.password_confirmation &&
-             form.password !== form.password_confirmation
-    })
-
-    const passwordsMatch = computed(() => {
-      return form.password && form.password_confirmation &&
-             form.password === form.password_confirmation
-    })
-
-    // Password strength calculation
-    const passwordStrength = computed(() => {
-      const password = form.password
-      if (!password) return 0
-
-      let score = 0
-
-      // Length checks
-      if (password.length >= 8) score += 1
-      if (password.length >= 12) score += 1
-
-      // Character variety checks
-      if (/[a-z]/.test(password)) score += 1
-      if (/[A-Z]/.test(password)) score += 1
-      if (/[0-9]/.test(password)) score += 1
-      if (/[^A-Za-z0-9]/.test(password)) score += 1
-
-      return score
-    })
-
-    const passwordStrengthPercent = computed(() => {
-      return (passwordStrength.value / 6) * 100
-    })
-
-    const passwordStrengthClass = computed(() => {
-      const strength = passwordStrength.value
-      if (strength <= 2) return 'weak'
-      if (strength <= 4) return 'medium'
-      return 'strong'
-    })
-
-    const passwordStrengthText = computed(() => {
-      const strength = passwordStrength.value
-      if (strength <= 2) return 'Weak'
-      if (strength <= 4) return 'Medium'
-      return 'Strong'
-    })
-
-    const canSubmit = computed(() => {
-      return isUsernameValid.value &&
-             isFirstNameValid.value &&
-             isLastNameValid.value &&
-             isEmailValid.value &&
-             form.password &&
-             passwordsMatch.value &&
-             form.terms &&
-             !processing.value
-    })
-
-    // Methods
-    const validateUsername = () => {
-      if (form.username && !isUsernameValid.value) {
-        if (form.username.length < 3) {
-          fieldErrors.value.username = 'Username must be at least 3 characters'
-        } else if (!/^[a-zA-Z0-9_]+$/.test(form.username)) {
-          fieldErrors.value.username = 'Username can only contain letters, numbers, and underscores'
-        }
-      } else {
-        delete fieldErrors.value.username
-      }
-    }
-
-    const validateFirstName = () => {
-      if (form.first_name && !isFirstNameValid.value) {
-        fieldErrors.value.first_name = 'First name must be at least 2 characters'
-      } else {
-        delete fieldErrors.value.first_name
-      }
-    }
-
-    const validateLastName = () => {
-      if (form.last_name && !isLastNameValid.value) {
-        fieldErrors.value.last_name = 'Last name must be at least 2 characters'
-      } else {
-        delete fieldErrors.value.last_name
-      }
-    }
-
-    const validateEmail = () => {
-      if (form.email && !isEmailValid.value) {
-        fieldErrors.value.email = 'Please enter a valid email address'
-      } else {
-        delete fieldErrors.value.email
-      }
-    }
-
-    const clearFieldError = (field) => {
-      if (fieldErrors.value[field]) {
-        delete fieldErrors.value[field]
-      }
-    }
-
-    const togglePassword = () => {
-      showPassword.value = !showPassword.value
-    }
-
-    const toggleConfirmPassword = () => {
-      showConfirmPassword.value = !showConfirmPassword.value
-    }
-
-    const handleRegister = async () => {
-      formSubmitted.value = true
-
-      if (processing.value || !canSubmit.value) return
-
-      // Clear field errors
-      fieldErrors.value = {}
-
-      // Validate all fields
-      validateUsername()
-      validateFirstName()
-      validateLastName()
-      validateEmail()
-
-      if (Object.keys(fieldErrors.value).length > 0) {
-        return
-      }
-
-      processing.value = true
-
-      try {
-        await router.post(route('register.user'), {
-          username: form.username.trim(),
-          first_name: form.first_name.trim(),
-          last_name: form.last_name.trim(),
-          email: form.email.trim(),
-          password: form.password,
-          password_confirmation: form.password_confirmation
-        }, {
-          preserveScroll: true,
-          onError: (errors) => {
-            processing.value = false
-            nextTick(() => {
-              // Focus on first error field
-              const firstErrorField = Object.keys(errors)[0]
-              if (firstErrorField) {
-                const element = document.getElementById(firstErrorField)
-                if (element) {
-                  element.focus()
-                }
-              }
-            })
-          },
-          onSuccess: () => {
-            processing.value = false
-          }
-        })
-      } catch (error) {
-        console.error('Registration error:', error)
-        processing.value = false
-      }
-    }
-
-    return {
-      form,
-      processing,
-      showPassword,
-      showConfirmPassword,
-      fieldErrors,
-      formSubmitted,
-      isUsernameValid,
-      isFirstNameValid,
-      isLastNameValid,
-      isEmailValid,
-      passwordMismatch,
-      passwordsMatch,
-      passwordStrengthPercent,
-      passwordStrengthClass,
-      passwordStrengthText,
-      canSubmit,
-      validateUsername,
-      validateFirstName,
-      validateLastName,
-      validateEmail,
-      clearFieldError,
-      togglePassword,
-      toggleConfirmPassword,
-      handleRegister,
-      errors: computed(() => ({ ...props.errors, ...fieldErrors.value }))
-    }
+  errors: {
+    type: Object,
+    default: () => ({})
   }
+})
+
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
+const formSubmitted = ref(false)
+
+const form = useForm({
+  username: '',
+  first_name: '',
+  last_name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+  terms: false
+})
+
+// Password validation
+const passwordStrength = computed(() => {
+  const password = form.password
+  if (!password) return 0
+
+  let score = 0
+  if (password.length >= 8) score += 1
+  if (password.length >= 12) score += 1
+  if (/[a-z]/.test(password)) score += 1
+  if (/[A-Z]/.test(password)) score += 1
+  if (/[0-9]/.test(password)) score += 1
+  if (/[^A-Za-z0-9]/.test(password)) score += 1
+
+  return score
+})
+
+const passwordStrengthPercent = computed(() => {
+  return (passwordStrength.value / 6) * 100
+})
+
+const passwordStrengthClass = computed(() => {
+  const strength = passwordStrength.value
+  if (strength <= 2) return 'weak'
+  if (strength <= 4) return 'medium'
+  return 'strong'
+})
+
+const passwordStrengthText = computed(() => {
+  const strength = passwordStrength.value
+  if (strength <= 2) return 'Weak'
+  if (strength <= 4) return 'Medium'
+  return 'Strong'
+})
+
+const passwordMismatch = computed(() => {
+  return form.password && form.password_confirmation && form.password !== form.password_confirmation
+})
+
+const passwordsMatch = computed(() => {
+  return form.password && form.password_confirmation && form.password === form.password_confirmation
+})
+
+const canSubmit = computed(() => {
+  return form.username && form.first_name && form.last_name && form.email &&
+         form.password && passwordsMatch.value && form.terms
+})
+
+const handleRegister = () => {
+  formSubmitted.value = true
+  form.post(route('register.user'), {
+    onFinish: () => form.reset('password', 'password_confirmation')
+  })
 }
 </script>
 
 <style scoped>
-.auth-container {
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.auth-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.05);
-  padding: 48px 40px;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.auth-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-}
-
-/* Header */
-.auth-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.logo h1 {
-  font-size: 56px;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.auth-header h2 {
-  color: #1a202c;
-  margin-bottom: 8px;
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-}
-
-.auth-header p {
-  color: #718096;
-  font-size: 16px;
-  font-weight: 400;
-}
-
-/* Form */
-.auth-form {
-  margin-bottom: 32px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #2d3748;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.required {
-  color: #e53e3e;
-  margin-left: 2px;
-}
-
-.input-wrapper {
-  position: relative;
-}
-
-.form-input {
-  width: 100%;
-  padding: 14px 16px;
-  padding-right: 48px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 16px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  background-color: #f7fafc;
-  outline: none;
-}
-
-.form-input:focus {
-  border-color: #667eea;
-  background-color: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  transform: translateY(-1px);
-}
-
-.form-input.error {
-  border-color: #e53e3e;
-  background-color: #fed7d7;
-}
-
-.form-input.valid {
-  border-color: #38a169;
-  background-color: #f0fff4;
-}
-
-.input-icon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.password-toggle {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  opacity: 0.6;
-  transition: all 0.2s;
-  padding: 4px;
-  border-radius: 6px;
-}
-
-.password-toggle:hover {
-  opacity: 1;
-  background-color: rgba(102, 126, 234, 0.1);
-}
-
-.error-message {
-  color: #e53e3e;
-  font-size: 12px;
-  margin-top: 6px;
-  display: block;
-  font-weight: 500;
-}
-
-/* Password Strength Indicator */
-.password-strength {
-  margin-top: 12px;
-}
-
-.strength-label {
-  font-size: 12px;
-  color: #4a5568;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-.strength-bar {
-  width: 100%;
-  height: 6px;
-  background-color: #e2e8f0;
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 6px;
-}
-
-.strength-fill {
-  height: 100%;
-  border-radius: 3px;
+.slide-down-enter-active,
+.slide-down-leave-active {
   transition: all 0.3s ease;
 }
 
-.strength-fill.weak {
-  background: linear-gradient(90deg, #fc8181, #e53e3e);
+.slide-down-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
-.strength-fill.medium {
-  background: linear-gradient(90deg, #f6ad55, #dd6b20);
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-5px);
 }
 
-.strength-fill.strong {
-  background: linear-gradient(90deg, #68d391, #38a169);
+/* Custom checkbox styling */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-.strength-text {
-  font-size: 12px;
-  font-weight: 600;
+input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  border-color: #10b981;
 }
 
-.strength-text.weak {
-  color: #e53e3e;
-}
-
-.strength-text.medium {
-  color: #dd6b20;
-}
-
-.strength-text.strong {
-  color: #38a169;
-}
-
-/* Checkbox */
-.checkbox-group {
-  margin: 24px 0;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: flex-start;
-  cursor: pointer;
-  font-size: 14px;
-  color: #4a5568;
-  line-height: 1.5;
-  gap: 12px;
-}
-
-.checkbox-input {
-  display: none;
-}
-
-.checkmark {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #cbd5e0;
-  border-radius: 6px;
-  position: relative;
-  transition: all 0.2s;
-  background-color: white;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.checkbox-input:checked + .checkmark {
-  background-color: #667eea;
-  border-color: #667eea;
-}
-
-.checkbox-input:checked + .checkmark::after {
+input[type="checkbox"]:checked::after {
   content: '✓';
+  display: block;
+  text-align: center;
   color: white;
-  font-size: 14px;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.checkbox-text {
-  font-weight: 500;
-}
-
-/* Button */
-.btn-primary {
-  width: 100%;
-  padding: 16px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
-}
-
-.btn-primary:hover:not(:disabled)::before {
-  opacity: 1;
-}
-
-.btn-primary:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.btn-primary:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.btn-primary > * {
-  position: relative;
-  z-index: 1;
-}
-
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid transparent;
-  border-top: 2px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Divider */
-.divider {
-  text-align: center;
-  margin: 24px 0;
-  position: relative;
-}
-
-.divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #e2e8f0;
-}
-
-.divider span {
-  background: rgba(255, 255, 255, 0.95);
-  color: #718096;
-  padding: 0 16px;
-  font-size: 14px;
-  position: relative;
-}
-
-/* Footer */
-.auth-footer {
-  text-align: center;
-}
-
-.auth-links {
-  font-size: 15px;
-  color: #718096;
-}
-
-.link {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-  margin-left: 6px;
-  transition: all 0.2s;
-  padding: 2px 4px;
-  border-radius: 4px;
-}
-
-.link:hover {
-  color: #5a67d8;
-  background-color: rgba(102, 126, 234, 0.1);
-}
-
-/* Info Card */
-.info-card {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  padding: 24px;
-  text-align: center;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.info-card h3 {
-  color: #2d3748;
-  margin-bottom: 12px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.info-card p {
-  color: #718096;
-  font-size: 14px;
-  margin-bottom: 16px;
-  line-height: 1.5;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 8px;
-}
-
-.feature {
-  background: rgba(102, 126, 234, 0.1);
-  color: #667eea;
-  padding: 8px 12px;
-  border-radius: 20px;
   font-size: 12px;
-  font-weight: 600;
-}
-
-/* Transitions */
-.error-enter-active, .error-leave-active {
-  transition: all 0.3s ease;
-}
-
-.error-enter-from {
-  opacity: 0;
-  transform: translateY(-8px);
-}
-
-.error-leave-to {
-  opacity: 0;
-  transform: translateY(-4px);
-}
-
-.spinner-enter-active, .spinner-leave-active {
-  transition: all 0.2s ease;
-}
-
-.spinner-enter-from, .spinner-leave-to {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 600px) {
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .auth-card {
-    padding: 32px 24px;
-    margin: 16px;
-    border-radius: 16px;
-  }
-
-  .auth-header h2 {
-    font-size: 28px;
-  }
-
-  .logo h1 {
-    font-size: 48px;
-  }
-
-  .info-card {
-    margin: 0 16px;
-    padding: 20px;
-  }
-
-  .features {
-    grid-template-columns: 1fr;
-  }
+  font-weight: bold;
+  line-height: 18px;
 }
 </style>

@@ -1,637 +1,199 @@
 <template>
-  <Layout :title="title">
-    <div class="auth-container">
-      <div class="auth-card">
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+    <Head :title="title" />
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 opacity-30">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),transparent)]"></div>
+      <div class="absolute inset-0 bg-[conic-gradient(from_90deg_at_50%_50%,#000_0deg,#7877c6_180deg,#000_360deg)] opacity-20"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-md">
+      <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+
         <!-- Header -->
-        <div class="auth-header">
-          <div class="logo">
-            <h1>🔐</h1>
+        <div class="text-center mb-8">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
           </div>
-          <h2>Forgot Password?</h2>
-          <p>No worries! Enter your email and we'll send you a reset link</p>
+          <h1 class="text-2xl font-semibold text-white mb-2">Forgot password?</h1>
+          <p class="text-slate-400">No worries! Enter your email and we'll send you a reset link</p>
         </div>
 
         <!-- Reset Form -->
-        <form @submit.prevent="handleReset" class="auth-form" novalidate>
+        <form @submit.prevent="handleReset" class="space-y-6">
+
           <!-- Email Field -->
-          <div class="form-group">
-            <label for="email" class="form-label">
-              Email Address
-              <span class="required">*</span>
-            </label>
-            <div class="input-wrapper">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-300">Email address</label>
+            <div class="relative">
               <input
-                id="email"
-                type="email"
                 v-model="form.email"
-                :class="['form-input', { 'error': errors.email, 'valid': isEmailValid }]"
-                placeholder="Enter your registered email address"
+                type="email"
+                :class="[
+                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500',
+                  errors.email ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                ]"
+                placeholder="Enter your email address"
                 autocomplete="email"
-                required
-                @blur="validateEmail"
-                @input="clearFieldError('email')"
               />
-              <div class="input-icon">📧</div>
+              <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
             </div>
-            <Transition name="error">
-              <span v-if="errors.email" class="error-message">{{ errors.email }}</span>
+            <Transition name="slide-down">
+              <p v-if="errors.email" class="text-sm text-red-400">{{ errors.email }}</p>
             </Transition>
           </div>
 
-          <!-- Info Message -->
-          <div class="info-message">
-            <div class="info-icon">ℹ️</div>
-            <div class="info-text">
-              <strong>What happens next?</strong>
-              <p>We'll send a secure link to your email that you can use to reset your password. The link will expire in 60 minutes for security.</p>
+          <!-- Info Card -->
+          <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+            <div class="flex gap-3">
+              <div class="flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-medium text-blue-300 mb-1">What happens next?</h3>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                  We'll send a secure link to your email that you can use to reset your password.
+                  The link will expire in 60 minutes for security.
+                </p>
+              </div>
             </div>
           </div>
 
           <!-- Submit Button -->
           <button
             type="submit"
-            class="btn-primary"
-            :disabled="!canSubmit || processing"
+            :disabled="processing || !canSubmit"
+            class="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500/50"
           >
-            <Transition name="spinner" mode="out-in">
-              <span v-if="processing" class="spinner" key="spinner"></span>
-              <span v-else key="text">Send Reset Link</span>
-            </Transition>
+            <span v-if="processing" class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Sending link...
+            </span>
+            <span v-else>Send reset link</span>
           </button>
         </form>
 
         <!-- Divider -->
-        <div class="divider">
-          <span>or</span>
+        <div class="flex items-center my-6">
+          <div class="flex-1 border-t border-white/10"></div>
+          <span class="px-4 text-slate-400 text-sm">or</span>
+          <div class="flex-1 border-t border-white/10"></div>
         </div>
 
         <!-- Footer Links -->
-        <div class="auth-footer">
-          <div class="auth-links">
-            <span>Remember your password?</span>
-            <Link :href="route('user.login')" class="link">
-              Back to Sign In
+        <div class="space-y-3 text-center text-sm">
+          <div class="text-slate-400">
+            Remember your password?
+            <Link :href="route('login')" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
+              Back to sign in
             </Link>
           </div>
-          <div class="auth-links">
-            <span>Don't have an account?</span>
-            <Link :href="route('register.user.form')" class="link">
+          <div class="text-slate-400">
+            Don't have an account?
+            <Link :href="route('register.user.form')" class="text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
               Create account
             </Link>
           </div>
         </div>
       </div>
 
-      <!-- Additional Info Card -->
-      <div class="info-card">
-        <h3>🛡️ Secure Reset Process</h3>
-        <p>Your password reset is secured with industry-standard encryption and expires automatically.</p>
-        <div class="security-features">
-          <div class="security-feature">
-            <span class="feature-icon">🕐</span>
-            <span class="feature-text">60-minute expiry</span>
+      <!-- Security Features -->
+      <div class="mt-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-white mb-4 text-center">Secure reset process</h3>
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div class="space-y-2">
+            <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mx-auto">
+              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">Encrypted</p>
+              <p class="text-xs text-slate-400">Secure tokens</p>
+            </div>
           </div>
-          <div class="security-feature">
-            <span class="feature-icon">🔒</span>
-            <span class="feature-text">Encrypted tokens</span>
+          <div class="space-y-2">
+            <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">Time-limited</p>
+              <p class="text-xs text-slate-400">60 min expiry</p>
+            </div>
           </div>
-          <div class="security-feature">
-            <span class="feature-icon">📱</span>
-            <span class="feature-text">Mobile friendly</span>
+          <div class="space-y-2">
+            <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto">
+              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">Verified</p>
+              <p class="text-xs text-slate-400">Email validation</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </Layout>
+  </div>
 </template>
 
-<script>
-import { ref, reactive, computed, nextTick } from 'vue'
-import { router, Link } from '@inertiajs/vue3'
-import Layout from '../../../Layout/Login.vue'
+<script setup>
+import { computed } from 'vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
 
-export default {
-  name: 'ForgotPassword',
-  components: {
-    Layout,
-    Link
+defineProps({
+  title: {
+    type: String,
+    default: 'Forgot Password'
   },
-  props: {
-    title: {
-      type: String,
-      default: 'Forgot Password'
-    },
-    errors: {
-      type: Object,
-      default: () => ({})
-    },
-    status: {
-      type: String,
-      default: ''
-    }
-  },
-  setup(props) {
-    const processing = ref(false)
-    const fieldErrors = ref({})
-    const emailSent = ref(false)
-
-    const form = reactive({
-      email: ''
-    })
-
-    // Computed properties
-    const isEmailValid = computed(() => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      return form.email && emailRegex.test(form.email)
-    })
-
-    const canSubmit = computed(() => {
-      return form.email && isEmailValid.value && !processing.value
-    })
-
-    // Methods
-    const validateEmail = () => {
-      if (form.email && !isEmailValid.value) {
-        fieldErrors.value.email = 'Please enter a valid email address'
-      } else {
-        delete fieldErrors.value.email
-      }
-    }
-
-    const clearFieldError = (field) => {
-      if (fieldErrors.value[field]) {
-        delete fieldErrors.value[field]
-      }
-    }
-
-    const handleReset = async () => {
-      if (processing.value || !canSubmit.value) return
-
-      // Clear field errors
-      fieldErrors.value = {}
-
-      // Validate form
-      if (!form.email) {
-        fieldErrors.value.email = 'Email is required'
-        return
-      }
-
-      if (!isEmailValid.value) {
-        fieldErrors.value.email = 'Please enter a valid email address'
-        return
-      }
-
-      processing.value = true
-
-      try {
-        await router.post(route('password-reset.user'), {
-          email: form.email.trim()
-        }, {
-          preserveScroll: true,
-          onError: (errors) => {
-            processing.value = false
-            nextTick(() => {
-              // Focus on email field if there's an error
-              if (errors.email) {
-                const emailField = document.getElementById('email')
-                if (emailField) {
-                  emailField.focus()
-                }
-              }
-            })
-          },
-          onSuccess: () => {
-            processing.value = false
-            emailSent.value = true
-            // Reset form after successful submission
-            setTimeout(() => {
-              form.email = ''
-              emailSent.value = false
-            }, 5000)
-          }
-        })
-      } catch (error) {
-        console.error('Password reset error:', error)
-        processing.value = false
-      }
-    }
-
-    return {
-      form,
-      processing,
-      fieldErrors,
-      emailSent,
-      isEmailValid,
-      canSubmit,
-      validateEmail,
-      clearFieldError,
-      handleReset,
-      errors: computed(() => ({ ...props.errors, ...fieldErrors.value }))
-    }
+  errors: {
+    type: Object,
+    default: () => ({})
   }
+})
+
+const form = useForm({
+  email: ''
+})
+
+const canSubmit = computed(() => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return form.email && emailRegex.test(form.email)
+})
+
+const handleReset = () => {
+  form.post(route('password-reset.user'))
 }
 </script>
 
 <style scoped>
-.auth-container {
-  width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.auth-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.05);
-  padding: 48px 40px;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.auth-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-}
-
-/* Header */
-.auth-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.logo h1 {
-  font-size: 56px;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.auth-header h2 {
-  color: #1a202c;
-  margin-bottom: 8px;
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-}
-
-.auth-header p {
-  color: #718096;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-/* Form */
-.auth-form {
-  margin-bottom: 32px;
-}
-
-.form-group {
-  margin-bottom: 24px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #2d3748;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.required {
-  color: #e53e3e;
-  margin-left: 2px;
-}
-
-.input-wrapper {
-  position: relative;
-}
-
-.form-input {
-  width: 100%;
-  padding: 14px 16px;
-  padding-right: 48px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 16px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  background-color: #f7fafc;
-  outline: none;
-}
-
-.form-input:focus {
-  border-color: #667eea;
-  background-color: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  transform: translateY(-1px);
-}
-
-.form-input.error {
-  border-color: #e53e3e;
-  background-color: #fed7d7;
-}
-
-.form-input.valid {
-  border-color: #38a169;
-  background-color: #f0fff4;
-}
-
-.input-icon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.error-message {
-  color: #e53e3e;
-  font-size: 13px;
-  margin-top: 6px;
-  display: block;
-  font-weight: 500;
-}
-
-/* Info Message */
-.info-message {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-  border: 1px solid rgba(102, 126, 234, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 24px 0;
-  display: flex;
-  gap: 16px;
-}
-
-.info-icon {
-  font-size: 24px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.info-text {
-  flex: 1;
-}
-
-.info-text strong {
-  color: #2d3748;
-  font-size: 14px;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.info-text p {
-  color: #4a5568;
-  font-size: 13px;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* Button */
-.btn-primary {
-  width: 100%;
-  padding: 16px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
-}
-
-.btn-primary:hover:not(:disabled)::before {
-  opacity: 1;
-}
-
-.btn-primary:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.btn-primary:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.btn-primary > * {
-  position: relative;
-  z-index: 1;
-}
-
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid transparent;
-  border-top: 2px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Divider */
-.divider {
-  text-align: center;
-  margin: 24px 0;
-  position: relative;
-}
-
-.divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #e2e8f0;
-}
-
-.divider span {
-  background: rgba(255, 255, 255, 0.95);
-  color: #718096;
-  padding: 0 16px;
-  font-size: 14px;
-  position: relative;
-}
-
-/* Footer */
-.auth-footer {
-  text-align: center;
-}
-
-.auth-links {
-  margin-bottom: 16px;
-  font-size: 15px;
-  color: #718096;
-}
-
-.auth-links:last-child {
-  margin-bottom: 0;
-}
-
-.link {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-  margin-left: 6px;
-  transition: all 0.2s;
-  padding: 2px 4px;
-  border-radius: 4px;
-}
-
-.link:hover {
-  color: #5a67d8;
-  background-color: rgba(102, 126, 234, 0.1);
-}
-
-/* Info Card */
-.info-card {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  padding: 24px;
-  text-align: center;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.info-card h3 {
-  color: #2d3748;
-  margin-bottom: 12px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.info-card p {
-  color: #718096;
-  font-size: 14px;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-.security-features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-}
-
-.security-feature {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: rgba(102, 126, 234, 0.05);
-  color: #667eea;
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  border: 1px solid rgba(102, 126, 234, 0.1);
-}
-
-.feature-icon {
-  font-size: 16px;
-}
-
-.feature-text {
-  white-space: nowrap;
-}
-
-/* Transitions */
-.error-enter-active, .error-leave-active {
+.slide-down-enter-active,
+.slide-down-leave-active {
   transition: all 0.3s ease;
 }
 
-.error-enter-from {
+.slide-down-enter-from {
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-10px);
 }
 
-.error-leave-to {
+.slide-down-leave-to {
   opacity: 0;
-  transform: translateY(-4px);
-}
-
-.spinner-enter-active, .spinner-leave-active {
-  transition: all 0.2s ease;
-}
-
-.spinner-enter-from, .spinner-leave-to {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 480px) {
-  .auth-card {
-    padding: 32px 24px;
-    margin: 16px;
-    border-radius: 16px;
-  }
-
-  .auth-header h2 {
-    font-size: 28px;
-  }
-
-  .logo h1 {
-    font-size: 48px;
-  }
-
-  .info-message {
-    flex-direction: column;
-    text-align: center;
-    gap: 12px;
-  }
-
-  .info-card {
-    margin: 0 16px;
-    padding: 20px;
-  }
-
-  .security-features {
-    grid-template-columns: 1fr;
-  }
+  transform: translateY(-5px);
 }
 </style>

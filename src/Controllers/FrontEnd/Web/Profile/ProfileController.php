@@ -12,6 +12,7 @@ use Mariojgt\SkeletonAdmin\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
+use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class ProfileController extends Controller
 {
@@ -79,6 +80,13 @@ class ProfileController extends Controller
 
         $user->save();
 
+        // Send the notification to the user
+        $user->notify(new GenericNotification(
+            'Welcome',
+            'info',
+            'Account created successfully.',
+            'icon'
+        ));
         return Redirect::back()
             ->with('success', 'Profile updated successfully');
     }

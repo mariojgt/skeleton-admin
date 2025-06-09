@@ -1,404 +1,303 @@
 <template>
-    <layout>
-        <div class="grid grid-cols-1 gap-6 lg:p-10 xl:grid-cols-3 lg:bg-base-200 rounded-box">
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div>
-                        <div class="avatar">
-                            <div class="rounded-full w-14 h-14 shadow">
-                                <img src="https://i.pravatar.cc/500?img=32" />
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="card-title">Janis Johnson</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Accounts Agent
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div class="flex-1">
-                        <h2 class="card-title">Meredith Mayer</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Data Liaison
-                        </p>
-                    </div>
-                    <div class="flex-0">
-                        <button class="btn btn-sm">Follow</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card row-span-3 shadow-lg compact bg-base-100">
-                <figure>
-                    <img src="https://picsum.photos/id/1005/600/400" />
-                </figure>
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div>
-                        <h2 class="card-title">Karolann Collins</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Direct Interactions Liaison
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div class="flex-1">
-                        <h2 class="card-title text-primary">4,600</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Page views
-                        </p>
-                    </div>
-                    <div class="flex space-x-2 flex-0">
-                        <button class="btn btn-sm btn-square">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block w-6 h-6 stroke-current">
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                </path>
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                            </svg>
-                        </button>
-                        <button class="btn btn-sm btn-square">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block w-6 h-6 stroke-current">
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                                </path>
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <label class="flex-0"><input type="checkbox" checked="checked" class="toggle toggle-primary"
-                            data-com.bitwarden.browser.user-edited="yes" /></label>
-                    <div class="flex-1">
-                        <h2 class="card-title">Enable Notifications</h2>
-                        <p class="text-base-content text-opacity-40">
-                            To get latest updates
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-2 bg-base-100">
-                <div class="card-body">
-                    <h2 class="my-4 text-4xl font-bold card-title">
-                        Top 10 UI Components
-                    </h2>
-                    <div class="mb-4 space-x-2 card-actions">
-                        <div class="badge badge-ghost">Colors</div>
-                        <div class="badge badge-ghost">UI Design</div>
-                        <div class="badge badge-ghost">Creativity</div>
-                    </div>
-                    <p>
-                        Rerum reiciendis beatae tenetur excepturi aut pariatur
-                        est eos. Sit sit necessitatibus veritatis sed molestiae
-                        voluptates incidunt iure sapiente.
-                    </p>
-                    <div class="justify-end space-x-2 card-actions">
-                        <button class="btn btn-primary">Login</button>
-                        <button class="btn">Register</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div class="flex-1">
-                        <h2 class="flex card-title">
-                            <button class="btn btn-ghost btn-sm btn-circle loading"></button>
-                            Downloading...
-                        </h2>
-                        <progress value="70" max="100" class="progress progress-secondary"></progress>
-                    </div>
-                    <div class="flex-0">
-                        <button class="btn btn-circle">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block w-6 h-6 stroke-current">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <label class="cursor-pointer label"><input type="checkbox" checked="checked"
-                            class="checkbox checkbox-accent" />
-                        <span class="mx-4 label-text">Enable Autosave</span></label>
-                </div>
-            </div>
-            <ul class="menu row-span-3 p-4 shadow-lg bg-base-100 text-base-content text-opacity-40 rounded-box">
-                <li class="menu-title"><span> Menu Title </span></li>
-                <li>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-5 h-5 mr-2 stroke-current">
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                            </path>
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                        </svg>
-                        Item with icon
-                    </a>
-                </li>
-                <li>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-5 h-5 mr-2 stroke-current">
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                        </svg>
-                        Item with icon
-                    </a>
-                </li>
-                <li>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-5 h-5 mr-2 stroke-current">
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                        </svg>
-                        Item with icon
-                    </a>
-                </li>
-            </ul>
-            <div class="alert col-span-1 xl:col-span-2 bg-base-100">
-                <div class="flex-1">
-                    <label class="mx-3">Lorem ipsum dolor sit amet, consectetur adip!</label>
-                </div>
-                <div class="flex-none">
-                    <button class="btn btn-sm btn-ghost mr-2">Cancel</button>
-                    <button class="btn btn-sm btn-primary">Apply</button>
-                </div>
-            </div>
-            <div class="alert col-span-1 xl:col-span-2 alert-info">
-                <div class="flex-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="w-6 h-6 mx-2 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                    </svg>
-                    <label>Lorem ipsum dolor sit amet, consectetur adip!</label>
-                </div>
-            </div>
-            <div class="alert col-span-1 xl:col-span-2 alert-success">
-                <div class="flex-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="w-6 h-6 mx-2 stroke-current">
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                    </svg>
-                    <label>Lorem ipsum dolor sit amet, consectetur adip!</label>
-                </div>
-            </div>
+  <Layout :title="title">
+    <!-- Welcome Section -->
+    <div class="hero min-h-96 bg-gradient-to-r from-primary to-secondary">
+      <div class="hero-content text-center text-white">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold">Welcome!</h1>
+          <p class="py-6">
+            This is your home page. You can easily customize this content to match your needs.
+          </p>
+          <button class="btn btn-accent">Get Started</button>
         </div>
-    </layout>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-12">
+
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="stat bg-base-200 rounded-lg shadow">
+          <div class="stat-figure text-primary">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+            </svg>
+          </div>
+          <div class="stat-title">Total Users</div>
+          <div class="stat-value text-primary">89</div>
+          <div class="stat-desc">21% more than last month</div>
+        </div>
+
+        <div class="stat bg-base-200 rounded-lg shadow">
+          <div class="stat-figure text-secondary">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <div class="stat-title">Page Views</div>
+          <div class="stat-value text-secondary">2.6K</div>
+          <div class="stat-desc">15% more than last month</div>
+        </div>
+
+        <div class="stat bg-base-200 rounded-lg shadow">
+          <div class="stat-figure text-accent">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div class="stat-title">Tasks Done</div>
+          <div class="stat-value text-accent">86%</div>
+          <div class="stat-desc">12% more than last month</div>
+        </div>
+      </div>
+
+      <!-- Two Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Recent Activity -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Recent Activity
+            </h2>
+
+            <div class="space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="avatar placeholder">
+                  <div class="bg-primary text-primary-content rounded-full w-8 h-8">
+                    <span class="text-xs">JD</span>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-medium">John Doe created a new project</p>
+                  <p class="text-xs text-base-content/60">2 hours ago</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="avatar placeholder">
+                  <div class="bg-secondary text-secondary-content rounded-full w-8 h-8">
+                    <span class="text-xs">JS</span>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-medium">Jane Smith updated profile</p>
+                  <p class="text-xs text-base-content/60">4 hours ago</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="avatar placeholder">
+                  <div class="bg-accent text-accent-content rounded-full w-8 h-8">
+                    <span class="text-xs">BW</span>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-medium">Bob Wilson completed task</p>
+                  <p class="text-xs text-base-content/60">1 day ago</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-actions justify-end mt-4">
+              <button class="btn btn-sm btn-primary">View All</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title">
+              <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Quick Actions
+            </h2>
+
+            <div class="grid grid-cols-2 gap-4">
+              <button class="btn btn-outline btn-primary">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Add User
+              </button>
+
+              <button class="btn btn-outline btn-secondary">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                New Project
+              </button>
+
+              <button class="btn btn-outline btn-accent">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Settings
+              </button>
+
+              <button class="btn btn-outline btn-info">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Reports
+              </button>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Simple Form Example -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Quick Note</span>
+              </label>
+              <textarea
+                v-model="quickNote"
+                class="textarea textarea-bordered"
+                placeholder="Write a quick note..."
+              ></textarea>
+              <div class="label">
+                <span class="label-text-alt"></span>
+                <button class="btn btn-xs btn-primary" @click="saveNote">Save Note</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simple Table Example -->
+      <div class="card bg-base-100 shadow-xl mt-8">
+        <div class="card-body">
+          <h2 class="card-title">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2H9z" />
+            </svg>
+            Recent Users
+          </h2>
+
+          <div class="overflow-x-auto">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle w-12 h-12">
+                          <img src="https://i.pravatar.cc/100?img=1" alt="Avatar" />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">John Doe</div>
+                        <div class="text-sm opacity-50">Admin</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>john@example.com</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-ghost btn-xs">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle w-12 h-12">
+                          <img src="https://i.pravatar.cc/100?img=2" alt="Avatar" />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">Jane Smith</div>
+                        <div class="text-sm opacity-50">User</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>jane@example.com</td>
+                  <td><span class="badge badge-warning">Pending</span></td>
+                  <td>
+                    <button class="btn btn-ghost btn-xs">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle w-12 h-12">
+                          <img src="https://i.pravatar.cc/100?img=3" alt="Avatar" />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">Bob Wilson</div>
+                        <div class="text-sm opacity-50">Moderator</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>bob@example.com</td>
+                  <td><span class="badge badge-error">Inactive</span></td>
+                  <td>
+                    <button class="btn btn-ghost btn-xs">Edit</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customization Tips -->
+      <div class="alert alert-info mt-8">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+          <h3 class="font-bold">Customization Tips:</h3>
+          <div class="text-xs mt-1">
+            • Change the welcome message in the hero section<br>
+            • Update the stats with your real data<br>
+            • Modify the recent activity to show your content<br>
+            • Replace the table data with your users<br>
+            • Add your own quick action buttons
+          </div>
+        </div>
+      </div>
+    </div>
+  </Layout>
 </template>
 
 <script setup>
-import { router } from "@inertiajs/vue3";
-import Layout from "@frontend_layout/App.vue";
+import { ref } from 'vue'
+import Layout from '../../../Layout/App.vue'
 
-let email = $ref("");
-let password = $ref("");
+// Props
+defineProps({
+  title: {
+    type: String,
+    default: 'Home'
+  }
+})
 
-const props = defineProps({
-    title: {
-        type: String,
-        default: "mariojgt is heredude",
-    },
-});
+// Simple reactive data
+const quickNote = ref('')
 
-const submitForm = () => {
-    const form = {
-        email: email,
-        password: password,
-    };
-    router.post("/login/user", form);
-};
+// Simple methods
+const saveNote = () => {
+  if (quickNote.value.trim()) {
+    alert('Note saved: ' + quickNote.value)
+    quickNote.value = ''
+  }
+}
 </script>

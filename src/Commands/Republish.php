@@ -41,6 +41,9 @@ class Republish extends Command
         $bar = $this->output->createProgressBar(6);
         $bar->start();
 
+        // Delete extra files from other packages if they exist
+        File::deleteDirectory(__DIR__ . '/../../Publish/Resource');
+
         // First we move the resources where we keep the css and js files
         $this->moveFileOrFolder(
             resource_path('vendor/SkeletonAdmin/'),
@@ -93,10 +96,6 @@ class Republish extends Command
             $bar,
             true
         );
-
-        // Delete extra files from other packages if they exist
-        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/backend/Pages/BackEnd/Vendor');
-        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/frontend/Pages/FrontEnd/Vendor');
 
         $bar->finish(); // Finish the progress bar
         $this->newLine();
