@@ -1,0 +1,1 @@
+import{_ as t}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{m as r,b as a,o as s,w as n,l as c}from"./index-TEoLjiFV.js";const _={};function d(u,o){const e=r("Layout");return s(),a(e,{backgroundFooterClass:"bg-[#253D63]",headerBackground:"bg-[#253D63]"},{default:n(()=>o[0]||(o[0]=[c(" user edit page ")])),_:1,__:[0]})}const p=t(_,[["render",d]]);export{p as default};

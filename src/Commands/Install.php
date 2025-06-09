@@ -2,13 +2,15 @@
 
 namespace Mariojgt\SkeletonAdmin\Commands;
 
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Services\InstallationService;
 use Mariojgt\SkeletonAdmin\Database\Seeder\NavbarSeeder;
-use Mariojgt\Magnifier\Controllers\MediaFolderController;
 use Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder;
 use Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder;
 use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\RegisterController as BackendRegisterController;
@@ -18,201 +20,434 @@ class Install extends Command
 {
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
-    protected $signature = 'install:skeleton-admin';
+    protected $signature = 'skeleton-admin:install
+                            {--force : Force installation without confirmation}
+                            {--skip-migrations : Skip migration reset}
+                            {--skip-npm : Skip NPM package installation}
+                            {--admin-email=admin@example.com : Admin email address}';
 
     /**
      * The console command description.
-     *
-     * @var string
      */
-    protected $description = 'Install the skeleton admin';
+    protected $description = 'Install Skeleton Admin package with all dependencies';
+
+    /**
+     * Installation service instance
+     */
+    protected InstallationService $installationService;
+
+    /**
+     * Installation steps with their descriptions
+     */
+    protected array $installationSteps = [
+        'checking_requirements' => 'Checking system requirements',
+        'cleaning_migrations' => 'Cleaning existing migrations',
+        'publishing_dependencies' => 'Publishing package dependencies',
+        'running_migrations' => 'Running database migrations',
+        'running_seeders' => 'Running database seeders',
+        'creating_users' => 'Creating default admin and user accounts',
+        'finalizing' => 'Finalizing installation',
+    ];
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
-    public function __construct()
+    public function __construct(InstallationService $installationService)
     {
         parent::__construct();
+        $this->installationService = $installationService;
     }
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        // Define the migrations folder path
-        $migrationsPath = database_path('migrations');
+        try {
+            $this->displayWelcome();
 
-        // Delete all the migration files
-        $this->info('Deleting all the migration files...');
-        $this->deleteMigrationFiles($migrationsPath);
+            if (!$this->confirmInstallation()) {
+                $this->info('Installation cancelled.');
+                return self::SUCCESS;
+            }
 
-        Artisan::call('migrate:fresh');
+            $this->performInstallation();
+            $this->displaySuccess();
 
-        // Call the function that will publish all the packages files
-        $this->publishPackages();
-
-        // Migrate
-        Artisan::call('migrate');
-
-        // Run the seeder
-        $this->runSeeders();
-
-        // Create the admin and user user
-        $this->createFrontAndBackUser("admin@default.com");
-
-        // Cache the routes
-        Artisan::call('optimize:clear');
-
-        $this->newLine();
-        $this->info('The command was successful!');
+            return self::SUCCESS;
+        } catch (Exception $e) {
+            $this->displayError($e);
+            return self::FAILURE;
+        }
     }
 
     /**
-     * Delete all files in the specified directory.
-     *
-     * @param string $path
-     * @return void
+     * Display welcome message
      */
-    protected function deleteMigrationFiles(string $path)
+    protected function displayWelcome(): void
     {
-        if (!is_dir($path)) {
-            $this->warn("The directory {$path} does not exist.");
-            return;
+        $this->info('╔══════════════════════════════════════════════════════════╗');
+        $this->info('║                Skeleton Admin Installer                  ║');
+        $this->info('║                                                          ║');
+        $this->info('║  This will install Skeleton Admin with all dependencies ║');
+        $this->info('╚══════════════════════════════════════════════════════════╝');
+        $this->newLine();
+    }
+
+    /**
+     * Confirm installation with user
+     */
+    protected function confirmInstallation(): bool
+    {
+        if ($this->option('force')) {
+            return true;
         }
 
-        $files = glob("{$path}/*.php");
+        $this->warn('⚠️  This installation will:');
+        $this->line('   • Reset your database migrations');
+        $this->line('   • Publish package files (may overwrite existing files)');
+        $this->line('   • Install NPM dependencies');
+        $this->line('   • Create default admin and user accounts');
+        $this->newLine();
 
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                unlink($file); // Delete the file
-                $this->info("Deleted: {$file}");
+        return $this->confirm('Do you want to continue?', false);
+    }
+
+    /**
+     * Perform the complete installation process
+     */
+    protected function performInstallation(): void
+    {
+        $progressBar = $this->output->createProgressBar(count($this->installationSteps));
+        $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% -- %message%');
+        $progressBar->start();
+
+        foreach ($this->installationSteps as $step => $description) {
+            $progressBar->setMessage($description);
+            $this->executeInstallationStep($step);
+            $progressBar->advance();
+            sleep(1); // Small delay for better UX
+        }
+
+        $progressBar->finish();
+        $this->newLine(2);
+    }
+
+    /**
+     * Execute individual installation step
+     */
+    protected function executeInstallationStep(string $step): void
+    {
+        switch ($step) {
+            case 'checking_requirements':
+                $this->checkRequirements();
+                break;
+            case 'cleaning_migrations':
+                if (!$this->option('skip-migrations')) {
+                    $this->cleanMigrations();
+                }
+                break;
+            case 'publishing_dependencies':
+                $this->publishDependencies();
+                break;
+            case 'running_migrations':
+                $this->runMigrations();
+                break;
+            case 'running_seeders':
+                $this->runSeeders();
+                break;
+            case 'creating_users':
+                $this->createDefaultUsers();
+                break;
+            case 'finalizing':
+                $this->finalizeInstallation();
+                break;
+        }
+    }
+
+    /**
+     * Check system requirements
+     */
+    protected function checkRequirements(): void
+    {
+        $requirements = [
+            'PHP >= 8.1' => version_compare(PHP_VERSION, '8.1.0', '>='),
+            'Laravel >= 10.0' => version_compare(app()->version(), '10.0.0', '>='),
+            'Composer installed' => $this->isComposerInstalled(),
+        ];
+
+        foreach ($requirements as $requirement => $met) {
+            if (!$met) {
+                throw new Exception("Requirement not met: {$requirement}");
             }
         }
     }
 
     /**
-     * Run the seeders required for the skeleton-admin
-     *
+     * Check if Composer is installed
      */
-    private function runSeeders()
+    protected function isComposerInstalled(): bool
     {
-        // Run the database seeder
-        Artisan::call('db:seed', [
-            '--class' => RolesPermissionSeeder::class,
-        ]);
-
-        // Run the navigation seeder
-        Artisan::call('db:seed', [
-            '--class' => NavigationSeeder::class,
-        ]);
-
-        // Run the navigation seeder
-        Artisan::call('db:seed', [
-            '--class' => NavbarSeeder::class,
-        ]);
+        return !empty(shell_exec('which composer'));
     }
 
     /**
-     * Publish the related packages
+     * Clean existing migrations safely
      */
-    private function publishPackages()
+    protected function cleanMigrations(): void
     {
-        // Install Sanctum
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Laravel\Sanctum\SanctumServiceProvider',
-            '--force' => true,
-        ]);
+        $migrationsPath = database_path('migrations');
 
-        // Install the castle package
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Mariojgt\Castle\CastleProvider',
-            '--force' => true,
-        ]);
+        if (!File::isDirectory($migrationsPath)) {
+            File::makeDirectory($migrationsPath, 0755, true);
+            return;
+        }
 
-        // The cookie package
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Mariojgt\Biscotto\BiscottoProvider',
-            '--force' => true,
-        ]);
+        // Backup existing migrations
+        $backupPath = database_path('migrations_backup_' . date('Y_m_d_H_i_s'));
+        File::copyDirectory($migrationsPath, $backupPath);
 
-        // Publish spatie permission
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Spatie\Permission\PermissionServiceProvider',
-            '--force' => true,
-        ]);
+        // Clean migrations
+        File::cleanDirectory($migrationsPath);
 
-        // Publish the builder package
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Mariojgt\Builder\BuilderProvider',
-            '--force' => true,
-        ]);
-
-        // Publish the media library package
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Mariojgt\Magnifier\MagnifierProvider',
-            '--force' => true,
-        ]);
-
-        // Call migrations
-        Artisan::call('migrate');
-
-        $mediaManager = new MediaFolderController();
-        $mediaManager->makeFolder('media');
-
-        // Copy the need file to make the skeleton to work
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',
-            '--force' => true,
-        ]);
+        // Fresh migrate
+        Artisan::call('migrate:fresh', ['--force' => true]);
     }
 
-    private function createFrontAndBackUser(string $userEmail): void
+    /**
+     * Publish all package dependencies
+     */
+    protected function publishDependencies(): void
     {
-        // Create the Admin user
-        $request = new Request();
-        $adminPassword = Str::random(10);
-        $request->merge([
-            'first_name'            => 'Admin',
-            'last_name'             => 'Admin',
-            'email'                 => $userEmail,
-            'password'              => $adminPassword,
-            'password_confirmation' => $adminPassword,
-        ]);
-        $registerController = new BackendRegisterController();
-        $registerController->userRegister($request);
-        $this->info('The Admin was created with the password: (' . $adminPassword . ')');
+        $packages = [
+            'Laravel\Sanctum\SanctumServiceProvider',
+            'Mariojgt\Castle\CastleProvider',
+            'Mariojgt\Biscotto\BiscottoProvider',
+            'Spatie\Permission\PermissionServiceProvider',
+            'Mariojgt\Builder\BuilderProvider',
+            'Mariojgt\Magnifier\MagnifierProvider',
+            'Mariojgt\SkeletonAdmin\SkeletonAdminProvider',
+        ];
 
-        // Create the User user
-        $request = new Request();
-        $userPassword = Str::random(10);
-        $request->merge([
-            'username'              => Str::random(10),
-            'first_name'            => 'User',
-            'last_name'             => 'User',
-            'email'                 => $userEmail,
-            'password'              => $userPassword,
-            'password_confirmation' => $userPassword,
-        ]);
-        $registerController = new FrontendRegisterController();
-        $registerController->userRegister($request);
-        // Find the user and verify the email
-        $user = Admin::where('email', $userEmail)->first();
-        $user->email_verified_at = now();
-        $user->save();
-        $this->info('The User was created with the password: (' . $userPassword . ')');
+        foreach ($packages as $package) {
+            try {
+                Artisan::call('vendor:publish', [
+                    '--provider' => $package,
+                    '--force' => true,
+                ]);
+            } catch (Exception $e) {
+                $this->warn("Warning: Could not publish {$package}: " . $e->getMessage());
+            }
+        }
 
-        // Create a txt file with the user and password
-        $file = fopen(base_path('user.txt'), 'w');
-        fwrite($file, 'Admin: ' . $userEmail . ' Password: ' . $adminPassword . PHP_EOL);
-        fwrite($file, 'User: ' . $userEmail . ' Password: ' . $userPassword . PHP_EOL);
-        fclose($file);
+        // Install NPM packages if not skipped
+        if (!$this->option('skip-npm')) {
+            $this->installNpmPackages();
+        }
+    }
+
+    /**
+     * Install NPM packages
+     */
+    protected function installNpmPackages(): void
+    {
+        if (File::exists(base_path('package.json'))) {
+            exec('npm install 2>&1', $output, $returnCode);
+            if ($returnCode !== 0) {
+                $this->warn('NPM installation failed. You may need to run "npm install" manually.');
+            }
+        }
+    }
+
+    /**
+     * Run database migrations
+     */
+    protected function runMigrations(): void
+    {
+        Artisan::call('migrate', ['--force' => true]);
+
+        // Create default media folder if Magnifier is available
+        if (class_exists('Mariojgt\Magnifier\Controllers\MediaFolderController')) {
+            try {
+                $mediaManager = new \Mariojgt\Magnifier\Controllers\MediaFolderController();
+                $mediaManager->makeFolder('media');
+            } catch (Exception $e) {
+                $this->warn('Could not create media folder: ' . $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Run package seeders
+     */
+    protected function runSeeders(): void
+    {
+        $seeders = [
+            RolesPermissionSeeder::class,
+            NavigationSeeder::class,
+            NavbarSeeder::class,
+        ];
+
+        foreach ($seeders as $seeder) {
+            try {
+                Artisan::call('db:seed', [
+                    '--class' => $seeder,
+                    '--force' => true,
+                ]);
+            } catch (Exception $e) {
+                $this->warn("Warning: Could not run seeder {$seeder}: " . $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Create default admin and user accounts
+     */
+    protected function createDefaultUsers(): void
+    {
+        $adminEmail = $this->option('admin-email');
+        $credentials = [];
+
+        try {
+            // Create admin user
+            $adminPassword = $this->createAdminUser($adminEmail);
+            $credentials['admin'] = [
+                'email' => $adminEmail,
+                'password' => $adminPassword
+            ];
+
+            // Create regular user
+            $userPassword = $this->createRegularUser($adminEmail);
+            $credentials['user'] = [
+                'email' => $adminEmail,
+                'password' => $userPassword
+            ];
+
+            // Save credentials to file
+            $this->saveCredentialsToFile($credentials);
+
+        } catch (Exception $e) {
+            $this->warn('Could not create default users: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Create admin user
+     */
+    protected function createAdminUser(string $email): string
+    {
+        $password = Str::random(12);
+        $request = new Request([
+            'first_name' => 'Admin',
+            'last_name' => 'User',
+            'email' => $email,
+            'password' => $password,
+            'password_confirmation' => $password,
+        ]);
+
+        $controller = new BackendRegisterController();
+        $controller->userRegister($request);
+
+        return $password;
+    }
+
+    /**
+     * Create regular user
+     */
+    protected function createRegularUser(string $email): string
+    {
+        $password = Str::random(12);
+        $request = new Request([
+            'username' => 'user_' . Str::random(6),
+            'first_name' => 'Regular',
+            'last_name' => 'User',
+            'email' => 'user_' . $email,
+            'password' => $password,
+            'password_confirmation' => $password,
+        ]);
+
+        $controller = new FrontendRegisterController();
+        $controller->userRegister($request);
+
+        // Verify email automatically
+        $user = Admin::where('email', 'user_' . $email)->first();
+        if ($user) {
+            $user->email_verified_at = now();
+            $user->save();
+        }
+
+        return $password;
+    }
+
+    /**
+     * Save user credentials to file
+     */
+    protected function saveCredentialsToFile(array $credentials): void
+    {
+        $content = "Skeleton Admin - Default User Credentials\n";
+        $content .= "Generated on: " . now()->toDateTimeString() . "\n\n";
+
+        foreach ($credentials as $type => $creds) {
+            $content .= strtoupper($type) . " USER:\n";
+            $content .= "Email: " . $creds['email'] . "\n";
+            $content .= "Password: " . $creds['password'] . "\n\n";
+        }
+
+        $content .= "⚠️  Please change these passwords after first login!\n";
+        $content .= "⚠️  Delete this file after noting the credentials!\n";
+
+        File::put(base_path('skeleton-admin-credentials.txt'), $content);
+    }
+
+    /**
+     * Finalize installation
+     */
+    protected function finalizeInstallation(): void
+    {
+        // Clear all caches
+        Artisan::call('optimize:clear');
+
+        // Cache routes and config for production
+        if (app()->environment('production')) {
+            Artisan::call('route:cache');
+            Artisan::call('config:cache');
+        }
+    }
+
+    /**
+     * Display success message
+     */
+    protected function displaySuccess(): void
+    {
+        $this->info('🎉 Skeleton Admin has been successfully installed!');
+        $this->newLine();
+
+        $this->info('📋 Next Steps:');
+        $this->line('   1. Check skeleton-admin-credentials.txt for login details');
+        $this->line('   2. Visit your application to test the installation');
+        $this->line('   3. Change default passwords');
+        $this->line('   4. Delete the credentials file');
+        $this->newLine();
+
+        if (File::exists(base_path('skeleton-admin-credentials.txt'))) {
+            $this->info('🔑 Default credentials saved to: skeleton-admin-credentials.txt');
+        }
+    }
+
+    /**
+     * Display error message
+     */
+    protected function displayError(Exception $e): void
+    {
+        $this->error('❌ Installation failed!');
+        $this->error('Error: ' . $e->getMessage());
+        $this->newLine();
+
+        $this->info('🔧 Troubleshooting:');
+        $this->line('   1. Check your database connection');
+        $this->line('   2. Ensure you have proper file permissions');
+        $this->line('   3. Verify all required packages are installed');
+        $this->line('   4. Check the Laravel log for more details');
     }
 }

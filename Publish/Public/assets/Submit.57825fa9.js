@@ -1,1 +1,0 @@
-import{o as e,j as n,e as s,k as o,t as r}from"./preset.50377e4a.js";const c={class:"form-control pt-6"},l={class:"inline-block mr-2"},_={__name:"Submit",props:{name:{type:String,default:"Login"},class:{type:String,default:"btn btn-primary"}},setup(a){const t=a;return(i,p)=>(e(),n("div",null,[s("div",c,[s("button",{class:o(t.class)},[s("span",l,r(t.name),1)],2)])]))}};export{_};

@@ -8,7 +8,7 @@ Route::group([
     'middleware' => ['web', 'auth', 'verified', '2fa'],
     'prefix' => config('skeleton.route_prefix_front'),
 ], function () {
-    // Route::get('/user/home', [DashboardController::class, 'index'])->name('user.home');
+    // Route::get('/home', [DashboardController::class, 'index'])->name('user.home');
 
     // if if the class exist ProfileController
     if (class_exists(ProfileController::class)) {

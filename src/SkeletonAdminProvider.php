@@ -4,133 +4,229 @@ namespace Mariojgt\SkeletonAdmin;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
-use Mariojgt\SkeletonAdmin\Listeners\SendUserVerifyListener;
 use Illuminate\Support\Facades\Notification;
+use Mariojgt\SkeletonAdmin\Commands\Install;
+use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Channels\DiscordChannel;
+use Mariojgt\SkeletonAdmin\Services\PackageManager;
+use Mariojgt\SkeletonAdmin\Services\ExtensionManager;
+use Mariojgt\SkeletonAdmin\Listeners\SendUserVerifyListener;
 
 class SkeletonAdminProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        // Event for when you create a new user
+        $this->registerEvents();
+        $this->loadPackageResources();
+        $this->registerNotificationChannels();
+    }
+
+    /**
+     * Register the application services.
+     */
+    public function register(): void
+    {
+        $this->registerPublishables();
+    }
+
+    /**
+     * Register package events and listeners
+     */
+    protected function registerEvents(): void
+    {
         Event::listen(
             UserVerifyEvent::class,
             [SendUserVerifyListener::class, 'handle']
         );
+    }
 
+    /**
+     * Load all package resources
+     */
+    protected function loadPackageResources(): void
+    {
         $this->loadCommands();
-
         $this->loadMiddleware();
+        $this->loadViews();
+        $this->loadRoutes();
+        $this->loadMigrations();
+    }
 
-        $this->loadViewsFrom(__DIR__ . '/views', 'skeleton-admin');
+    /**
+     * Load package views
+     */
+    protected function loadViews(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/Resources/Views', 'skeleton-admin');
+    }
 
-        // Load backend routes
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/auth.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/api/api.php');
-        // Load frontend routes
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/auth.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/api/api.php');
+    /**
+     * Load package routes in organized manner
+     */
+    protected function loadRoutes(): void
+    {
+        $routeGroups = [
+            'backend' => [
+                'web' => __DIR__ . '/Routes/Backend/web',
+                'api' => __DIR__ . '/Routes/Backend/api',
+            ],
+            'frontend' => [
+                'web' => __DIR__ . '/Routes/Frontend/web',
+                'api' => __DIR__ . '/Routes/Frontend/api',
+            ]
+        ];
 
-        // Load Migrations
+        foreach ($routeGroups as $section => $types) {
+            foreach ($types as $type => $path) {
+                $this->loadRoutesFromDirectory($path);
+            }
+        }
+    }
+
+    /**
+     * Load routes from directory
+     */
+    protected function loadRoutesFromDirectory(string $directory): void
+    {
+        if (!is_dir($directory)) {
+            return;
+        }
+
+        $routeFiles = glob($directory . '/*.php');
+        foreach ($routeFiles as $routeFile) {
+            $this->loadRoutesFrom($routeFile);
+        }
+    }
+
+    /**
+     * Load package migrations
+     */
+    protected function loadMigrations(): void
+    {
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+    }
 
-        // Load the Notifications
-        // Register the Discord channel
+    /**
+     * Register notification channels
+     */
+    protected function registerNotificationChannels(): void
+    {
         Notification::extend('discord', function ($app) {
             return new DiscordChannel();
         });
     }
 
     /**
-     * Register the application services.
-     *
-     * @return void
+     * Load and register middleware
      */
-    public function register()
+    protected function loadMiddleware(): void
     {
-        $this->publish();
+        $middlewares = [
+            'skeleton_guest' => \Mariojgt\SkeletonAdmin\Middleware\SkeletonGuest::class,
+            'recaptcha' => \Mariojgt\SkeletonAdmin\Middleware\ValidateRecaptcha::class,
+        ];
+
+        foreach ($middlewares as $alias => $middleware) {
+            $this->app['router']->aliasMiddleware($alias, $middleware);
+        }
     }
 
     /**
-     * This function will publish the package assets.
+     * Auto-discover and load commands
      */
-    public function publish()
+    protected function loadCommands(): void
     {
-        // Publish the public folder
+        if (!$this->app->runningInConsole()) {
+            return;
+        }
+
+        $commandsPath = __DIR__ . '/Commands';
+        if (!is_dir($commandsPath)) {
+            return;
+        }
+
+        try {
+            $commandClasses = [];
+            $files = glob($commandsPath . '/*.php');
+
+            foreach ($files as $file) {
+                if (!is_file($file)) {
+                    continue;
+                }
+
+                $className = basename($file, '.php');
+                $fullClassName = "Mariojgt\\SkeletonAdmin\\Commands\\{$className}";
+
+                // Check if class exists and is a valid command
+                if (class_exists($fullClassName)) {
+                    $reflection = new \ReflectionClass($fullClassName);
+
+                    // Ensure it's a command class and not abstract
+                    if (!$reflection->isAbstract() &&
+                        $reflection->isSubclassOf(\Illuminate\Console\Command::class)) {
+                        $commandClasses[] = $fullClassName;
+                    }
+                }
+            }
+
+            if (!empty($commandClasses)) {
+                $this->commands($commandClasses);
+            }
+        } catch (\Exception $e) {
+            // Log error but don't break the application
+            if (app()->bound('log')) {
+                app('log')->warning('Failed to load Skeleton Admin commands: ' . $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Register publishable assets with tags
+     */
+    protected function registerPublishables(): void
+    {
+        // Configuration files
         $this->publishes([
             __DIR__ . '/../Publish/Config/' => config_path(''),
-        ]);
+        ], 'skeleton-admin-config');
 
-        // Publish the kernel stuff
+        // Middleware files
         $this->publishes([
-            __DIR__ . '/../Publish/InersiaRequest/kernel' => base_path('app/Http/'),
-        ]);
+            __DIR__ . '/../Publish/InertiaRequest/handleRequest' => app_path('Http/Middleware'),
+        ], 'skeleton-admin-middleware');
 
-        // Publish the inertia request stuff
+        // View files
         $this->publishes([
-            __DIR__ . '/../Publish/InersiaRequest/handleRequest' => app_path('Http/Middleware'),
-        ]);
+            __DIR__ . '/../Publish/InertiaRequest/appLayout' => resource_path('views/skeleton-admin'),
+        ], 'skeleton-admin-views');
 
-        // Publish now view for the inertia were we going to render the page
-        $this->publishes([
-            __DIR__ . '/../Publish/InersiaRequest/appLayout' => resource_path('views/skeleton-admin'),
-        ]);
-
-        // Publish the npm
+        // NPM configuration
         $this->publishes([
             __DIR__ . '/../Publish/Npm' => base_path(),
-        ]);
+        ], 'skeleton-admin-npm');
 
-        // Publish the resource
+        // Resources
         $this->publishes([
             __DIR__ . '/../Publish/Resource' => resource_path('vendor/SkeletonAdmin/'),
-        ]);
+        ], 'skeleton-admin-resources');
 
-        // Publish the avatar folder
+        // Public assets
         $this->publishes([
             __DIR__ . '/../Publish/Avatars' => public_path('assets/avatars'),
-        ]);
-
-        // Publish the public folder with the css and javascript pre compile
-        $this->publishes([
             __DIR__ . '/../Publish/Public' => public_path('vendor/Skeleton'),
-            __DIR__ . '/../Publish/Boostrap' => base_path('bootstrap')
-        ]);
-    }
+        ], 'skeleton-admin-assets');
 
-    /**
-     * Load some custom middleware required by the package.
-     */
-    public function loadMiddleware()
-    {
-        $this->app['router']->aliasMiddleware(
-            'skeleton_guest',
-            \Mariojgt\SkeletonAdmin\Middleware\SkeletonGuest::class
-        );
+        // Bootstrap files
+        $this->publishes([
+            __DIR__ . '/../Publish/Bootstrap' => base_path('bootstrap'),
+        ], 'skeleton-admin-bootstrap');
 
-        $this->app['router']->aliasMiddleware(
-            'recaptcha',
-            \Mariojgt\SkeletonAdmin\Middleware\ValidateRecaptcha::class
-        );
-    }
-
-    public function loadCommands() {
-        // Autoload all the commands from the folder Commands
-        if ($this->app->runningInConsole()) {
-            $availableCommandsPath =  __DIR__ . '/Commands';
-            // Now get all the commands classes
-            $commandClasses = array_map(function ($path) {
-                return 'Mariojgt\\SkeletonAdmin\\Commands\\' . basename($path, '.php');
-            }, glob($availableCommandsPath . '/*.php'));
-            $this->commands($commandClasses);
-        }
+        // Helper files
+        $this->publishes([
+            __DIR__ . '/../Publish/Helpers' => app_path('Helpers'),
+        ], 'skeleton-admin-helpers');
     }
 }

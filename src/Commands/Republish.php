@@ -86,6 +86,14 @@ class Republish extends Command
             true
         );
 
+        // Now we copy the postcss.config.js file
+        $this->moveFileOrFolder(
+            base_path('jsconfig.json'),
+            __DIR__ . '/../../Publish/Npm/jsconfig.json',
+            $bar,
+            true
+        );
+
         // Delete extra files from other packages if they exist
         File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/backend/Pages/BackEnd/Vendor');
         File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/frontend/Pages/FrontEnd/Vendor');
