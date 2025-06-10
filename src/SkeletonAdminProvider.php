@@ -139,10 +139,6 @@ class SkeletonAdminProvider extends ServiceProvider
      */
     protected function loadCommands(): void
     {
-        if (!$this->app->runningInConsole()) {
-            return;
-        }
-
         $commandsPath = __DIR__ . '/Commands';
         if (!is_dir($commandsPath)) {
             return;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Mariojgt\SkeletonAdmin\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,8 +8,17 @@ class Navigation extends Model
 {
     use HasFactory;
 
+    // Add these fillable fields
+    protected $fillable = [
+        'menu_label',
+        'route',
+        'icon',
+        'parent_id',
+        'sort_order'
+    ];
+
     /**
-     * Get all this chinldren category
+     * Get all this children category
      *
      * @return collection [Category]
      */
@@ -28,15 +36,16 @@ class Navigation extends Model
      */
     public function parentCollection($navigation)
     {
-        $child    = $navigation->child()->orderBy('sort_order', 'ASC')->get();
+        $child = $navigation->child()->orderBy('sort_order', 'ASC')->get();
         $children = null;
+
         foreach ($child as $cat) {
             $children[] = [
-                'id'         => $cat->id,
+                'id' => $cat->id,
                 'menu_label' => $cat->menu_label,
-                'route'      => $cat->route,
-                'icon'       => $cat->icon,
-                'child'      => $this->parentCollection($cat)
+                'route' => $cat->route,
+                'icon' => $cat->icon,
+                'child' => $this->parentCollection($cat)
             ];
         }
 

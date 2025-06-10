@@ -25,7 +25,8 @@ class BuildExtensionPackage extends Command
                             {--prefix= : Composer prefix (e.g., skeleton)}
                             {--description= : Package description}
                             {--controller= : Main controller name (e.g., Blog)}
-                            {--force : Force overwrite existing package}';
+                            {--force : Force overwrite existing package}
+                            {--no-composer-update : Skip composer update}';
 
     /**
      * The console command description.
@@ -46,7 +47,14 @@ class BuildExtensionPackage extends Command
      *
      * @var ProgressBar
      */
-    private ProgressBar $progressBar;
+    private ?ProgressBar $progressBar = null;
+
+    /**
+     * Whether running in interactive mode
+     *
+     * @var bool
+     */
+    private bool $isInteractive = true;
 
     /**
      * Create a new command instance.
@@ -64,7 +72,12 @@ class BuildExtensionPackage extends Command
     public function handle(): int
     {
         try {
-            $this->displayWelcome();
+            // Check if running in non-interactive mode
+            $this->isInteractive = !$this->option('no-interaction');
+
+            if ($this->isInteractive) {
+                $this->displayWelcome();
+            }
 
             if (!$this->validateEnvironment()) {
                 return 1;
@@ -72,19 +85,25 @@ class BuildExtensionPackage extends Command
 
             $this->gatherConfiguration();
 
-            if (!$this->confirmConfiguration()) {
+            if ($this->isInteractive && !$this->confirmConfiguration()) {
                 $this->warn('Package creation cancelled.');
                 return 0;
             }
 
             $this->createPackage();
 
-            $this->displaySuccess();
+            if ($this->isInteractive) {
+                $this->displaySuccess();
+            } else {
+                $this->info("Package '{$this->config['package_name']}' created successfully in packages/{$this->config['package_name']}");
+            }
 
             return 0;
         } catch (\Exception $e) {
             $this->error('An error occurred: ' . $e->getMessage());
-            $this->error('Stack trace: ' . $e->getTraceAsString());
+            if ($this->option('verbose')) {
+                $this->error('Stack trace: ' . $e->getTraceAsString());
+            }
             return 1;
         }
     }
@@ -141,6 +160,11 @@ class BuildExtensionPackage extends Command
      */
     private function gatherConfiguration(): void
     {
+        // In non-interactive mode, all options must be provided
+        if (!$this->isInteractive && !$this->validateRequiredOptions()) {
+            throw new \Exception('In non-interactive mode, all required options must be provided: --name, --namespace, --prefix, --controller');
+        }
+
         $this->config = [
             'package_name' => $this->getPackageName(),
             'namespace' => $this->getNamespace(),
@@ -158,26 +182,53 @@ class BuildExtensionPackage extends Command
     }
 
     /**
+     * Validate required options for non-interactive mode
+     */
+    private function validateRequiredOptions(): bool
+    {
+        $required = ['name', 'namespace', 'prefix', 'controller'];
+
+        foreach ($required as $option) {
+            if (!$this->option($option)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Get package name with validation
      */
     private function getPackageName(): string
     {
-        $name = $this->option('name') ?: $this->ask(
-            'Package name (kebab-case, e.g., blog-system, user-management)',
-            'skeleton-blog'
-        );
+        $name = $this->option('name');
+
+        if (!$name && $this->isInteractive) {
+            $name = $this->ask(
+                'Package name (kebab-case, e.g., blog-system, user-management)',
+                'skeleton-blog'
+            );
+        }
+
+        if (!$name) {
+            throw new \Exception('Package name is required');
+        }
 
         // Validate package name
         if (!preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $name)) {
-            $this->error('Package name must be in kebab-case (lowercase, hyphens allowed)');
-            return $this->getPackageName();
+            throw new \Exception('Package name must be in kebab-case (lowercase, hyphens allowed)');
         }
 
         // Check if package already exists
         $packagePath = base_path('packages/' . $name);
         if (File::isDirectory($packagePath) && !$this->option('force')) {
-            if (!$this->confirm("Package '{$name}' already exists. Overwrite?", false)) {
-                return $this->getPackageName();
+            if ($this->isInteractive) {
+                if (!$this->confirm("Package '{$name}' already exists. Overwrite?", false)) {
+                    throw new \Exception('Package creation cancelled - package already exists');
+                }
+            } else {
+                throw new \Exception("Package '{$name}' already exists. Use --force to overwrite.");
             }
         }
 
@@ -189,15 +240,22 @@ class BuildExtensionPackage extends Command
      */
     private function getNamespace(): string
     {
-        $namespace = $this->option('namespace') ?: $this->ask(
-            'Package namespace (e.g., Skeleton\\Blog\\, MyCompany\\Extensions\\)',
-            'Skeleton\\Blog\\'
-        );
+        $namespace = $this->option('namespace');
+
+        if (!$namespace && $this->isInteractive) {
+            $namespace = $this->ask(
+                'Package namespace (e.g., Skeleton\\Blog\\, MyCompany\\Extensions\\)',
+                'Skeleton\\Blog\\'
+            );
+        }
+
+        if (!$namespace) {
+            throw new \Exception('Namespace is required');
+        }
 
         // Validate namespace
         if (!preg_match('/^[A-Z][A-Za-z0-9\\\\]+\\\\?$/', $namespace)) {
-            $this->error('Namespace must be in PascalCase with backslashes (e.g., Skeleton\\Blog\\)');
-            return $this->getNamespace();
+            throw new \Exception('Namespace must be in PascalCase with backslashes (e.g., Skeleton\\Blog\\)');
         }
 
         return $namespace;
@@ -208,15 +266,22 @@ class BuildExtensionPackage extends Command
      */
     private function getComposerPrefix(): string
     {
-        $prefix = $this->option('prefix') ?: $this->ask(
-            'Composer prefix (lowercase, e.g., skeleton, mycompany)',
-            'skeleton'
-        );
+        $prefix = $this->option('prefix');
+
+        if (!$prefix && $this->isInteractive) {
+            $prefix = $this->ask(
+                'Composer prefix (lowercase, e.g., skeleton, mycompany)',
+                'skeleton'
+            );
+        }
+
+        if (!$prefix) {
+            throw new \Exception('Composer prefix is required');
+        }
 
         // Validate composer prefix
         if (!preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $prefix)) {
-            $this->error('Composer prefix must be lowercase with optional hyphens');
-            return $this->getComposerPrefix();
+            throw new \Exception('Composer prefix must be lowercase with optional hyphens');
         }
 
         return $prefix;
@@ -227,10 +292,16 @@ class BuildExtensionPackage extends Command
      */
     public function getDescription(): string
     {
-        return $this->option('description') ?: $this->ask(
-            'Package description',
-            'A Laravel extension package for Skeleton Admin'
-        );
+        $description = $this->option('description');
+
+        if (!$description && $this->isInteractive) {
+            $description = $this->ask(
+                'Package description (optional)',
+                'A Laravel extension package for Skeleton Admin'
+            );
+        }
+
+        return $description ?: 'A Laravel extension package for Skeleton Admin';
     }
 
     /**
@@ -238,22 +309,25 @@ class BuildExtensionPackage extends Command
      */
     private function getController(): string
     {
-        $controller = $this->option('controller') ?: $this->ask(
-            'Main controller name (PascalCase, e.g., Blog, UserManagement)',
-            'Blog'
-        );
+        $controller = $this->option('controller');
+
+        if (!$controller && $this->isInteractive) {
+            $controller = $this->ask(
+                'Main controller name (PascalCase, e.g., Blog, UserManagement)',
+                'Blog'
+            );
+        }
+
+        if (!$controller) {
+            throw new \Exception('Controller name is required');
+        }
 
         // Validate controller name
         if (!preg_match('/^[A-Z][A-Za-z0-9]*$/', $controller)) {
-            $this->error('Controller name must be in PascalCase');
-            return $this->getController();
+            throw new \Exception('Controller name must be in PascalCase');
         }
 
-        // Ensure it ends with 'Controller'
-        if (!Str::endsWith($controller, 'Controller')) {
-            $controller .= 'Controller';
-        }
-
+        // Don't automatically append 'Controller' - let the command handle it internally
         return $controller;
     }
 
@@ -267,7 +341,6 @@ class BuildExtensionPackage extends Command
         $namespace = str_replace('/', '\\', $namespace);
         $namespace = preg_replace('/\\\\+/', '\\', $namespace);
 
-        // For composer.json, we need single backslashes, not double
         return $namespace . '\\';
     }
 
@@ -286,6 +359,8 @@ class BuildExtensionPackage extends Command
             case 'php':
                 // For PHP files, use single backslashes
                 return $namespace . '\\';
+            case 'php_with_trailing':
+                return $namespace . '\\';
             default:
                 return $namespace . '\\';
         }
@@ -302,7 +377,6 @@ class BuildExtensionPackage extends Command
             [
                 ['Package Name', $this->config['package_name']],
                 ['Namespace (PHP)', $this->getNamespaceForContext('php')],
-                ['Namespace (JSON)', $this->getNamespaceForContext('composer')],
                 ['Composer Name', $this->config['composer_prefix'] . '/' . $this->config['package_name']],
                 ['Description', $this->config['description']],
                 ['Controller', $this->config['controller']],
@@ -329,21 +403,35 @@ class BuildExtensionPackage extends Command
             'Creating views',
             'Generating commands',
             'Updating project composer.json',
-            'Running composer update',
         ];
 
-        $this->progressBar = $this->output->createProgressBar(count($steps));
-        $this->progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% %message%');
-
-        foreach ($steps as $step) {
-            $this->progressBar->setMessage($step);
-            $this->executeStep($step);
-            $this->progressBar->advance();
-            usleep(100000); // Small delay for visual effect
+        // Only add composer update step if not skipped and in interactive mode
+        if (!$this->option('no-composer-update') && $this->isInteractive) {
+            $steps[] = 'Running composer update';
         }
 
-        $this->progressBar->finish();
-        $this->newLine(2);
+        if ($this->isInteractive) {
+            $this->progressBar = $this->output->createProgressBar(count($steps));
+            $this->progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% %message%');
+        }
+
+        foreach ($steps as $step) {
+            if ($this->progressBar) {
+                $this->progressBar->setMessage($step);
+            }
+
+            $this->executeStep($step);
+
+            if ($this->progressBar) {
+                $this->progressBar->advance();
+                usleep(100000); // Small delay for visual effect
+            }
+        }
+
+        if ($this->progressBar) {
+            $this->progressBar->finish();
+            $this->newLine(2);
+        }
     }
 
     /**
@@ -455,7 +543,7 @@ class BuildExtensionPackage extends Command
                 $this->config['composer_prefix'] . '/' . $this->config['package_name'],
                 $this->config['description'],
                 $this->getNamespaceForContext('composer'), // Use escaped backslashes for JSON
-                $this->config['provider_name'],
+                $this->getNamespaceForContext('php') . $this->config['provider_name'],
             ]
         ];
 
@@ -493,20 +581,12 @@ class BuildExtensionPackage extends Command
     private function createServiceProvider(): void
     {
         $namespace = $this->getNamespaceForContext('php');
-        $namespaceWithTrailing = $this->getNamespaceForContext('php_with_trailing');
-
         $namespace = rtrim($namespace, '\\');
-        // Debug: let's see what we're actually generating
-        if ($this->option('verbose')) {
-            $this->info("Debug: Creating service provider with namespace: '{$namespace}'");
-            $this->info("Debug: Namespace with trailing: '{$namespaceWithTrailing}'");
-        }
 
         $replace = [
-            'variables' => ['{{namespace}}', '{{namespace_with_trailing}}', '{{provider}}', '{{name}}'],
+            'variables' => ['{{namespace}}', '{{provider}}', '{{name}}'],
             'values' => [
-                $namespace, // Should be like "Skeleton\Store" (no trailing backslash)
-                $namespaceWithTrailing, // Should be like "Skeleton\Store\" (with trailing backslash)
+                $namespace,
                 $this->config['provider_name'],
                 $this->config['package_name']
             ]
@@ -529,13 +609,13 @@ class BuildExtensionPackage extends Command
         $locations = ['Backend', 'Frontend'];
 
         foreach ($locations as $location) {
-            $controller = $location . $this->config['controller'];
+            $controller = $location . $this->config['controller'] . 'Controller';
 
             $replace = [
                 'variables' => ['{{name}}', '{{namespace}}', '{{location}}', '{{controller}}'],
                 'values' => [
                     $this->config['package_name'],
-                    $this->getNamespaceForContext('php'), // Single backslash for PHP files
+                    $this->getNamespaceForContext('php'),
                     $location,
                     $controller
                 ]
@@ -561,7 +641,7 @@ class BuildExtensionPackage extends Command
 
         foreach ($locations as $location) {
             foreach ($routeTypes as $routeType) {
-                $controller = $location . $this->config['controller'];
+                $controller = $location . $this->config['controller'] . 'Controller';
                 $routePrefix = $location === 'Backend' ? 'admin' : strtolower($this->config['package_name']);
 
                 $replace = [
@@ -570,7 +650,7 @@ class BuildExtensionPackage extends Command
                         '{{controller}}', '{{route_prefix}}', '{{location_lower}}'
                     ],
                     'values' => [
-                        $this->getNamespaceForContext('php'), // Single backslash for PHP files
+                        $this->getNamespaceForContext('php'),
                         $this->config['package_name'],
                         $location,
                         $controller,
@@ -600,7 +680,7 @@ class BuildExtensionPackage extends Command
         foreach ($locations as $location) {
             $locationLower = strtolower($location);
             $viewLayout = $location === 'Backend' ? '@backend_layout/App.vue' : '@frontend_layout/App.vue';
-            $controller = $location . $this->config['controller'];
+            $controller = $location . $this->config['controller'] . 'Controller';
             $namespace = str_replace('\\\\', '\\', $this->config['namespace']);
 
             $replace = [
@@ -659,9 +739,6 @@ class BuildExtensionPackage extends Command
      */
     private function createAdditionalViews(string $viewPath, array $replace): void
     {
-        // You can add more view creation logic here for create, edit, show pages
-        // For now, we'll create placeholder files
-
         $additionalViews = [
             'create' => 'Create New Item',
             'edit' => 'Edit Item',
@@ -734,7 +811,7 @@ VUE;
         $installReplace = [
             'variables' => ['{{namespace}}', '{{name}}', '{{provider}}'],
             'values' => [
-                $this->getNamespaceForContext('php'), // Single backslash for PHP files
+                $this->getNamespaceForContext('php'),
                 $this->config['package_name'],
                 $this->config['provider_name']
             ]
@@ -752,7 +829,7 @@ VUE;
         $republishReplace = [
             'variables' => ['{{namespace}}', '{{name}}'],
             'values' => [
-                $this->getNamespaceForContext('php'), // Single backslash for PHP files
+                $this->getNamespaceForContext('php'),
                 $this->config['package_name']
             ]
         ];
@@ -774,39 +851,28 @@ VUE;
         $composerPath = base_path('composer.json');
         $packageName = $this->config['composer_prefix'] . '/' . $this->config['package_name'];
 
-        $this->newLine();
-        $this->info('📝 Composer.json Update Required');
-        $this->info('=================================');
-        $this->info('To use this package, we need to add it to your project\'s composer.json file.');
-        $this->newLine();
-        $this->info('The following changes will be made:');
-        $this->info("  • Add package: {$packageName}");
-        $this->info("  • Add repository path: packages/{$this->config['package_name']}");
-        $this->newLine();
-
-        if (!$this->confirm('Would you like to update composer.json automatically?', true)) {
-            $this->warn('⚠️  Composer.json not updated automatically.');
+        if (!$this->isInteractive) {
+            // In non-interactive mode, always try to update automatically
+            $shouldUpdate = true;
+        } else {
             $this->newLine();
-            $this->info('💡 Manual Setup Instructions:');
-            $this->info('=============================');
-            $this->info('Add the following to your composer.json file:');
+            $this->info('📝 Composer.json Update Required');
+            $this->info('=================================');
+            $this->info('To use this package, we need to add it to your project\'s composer.json file.');
+            $this->newLine();
+            $this->info('The following changes will be made:');
+            $this->info("  • Add package: {$packageName}");
+            $this->info("  • Add repository path: packages/{$this->config['package_name']}");
             $this->newLine();
 
-            $this->info('1. In the "require" section:');
-            $this->line('   "' . $packageName . '": "@dev"');
-            $this->newLine();
+            $shouldUpdate = $this->confirm('Would you like to update composer.json automatically?', true);
+        }
 
-            $this->info('2. In the "repositories" section (create if it doesn\'t exist):');
-            $this->line('   {');
-            $this->line('       "type": "path",');
-            $this->line('       "url": "packages/' . $this->config['package_name'] . '",');
-            $this->line('       "options": {');
-            $this->line('           "symlink": true');
-            $this->line('       }');
-            $this->line('   }');
-            $this->newLine();
-
-            $this->info('3. Then run: composer update');
+        if (!$shouldUpdate) {
+            if ($this->isInteractive) {
+                $this->warn('⚠️  Composer.json not updated automatically.');
+                $this->showManualInstructions();
+            }
             return;
         }
 
@@ -856,14 +922,47 @@ VUE;
             }
 
             $this->info('✅ Composer.json updated successfully!');
-            $this->info("📄 Backup created: {$backupPath}");
+            if ($this->isInteractive) {
+                $this->info("📄 Backup created: {$backupPath}");
+            }
 
         } catch (\Exception $e) {
             $this->error('❌ Failed to update composer.json: ' . $e->getMessage());
-            $this->warn('You will need to update composer.json manually.');
-            $this->newLine();
-            $this->info('Manual instructions shown above.');
+            if ($this->isInteractive) {
+                $this->warn('You will need to update composer.json manually.');
+                $this->showManualInstructions();
+            }
         }
+    }
+
+    /**
+     * Show manual composer.json instructions
+     */
+    private function showManualInstructions(): void
+    {
+        $packageName = $this->config['composer_prefix'] . '/' . $this->config['package_name'];
+
+        $this->newLine();
+        $this->info('💡 Manual Setup Instructions:');
+        $this->info('=============================');
+        $this->info('Add the following to your composer.json file:');
+        $this->newLine();
+
+        $this->info('1. In the "require" section:');
+        $this->line('   "' . $packageName . '": "@dev"');
+        $this->newLine();
+
+        $this->info('2. In the "repositories" section (create if it doesn\'t exist):');
+        $this->line('   {');
+        $this->line('       "type": "path",');
+        $this->line('       "url": "packages/' . $this->config['package_name'] . '",');
+        $this->line('       "options": {');
+        $this->line('           "symlink": true');
+        $this->line('       }');
+        $this->line('   }');
+        $this->newLine();
+
+        $this->info('3. Then run: composer update');
     }
 
     /**
@@ -871,8 +970,9 @@ VUE;
      */
     private function runComposerUpdate(): void
     {
-        if ($this->option('no-interaction')) {
-            return; // Skip composer update in non-interactive mode
+        if (!$this->isInteractive) {
+            // In non-interactive mode, skip composer update by default
+            return;
         }
 
         $this->newLine();
@@ -886,11 +986,7 @@ VUE;
 
         if (!$this->confirm('Would you like to run "composer update" now?', true)) {
             $this->info('⏭️  Skipping composer update.');
-            $this->newLine();
-            $this->info('💡 Don\'t forget to run the following commands manually:');
-            $this->info('   1. composer update');
-            $this->info('   2. npm install && npm run dev');
-            $this->info("   3. php artisan install:{$this->config['package_name']}");
+            $this->showNextSteps();
             return;
         }
 
@@ -901,7 +997,6 @@ VUE;
             // Show a simple progress indicator
             $this->info('This may take a while. Please wait...');
 
-            // Use a simpler approach that works across Laravel versions
             $result = Process::run(['composer', 'update', '--no-scripts']);
 
             if ($result->failed()) {
@@ -911,15 +1006,22 @@ VUE;
             $this->info('✅ Composer packages updated successfully!');
 
         } catch (\Exception $e) {
-            // Log the error but don't fail the entire process
             $this->error('❌ Composer update failed: ' . $e->getMessage());
-            $this->newLine();
             $this->warn('You will need to run "composer update" manually.');
-            $this->info('💡 Run these commands after package creation:');
-            $this->info('   1. composer update');
-            $this->info('   2. npm install && npm run dev');
-            $this->info("   3. php artisan install:{$this->config['package_name']}");
+            $this->showNextSteps();
         }
+    }
+
+    /**
+     * Show next steps
+     */
+    private function showNextSteps(): void
+    {
+        $this->newLine();
+        $this->info('💡 Don\'t forget to run the following commands manually:');
+        $this->info('   1. composer update');
+        $this->info('   2. npm install && npm run dev');
+        $this->info("   3. php artisan install:{$this->config['package_name']}");
     }
 
     /**
@@ -937,7 +1039,9 @@ VUE;
         $stubPath = __DIR__ . '/Stubs/ExtensionPackage/' . $stubFile . '.stub';
 
         if (!file_exists($stubPath)) {
-            throw new \Exception("Stub file not found: {$stubPath}");
+            // If stub file doesn't exist, create a basic template
+            $this->createBasicStub($stubFile, $saveFilePath, $fileName, $fileExtension, $replace);
+            return;
         }
 
         $stub = file_get_contents($stubPath);
@@ -951,6 +1055,482 @@ VUE;
         if (!file_put_contents($filePath, $stub)) {
             throw new \Exception("Failed to create file: {$filePath}");
         }
+    }
+
+    /**
+     * Create basic stub if stub file doesn't exist
+     */
+    private function createBasicStub(
+        string $stubFile,
+        string $saveFilePath,
+        string $fileName,
+        string $fileExtension,
+        ?array $replace = null
+    ): void {
+        $content = '';
+
+        switch ($stubFile) {
+            case 'composer':
+                $content = $this->getBasicComposerTemplate($replace);
+                break;
+            case 'README':
+                $content = $this->getBasicReadmeTemplate($replace);
+                break;
+            case 'config':
+                $content = $this->getBasicConfigTemplate($replace);
+                break;
+            case 'provider':
+                $content = $this->getBasicProviderTemplate($replace);
+                break;
+            case 'controller':
+                $content = $this->getBasicControllerTemplate($replace);
+                break;
+            case 'webRoute':
+                $content = $this->getBasicWebRouteTemplate($replace);
+                break;
+            case 'apiRoute':
+                $content = $this->getBasicApiRouteTemplate($replace);
+                break;
+            case 'indexView':
+                $content = $this->getBasicIndexViewTemplate($replace);
+                break;
+            case 'vueComponentBackend':
+            case 'vueComponentFrontend':
+                $content = $this->getBasicVueComponentTemplate($replace);
+                break;
+            case 'InstallCommand':
+                $content = $this->getBasicInstallCommandTemplate($replace);
+                break;
+            case 'republishCommand':
+                $content = $this->getBasicRepublishCommandTemplate($replace);
+                break;
+            default:
+                $content = "<?php\n\n// Basic template for {$stubFile}\n";
+        }
+
+        $filePath = $saveFilePath . '/' . $fileName . $fileExtension;
+        if (!file_put_contents($filePath, $content)) {
+            throw new \Exception("Failed to create file: {$filePath}");
+        }
+    }
+
+    /**
+     * Get basic composer.json template
+     */
+    private function getBasicComposerTemplate(?array $replace): string
+    {
+        $name = $replace['values'][0] ?? 'vendor/package';
+        $description = $replace['values'][1] ?? 'Package description';
+        $namespace = $replace['values'][2] ?? 'Vendor\\\\Package\\\\';
+        $provider = $replace['values'][3] ?? 'Vendor\\Package\\ServiceProvider';
+
+        return <<<JSON
+{
+    "name": "{$name}",
+    "description": "{$description}",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "{$namespace}": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^10.0|^11.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "{$provider}"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
+JSON;
+    }
+
+    /**
+     * Get basic README template
+     */
+    private function getBasicReadmeTemplate(?array $replace): string
+    {
+        $name = $replace['values'][0] ?? 'Package Name';
+        $description = $replace['values'][1] ?? 'Package description';
+
+        return <<<MD
+# {$name}
+
+{$description}
+
+## Installation
+
+1. Add the package to your composer.json
+2. Run `composer update`
+3. Run `php artisan install:{$name}`
+
+## Usage
+
+This package provides additional functionality for Skeleton Admin.
+
+## License
+
+MIT License
+MD;
+    }
+
+    /**
+     * Get basic config template
+     */
+    private function getBasicConfigTemplate(?array $replace): string
+    {
+        $name = $replace['values'][0] ?? 'package';
+        $description = $replace['values'][1] ?? 'Package description';
+
+        return <<<PHP
+<?php
+
+return [
+    'name' => '{$name}',
+    'description' => '{$description}',
+    'version' => '1.0.0',
+    'enabled' => true,
+];
+PHP;
+    }
+
+    /**
+     * Get basic service provider template
+     */
+    private function getBasicProviderTemplate(?array $replace): string
+    {
+        $namespace = $replace['values'][0] ?? 'Vendor\\Package';
+        $provider = $replace['values'][1] ?? 'ServiceProvider';
+        $packageName = $replace['values'][2] ?? 'package';
+
+        return <<<PHP
+<?php
+
+namespace {$namespace};
+
+use Illuminate\Support\ServiceProvider;
+
+class {$provider} extends ServiceProvider
+{
+    public function register()
+    {
+        \$this->mergeConfigFrom(
+            __DIR__ . '/Config/{$packageName}.php',
+            '{$packageName}'
+        );
+    }
+
+    public function boot()
+    {
+        if (\$this->app->runningInConsole()) {
+            \$this->publishes([
+                __DIR__ . '/Config/{$packageName}.php' => config_path('{$packageName}.php'),
+            ], 'config');
+
+            \$this->commands([
+                Commands\Install::class,
+                Commands\Republish::class,
+            ]);
+        }
+
+        \$this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/web.php');
+        \$this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/web.php');
+    }
+}
+PHP;
+    }
+
+    /**
+     * Get basic controller template
+     */
+    private function getBasicControllerTemplate(?array $replace): string
+    {
+        $packageName = $replace['values'][0] ?? 'package';
+        $namespace = $replace['values'][1] ?? 'Vendor\\Package';
+        $location = $replace['values'][2] ?? 'Backend';
+        $controller = $replace['values'][3] ?? 'Controller';
+
+        return <<<PHP
+<?php
+
+namespace {$namespace}Controllers\\{$location};
+
+use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class {$controller} extends Controller
+{
+    public function index()
+    {
+        return Inertia::render('{$location}/Pages/Vendor/{$packageName}/index');
+    }
+
+    public function create()
+    {
+        return Inertia::render('{$location}/Pages/Vendor/{$packageName}/create');
+    }
+
+    public function store(Request \$request)
+    {
+        // Implementation here
+        return redirect()->back()->with('success', 'Created successfully');
+    }
+
+    public function show(\$id)
+    {
+        return Inertia::render('{$location}/Pages/Vendor/{$packageName}/show');
+    }
+
+    public function edit(\$id)
+    {
+        return Inertia::render('{$location}/Pages/Vendor/{$packageName}/edit');
+    }
+
+    public function update(Request \$request, \$id)
+    {
+        // Implementation here
+        return redirect()->back()->with('success', 'Updated successfully');
+    }
+
+    public function destroy(\$id)
+    {
+        // Implementation here
+        return redirect()->back()->with('success', 'Deleted successfully');
+    }
+}
+PHP;
+    }
+
+    /**
+     * Get basic web route template
+     */
+    private function getBasicWebRouteTemplate(?array $replace): string
+    {
+        $namespace = $replace['values'][0] ?? 'Vendor\\Package';
+        $packageName = $replace['values'][1] ?? 'package';
+        $location = $replace['values'][2] ?? 'Backend';
+        $controller = $replace['values'][3] ?? 'Controller';
+        $routePrefix = $replace['values'][4] ?? 'admin';
+
+        return <<<PHP
+<?php
+
+use Illuminate\Support\Facades\Route;
+use {$namespace}Controllers\\{$location}\\{$controller};
+
+Route::group(['prefix' => '{$routePrefix}', 'middleware' => ['web']], function () {
+    Route::resource('{$packageName}', {$controller}::class);
+});
+PHP;
+    }
+
+    /**
+     * Get basic API route template
+     */
+    private function getBasicApiRouteTemplate(?array $replace): string
+    {
+        $namespace = $replace['values'][0] ?? 'Vendor\\Package';
+        $packageName = $replace['values'][1] ?? 'package';
+        $location = $replace['values'][2] ?? 'Backend';
+        $controller = $replace['values'][3] ?? 'Controller';
+        $routePrefix = $replace['values'][4] ?? 'api';
+
+        return <<<PHP
+<?php
+
+use Illuminate\Support\Facades\Route;
+use {$namespace}Controllers\\{$location}\\{$controller};
+
+Route::group(['prefix' => '{$routePrefix}', 'middleware' => ['api']], function () {
+    Route::apiResource('{$packageName}', {$controller}::class);
+});
+PHP;
+    }
+
+    /**
+     * Get basic index view template
+     */
+    private function getBasicIndexViewTemplate(?array $replace): string
+    {
+        $packageName = $replace['values'][1] ?? 'package';
+        $location = $replace['values'][2] ?? 'backend';
+        $layout = $replace['values'][4] ?? '@backend_layout/App.vue';
+
+        return <<<VUE
+<template>
+    <Layout>
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+                            {$packageName} Management
+                        </h1>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400">
+                            Manage your {$packageName} items
+                        </p>
+                    </div>
+                    <Link href="{{ route('{$packageName}.create') }}" class="btn btn-primary">
+                        Create New
+                    </Link>
+                </div>
+
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra w-full">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" class="text-center py-8 text-gray-500">
+                                            No items found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Layout>
+</template>
+
+<script setup>
+import { Link } from '@inertiajs/vue3'
+import Layout from '{$layout}'
+
+const props = defineProps({
+    title: {
+        type: String,
+        default: '{$packageName} Management'
+    }
+})
+</script>
+VUE;
+    }
+
+    /**
+     * Get basic Vue component template
+     */
+    private function getBasicVueComponentTemplate(?array $replace): string
+    {
+        $packageName = $replace['values'][1] ?? 'package';
+
+        return <<<VUE
+<template>
+    <div class="card bg-base-100 shadow-lg">
+        <div class="card-body">
+            <h2 class="card-title">{$packageName} Component</h2>
+            <p>This is a basic component for the {$packageName} package.</p>
+            <div class="card-actions justify-end">
+                <button class="btn btn-primary">Action</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+const props = defineProps({
+    title: {
+        type: String,
+        default: '{$packageName} Component'
+    }
+})
+</script>
+VUE;
+    }
+
+    /**
+     * Get basic install command template
+     */
+    private function getBasicInstallCommandTemplate(?array $replace): string
+    {
+        $namespace = $replace['values'][0] ?? 'Vendor\\Package';
+        $packageName = $replace['values'][1] ?? 'package';
+
+        return <<<PHP
+<?php
+
+namespace {$namespace}Commands;
+
+use Illuminate\Console\Command;
+
+class Install extends Command
+{
+    protected \$signature = 'install:{$packageName}';
+    protected \$description = 'Install {$packageName} package';
+
+    public function handle()
+    {
+        \$this->info('Installing {$packageName} package...');
+
+        // Publish config
+        \$this->call('vendor:publish', [
+            '--provider' => '{$namespace}ServiceProvider',
+            '--tag' => 'config'
+        ]);
+
+        \$this->info('{$packageName} package installed successfully!');
+
+        return 0;
+    }
+}
+PHP;
+    }
+
+    /**
+     * Get basic republish command template
+     */
+    private function getBasicRepublishCommandTemplate(?array $replace): string
+    {
+        $namespace = $replace['values'][0] ?? 'Vendor\\Package';
+        $packageName = $replace['values'][1] ?? 'package';
+
+        return <<<PHP
+<?php
+
+namespace {$namespace}Commands;
+
+use Illuminate\Console\Command;
+
+class Republish extends Command
+{
+    protected \$signature = 'republish:{$packageName}';
+    protected \$description = 'Republish {$packageName} package assets';
+
+    public function handle()
+    {
+        \$this->info('Republishing {$packageName} package assets...');
+
+        // Republish config
+        \$this->call('vendor:publish', [
+            '--provider' => '{$namespace}ServiceProvider',
+            '--tag' => 'config',
+            '--force' => true
+        ]);
+
+        \$this->info('{$packageName} package assets republished successfully!');
+
+        return 0;
+    }
+}
+PHP;
     }
 
     /**
