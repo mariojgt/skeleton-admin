@@ -1,406 +1,636 @@
 <template>
-    <layout>
-        <div class="grid grid-cols-1 gap-6 lg:p-10 xl:grid-cols-3 lg:bg-base-200 rounded-box">
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div>
-                        <div class="avatar">
-                            <div class="rounded-full w-14 h-14 shadow">
-                                <img src="https://i.pravatar.cc/500?img=32" />
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="card-title">Janis Johnson</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Accounts Agent
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div class="flex-1">
-                        <h2 class="card-title">Meredith Mayer</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Data Liaison
-                        </p>
-                    </div>
-                    <div class="flex-0">
-                        <button class="btn btn-sm">Follow</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card row-span-3 shadow-lg compact bg-base-100">
-                <figure>
-                    <img src="https://picsum.photos/id/1005/600/400" />
-                </figure>
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div>
-                        <h2 class="card-title">Karolann Collins</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Direct Interactions Liaison
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div class="flex-1">
-                        <h2 class="card-title text-primary">4,600</h2>
-                        <p class="text-base-content text-opacity-40">
-                            Page views
-                        </p>
-                    </div>
-                    <div class="flex space-x-2 flex-0">
-                        <button class="btn btn-sm btn-square">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block w-6 h-6 stroke-current">
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                </path>
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                            </svg>
-                        </button>
-                        <button class="btn btn-sm btn-square">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block w-6 h-6 stroke-current">
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                                </path>
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                                <!---->
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <label class="flex-0"><input type="checkbox" checked="checked" class="toggle toggle-primary"
-                            data-com.bitwarden.browser.user-edited="yes" /></label>
-                    <div class="flex-1">
-                        <h2 class="card-title">Enable Notifications</h2>
-                        <p class="text-base-content text-opacity-40">
-                            To get latest updates
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-2 bg-base-100">
-                <div class="card-body">
-                    <h2 class="my-4 text-4xl font-bold card-title">
-                        Welcome to the {{location}}
-                    </h2>
-                    <div class="mb-4 space-x-2 card-actions">
-                        <div class="badge badge-ghost">Colors</div>
-                        <div class="badge badge-ghost">UI Design</div>
-                        <div class="badge badge-ghost">Creativity</div>
-                    </div>
-                    <p>
-                        Rerum reiciendis beatae tenetur excepturi aut pariatur
-                        est eos. Sit sit necessitatibus veritatis sed molestiae
-                        voluptates incidunt iure sapiente.
+    <Layout>
+        <!-- Header Section -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+                        {{ title }}
+                    </h1>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">
+                        Welcome to the {{location}} interface for {{name}}
                     </p>
-                    <div class="justify-end space-x-2 card-actions">
-                        <button class="btn btn-primary">Login</button>
-                        <button class="btn">Register</button>
-                    </div>
                 </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <div class="flex-1">
-                        <h2 class="flex card-title">
-                            <button class="btn btn-ghost btn-sm btn-circle loading"></button>
-                            Downloading...
-                        </h2>
-                        <progress value="70" max="100" class="progress progress-secondary"></progress>
-                    </div>
-                    <div class="flex-0">
-                        <button class="btn btn-circle">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block w-6 h-6 stroke-current">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow-lg compact side bg-base-100">
-                <div class="flex-row items-center space-x-4 card-body">
-                    <label class="cursor-pointer label"><input type="checkbox" checked="checked"
-                            class="checkbox checkbox-accent" />
-                        <span class="mx-4 label-text">Enable Autosave</span></label>
-                </div>
-            </div>
-            <ul class="menu row-span-3 p-4 shadow-lg bg-base-100 text-base-content text-opacity-40 rounded-box">
-                <li class="menu-title"><span> Menu Title </span></li>
-                <li>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-5 h-5 mr-2 stroke-current">
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                            </path>
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                        </svg>
-                        Item with icon
-                    </a>
-                </li>
-                <li>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-5 h-5 mr-2 stroke-current">
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                        </svg>
-                        Item with icon
-                    </a>
-                </li>
-                <li>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-5 h-5 mr-2 stroke-current">
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                            <!---->
-                        </svg>
-                        Item with icon
-                    </a>
-                </li>
-            </ul>
-            <div class="alert col-span-1 xl:col-span-2 bg-base-100">
-                <div class="flex-1">
-                    <label class="mx-3">Lorem ipsum dolor sit amet, consectetur adip!</label>
-                </div>
-                <div class="flex-none">
-                    <button class="btn btn-sm btn-ghost mr-2">Cancel</button>
-                    <button class="btn btn-sm btn-primary">Apply</button>
-                </div>
-            </div>
-            <div class="alert col-span-1 xl:col-span-2 alert-info">
-                <div class="flex-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="w-6 h-6 mx-2 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                    </svg>
-                    <label>Lorem ipsum dolor sit amet, consectetur adip!</label>
-                </div>
-            </div>
-            <div class="alert col-span-1 xl:col-span-2 alert-success">
-                <div class="flex-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="w-6 h-6 mx-2 stroke-current">
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                        <!---->
-                    </svg>
-                    <label>Lorem ipsum dolor sit amet, consectetur adip!</label>
+                <div class="flex space-x-3">
+                    <button
+                        @click="refreshData"
+                        class="btn btn-outline btn-sm"
+                        :disabled="loading"
+                    >
+                        <RefreshIcon class="w-4 h-4 mr-2" :class="{ 'animate-spin': loading }" />
+                        Refresh
+                    </button>
+                    <Link
+                        :href="route('{{name}}.{{location_lower}}.items.create')"
+                        class="btn btn-primary btn-sm"
+                    >
+                        <PlusIcon class="w-4 h-4 mr-2" />
+                        Add New
+                    </Link>
                 </div>
             </div>
         </div>
-    </layout>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="card bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+                <div class="card-body">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold opacity-90">Total Items</h3>
+                            <p class="text-3xl font-bold">{{ stats.total || 0 }}</p>
+                            <p class="text-sm opacity-75">+12% from last month</p>
+                        </div>
+                        <ChartBarIcon class="w-12 h-12 opacity-75" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+                <div class="card-body">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold opacity-90">Active</h3>
+                            <p class="text-3xl font-bold">{{ stats.active || 0 }}</p>
+                            <p class="text-sm opacity-75">{{ activePercentage }}% of total</p>
+                        </div>
+                        <CheckCircleIcon class="w-12 h-12 opacity-75" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-gradient-to-r from-yellow-500 to-yellow-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+                <div class="card-body">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold opacity-90">Pending</h3>
+                            <p class="text-3xl font-bold">{{ stats.pending || 0 }}</p>
+                            <p class="text-sm opacity-75">Requires attention</p>
+                        </div>
+                        <ClockIcon class="w-12 h-12 opacity-75" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+                <div class="card-body">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold opacity-90">This Month</h3>
+                            <p class="text-3xl font-bold">{{ stats.thisMonth || 0 }}</p>
+                            <p class="text-sm opacity-75">New additions</p>
+                        </div>
+                        <CalendarIcon class="w-12 h-12 opacity-75" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <!-- Main Content -->
+            <div class="xl:col-span-2 space-y-6">
+                <!-- Search and Filters -->
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <div class="form-control flex-1">
+                                <div class="input-group">
+                                    <input
+                                        v-model="searchTerm"
+                                        type="text"
+                                        placeholder="Search items..."
+                                        class="input input-bordered w-full"
+                                        @input="debouncedSearch"
+                                    />
+                                    <button class="btn btn-square btn-outline">
+                                        <MagnifyingGlassIcon class="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </div>
+                            <select v-model="sortBy" class="select select-bordered" @change="loadData">
+                                <option value="created_at">Date Created</option>
+                                <option value="name">Name</option>
+                                <option value="status">Status</option>
+                                <option value="updated_at">Last Updated</option>
+                            </select>
+                            <select v-model="statusFilter" class="select select-bordered" @change="loadData">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table Card -->
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-header border-b">
+                        <div class="flex items-center justify-between p-4">
+                            <h2 class="card-title">Recent Items</h2>
+                            <div class="flex space-x-2">
+                                <button
+                                    v-if="selectedItems.length > 0"
+                                    @click="bulkDelete"
+                                    class="btn btn-error btn-sm"
+                                >
+                                    <TrashIcon class="w-4 h-4 mr-2" />
+                                    Delete Selected ({{ selectedItems.length }})
+                                </button>
+                                <div class="dropdown dropdown-end">
+                                    <label tabindex="0" class="btn btn-outline btn-sm">
+                                        <EllipsisVerticalIcon class="w-4 h-4" />
+                                    </label>
+                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li><a @click="exportData">Export to CSV</a></li>
+                                        <li><a @click="importData">Import Data</a></li>
+                                        <li><a @click="refreshData">Refresh</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra w-full">
+                                <thead class="bg-base-200">
+                                    <tr>
+                                        <th>
+                                            <input
+                                                type="checkbox"
+                                                class="checkbox checkbox-sm"
+                                                @change="toggleSelectAll"
+                                                :checked="allSelected"
+                                                :indeterminate="someSelected"
+                                            />
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Created</th>
+                                        <th>Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-if="loading" v-for="n in 5" :key="n">
+                                        <td colspan="6">
+                                            <div class="flex items-center space-x-4 animate-pulse">
+                                                <div class="w-4 h-4 bg-gray-300 rounded"></div>
+                                                <div class="flex-1 space-y-2">
+                                                    <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                                                    <div class="h-3 bg-gray-300 rounded w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-else-if="items.length === 0">
+                                        <td colspan="6" class="text-center py-8">
+                                            <div class="flex flex-col items-center">
+                                                <FolderIcon class="w-16 h-16 text-gray-400 mb-4" />
+                                                <h3 class="text-lg font-medium text-gray-900 mb-2">No items found</h3>
+                                                <p class="text-gray-500 mb-4">Get started by creating your first item.</p>
+                                                <Link
+                                                    :href="route('{{name}}.{{location_lower}}.items.create')"
+                                                    class="btn btn-primary btn-sm"
+                                                >
+                                                    <PlusIcon class="w-4 h-4 mr-2" />
+                                                    Create Item
+                                                </Link>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-else v-for="item in items" :key="item.id" class="hover">
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                class="checkbox checkbox-sm"
+                                                v-model="selectedItems"
+                                                :value="item.id"
+                                            />
+                                        </td>
+                                        <td>
+                                            <div class="flex items-center space-x-3">
+                                                <div class="avatar placeholder">
+                                                    <div class="bg-neutral-focus text-neutral-content rounded-full w-10">
+                                                        <span class="text-sm">{{ getInitials(item.name) }}</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">{{ item.name || 'Unnamed' }}</div>
+                                                    <div class="text-sm opacity-50">{{ item.description || 'No description' }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="badge" :class="getStatusClass(item.status)">
+                                                {{ item.status || 'Unknown' }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-sm">{{ formatDate(item.created_at) }}</div>
+                                            <div class="text-xs opacity-50">{{ formatTimeAgo(item.created_at) }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="text-sm">{{ formatDate(item.updated_at) }}</div>
+                                            <div class="text-xs opacity-50">{{ formatTimeAgo(item.updated_at) }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="flex space-x-2">
+                                                <Link
+                                                    :href="route('{{name}}.{{location_lower}}.items.show', item.id)"
+                                                    class="btn btn-ghost btn-xs"
+                                                    title="View"
+                                                >
+                                                    <EyeIcon class="w-4 h-4" />
+                                                </Link>
+                                                <Link
+                                                    :href="route('{{name}}.{{location_lower}}.items.edit', item.id)"
+                                                    class="btn btn-ghost btn-xs"
+                                                    title="Edit"
+                                                >
+                                                    <PencilIcon class="w-4 h-4" />
+                                                </Link>
+                                                <button
+                                                    @click="deleteItem(item)"
+                                                    class="btn btn-ghost btn-xs text-error"
+                                                    title="Delete"
+                                                >
+                                                    <TrashIcon class="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div v-if="pagination.total > pagination.per_page" class="flex justify-center py-4">
+                            <div class="btn-group">
+                                <button
+                                    class="btn btn-sm"
+                                    :disabled="pagination.current_page <= 1"
+                                    @click="changePage(pagination.current_page - 1)"
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    v-for="page in paginationPages"
+                                    :key="page"
+                                    class="btn btn-sm"
+                                    :class="{ 'btn-active': page === pagination.current_page }"
+                                    @click="changePage(page)"
+                                >
+                                    {{ page }}
+                                </button>
+                                <button
+                                    class="btn btn-sm"
+                                    :disabled="pagination.current_page >= Math.ceil(pagination.total / pagination.per_page)"
+                                    @click="changePage(pagination.current_page + 1)"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Quick Actions -->
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <h3 class="card-title text-lg mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <Link
+                                :href="route('{{name}}.{{location_lower}}.items.create')"
+                                class="btn btn-primary btn-block btn-sm"
+                            >
+                                <PlusIcon class="w-4 h-4 mr-2" />
+                                Create New Item
+                            </Link>
+                            <button @click="exportData" class="btn btn-outline btn-block btn-sm">
+                                <ArrowDownTrayIcon class="w-4 h-4 mr-2" />
+                                Export Data
+                            </button>
+                            <button @click="importData" class="btn btn-outline btn-block btn-sm">
+                                <ArrowUpTrayIcon class="w-4 h-4 mr-2" />
+                                Import Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <h3 class="card-title text-lg mb-4">Recent Activity</h3>
+                        <div class="space-y-3">
+                            <div v-for="activity in recentActivity" :key="activity.id" class="flex items-start space-x-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-primary text-primary-content rounded-full w-8">
+                                        <span class="text-xs">{{ activity.type.charAt(0) }}</span>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm">{{ activity.message }}</p>
+                                    <p class="text-xs text-gray-500">{{ formatTimeAgo(activity.created_at) }}</p>
+                                </div>
+                            </div>
+                            <div v-if="recentActivity.length === 0" class="text-center text-gray-500 py-4">
+                                No recent activity
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Info -->
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <h3 class="card-title text-lg mb-4">Package Info</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="font-medium">Version:</span>
+                                <span>{{ meta.version }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium">Package:</span>
+                                <span>{{ meta.package }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium">Location:</span>
+                                <span class="badge badge-sm">{{ meta.location }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Layout>
 </template>
 
 <script setup>
-import { router } from "@inertiajs/vue3";
-import { onMounted } from "vue";
-import { Link } from "@inertiajs/vue3";
-import Layout from "{{page_layout}}";
+import { ref, computed, onMounted } from 'vue';
+import { router } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+import Layout from '{{page_layout}}';
+import { debounce } from 'lodash';
 
-let email = $ref("");
-let password = $ref("");
+// Icons
+import {
+    PlusIcon,
+    RefreshIcon,
+    ChartBarIcon,
+    CheckCircleIcon,
+    ClockIcon,
+    CalendarIcon,
+    MagnifyingGlassIcon,
+    EyeIcon,
+    PencilIcon,
+    TrashIcon,
+    EllipsisVerticalIcon,
+    FolderIcon,
+    ArrowDownTrayIcon,
+    ArrowUpTrayIcon,
+} from '@heroicons/vue/24/outline';
 
+// Props
 const props = defineProps({
     title: {
         type: String,
-        default: "mariojgt is heredude",
+        default: '{{name}} Dashboard',
+    },
+    data: {
+        type: Object,
+        default: () => ({
+            items: [],
+            stats: {},
+            pagination: {},
+            filters: {},
+        }),
+    },
+    meta: {
+        type: Object,
+        default: () => ({
+            version: '1.0.0',
+            package: '{{name}}',
+            location: '{{location}}',
+        }),
     },
 });
 
-const submitForm = () => {
-    const form = {
-        email: email,
-        password: password,
-    };
-    router.post("/login/user", form);
+// Reactive data
+const loading = ref(false);
+const searchTerm = ref(props.data.filters?.search || '');
+const sortBy = ref(props.data.filters?.sort || 'created_at');
+const statusFilter = ref(props.data.filters?.status || '');
+const selectedItems = ref([]);
+
+// Items and pagination from props
+const items = ref(props.data.items || []);
+const stats = ref(props.data.stats || {});
+const pagination = ref(props.data.pagination || {});
+const recentActivity = ref([
+    {
+        id: 1,
+        type: 'create',
+        message: 'New item created',
+        created_at: new Date().toISOString(),
+    },
+    {
+        id: 2,
+        type: 'update',
+        message: 'Item status updated',
+        created_at: new Date(Date.now() - 3600000).toISOString(),
+    },
+]);
+
+// Computed properties
+const allSelected = computed(() => {
+    return items.value.length > 0 && selectedItems.value.length === items.value.length;
+});
+
+const someSelected = computed(() => {
+    return selectedItems.value.length > 0 && selectedItems.value.length < items.value.length;
+});
+
+const activePercentage = computed(() => {
+    if (!stats.value.total || stats.value.total === 0) return 0;
+    return Math.round((stats.value.active / stats.value.total) * 100);
+});
+
+const paginationPages = computed(() => {
+    const total = Math.ceil(pagination.value.total / pagination.value.per_page);
+    const current = pagination.value.current_page;
+    const pages = [];
+
+    // Show max 5 pages around current page
+    const start = Math.max(1, current - 2);
+    const end = Math.min(total, current + 2);
+
+    for (let i = start; i <= end; i++) {
+        pages.push(i);
+    }
+
+    return pages;
+});
+
+// Methods
+const refreshData = async () => {
+    loading.value = true;
+    try {
+        await router.reload({ only: ['data'] });
+    } finally {
+        loading.value = false;
+    }
 };
+
+const loadData = () => {
+    const params = {
+        search: searchTerm.value,
+        sort: sortBy.value,
+        status: statusFilter.value,
+        page: pagination.value.current_page || 1,
+    };
+
+    router.get(route('{{name}}.{{location_lower}}.index'), params, {
+        preserveState: true,
+        preserveScroll: true,
+        only: ['data'],
+    });
+};
+
+const debouncedSearch = debounce(() => {
+    loadData();
+}, 300);
+
+const toggleSelectAll = () => {
+    if (allSelected.value) {
+        selectedItems.value = [];
+    } else {
+        selectedItems.value = items.value.map(item => item.id);
+    }
+};
+
+const changePage = (page) => {
+    pagination.value.current_page = page;
+    loadData();
+};
+
+const deleteItem = async (item) => {
+    if (!confirm(`Are you sure you want to delete "${item.name}"?`)) {
+        return;
+    }
+
+    try {
+        await router.delete(route('{{name}}.{{location_lower}}.items.destroy', item.id));
+        refreshData();
+    } catch (error) {
+        alert('Failed to delete item');
+    }
+};
+
+const bulkDelete = async () => {
+    if (!confirm(`Are you sure you want to delete ${selectedItems.value.length} items?`)) {
+        return;
+    }
+
+    try {
+        await router.post(route('{{name}}.{{location_lower}}.items.bulk-delete'), {
+            ids: selectedItems.value,
+        });
+        selectedItems.value = [];
+        refreshData();
+    } catch (error) {
+        alert('Failed to delete items');
+    }
+};
+
+const exportData = () => {
+    window.open(route('{{name}}.{{location_lower}}.export'), '_blank');
+};
+
+const importData = () => {
+    // Implement import functionality
+    alert('Import functionality coming soon!');
+};
+
+// Utility methods
+const getInitials = (name) => {
+    if (!name) return 'N';
+    return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
+};
+
+const getStatusClass = (status) => {
+    switch (status?.toLowerCase()) {
+        case 'active':
+            return 'badge-success';
+        case 'pending':
+            return 'badge-warning';
+        case 'inactive':
+            return 'badge-error';
+        default:
+            return 'badge-ghost';
+    }
+};
+
+const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    return new Date(dateString).toLocaleDateString();
+};
+
+const formatTimeAgo = (dateString) => {
+    if (!dateString) return 'N/A';
+
+    const now = new Date();
+    const date = new Date(dateString);
+    const diff = now - date;
+
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes}m ago`;
+    if (hours < 24) return `${hours}h ago`;
+    if (days < 30) return `${days}d ago`;
+
+    return formatDate(dateString);
+};
+
+// Lifecycle
+onMounted(() => {
+    // Any initialization logic
+});
 </script>
+
+<style scoped>
+/* Custom styles if needed */
+.card-header {
+    @apply border-b border-base-300;
+}
+
+.table th {
+    @apply bg-base-200 font-semibold;
+}
+
+.btn-group .btn.btn-active {
+    @apply bg-primary text-primary-content;
+}
+
+/* Loading skeleton animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+</style>

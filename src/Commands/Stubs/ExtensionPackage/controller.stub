@@ -3,17 +3,295 @@
 namespace {{namespace}}Controllers\{{location}};
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 use Inertia\Inertia;
+use Inertia\Response;
 
+/**
+ * {{controller}} - {{location}} Controller for {{name}} Package
+ *
+ * This controller handles {{location}} requests for the {{name}} package.
+ * It provides both view rendering and API endpoints.
+ *
+ * @package {{namespace}}Controllers\{{location}}
+ * @author Package Author
+ * @version 1.0.0
+ */
 class {{controller}} extends Controller
 {
     /**
-     * @return [blade view]
+     * Display the main index page.
+     *
+     * @param Request $request
+     * @return Response
      */
-    public function index()
+    public function index(Request $request): Response
     {
+        $data = $this->getIndexData($request);
+
         return Inertia::render('Vendor/{{name}}/index', [
-            'title'          => 'Home'
+            'title' => '{{name}} - {{location}}',
+            'description' => 'Welcome to {{name}} {{location}} interface',
+            'data' => $data,
+            'meta' => [
+                'version' => '1.0.0',
+                'package' => '{{name}}',
+                'location' => '{{location}}',
+            ],
         ]);
+    }
+
+    /**
+     * Display a specific resource.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function show(Request $request, int $id): Response
+    {
+        $item = $this->findById($id);
+
+        if (!$item) {
+            abort(404, 'Resource not found');
+        }
+
+        return Inertia::render('Vendor/{{name}}/show', [
+            'title' => '{{name}} - View Item',
+            'item' => $item,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function create(Request $request): Response
+    {
+        return Inertia::render('Vendor/{{name}}/create', [
+            'title' => '{{name}} - Create New',
+            'formData' => $this->getFormDefaults(),
+        ]);
+    }
+
+    /**
+     * Store a newly created resource.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate($this->getValidationRules());
+
+        try {
+            $item = $this->createItem($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Item created successfully',
+                'data' => $item,
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create item: ' . $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    /**
+     * Show the form for editing a resource.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function edit(Request $request, int $id): Response
+    {
+        $item = $this->findById($id);
+
+        if (!$item) {
+            abort(404, 'Resource not found');
+        }
+
+        return Inertia::render('Vendor/{{name}}/edit', [
+            'title' => '{{name}} - Edit Item',
+            'item' => $item,
+        ]);
+    }
+
+    /**
+     * Update a resource.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $item = $this->findById($id);
+
+        if (!$item) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+            ], 404);
+        }
+
+        $validated = $request->validate($this->getValidationRules($id));
+
+        try {
+            $item = $this->updateItem($item, $validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Item updated successfully',
+                'data' => $item,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update item: ' . $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    /**
+     * Remove a resource.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(Request $request, int $id): JsonResponse
+    {
+        $item = $this->findById($id);
+
+        if (!$item) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+            ], 404);
+        }
+
+        try {
+            $this->deleteItem($item);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Item deleted successfully',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete item: ' . $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    /**
+     * Get data for the index page.
+     *
+     * @param Request $request
+     * @return array
+     */
+    protected function getIndexData(Request $request): array
+    {
+        // Override this method to provide custom index data
+        return [
+            'items' => [],
+            'stats' => [
+                'total' => 0,
+                'active' => 0,
+                'pending' => 0,
+                'thisMonth' => 0,
+            ],
+            'pagination' => [
+                'current_page' => 1,
+                'total' => 0,
+                'per_page' => 15,
+            ],
+            'filters' => $request->only(['search', 'sort', 'direction']),
+        ];
+    }
+
+    /**
+     * Find an item by ID.
+     *
+     * @param int $id
+     * @return mixed
+     */
+    protected function findById(int $id): mixed
+    {
+        // Override this method to implement actual data retrieval
+        return null;
+    }
+
+    /**
+     * Get form default values.
+     *
+     * @return array
+     */
+    protected function getFormDefaults(): array
+    {
+        // Override this method to provide form defaults
+        return [];
+    }
+
+    /**
+     * Get validation rules.
+     *
+     * @param int|null $id
+     * @return array
+     */
+    protected function getValidationRules(?int $id = null): array
+    {
+        // Override this method to provide validation rules
+        return [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+        ];
+    }
+
+    /**
+     * Create a new item.
+     *
+     * @param array $data
+     * @return mixed
+     */
+    protected function createItem(array $data): mixed
+    {
+        // Override this method to implement actual creation logic
+        return $data;
+    }
+
+    /**
+     * Update an existing item.
+     *
+     * @param mixed $item
+     * @param array $data
+     * @return mixed
+     */
+    protected function updateItem(mixed $item, array $data): mixed
+    {
+        // Override this method to implement actual update logic
+        return array_merge((array)$item, $data);
+    }
+
+    /**
+     * Delete an item.
+     *
+     * @param mixed $item
+     * @return bool
+     */
+    protected function deleteItem(mixed $item): bool
+    {
+        // Override this method to implement actual deletion logic
+        return true;
     }
 }

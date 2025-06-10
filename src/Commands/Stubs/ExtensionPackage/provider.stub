@@ -3,28 +3,47 @@
 namespace {{namespace}};
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
+/**
+ * {{provider}} - Service Provider for {{name}} Package
+ *
+ * This service provider handles the registration and bootstrapping
+ * of the {{name}} package for Skeleton Admin.
+ *
+ * @package {{namespace}}
+ * @author Package Author
+ * @version 1.0.0
+ */
 class {{provider}} extends ServiceProvider
 {
+    /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public array $bindings = [];
+
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public array $singletons = [];
+
     /**
      * Bootstrap the application services.
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        // Load the commands
-        $this->loadCommands();
-
-        // Load backend routes
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/api/api.php');
-        // Load frontend routes
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/api/api.php');
-
-        // Load Migrations
-        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+        $this->bootRoutes();
+        $this->bootMigrations();
+        $this->bootPublishing();
+        $this->bootCommands();
+        $this->bootViews();
+        $this->bootTranslations();
     }
 
     /**
@@ -32,32 +51,157 @@ class {{provider}} extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->publish();
-    }
-
-    public function publish()
-    {
-        $this->publishes([
-            __DIR__ . '/../Publish/Resource' => resource_path('vendor/SkeletonAdmin'),
-            __DIR__ . '/../Publish/Public'   => public_path('vendor/Skeleton'),
-            __DIR__ . '/../Publish/Npm'      => base_path(''),
-        ]);
+        $this->registerConfig();
+        $this->registerBindings();
     }
 
     /**
-     * Inject the commands
+     * Boot the package routes.
+     *
      * @return void
      */
-    public function loadCommands() {
-        // Autoload all the commands from the folder Commands
+    protected function bootRoutes(): void
+    {
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/web/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Backend/api/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/web/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/Frontend/api/api.php');
+    }
+
+    /**
+     * Boot the package migrations.
+     *
+     * @return void
+     */
+    protected function bootMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+    }
+
+    /**
+     * Boot the package publishing.
+     *
+     * @return void
+     */
+    protected function bootPublishing(): void
+    {
         if ($this->app->runningInConsole()) {
-            $availableCommandsPath =  __DIR__ . '/Commands';
-            // Now get all the commands classes
-            $commandClasses = array_map(function ($path) {
-                return '{{namespace}}\Commands\\' . basename($path, '.php');
-            }, glob($availableCommandsPath . '/*.php'));
+            $this->publishes([
+                __DIR__ . '/../Publish/Resource' => resource_path('vendor/SkeletonAdmin'),
+            ], '{{name}}-resources');
+
+            $this->publishes([
+                __DIR__ . '/../Publish/Public' => public_path('vendor/Skeleton'),
+            ], '{{name}}-public');
+
+            $this->publishes([
+                __DIR__ . '/../Publish/Npm' => base_path(''),
+            ], '{{name}}-npm');
+
+            // Only publish config if it exists
+            $configPath = __DIR__ . '/Config/{{name}}.php';
+            if (file_exists($configPath)) {
+                $this->publishes([
+                    $configPath => config_path('{{name}}.php'),
+                ], '{{name}}-config');
+            }
+        }
+    }
+
+    /**
+     * Boot the package commands.
+     *
+     * @return void
+     */
+    protected function bootCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->loadCommands();
+        }
+    }
+
+    /**
+     * Boot the package views.
+     *
+     * @return void
+     */
+    protected function bootViews(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/Resources/views', '{{name}}');
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/Resources/views' => resource_path('views/vendor/{{name}}'),
+            ], '{{name}}-views');
+        }
+    }
+
+    /**
+     * Boot the package translations.
+     *
+     * @return void
+     */
+    protected function bootTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/Resources/lang', '{{name}}');
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/Resources/lang' => resource_path('lang/vendor/{{name}}'),
+            ], '{{name}}-translations');
+        }
+    }
+
+    /**
+     * Register the package configuration.
+     *
+     * @return void
+     */
+    protected function registerConfig(): void
+    {
+        $configPath = __DIR__ . '/Config/{{name}}.php';
+
+        if (file_exists($configPath)) {
+            $this->mergeConfigFrom($configPath, '{{name}}');
+        }
+    }
+
+    /**
+     * Register package bindings.
+     *
+     * @return void
+     */
+    protected function registerBindings(): void
+    {
+        // Register any custom bindings here
+    }
+
+    /**
+     * Load and register all package commands.
+     *
+     * @return void
+     */
+    protected function loadCommands(): void
+    {
+        $commandsPath = __DIR__ . '/Commands';
+
+        if (!is_dir($commandsPath)) {
+            return;
+        }
+
+        $commandClasses = [];
+
+        foreach (glob($commandsPath . '/*.php') as $commandFile) {
+            $commandClass = '{{namespace_with_trailing}}Commands\\' . basename($commandFile, '.php');
+
+            if (class_exists($commandClass)) {
+                $commandClasses[] = $commandClass;
+            }
+        }
+
+        if (!empty($commandClasses)) {
             $this->commands($commandClasses);
         }
     }

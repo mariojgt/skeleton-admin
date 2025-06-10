@@ -50,6 +50,10 @@ class Republish extends Command
             __DIR__ . '/../../Publish/Resource/',
             $bar
         );
+        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/backend/Pages/Vendor');
+        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/backend/Components/Vendor');
+        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/frontend/Pages/Vendor');
+        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/frontend/Components/Vendor');
 
         File::deleteDirectory(__DIR__ . '/../../Publish/Public');
         // Now we move the already compiles files from the public

@@ -4,7 +4,18 @@ namespace {{namespace}}Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 
+/**
+ * Install Command for {{name}} Package
+ *
+ * This command handles the installation process for the {{name}} package,
+ * including publishing assets, running migrations, and setting up configurations.
+ *
+ * @package {{namespace}}Commands
+ * @author Package Author
+ * @version 1.0.0
+ */
 class Install extends Command
 {
     /**
@@ -12,14 +23,17 @@ class Install extends Command
      *
      * @var string
      */
-    protected $signature = 'install:{{name}}';
+    protected $signature = 'install:{{name}}
+                            {--force : Force overwrite existing files}
+                            {--no-migrate : Skip running migrations}
+                            {--no-seed : Skip running seeders}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This command will install {{name}} package';
+    protected $description = 'Install the {{name}} package with all necessary setup';
 
     /**
      * Create a new command instance.
@@ -36,15 +50,244 @@ class Install extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        // Call migrations
-        Artisan::call('install:skeleton-admin');
+        try {
+            $this->info('🚀 Installing {{name}} Package...');
+            $this->newLine();
 
-        // Publish the media library package
+            // Create progress bar
+            $steps = $this->getInstallationSteps();
+            $bar = $this->output->createProgressBar(count($steps));
+            $bar->setFormat(' %current%/%max% [%bar%] %percent:3s%% %message%');
+
+            foreach ($steps as $step) {
+                $bar->setMessage($step['message']);
+                $this->executeStep($step['method']);
+                $bar->advance();
+                usleep(200000); // Small delay for visual effect
+            }
+
+            $bar->finish();
+            $this->newLine(2);
+
+            $this->displaySuccessMessage();
+            return 0;
+
+        } catch (\Exception $e) {
+            $this->error('Installation failed: ' . $e->getMessage());
+            $this->error('Stack trace: ' . $e->getTraceAsString());
+            return 1;
+        }
+    }
+
+    /**
+     * Get installation steps.
+     *
+     * @return array
+     */
+    private function getInstallationSteps(): array
+    {
+        return [
+            ['method' => 'installSkeletonAdmin', 'message' => 'Installing Skeleton Admin...'],
+            ['method' => 'publishPackageFiles', 'message' => 'Publishing package files...'],
+            ['method' => 'createDirectories', 'message' => 'Creating directories...'],
+            ['method' => 'runMigrations', 'message' => 'Running migrations...'],
+            ['method' => 'runSeeders', 'message' => 'Running seeders...'],
+            ['method' => 'publishConfig', 'message' => 'Publishing configuration...'],
+            ['method' => 'clearCaches', 'message' => 'Clearing caches...'],
+            ['method' => 'finalizeInstallation', 'message' => 'Finalizing installation...'],
+        ];
+    }
+
+    /**
+     * Execute a specific installation step.
+     *
+     * @param string $method
+     * @return void
+     */
+    private function executeStep(string $method): void
+    {
+        if (method_exists($this, $method)) {
+            $this->$method();
+        }
+    }
+
+    /**
+     * Install Skeleton Admin dependency.
+     *
+     * @return void
+     */
+    private function installSkeletonAdmin(): void
+    {
+        Artisan::call('install:skeleton-admin', [], $this->output);
+    }
+
+    /**
+     * Publish package files.
+     *
+     * @return void
+     */
+    private function publishPackageFiles(): void
+    {
+        $force = $this->option('force');
+
+        // Publish resources
         Artisan::call('vendor:publish', [
             '--provider' => '{{namespace}}{{provider}}',
-            '--force'    => true,
-        ]);
+            '--tag' => '{{name}}-resources',
+            '--force' => $force,
+        ], $this->output);
+
+        // Publish public assets
+        Artisan::call('vendor:publish', [
+            '--provider' => '{{namespace}}{{provider}}',
+            '--tag' => '{{name}}-public',
+            '--force' => $force,
+        ], $this->output);
+
+        // Publish NPM files
+        Artisan::call('vendor:publish', [
+            '--provider' => '{{namespace}}{{provider}}',
+            '--tag' => '{{name}}-npm',
+            '--force' => $force,
+        ], $this->output);
+    }
+
+    /**
+     * Create necessary directories.
+     *
+     * @return void
+     */
+    private function createDirectories(): void
+    {
+        $directories = [
+            storage_path('app/{{name}}'),
+            storage_path('logs/{{name}}'),
+            public_path('storage/{{name}}'),
+        ];
+
+        foreach ($directories as $directory) {
+            if (!File::isDirectory($directory)) {
+                File::makeDirectory($directory, 0755, true);
+            }
+        }
+    }
+
+    /**
+     * Run package migrations.
+     *
+     * @return void
+     */
+    private function runMigrations(): void
+    {
+        if (!$this->option('no-migrate')) {
+            Artisan::call('migrate', ['--force' => true], $this->output);
+        }
+    }
+
+    /**
+     * Run package seeders.
+     *
+     * @return void
+     */
+    private function runSeeders(): void
+    {
+        if (!$this->option('no-seed')) {
+            // Add your seeder classes here
+            // Artisan::call('db:seed', ['--class' => '{{name}}DatabaseSeeder'], $this->output);
+        }
+    }
+
+    /**
+     * Publish configuration files.
+     *
+     * @return void
+     */
+    private function publishConfig(): void
+    {
+        Artisan::call('vendor:publish', [
+            '--provider' => '{{namespace}}{{provider}}',
+            '--tag' => '{{name}}-config',
+            '--force' => $this->option('force'),
+        ], $this->output);
+    }
+
+    /**
+     * Clear application caches.
+     *
+     * @return void
+     */
+    private function clearCaches(): void
+    {
+        Artisan::call('config:cache', [], $this->output);
+        Artisan::call('route:cache', [], $this->output);
+        Artisan::call('view:cache', [], $this->output);
+    }
+
+    /**
+     * Finalize the installation.
+     *
+     * @return void
+     */
+    private function finalizeInstallation(): void
+    {
+        // Create symbolic links if needed
+        if (!File::exists(public_path('storage'))) {
+            Artisan::call('storage:link', [], $this->output);
+        }
+
+        // Set proper permissions
+        $this->setPermissions();
+    }
+
+    /**
+     * Set proper file permissions.
+     *
+     * @return void
+     */
+    private function setPermissions(): void
+    {
+        $paths = [
+            storage_path('app/{{name}}'),
+            storage_path('logs/{{name}}'),
+        ];
+
+        foreach ($paths as $path) {
+            if (File::isDirectory($path)) {
+                chmod($path, 0755);
+            }
+        }
+    }
+
+    /**
+     * Display success message and next steps.
+     *
+     * @return void
+     */
+    private function displaySuccessMessage(): void
+    {
+        $this->info('✅ {{name}} Package installed successfully!');
+        $this->newLine();
+
+        $this->info('📋 Installation Summary:');
+        $this->info('   • Package files published');
+        $this->info('   • Migrations executed');
+        $this->info('   • Configuration files created');
+        $this->info('   • Caches cleared');
+        $this->newLine();
+
+        $this->info('🚀 Next Steps:');
+        $this->info('   1. Run: npm install && npm run dev');
+        $this->info('   2. Visit: /{{name}}/frontend (Frontend)');
+        $this->info('   3. Visit: /admin/backend (Backend)');
+        $this->info('   4. Configure: config/{{name}}.php');
+        $this->newLine();
+
+        $this->info('📚 Documentation: README.md');
+        $this->info('🐛 Issues: Create an issue on GitHub');
+        $this->newLine();
+
+        $this->info('Happy coding! 🎉');
     }
 }
