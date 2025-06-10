@@ -228,5 +228,10 @@ class SkeletonAdminProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../Publish/Helpers' => app_path('Helpers'),
         ], 'skeleton-admin-helpers');
+
+        // Main web.php file
+        $this->publishes([
+            __DIR__ . '/../Publish/Route/web.php' => base_path('routes/web.php'),
+        ], 'skeleton-admin-routes');
     }
 }

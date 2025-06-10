@@ -1,65 +1,72 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
     <Head :title="title" />
 
-    <!-- Background Pattern -->
-    <div class="fixed inset-0 opacity-30">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),transparent)]"></div>
-      <div class="absolute inset-0 bg-[conic-gradient(from_90deg_at_50%_50%,#000_0deg,#7877c6_180deg,#000_360deg)] opacity-20"></div>
+    <!-- Enhanced Background Pattern -->
+    <div class="absolute inset-0 opacity-40">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(120,119,198,0.4),transparent_50%)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(16,185,129,0.3),transparent_50%)]"></div>
+      <div class="absolute inset-0 bg-[conic-gradient(from_90deg_at_50%_50%,#000_0deg,#7877c6_180deg,#10b981_270deg,#000_360deg)] opacity-20"></div>
     </div>
 
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-emerald-400/20 to-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+
     <div class="relative z-10 w-full max-w-md">
-      <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+      <div class="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 shadow-2xl">
 
         <!-- Header -->
         <div class="text-center mb-8">
-          <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          <div class="w-20 h-20 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
           </div>
-          <h1 class="text-2xl font-semibold text-white mb-2">Welcome back</h1>
-          <p class="text-slate-400">Sign in to your account to continue</p>
+          <h1 class="text-3xl font-bold text-white mb-3 bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+            Welcome back
+          </h1>
+          <p class="text-slate-300 text-lg">Sign in to your Skeleton Admin account</p>
         </div>
 
         <!-- Login Form -->
         <form @submit.prevent="handleLogin" class="space-y-6">
 
           <!-- Email Field -->
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-slate-300">Email</label>
-            <div class="relative">
+          <div class="space-y-3">
+            <label class="text-sm font-semibold text-slate-200 tracking-wide">Email Address</label>
+            <div class="relative group">
               <input
                 v-model="form.email"
                 type="email"
                 :class="[
-                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500',
-                  errors.email ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                  'w-full px-4 py-4 bg-white/5 border-2 rounded-xl text-white placeholder-slate-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400 group-hover:bg-white/10',
+                  errors.email ? 'border-red-400/60 bg-red-500/10' : 'border-white/20 hover:border-white/30'
                 ]"
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
                 autocomplete="email"
               />
-              <div class="absolute right-3 top-1/2 -translate-y-1/2">
-                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="absolute right-4 top-1/2 -translate-y-1/2">
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-slate-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                 </svg>
               </div>
             </div>
             <Transition name="slide-down">
-              <p v-if="errors.email" class="text-sm text-red-400">{{ errors.email }}</p>
+              <p v-if="errors.email" class="text-sm text-red-300 font-medium">{{ errors.email }}</p>
             </Transition>
           </div>
 
           <!-- Password Field -->
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-slate-300">Password</label>
-            <div class="relative">
+          <div class="space-y-3">
+            <label class="text-sm font-semibold text-slate-200 tracking-wide">Password</label>
+            <div class="relative group">
               <input
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
                 :class="[
-                  'w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-slate-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 pr-12',
-                  errors.password ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-white/20'
+                  'w-full px-4 py-4 bg-white/5 border-2 rounded-xl text-white placeholder-slate-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400 pr-12 group-hover:bg-white/10',
+                  errors.password ? 'border-red-400/60 bg-red-500/10' : 'border-white/20 hover:border-white/30'
                 ]"
                 placeholder="Enter your password"
                 autocomplete="current-password"
@@ -67,7 +74,7 @@
               <button
                 type="button"
                 @click="showPassword = !showPassword"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
               >
                 <svg v-if="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
@@ -79,21 +86,21 @@
               </button>
             </div>
             <Transition name="slide-down">
-              <p v-if="errors.password" class="text-sm text-red-400">{{ errors.password }}</p>
+              <p v-if="errors.password" class="text-sm text-red-300 font-medium">{{ errors.password }}</p>
             </Transition>
           </div>
 
           <!-- Remember Me & Forgot Password -->
           <div class="flex items-center justify-between">
-            <label class="flex items-center">
+            <label class="flex items-center cursor-pointer group">
               <input
                 v-model="form.remember"
                 type="checkbox"
-                class="w-4 h-4 bg-white/5 border border-white/20 rounded text-emerald-500 focus:ring-emerald-500/50 focus:ring-2"
+                class="w-4 h-4 bg-white/10 border-2 border-white/30 rounded text-emerald-500 focus:ring-emerald-400/50 focus:ring-2 transition-all"
               />
-              <span class="ml-2 text-sm text-slate-400">Remember me</span>
+              <span class="ml-3 text-sm text-slate-300 group-hover:text-white transition-colors">Remember me</span>
             </label>
-            <Link :href="route('forgot-password')" class="text-sm text-emerald-400 hover:text-emerald-300 transition-colors">
+            <Link :href="route('forgot-password')" class="text-sm text-emerald-400 hover:text-emerald-300 transition-colors font-medium hover:underline">
               Forgot password?
             </Link>
           </div>
@@ -102,7 +109,7 @@
           <button
             type="submit"
             :disabled="processing || !canSubmit"
-            class="w-full bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+            class="w-full bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-emerald-400/30"
           >
             <span v-if="processing" class="flex items-center justify-center">
               <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -111,70 +118,73 @@
               </svg>
               Signing in...
             </span>
-            <span v-else>Sign in</span>
+            <span v-else>Sign in to Dashboard</span>
           </button>
         </form>
 
         <!-- Divider -->
-        <div class="flex items-center my-6">
-          <div class="flex-1 border-t border-white/10"></div>
-          <span class="px-4 text-slate-400 text-sm">or</span>
-          <div class="flex-1 border-t border-white/10"></div>
+        <div class="flex items-center my-8">
+          <div class="flex-1 border-t border-white/20"></div>
+          <span class="px-6 text-slate-400 text-sm font-medium">OR</span>
+          <div class="flex-1 border-t border-white/20"></div>
         </div>
 
         <!-- Magic Link -->
         <form @submit.prevent="sendMagicLink" class="mb-6">
-          <div class="flex gap-2">
+          <div class="flex gap-3">
             <input
               v-model="magicLinkForm.email"
               type="email"
-              class="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+              class="flex-1 px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
               placeholder="Email for magic link"
             />
             <button
               type="submit"
               :disabled="magicLinkForm.processing || !magicLinkForm.email"
-              class="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 disabled:opacity-50 text-blue-400 text-sm font-medium rounded-lg transition-colors border border-blue-500/30"
+              class="px-6 py-3 bg-blue-500/30 hover:bg-blue-500/40 disabled:opacity-50 text-blue-300 text-sm font-medium rounded-lg transition-all border border-blue-400/30 hover:border-blue-400/50"
             >
-              Send
+              Send Link
             </button>
           </div>
         </form>
 
         <!-- Footer -->
-        <div class="text-center text-sm text-slate-400">
+        <div class="text-center text-sm text-slate-300">
           Don't have an account?
-          <Link :href="route('register.user.form')" class="text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
+          <Link :href="route('register.user.form')" class="text-emerald-400 hover:text-emerald-300 transition-colors font-semibold hover:underline ml-1">
             Create account
           </Link>
         </div>
       </div>
 
       <!-- Features -->
-      <div class="mt-8 grid grid-cols-3 gap-4 text-center">
-        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-3">
-          <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="mt-8 grid grid-cols-3 gap-4">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center group hover:bg-white/10 transition-all">
+          <div class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <p class="text-xs text-slate-300 font-medium">Secure</p>
+          <p class="text-sm text-slate-200 font-semibold">Secure</p>
+          <p class="text-xs text-slate-400">Enterprise-grade security</p>
         </div>
-        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-3">
-          <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center group hover:bg-white/10 transition-all">
+          <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <p class="text-xs text-slate-300 font-medium">Fast</p>
+          <p class="text-sm text-slate-200 font-semibold">Fast</p>
+          <p class="text-xs text-slate-400">Lightning performance</p>
         </div>
-        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-3">
-          <div class="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center group hover:bg-white/10 transition-all">
+          <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <p class="text-xs text-slate-300 font-medium">Reliable</p>
+          <p class="text-sm text-slate-200 font-semibold">Reliable</p>
+          <p class="text-xs text-slate-400">99.9% uptime</p>
         </div>
       </div>
     </div>
@@ -188,7 +198,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3'
 defineProps({
   title: {
     type: String,
-    default: 'Sign In'
+    default: 'Sign In - Skeleton Admin'
   },
   errors: {
     type: Object,
@@ -259,5 +269,6 @@ input[type="checkbox"]:checked::after {
   color: white;
   font-size: 12px;
   font-weight: bold;
+  line-height: 14px;
 }
 </style>

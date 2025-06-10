@@ -167,33 +167,6 @@ const fetchNotifications = async () => {
     console.error('Failed to fetch notifications:', error)
     // Fallback mock data for development
     notifications.value = [
-      {
-        id: 1,
-        data: {
-          title: 'Welcome to SkeletonAdmin',
-          message: 'Your account has been successfully created. Start exploring our features!'
-        },
-        created_at: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
-        read_at: null
-      },
-      {
-        id: 2,
-        data: {
-          title: 'Profile Updated',
-          message: 'Your profile information has been successfully updated.'
-        },
-        created_at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
-        read_at: new Date().toISOString()
-      },
-      {
-        id: 3,
-        data: {
-          title: 'Security Alert',
-          message: 'New login detected from Chrome on Windows. If this wasn\'t you, please secure your account.'
-        },
-        created_at: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
-        read_at: null
-      }
     ]
   } finally {
     loading.value = false

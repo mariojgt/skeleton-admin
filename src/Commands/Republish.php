@@ -51,6 +51,7 @@ class Republish extends Command
             $bar
         );
 
+        File::deleteDirectory(__DIR__ . '/../../Publish/Public');
         // Now we move the already compiles files from the public
         $this->moveFileOrFolder(
             public_path('vendor/Skeleton'),
