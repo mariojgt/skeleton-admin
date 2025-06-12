@@ -292,16 +292,21 @@ class BuildExtensionPackage extends Command
      */
     public function getDescription(): string
     {
-        $description = $this->option('description');
+        try {
+            $description = $this->option('description');
+            if (!$description && $this->isInteractive) {
+                $description = $this->ask(
+                    'Package description (optional)',
+                    'A Laravel extension package for Skeleton Admin'
+                );
+            }
 
-        if (!$description && $this->isInteractive) {
-            $description = $this->ask(
-                'Package description (optional)',
-                'A Laravel extension package for Skeleton Admin'
-            );
+            return $description ?: 'A Laravel extension package for Skeleton Admin';
+        } catch (\Throwable $th) {
+            $description = 'A Laravel extension package for Skeleton Admin';
         }
 
-        return $description ?: 'A Laravel extension package for Skeleton Admin';
+        return 'A Laravel extension package for Skeleton Admin';
     }
 
     /**
@@ -925,7 +930,6 @@ VUE;
             if ($this->isInteractive) {
                 $this->info("📄 Backup created: {$backupPath}");
             }
-
         } catch (\Exception $e) {
             $this->error('❌ Failed to update composer.json: ' . $e->getMessage());
             if ($this->isInteractive) {
@@ -1004,7 +1008,6 @@ VUE;
             }
 
             $this->info('✅ Composer packages updated successfully!');
-
         } catch (\Exception $e) {
             $this->error('❌ Composer update failed: ' . $e->getMessage());
             $this->warn('You will need to run "composer update" manually.');

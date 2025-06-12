@@ -30,16 +30,18 @@ class PermissionController extends GenericCrudController
                 unique: true, // Permissions usually have unique names
                 type: FieldTypes::TEXT->value
             )
-            ->addSelectWithOptions(
+            ->addField(
                 label: 'Guard',
                 key: 'guard_name',
-                canCreate: true, // Added canCreate
-                canEdit: true, // Added canEdit
+                type: FieldTypes::SELECT->value,
                 options: [
-                    'skeleton_admin' => 'backend',
-                    'web'            => 'frontend',
-                    'api'            => 'api',
-                ]
+                    'select_options' => [
+                        ['value' => 'skeleton_admin', 'label' => 'backend'],
+                        ['value' => 'web', 'label' => 'frontend'],
+                        ['value' => 'api', 'label' => 'api']
+                    ]
+                ],
+                filterable: true
             )
             ->addTimestampField( // Using addTimestampField for created_at
                 label: 'Created At',

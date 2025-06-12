@@ -2,40 +2,9 @@
 @source "../views";
 @plugin "daisyui";
 
-  @plugin "daisyui/theme" {
-    name: "admin";
-    default: false;
-    prefersdark: true;
-    color-scheme: "dark";
-    --color-base-100: oklch(7.843% 0.123 260.87);
-    --color-base-200: oklch(7.843% 0.123 260.87);
-    --color-base-300: oklch(7.843% 0.123 260.87);
-    --color-base-content: oklch(86.667% 0 0);
-    --color-primary: oklch(54.118% 0.234 195.652);
-    --color-primary-content: oklch(100% 0 0);
-    --color-secondary: oklch(69.804% 0.35 156.585);
-    --color-secondary-content: oklch(100% 0 0);
-    --color-accent: oklch(43.137% 0.063 113.636);
-    --color-accent-content: oklch(100% 0 0);
-    --color-neutral: oklch(26.275% 0.101 246.364);
-    --color-neutral-content: oklch(100% 0 0);
-    --color-info: oklch(60.784% 0.598 210.526);
-    --color-info-content: oklch(100% 0 0);
-    --color-success: oklch(64.706% 0.312 170.37);
-    --color-success-content: oklch(100% 0 0);
-    --color-warning: oklch(58.039% 0.697 41.379);
-    --color-warning-content: oklch(0% 0 0);
-    --color-error: oklch(54.51% 0.634 359.453);
-    --color-error-content: oklch(100% 0 0);
-    --radius-selector: 0.5rem;
-    --radius-field: 0.5rem;
-    --radius-box: 0.25rem;
-    --size-selector: 0.25rem;
-    --size-field: 0.25rem;
-    --border: 1px;
-    --depth: 0;
-    --noise: 0;
-  }
+@plugin "daisyui" {
+  themes: all;
+}
 
 .skeleton-bg {
     background-color: #38A3A5;
