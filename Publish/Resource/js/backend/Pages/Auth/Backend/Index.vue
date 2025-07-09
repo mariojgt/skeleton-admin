@@ -1,51 +1,265 @@
 <template>
-    <layout title="Backend Login">
-        <template v-slot:form>
-            <form @submit.prevent="submitForm">
-                <div class="w-full">
-                    <input-field v-model="email" label="Email" type="email" name="email" id="email"
-                        placeholder="Type your email" />
+  <Layout :title="title">
+    <template v-slot:form>
+      <div class="space-y-6">
+        <!-- Magic Link Toggle -->
+        <div class="flex items-center justify-center mb-6">
+          <div class="bg-white/10 rounded-full p-1 flex items-center space-x-1">
+            <button
+              @click="authType = 'magic'"
+              :class="['px-4 py-2 rounded-full text-sm font-medium transition-all duration-200', authType === 'magic' ? 'bg-white text-gray-900' : 'text-white/70 hover:text-white']"
+            >
+              Magic Link
+            </button>
+            <button
+              @click="authType = 'password'"
+              :class="['px-4 py-2 rounded-full text-sm font-medium transition-all duration-200', authType === 'password' ? 'bg-white text-gray-900' : 'text-white/70 hover:text-white']"
+            >
+              Password
+            </button>
+          </div>
+        </div>
 
-                    <submit @click="submitForm" class="btn btn-primary btn-wide" />
+        <!-- Login Form -->
+        <div @submit.prevent="submitForm">
+          <!-- Email Field -->
+          <div class="form-control mb-4">
+            <label class="label">
+              <span class="label-text text-white font-medium">Email address</span>
+            </label>
+            <div class="relative">
+              <input
+                v-model="email"
+                type="email"
+                name="email"
+                id="email"
+                class="input w-full bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-white/40 focus:bg-white/20 transition-all duration-200"
+                placeholder="Enter your email"
+                required
+              />
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Password Field (conditional) -->
+          <transition name="slide-fade" mode="out-in">
+            <div v-if="authType === 'password'" class="form-control mb-4">
+              <label class="label">
+                <span class="label-text text-white font-medium">Password</span>
+              </label>
+              <div class="relative">
+                <input
+                  v-model="password"
+                  :type="showPassword ? 'text' : 'password'"
+                  name="password"
+                  id="password"
+                  class="input w-full bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-white/40 focus:bg-white/20 transition-all duration-200"
+                  placeholder="Enter your password"
+                  :required="authType === 'password'"
+                />
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg class="h-5 w-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
                 </div>
-                <!-- <Link href="/about-us">Go to about us</Link> -->
-            </form>
-        </template>
-        <template v-slot:links>
-            <Link class="btn btn-primary" href="/admin/register">
-                <span class="inline-block ml-1">Register</span>
-            </Link>
-            <Link class="btn btn-primary" href="/admin/forgot-password">
-                <span class="inline-block ml-1">Forgot password</span>
-            </Link>
-        </template>
-    </layout>
+                <button
+                  type="button"
+                  @click="showPassword = !showPassword"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                >
+                  <svg v-if="showPassword" class="h-5 w-5 text-white/40 hover:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <svg v-else class="h-5 w-5 text-white/40 hover:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </transition>
+
+          <!-- Magic Link Info -->
+          <transition name="slide-fade" mode="out-in">
+            <div v-if="authType === 'magic'" class="mb-6">
+              <div class="bg-blue-500/20 border border-blue-500/30 rounded-lg p-4">
+                <div class="flex items-start space-x-3">
+                  <svg class="w-5 h-5 text-blue-300 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div>
+                    <div class="font-semibold text-blue-300 text-sm">Secure Magic Link</div>
+                    <div class="text-blue-200/80 text-sm mt-1">We'll send you a secure login link via email. No password required!</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </transition>
+
+          <!-- Submit Button -->
+          <button
+            @click="submitForm"
+            :disabled="loading || !email"
+            class="btn w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white border-none shadow-xl transform hover:scale-105 transition-all duration-200 disabled:hover:scale-100"
+            :class="{ 'loading': loading }"
+          >
+            <span v-if="loading" class="loading loading-spinner loading-sm"></span>
+            <span v-else class="flex items-center justify-center">
+              <svg v-if="authType === 'magic'" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+              <svg v-else class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1" />
+              </svg>
+              {{ authType === 'magic' ? 'Send Magic Link' : 'Sign In' }}
+            </span>
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <template v-slot:links>
+      <div class="flex flex-col space-y-3">
+        <Link
+          class="btn btn-ghost text-white/70 hover:text-white hover:bg-white/10 border-white/20 transition-all duration-200"
+          href="/admin/register"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+          </svg>
+          Create Account
+        </Link>
+        <Link
+          class="btn btn-ghost text-white/70 hover:text-white hover:bg-white/10 border-white/20 transition-all duration-200"
+          href="/admin/forgot-password"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Forgot Password?
+        </Link>
+      </div>
+    </template>
+  </Layout>
 </template>
 
 <script setup>
-import { Link, router } from "@inertiajs/vue3";
-import Layout from "@backend_layout/Login.vue";
-
-// Import the from components
-import {
-    InputField,
-    InputPassword,
-    Submit
-} from "@mariojgt/masterui/packages/index";
-
-let email = $ref("");
+import { ref } from 'vue'
+import { Link, router } from "@inertiajs/vue3"
+import Layout from "@backend_layout/Login.vue"
 
 const props = defineProps({
-    title: {
-        type: String,
-        default: "mariojgt is heredude",
-    },
-});
+  title: {
+    type: String,
+    default: "Backend Login",
+  },
+})
 
-const submitForm = () => {
-    const form = {
-        email: email
-    };
-    router.post(route('skeleton.login.magic'), form);
-};
+// Reactive state
+const email = ref("")
+const password = ref("")
+const authType = ref("magic") // 'magic' or 'password'
+const showPassword = ref(false)
+const loading = ref(false)
+
+// Methods
+const submitForm = async () => {
+  if (!email.value) return
+
+  loading.value = true
+
+  try {
+    const form = { email: email.value }
+
+    if (authType.value === 'password') {
+      form.password = password.value
+      router.post(route("skeleton.login.user"), form)
+    } else {
+      router.post(route('skeleton.login.magic'), form)
+    }
+  } catch (error) {
+    console.error('Login error:', error)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
+
+<style scoped>
+/* Slide fade transition */
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.slide-fade-enter-from {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+/* Enhanced input styles */
+.input {
+  padding-left: 2.5rem;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+}
+
+/* Button enhancements */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Loading state */
+.loading {
+  pointer-events: none;
+}
+
+/* Glass morphism enhancements */
+.bg-white\/10 {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-control {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.form-control:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.form-control:nth-child(3) {
+  animation-delay: 0.2s;
+}
+</style>

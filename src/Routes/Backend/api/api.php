@@ -6,7 +6,6 @@ use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Media\MediaController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Search\SearchController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Deploy\DeployWebhookController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
 
@@ -52,8 +51,6 @@ Route::group([
         Route::post('/backend/register', 'register')->name('skeleton.backend.api.register');
         Route::post('/backend/forgot', 'reset')->name('skeleton.backend.api.forgot');
     });
-    // Deploy webhook
-    Route::post('/webhook/github', [DeployWebhookController::class, 'handle']);
 });
 
 /*

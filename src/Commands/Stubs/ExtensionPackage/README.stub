@@ -1,5 +1,131 @@
-# Welcome to {{name}}
+# {{name}}
 
 {{description}}
 
-This a was autogenerate by skeleton-admin.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/{{name}}.svg?style=flat-square)](https://packagist.org/packages/{{name}})
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/{{name}}/run-tests?label=tests)](https://github.com/{{name}}/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/{{name}}.svg?style=flat-square)](https://packagist.org/packages/{{name}})
+
+## Overview
+
+This package extends Skeleton Admin with additional functionality. It provides a seamless integration with the existing Skeleton Admin infrastructure while adding new features and capabilities.
+
+## Features
+
+- 🚀 **Easy Installation**: Simple one-command installation
+- 🎨 **Modern UI**: Beautiful, responsive interface built with Vue.js and Tailwind CSS
+- 🔧 **Configurable**: Extensive configuration options
+- 🔒 **Secure**: Built with security best practices
+- 📱 **Mobile Friendly**: Fully responsive design
+- 🌐 **Multi-language**: Translation ready
+
+## Requirements
+
+- PHP 8.1 or higher
+- Laravel 10.0 or higher
+- Skeleton Admin package
+
+## Installation
+
+### Step 1: Install via Composer
+
+```bash
+composer require {{name}}
+```
+
+### Step 2: Run Installation Command
+
+```bash
+php artisan install:{{name}}
+```
+
+### Step 3: Compile Assets
+
+```bash
+npm install && npm run dev
+```
+
+## Configuration
+
+After installation, you can publish the configuration file:
+
+```bash
+php artisan vendor:publish --tag={{name}}-config
+```
+
+## Usage
+
+### Frontend Access
+
+Visit `/{{name}}/frontend` to access the frontend interface.
+
+### Backend Access
+
+Visit `/admin/backend` to access the backend administration panel.
+
+### API Endpoints
+
+The package provides RESTful API endpoints:
+
+- `GET /api/{{name}}/data` - Retrieve data
+- `POST /api/{{name}}/create` - Create new entry
+- `PUT /api/{{name}}/update/{id}` - Update existing entry
+- `DELETE /api/{{name}}/delete/{id}` - Delete entry
+
+## Development
+
+### Publishing Assets
+
+To publish and update package assets:
+
+```bash
+php artisan republish:{{name}}
+```
+
+### Running Tests
+
+```bash
+composer test
+```
+
+## File Structure
+
+```
+packages/{{name}}/
+├── src/
+│   ├── Controllers/
+│   │   ├── Backend/
+│   │   └── Frontend/
+│   ├── Commands/
+│   ├── Routes/
+│   ├── Models/
+│   └── Database/
+├── Publish/
+│   ├── Resource/
+│   ├── Public/
+│   └── Npm/
+├── tests/
+├── composer.json
+└── README.md
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Security
+
+If you discover any security-related issues, please email security@example.com instead of using the issue tracker.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Credits
+
+- [Package Author](https://github.com/author)
+- [All Contributors](../../contributors)
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

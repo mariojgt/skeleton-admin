@@ -1,0 +1,556 @@
+<template>
+    <div class="{{name}}-component">
+        <!-- Component Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    {{ title }}
+                </h2>
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    {{ description }}
+                </p>
+            </div>
+            <div class="flex space-x-2">
+                <button
+                    v-if="showRefresh"
+                    @click="refresh"
+                    class="btn btn-outline btn-sm"
+                    :disabled="loading"
+                >
+                    <ArrowPathIcon class="w-4 h-4" :class="{ 'animate-spin': loading }" />
+                    Refresh
+                </button>
+                <slot name="header-actions"></slot>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div v-if="loading && !data.length" class="flex justify-center items-center py-12">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+                <p class="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div v-else-if="error" class="alert alert-error">
+            <div class="flex-1">
+                <ExclamationTriangleIcon class="w-6 h-6" />
+                <label>{{ error }}</label>
+            </div>
+            <div class="flex-none">
+                <button @click="retry" class="btn btn-sm btn-ghost">
+                    Retry
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div v-else-if="!loading && !data.length" class="text-center py-12">
+            <div class="mx-auto h-24 w-24 text-gray-400 mb-4">
+                <slot name="empty-icon">
+                    <FolderIcon class="w-full h-full" />
+                </slot>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                {{ emptyTitle }}
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-sm mx-auto">
+                {{ emptyMessage }}
+            </p>
+            <slot name="empty-actions">
+                <button
+                    v-if="showCreateButton"
+                    @click="$emit('create')"
+                    class="btn btn-primary"
+                >
+                    <PlusIcon class="w-4 h-4 mr-2" />
+                    {{ createButtonText }}
+                </button>
+            </slot>
+        </div>
+
+        <!-- Main Content -->
+        <div v-else class="space-y-6">
+            <!-- Search and Filters -->
+            <div v-if="showFilters" class="card bg-base-100 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <!-- Search Input -->
+                        <div class="form-control flex-1">
+                            <div class="input-group">
+                                <input
+                                    v-model="searchQuery"
+                                    type="text"
+                                    :placeholder="searchPlaceholder"
+                                    class="input input-bordered w-full"
+                                    @input="debouncedSearch"
+                                />
+                                <button class="btn btn-square btn-outline">
+                                    <MagnifyingGlassIcon class="w-5 h-5" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sort Dropdown -->
+                        <select
+                            v-if="sortOptions.length"
+                            v-model="selectedSort"
+                            class="select select-bordered"
+                            @change="handleSort"
+                        >
+                            <option value="">Sort by...</option>
+                            <option
+                                v-for="option in sortOptions"
+                                :key="option.value"
+                                :value="option.value"
+                            >
+                                {{ option.label }}
+                            </option>
+                        </select>
+
+                        <!-- Filter Dropdown -->
+                        <select
+                            v-if="filterOptions.length"
+                            v-model="selectedFilter"
+                            class="select select-bordered"
+                            @change="handleFilter"
+                        >
+                            <option value="">All Items</option>
+                            <option
+                                v-for="option in filterOptions"
+                                :key="option.value"
+                                :value="option.value"
+                            >
+                                {{ option.label }}
+                            </option>
+                        </select>
+
+                        <!-- Custom Filters Slot -->
+                        <slot name="filters"></slot>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Display -->
+            <div class="space-y-4">
+                <!-- Grid View -->
+                <div v-if="viewMode === 'grid'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <div
+                        v-for="item in filteredData"
+                        :key="item.id"
+                        class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+                        @click="$emit('item-click', item)"
+                    >
+                        <figure v-if="item.image" class="h-48 overflow-hidden">
+                            <img
+                                :src="item.image"
+                                :alt="item.name"
+                                class="w-full h-full object-cover"
+                            />
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-lg">{{ item.name }}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
+                                {{ item.description }}
+                            </p>
+                            <div class="flex items-center justify-between mt-4">
+                                <div class="badge" :class="getStatusClass(item.status)">
+                                    {{ item.status }}
+                                </div>
+                                <div class="text-xs text-gray-500">
+                                    {{ formatDate(item.created_at) }}
+                                </div>
+                            </div>
+                            <div class="card-actions justify-end mt-4">
+                                <button
+                                    @click.stop="$emit('view', item)"
+                                    class="btn btn-ghost btn-xs"
+                                >
+                                    <EyeIcon class="w-4 h-4" />
+                                </button>
+                                <button
+                                    @click.stop="$emit('edit', item)"
+                                    class="btn btn-ghost btn-xs"
+                                >
+                                    <PencilIcon class="w-4 h-4" />
+                                </button>
+                                <button
+                                    @click.stop="$emit('delete', item)"
+                                    class="btn btn-ghost btn-xs text-error"
+                                >
+                                    <TrashIcon class="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List View -->
+                <div v-else-if="viewMode === 'list'" class="space-y-2">
+                    <div
+                        v-for="item in filteredData"
+                        :key="item.id"
+                        class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                        <div class="card-body p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <div v-if="item.image" class="avatar">
+                                        <div class="w-12 h-12 rounded-lg">
+                                            <img :src="item.image" :alt="item.name" />
+                                        </div>
+                                    </div>
+                                    <div v-else class="avatar placeholder">
+                                        <div class="bg-neutral-focus text-neutral-content rounded-lg w-12">
+                                            <span class="text-lg">{{ getInitials(item.name) }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-lg">{{ item.name }}</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                            {{ item.description }}
+                                        </p>
+                                        <div class="flex items-center space-x-4 mt-2">
+                                            <div class="badge badge-sm" :class="getStatusClass(item.status)">
+                                                {{ item.status }}
+                                            </div>
+                                            <span class="text-xs text-gray-500">
+                                                {{ formatDate(item.created_at) }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button
+                                        @click="$emit('view', item)"
+                                        class="btn btn-ghost btn-sm"
+                                        title="View"
+                                    >
+                                        <EyeIcon class="w-4 h-4" />
+                                    </button>
+                                    <button
+                                        @click="$emit('edit', item)"
+                                        class="btn btn-ghost btn-sm"
+                                        title="Edit"
+                                    >
+                                        <PencilIcon class="w-4 h-4" />
+                                    </button>
+                                    <button
+                                        @click="$emit('delete', item)"
+                                        class="btn btn-ghost btn-sm text-error"
+                                        title="Delete"
+                                    >
+                                        <TrashIcon class="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Content Slot -->
+                <slot name="content" :data="filteredData" :loading="loading"></slot>
+            </div>
+
+            <!-- Pagination -->
+            <div v-if="showPagination && pagination.total > pagination.per_page" class="flex justify-center">
+                <div class="btn-group">
+                    <button
+                        class="btn btn-sm"
+                        :disabled="pagination.current_page <= 1"
+                        @click="changePage(pagination.current_page - 1)"
+                    >
+                        Previous
+                    </button>
+                    <button
+                        v-for="page in paginationPages"
+                        :key="page"
+                        class="btn btn-sm"
+                        :class="{ 'btn-active': page === pagination.current_page }"
+                        @click="changePage(page)"
+                    >
+                        {{ page }}
+                    </button>
+                    <button
+                        class="btn btn-sm"
+                        :disabled="pagination.current_page >= totalPages"
+                        @click="changePage(pagination.current_page + 1)"
+                    >
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue'
+import { debounce } from 'lodash'
+
+// Icons
+import {
+    ArrowPathIcon,
+    ExclamationTriangleIcon,
+    FolderIcon,
+    PlusIcon,
+    MagnifyingGlassIcon,
+    EyeIcon,
+    PencilIcon,
+    TrashIcon,
+} from '@heroicons/vue/24/outline'
+
+// Props
+const props = defineProps({
+    title: {
+        type: String,
+        default: '{{name}} Component'
+    },
+    description: {
+        type: String,
+        default: 'Frontend component for {{name}}'
+    },
+    data: {
+        type: Array,
+        default: () => []
+    },
+    loading: {
+        type: Boolean,
+        default: false
+    },
+    error: {
+        type: String,
+        default: null
+    },
+    viewMode: {
+        type: String,
+        default: 'grid',
+        validator: value => ['grid', 'list'].includes(value)
+    },
+    showFilters: {
+        type: Boolean,
+        default: true
+    },
+    showRefresh: {
+        type: Boolean,
+        default: true
+    },
+    showPagination: {
+        type: Boolean,
+        default: true
+    },
+    showCreateButton: {
+        type: Boolean,
+        default: true
+    },
+    createButtonText: {
+        type: String,
+        default: 'Create New'
+    },
+    searchPlaceholder: {
+        type: String,
+        default: 'Search items...'
+    },
+    emptyTitle: {
+        type: String,
+        default: 'No items found'
+    },
+    emptyMessage: {
+        type: String,
+        default: 'Get started by creating your first item.'
+    },
+    sortOptions: {
+        type: Array,
+        default: () => [
+            { label: 'Name', value: 'name' },
+            { label: 'Date Created', value: 'created_at' },
+            { label: 'Status', value: 'status' }
+        ]
+    },
+    filterOptions: {
+        type: Array,
+        default: () => [
+            { label: 'Active', value: 'active' },
+            { label: 'Pending', value: 'pending' },
+            { label: 'Inactive', value: 'inactive' }
+        ]
+    },
+    pagination: {
+        type: Object,
+        default: () => ({
+            current_page: 1,
+            total: 0,
+            per_page: 12
+        })
+    }
+})
+
+// Emits
+const emit = defineEmits([
+    'refresh',
+    'retry',
+    'create',
+    'item-click',
+    'view',
+    'edit',
+    'delete',
+    'search',
+    'sort',
+    'filter',
+    'page-change'
+])
+
+// Reactive data
+const searchQuery = ref('')
+const selectedSort = ref('')
+const selectedFilter = ref('')
+
+// Computed properties
+const filteredData = computed(() => {
+    let result = [...props.data]
+
+    // Apply search filter
+    if (searchQuery.value) {
+        const query = searchQuery.value.toLowerCase()
+        result = result.filter(item =>
+            item.name?.toLowerCase().includes(query) ||
+            item.description?.toLowerCase().includes(query)
+        )
+    }
+
+    // Apply status filter
+    if (selectedFilter.value) {
+        result = result.filter(item => item.status === selectedFilter.value)
+    }
+
+    // Apply sorting
+    if (selectedSort.value) {
+        result.sort((a, b) => {
+            const aValue = a[selectedSort.value]
+            const bValue = b[selectedSort.value]
+
+            if (selectedSort.value === 'created_at') {
+                return new Date(bValue) - new Date(aValue)
+            }
+
+            return aValue?.localeCompare?.(bValue) || 0
+        })
+    }
+
+    return result
+})
+
+const totalPages = computed(() => {
+    return Math.ceil(props.pagination.total / props.pagination.per_page)
+})
+
+const paginationPages = computed(() => {
+    const total = totalPages.value
+    const current = props.pagination.current_page
+    const pages = []
+
+    const start = Math.max(1, current - 2)
+    const end = Math.min(total, current + 2)
+
+    for (let i = start; i <= end; i++) {
+        pages.push(i)
+    }
+
+    return pages
+})
+
+// Methods
+const refresh = () => {
+    emit('refresh')
+}
+
+const retry = () => {
+    emit('retry')
+}
+
+const debouncedSearch = debounce(() => {
+    emit('search', searchQuery.value)
+}, 300)
+
+const handleSort = () => {
+    emit('sort', selectedSort.value)
+}
+
+const handleFilter = () => {
+    emit('filter', selectedFilter.value)
+}
+
+const changePage = (page) => {
+    emit('page-change', page)
+}
+
+const getStatusClass = (status) => {
+    switch (status?.toLowerCase()) {
+        case 'active':
+            return 'badge-success'
+        case 'pending':
+            return 'badge-warning'
+        case 'inactive':
+            return 'badge-error'
+        default:
+            return 'badge-ghost'
+    }
+}
+
+const getInitials = (name) => {
+    if (!name) return 'N'
+    return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase()
+}
+
+const formatDate = (dateString) => {
+    if (!dateString) return 'N/A'
+    return new Date(dateString).toLocaleDateString()
+}
+
+// Lifecycle
+onMounted(() => {
+    // Component initialization
+})
+
+// Watchers
+watch(() => props.data, (newData) => {
+    // Handle data changes
+}, { deep: true })
+</script>
+
+<style scoped>
+.{{name}}-component {
+    @apply w-full;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.btn-group .btn.btn-active {
+    @apply bg-primary text-primary-content;
+}
+
+/* Custom scrollbar for better UX */
+.overflow-auto::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.overflow-auto::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.5);
+    border-radius: 3px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.7);
+}
+</style>

@@ -32,16 +32,18 @@ class RoleController extends GenericCrudController
                 unique: true, // Role names should be unique
                 type: FieldTypes::TEXT->value
             )
-            ->addSelectWithOptions(
+            ->addField(
                 label: 'Guard',
                 key: 'guard_name',
-                canCreate: true,
-                canEdit: true,
+                type: FieldTypes::SELECT->value,
                 options: [
-                    'skeleton_admin' => 'backend',
-                    'web'            => 'frontend',
-                    'api'            => 'api',
-                ]
+                    'select_options' => [
+                        ['value' => 'skeleton_admin', 'label' => 'backend'],
+                        ['value' => 'web', 'label' => 'frontend'],
+                        ['value' => 'api', 'label' => 'api']
+                    ]
+                ],
+                filterable: true
             )
             ->addTimestampField(
                 label: 'Created At',

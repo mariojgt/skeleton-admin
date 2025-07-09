@@ -1,1 +1,0 @@
-import{f as r}from"./formatUtils-D1BGvVL8.js";import{v as o,g as s,o as a}from"./index-WItOpbdS.js";const c=["innerHTML"],d={__name:"MarkdownRenderer",props:{content:{type:String,required:!0}},setup(e){const t=e,n=o(()=>r(t.content));return(p,m)=>(a(),s("div",{innerHTML:n.value,class:"text-[#CBD5E1] prose prose-invert max-w-none mt-2"},null,8,c))}};export{d as default};

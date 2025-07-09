@@ -96,22 +96,20 @@ class NavigationSeeder extends Seeder
             ],
             [
                 'parent_id'  => null,
-                'menu_label' => 'Deploy',
-                'route'      => 'admin.deploy.index',
+                'menu_label' => 'system settings',
+                'route'      => 'admin.system.settings',
                 'icon'       => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-                ',
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21m8.25-9h-1.5M4.5 12H3m16.5 6.75-1.06-1.06m-15.88 0L4.5 18.75m15.88-15.88L18.75 4.5M5.25 5.25l1.06 1.06M12 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                </svg>',
                 'guard'      => 'skeleton_admin',
             ],
             [
                 'parent_id'  => null,
-                'menu_label' => 'Deploy',
-                'route'      => 'admin.deploy.index',
+                'menu_label' => 'package manager',
+                'route'      => 'admin.package.builder',
                 'icon'       => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-                ',
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3m18 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>',
                 'guard'      => 'skeleton_admin',
             ],
         ];

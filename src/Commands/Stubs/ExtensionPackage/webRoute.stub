@@ -3,13 +3,43 @@
 use Illuminate\Support\Facades\Route;
 use {{namespace}}Controllers\{{location}}\{{controller}};
 
-// Standard
+/**
+ * {{location}} Web Routes for {{name}} Package
+ *
+ * These routes handle web-based requests for the {{location}} interface.
+ * All routes are protected by appropriate middleware and grouped for organization.
+ */
+
 Route::group([
-    'middleware' => ['web'],
-    'prefix'     => '{{route_prefix}}',
+    'middleware' => ['web', 'auth'], // Add authentication middleware
+    'prefix' => '{{route_prefix}}',
+    'as' => '{{name}}.{{location_lower}}.',
 ], function () {
-    // Add your normal routes in here
-    Route::controller({{controller}}::class)->group(function () {
-        Route::get('/{{name}}/{{location_lower}}', 'index')->name('home');
+
+    // Dashboard/Home route
+    Route::get('/', [{{controller}}::class, 'index'])->name('index');
+    Route::get('/dashboard', [{{controller}}::class, 'index'])->name('dashboard');
+
+    // Resource routes
+    Route::get('/items', [{{controller}}::class, 'index'])->name('items.index');
+    Route::get('/items/create', [{{controller}}::class, 'create'])->name('items.create');
+    Route::post('/items', [{{controller}}::class, 'store'])->name('items.store');
+    Route::get('/items/{id}', [{{controller}}::class, 'show'])->name('items.show');
+    Route::get('/items/{id}/edit', [{{controller}}::class, 'edit'])->name('items.edit');
+    Route::put('/items/{id}', [{{controller}}::class, 'update'])->name('items.update');
+    Route::delete('/items/{id}', [{{controller}}::class, 'destroy'])->name('items.destroy');
+
+    // Bulk operations
+    Route::post('/items/bulk-delete', [{{controller}}::class, 'bulkDelete'])->name('items.bulk-delete');
+    Route::post('/items/bulk-update', [{{controller}}::class, 'bulkUpdate'])->name('items.bulk-update');
+
+    // Export/Import routes
+    Route::get('/export', [{{controller}}::class, 'export'])->name('export');
+    Route::post('/import', [{{controller}}::class, 'import'])->name('import');
+
+    // Settings routes (for backend only)
+    Route::group(['middleware' => 'can:manage-settings'], function () {
+        Route::get('/settings', [{{controller}}::class, 'settings'])->name('settings');
+        Route::post('/settings', [{{controller}}::class, 'updateSettings'])->name('settings.update');
     });
 });

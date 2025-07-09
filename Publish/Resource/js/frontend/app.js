@@ -2,7 +2,6 @@
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import recaptchaPlugin from './Plugins/recaptcha';
 import { ZiggyVue } from '../../../../../vendor/tightenco/ziggy/dist/vue.m';
 
 // Load reCAPTCHA site key from meta tag or window.__INITIAL_STATE__
@@ -25,9 +24,6 @@ createInertiaApp({
 
         // Initialize plugins
         app.use(plugin);
-        app.use(recaptchaPlugin, {
-            siteKey: RECAPTCHA_SITE_KEY,
-        });
 
         // Add Ziggy Vue plugin
         app.use(ZiggyVue);

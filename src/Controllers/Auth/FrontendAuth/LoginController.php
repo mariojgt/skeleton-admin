@@ -36,7 +36,7 @@ class LoginController extends Controller
             if (!Auth::user()->hasVerifiedEmail()) {
                 Auth::logout();
 
-                return Redirect::route(config('skeleton.front_end_verify_redirect'))->with('error', 'User need to be verify!');
+                return back()->with('error', 'User need to be verify!');
             }
             return redirect()->back()->with('success', 'Welcome :)');
         } else {

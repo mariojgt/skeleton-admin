@@ -1,15 +1,54 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use {{namespace}}Controllers\{{location}}\{{controller}};
+
+/**
+ * {{location}} API Routes for {{name}} Package
+ *
+ * These routes provide RESTful API endpoints for the {{location}} interface.
+ * All routes return JSON responses and include proper error handling.
+ */
 
 Route::group([
-    'prefix'     => 'api/{{name}}',
+    'middleware' => ['api', 'auth:sanctum'], // Add API authentication
+    'prefix' => 'api/{{name}}/{{location_lower}}',
+    'as' => 'api.{{name}}.{{location_lower}}.',
 ], function () {
-    Route::get('/{{name}}/{{location_lower}}', function (Request $request) {
+
+    // Health check endpoint
+    Route::get('/health', function () {
         return response()->json([
-            'meta'  => [
-                'message' => 'you made it!😎 {{location}}'
-            ]
+            'status' => 'healthy',
+            'package' => '{{name}}',
+            'location' => '{{location}}',
+            'version' => '1.0.0',
+            'timestamp' => now()->toISOString(),
         ]);
+    })->name('health')->withoutMiddleware('auth:sanctum');
+
+    // Resource API endpoints
+    Route::apiResource('items', {{controller}}::class)->names([
+        'index' => 'items.index',
+        'store' => 'items.store',
+        'show' => 'items.show',
+        'update' => 'items.update',
+        'destroy' => 'items.destroy',
+    ]);
+
+    // Additional API endpoints
+    Route::post('/items/search', [{{controller}}::class, 'search'])->name('items.search');
+    Route::get('/items/{id}/related', [{{controller}}::class, 'related'])->name('items.related');
+    Route::post('/items/bulk', [{{controller}}::class, 'bulkOperation'])->name('items.bulk');
+
+    // Statistics endpoints
+    Route::get('/stats', [{{controller}}::class, 'statistics'])->name('stats');
+    Route::get('/stats/summary', [{{controller}}::class, 'summary'])->name('stats.summary');
+
+    // Configuration endpoints (for backend only)
+    Route::group(['middleware' => 'can:manage-config'], function () {
+        Route::get('/config', [{{controller}}::class, 'getConfig'])->name('config.get');
+        Route::post('/config', [{{controller}}::class, 'updateConfig'])->name('config.update');
     });
 });

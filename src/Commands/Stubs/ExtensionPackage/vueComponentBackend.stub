@@ -1,0 +1,893 @@
+<template>
+    <div class="{{name}}-admin-component">
+        <!-- Component Header with Admin Actions -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    {{ title }}
+                </h2>
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    {{ description }}
+                </p>
+                <div class="mt-2 flex items-center space-x-4 text-xs text-gray-500">
+                    <span>Total: {{ totalCount }}</span>
+                    <span>Selected: {{ selectedItems.length }}</span>
+                    <span v-if="lastUpdated">Updated: {{ formatTimeAgo(lastUpdated) }}</span>
+                </div>
+            </div>
+            <div class="flex space-x-2">
+                <!-- Bulk Actions -->
+                <div v-if="selectedItems.length > 0" class="flex space-x-2">
+                    <button
+                        @click="bulkEdit"
+                        class="btn btn-outline btn-sm"
+                        :disabled="loading"
+                    >
+                        <PencilIcon class="w-4 h-4 mr-2" />
+                        Edit ({{ selectedItems.length }})
+                    </button>
+                    <button
+                        @click="bulkDelete"
+                        class="btn btn-error btn-sm"
+                        :disabled="loading"
+                    >
+                        <TrashIcon class="w-4 h-4 mr-2" />
+                        Delete ({{ selectedItems.length }})
+                    </button>
+                </div>
+
+                <!-- Standard Actions -->
+                <button
+                    v-if="showRefresh"
+                    @click="refresh"
+                    class="btn btn-outline btn-sm"
+                    :disabled="loading"
+                >
+                    <ArrowPathIcon class="w-4 h-4" :class="{ 'animate-spin': loading }" />
+                    Refresh
+                </button>
+
+                <!-- Export/Import Actions -->
+                <div class="dropdown dropdown-end">
+                    <label tabindex="0" class="btn btn-outline btn-sm">
+                        <ArrowDownTrayIcon class="w-4 h-4 mr-2" />
+                        Export
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><a @click="exportData('csv')">Export as CSV</a></li>
+                        <li><a @click="exportData('xlsx')">Export as Excel</a></li>
+                        <li><a @click="exportData('json')">Export as JSON</a></li>
+                    </ul>
+                </div>
+
+                <button
+                    @click="importData"
+                    class="btn btn-outline btn-sm"
+                >
+                    <ArrowUpTrayIcon class="w-4 h-4 mr-2" />
+                    Import
+                </button>
+
+                <button
+                    v-if="showCreateButton"
+                    @click="$emit('create')"
+                    class="btn btn-primary btn-sm"
+                >
+                    <PlusIcon class="w-4 h-4 mr-2" />
+                    {{ createButtonText }}
+                </button>
+
+                <slot name="header-actions"></slot>
+            </div>
+        </div>
+
+        <!-- Advanced Filters & Search -->
+        <div v-if="showFilters" class="card bg-base-100 shadow-sm mb-6">
+            <div class="card-body p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                    <!-- Search Input -->
+                    <div class="form-control lg:col-span-2">
+                        <div class="input-group">
+                            <input
+                                v-model="searchQuery"
+                                type="text"
+                                :placeholder="searchPlaceholder"
+                                class="input input-bordered w-full"
+                                @input="debouncedSearch"
+                            />
+                            <button class="btn btn-square btn-outline">
+                                <MagnifyingGlassIcon class="w-5 h-5" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Status Filter -->
+                    <select
+                        v-model="selectedStatus"
+                        class="select select-bordered"
+                        @change="handleStatusFilter"
+                    >
+                        <option value="">All Status</option>
+                        <option
+                            v-for="option in statusOptions"
+                            :key="option.value"
+                            :value="option.value"
+                        >
+                            {{ option.label }}
+                        </option>
+                    </select>
+
+                    <!-- Date Range Filter -->
+                    <input
+                        v-model="dateFrom"
+                        type="date"
+                        class="input input-bordered"
+                        placeholder="From Date"
+                        @change="handleDateFilter"
+                    />
+
+                    <input
+                        v-model="dateTo"
+                        type="date"
+                        class="input input-bordered"
+                        placeholder="To Date"
+                        @change="handleDateFilter"
+                    />
+
+                    <!-- Actions -->
+                    <div class="flex space-x-2">
+                        <button
+                            @click="clearFilters"
+                            class="btn btn-ghost btn-sm"
+                            :disabled="!hasActiveFilters"
+                        >
+                            Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Filters Display -->
+                <div v-if="hasActiveFilters" class="mt-4 flex flex-wrap gap-2">
+                    <div class="badge badge-outline" v-if="searchQuery">
+                        Search: "{{ searchQuery }}"
+                        <button @click="searchQuery = ''; debouncedSearch()" class="ml-2">×</button>
+                    </div>
+                    <div class="badge badge-outline" v-if="selectedStatus">
+                        Status: {{ selectedStatus }}
+                        <button @click="selectedStatus = ''; handleStatusFilter()" class="ml-2">×</button>
+                    </div>
+                    <div class="badge badge-outline" v-if="dateFrom">
+                        From: {{ dateFrom }}
+                        <button @click="dateFrom = ''; handleDateFilter()" class="ml-2">×</button>
+                    </div>
+                    <div class="badge badge-outline" v-if="dateTo">
+                        To: {{ dateTo }}
+                        <button @click="dateTo = ''; handleDateFilter()" class="ml-2">×</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div v-if="loading && !data.length" class="flex justify-center items-center py-12">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+                <p class="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div v-else-if="error" class="alert alert-error">
+            <div class="flex-1">
+                <ExclamationTriangleIcon class="w-6 h-6" />
+                <label>{{ error }}</label>
+            </div>
+            <div class="flex-none">
+                <button @click="retry" class="btn btn-sm btn-ghost">
+                    Retry
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div v-else-if="!loading && !data.length" class="text-center py-12">
+            <div class="mx-auto h-24 w-24 text-gray-400 mb-4">
+                <slot name="empty-icon">
+                    <DocumentIcon class="w-full h-full" />
+                </slot>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                {{ emptyTitle }}
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-sm mx-auto">
+                {{ emptyMessage }}
+            </p>
+            <slot name="empty-actions">
+                <button
+                    v-if="showCreateButton"
+                    @click="$emit('create')"
+                    class="btn btn-primary"
+                >
+                    <PlusIcon class="w-4 h-4 mr-2" />
+                    {{ createButtonText }}
+                </button>
+            </slot>
+        </div>
+
+        <!-- Data Table -->
+        <div v-else class="card bg-base-100 shadow-lg">
+            <div class="card-body p-0">
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra w-full">
+                        <thead class="bg-base-200">
+                            <tr>
+                                <th class="w-12">
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox checkbox-sm"
+                                        :checked="allSelected"
+                                        :indeterminate="someSelected"
+                                        @change="toggleSelectAll"
+                                    />
+                                </th>
+                                <th
+                                    v-for="column in columns"
+                                    :key="column.key"
+                                    class="cursor-pointer hover:bg-base-300"
+                                    @click="sortBy(column.key)"
+                                >
+                                    <div class="flex items-center space-x-2">
+                                        <span>{{ column.label }}</span>
+                                        <ChevronUpDownIcon
+                                            v-if="column.sortable !== false"
+                                            class="w-4 h-4"
+                                            :class="{
+                                                'text-primary': currentSort === column.key
+                                            }"
+                                        />
+                                    </div>
+                                </th>
+                                <th class="w-32">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-if="loading" v-for="n in 5" :key="n">
+                                <td colspan="100%" class="p-4">
+                                    <div class="flex items-center space-x-4 animate-pulse">
+                                        <div class="w-4 h-4 bg-gray-300 rounded"></div>
+                                        <div class="flex-1 space-y-2">
+                                            <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                                            <div class="h-3 bg-gray-300 rounded w-1/2"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                v-else
+                                v-for="item in paginatedData"
+                                :key="item.id"
+                                class="hover cursor-pointer"
+                                @click="$emit('item-click', item)"
+                            >
+                                <td @click.stop>
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox checkbox-sm"
+                                        v-model="selectedItems"
+                                        :value="item.id"
+                                    />
+                                </td>
+                                <td v-for="column in columns" :key="column.key">
+                                    <slot
+                                        :name="`column-${column.key}`"
+                                        :item="item"
+                                        :value="getColumnValue(item, column)"
+                                    >
+                                        <div v-if="column.key === 'name'" class="flex items-center space-x-3">
+                                            <div v-if="item.image" class="avatar">
+                                                <div class="w-10 h-10 rounded-lg">
+                                                    <img :src="item.image" :alt="item.name" />
+                                                </div>
+                                            </div>
+                                            <div v-else class="avatar placeholder">
+                                                <div class="bg-neutral-focus text-neutral-content rounded-lg w-10">
+                                                    <span class="text-sm">{{ getInitials(item.name) }}</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="font-bold">{{ item.name }}</div>
+                                                <div class="text-sm opacity-50">{{ item.id }}</div>
+                                            </div>
+                                        </div>
+                                        <div v-else-if="column.key === 'status'">
+                                            <div class="badge" :class="getStatusClass(item.status)">
+                                                {{ item.status }}
+                                            </div>
+                                        </div>
+                                        <div v-else-if="column.type === 'date'">
+                                            <div class="text-sm">{{ formatDate(getColumnValue(item, column)) }}</div>
+                                            <div class="text-xs opacity-50">{{ formatTimeAgo(getColumnValue(item, column)) }}</div>
+                                        </div>
+                                        <div v-else-if="column.type === 'boolean'">
+                                            <input
+                                                type="checkbox"
+                                                class="toggle toggle-sm"
+                                                :checked="getColumnValue(item, column)"
+                                                @change="toggleBoolean(item, column.key, $event)"
+                                                @click.stop
+                                            />
+                                        </div>
+                                        <div v-else-if="column.type === 'currency'">
+                                            ${{ formatCurrency(getColumnValue(item, column)) }}
+                                        </div>
+                                        <div v-else-if="column.type === 'number'">
+                                            {{ formatNumber(getColumnValue(item, column)) }}
+                                        </div>
+                                        <span v-else>{{ getColumnValue(item, column) || '-' }}</span>
+                                    </slot>
+                                </td>
+                                <td @click.stop>
+                                    <div class="flex space-x-1">
+                                        <button
+                                            @click="$emit('view', item)"
+                                            class="btn btn-ghost btn-xs"
+                                            title="View Details"
+                                        >
+                                            <EyeIcon class="w-4 h-4" />
+                                        </button>
+                                        <button
+                                            @click="$emit('edit', item)"
+                                            class="btn btn-ghost btn-xs"
+                                            title="Edit"
+                                        >
+                                            <PencilIcon class="w-4 h-4" />
+                                        </button>
+                                        <button
+                                            @click="duplicateItem(item)"
+                                            class="btn btn-ghost btn-xs"
+                                            title="Duplicate"
+                                        >
+                                            <DocumentDuplicateIcon class="w-4 h-4" />
+                                        </button>
+                                        <div class="dropdown dropdown-end">
+                                            <label tabindex="0" class="btn btn-ghost btn-xs">
+                                                <EllipsisVerticalIcon class="w-4 h-4" />
+                                            </label>
+                                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                <li><a @click="archiveItem(item)">Archive</a></li>
+                                                <li><a @click="exportItem(item)">Export</a></li>
+                                                <li class="divider"></li>
+                                                <li><a @click="$emit('delete', item)" class="text-error">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Footer -->
+                <div v-if="showPagination" class="flex items-center justify-between p-4 border-t">
+                    <div class="text-sm text-gray-600">
+                        Showing {{ paginationInfo.start }} to {{ paginationInfo.end }} of {{ paginationInfo.total }} entries
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <!-- Items per page -->
+                        <select
+                            v-model="itemsPerPage"
+                            class="select select-sm select-bordered"
+                            @change="handleItemsPerPageChange"
+                        >
+                            <option v-for="option in itemsPerPageOptions" :key="option" :value="option">
+                                {{ option }} / page
+                            </option>
+                        </select>
+
+                        <!-- Pagination controls -->
+                        <div class="btn-group">
+                            <button
+                                class="btn btn-sm"
+                                :disabled="pagination.current_page <= 1"
+                                @click="changePage(1)"
+                            >
+                                First
+                            </button>
+                            <button
+                                class="btn btn-sm"
+                                :disabled="pagination.current_page <= 1"
+                                @click="changePage(pagination.current_page - 1)"
+                            >
+                                Previous
+                            </button>
+                            <button
+                                v-for="page in paginationPages"
+                                :key="page"
+                                class="btn btn-sm"
+                                :class="{ 'btn-active': page === pagination.current_page }"
+                                @click="changePage(page)"
+                            >
+                                {{ page }}
+                            </button>
+                            <button
+                                class="btn btn-sm"
+                                :disabled="pagination.current_page >= totalPages"
+                                @click="changePage(pagination.current_page + 1)"
+                            >
+                                Next
+                            </button>
+                            <button
+                                class="btn btn-sm"
+                                :disabled="pagination.current_page >= totalPages"
+                                @click="changePage(totalPages)"
+                            >
+                                Last
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Content Slot -->
+        <slot name="content" :data="paginatedData" :loading="loading"></slot>
+    </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue'
+import { debounce } from 'lodash'
+
+// Icons
+import {
+    ArrowPathIcon,
+    ExclamationTriangleIcon,
+    DocumentIcon,
+    PlusIcon,
+    MagnifyingGlassIcon,
+    EyeIcon,
+    PencilIcon,
+    TrashIcon,
+    ArrowDownTrayIcon,
+    ArrowUpTrayIcon,
+    DocumentDuplicateIcon,
+    EllipsisVerticalIcon,
+    ChevronUpDownIcon,
+} from '@heroicons/vue/24/outline'
+
+// Props
+const props = defineProps({
+    title: {
+        type: String,
+        default: '{{name}} Admin'
+    },
+    description: {
+        type: String,
+        default: 'Backend administration for {{name}}'
+    },
+    data: {
+        type: Array,
+        default: () => []
+    },
+    loading: {
+        type: Boolean,
+        default: false
+    },
+    error: {
+        type: String,
+        default: null
+    },
+    showFilters: {
+        type: Boolean,
+        default: true
+    },
+    showRefresh: {
+        type: Boolean,
+        default: true
+    },
+    showPagination: {
+        type: Boolean,
+        default: true
+    },
+    showCreateButton: {
+        type: Boolean,
+        default: true
+    },
+    createButtonText: {
+        type: String,
+        default: 'Create New'
+    },
+    searchPlaceholder: {
+        type: String,
+        default: 'Search items...'
+    },
+    emptyTitle: {
+        type: String,
+        default: 'No items found'
+    },
+    emptyMessage: {
+        type: String,
+        default: 'Get started by creating your first item.'
+    },
+    columns: {
+        type: Array,
+        default: () => [
+            { key: 'name', label: 'Name', sortable: true },
+            { key: 'status', label: 'Status', sortable: true },
+            { key: 'created_at', label: 'Created', type: 'date', sortable: true },
+            { key: 'updated_at', label: 'Updated', type: 'date', sortable: true }
+        ]
+    },
+    statusOptions: {
+        type: Array,
+        default: () => [
+            { label: 'Active', value: 'active' },
+            { label: 'Pending', value: 'pending' },
+            { label: 'Inactive', value: 'inactive' }
+        ]
+    },
+    pagination: {
+        type: Object,
+        default: () => ({
+            current_page: 1,
+            total: 0,
+            per_page: 25
+        })
+    },
+    lastUpdated: {
+        type: String,
+        default: null
+    }
+})
+
+// Emits
+const emit = defineEmits([
+    'refresh',
+    'retry',
+    'create',
+    'item-click',
+    'view',
+    'edit',
+    'delete',
+    'search',
+    'filter',
+    'sort',
+    'page-change',
+    'items-per-page-change',
+    'bulk-edit',
+    'bulk-delete',
+    'export',
+    'import',
+    'duplicate',
+    'archive',
+    'toggle-boolean'
+])
+
+// Reactive data
+const searchQuery = ref('')
+const selectedStatus = ref('')
+const dateFrom = ref('')
+const dateTo = ref('')
+const selectedItems = ref([])
+const currentSort = ref('')
+const sortDirection = ref('asc')
+const itemsPerPage = ref(props.pagination.per_page)
+
+// Constants
+const itemsPerPageOptions = [10, 25, 50, 100]
+
+// Computed properties
+const totalCount = computed(() => props.data.length)
+
+const filteredData = computed(() => {
+    let result = [...props.data]
+
+    // Apply search filter
+    if (searchQuery.value) {
+        const query = searchQuery.value.toLowerCase()
+        result = result.filter(item =>
+            Object.values(item).some(value =>
+                String(value).toLowerCase().includes(query)
+            )
+        )
+    }
+
+    // Apply status filter
+    if (selectedStatus.value) {
+        result = result.filter(item => item.status === selectedStatus.value)
+    }
+
+    // Apply date range filter
+    if (dateFrom.value || dateTo.value) {
+        result = result.filter(item => {
+            const itemDate = new Date(item.created_at)
+            const from = dateFrom.value ? new Date(dateFrom.value) : null
+            const to = dateTo.value ? new Date(dateTo.value) : null
+
+            if (from && itemDate < from) return false
+            if (to && itemDate > to) return false
+            return true
+        })
+    }
+
+    // Apply sorting
+    if (currentSort.value) {
+        result.sort((a, b) => {
+            const aValue = getColumnValue(a, { key: currentSort.value })
+            const bValue = getColumnValue(b, { key: currentSort.value })
+
+            let comparison = 0
+
+            if (currentSort.value.includes('date') || currentSort.value.includes('_at')) {
+                comparison = new Date(aValue) - new Date(bValue)
+            } else if (typeof aValue === 'number' && typeof bValue === 'number') {
+                comparison = aValue - bValue
+            } else {
+                comparison = String(aValue).localeCompare(String(bValue))
+            }
+
+            return sortDirection.value === 'desc' ? -comparison : comparison
+        })
+    }
+
+    return result
+})
+
+const paginatedData = computed(() => {
+    if (!props.showPagination) return filteredData.value
+
+    const start = (props.pagination.current_page - 1) * itemsPerPage.value
+    const end = start + itemsPerPage.value
+    return filteredData.value.slice(start, end)
+})
+
+const allSelected = computed(() => {
+    return paginatedData.value.length > 0 && selectedItems.value.length === paginatedData.value.length
+})
+
+const someSelected = computed(() => {
+    return selectedItems.value.length > 0 && selectedItems.value.length < paginatedData.value.length
+})
+
+const hasActiveFilters = computed(() => {
+    return !!(searchQuery.value || selectedStatus.value || dateFrom.value || dateTo.value)
+})
+
+const totalPages = computed(() => {
+    return Math.ceil(filteredData.value.length / itemsPerPage.value)
+})
+
+const paginationPages = computed(() => {
+    const total = totalPages.value
+    const current = props.pagination.current_page
+    const pages = []
+
+    const start = Math.max(1, current - 2)
+    const end = Math.min(total, current + 2)
+
+    for (let i = start; i <= end; i++) {
+        pages.push(i)
+    }
+
+    return pages
+})
+
+const paginationInfo = computed(() => {
+    const total = filteredData.value.length
+    const start = Math.min((props.pagination.current_page - 1) * itemsPerPage.value + 1, total)
+    const end = Math.min(props.pagination.current_page * itemsPerPage.value, total)
+
+    return { start, end, total }
+})
+
+// Methods
+const refresh = () => {
+    emit('refresh')
+}
+
+const retry = () => {
+    emit('retry')
+}
+
+const debouncedSearch = debounce(() => {
+    emit('search', searchQuery.value)
+}, 300)
+
+const handleStatusFilter = () => {
+    emit('filter', { status: selectedStatus.value })
+}
+
+const handleDateFilter = () => {
+    emit('filter', { dateFrom: dateFrom.value, dateTo: dateTo.value })
+}
+
+const clearFilters = () => {
+    searchQuery.value = ''
+    selectedStatus.value = ''
+    dateFrom.value = ''
+    dateTo.value = ''
+    debouncedSearch()
+    handleStatusFilter()
+    handleDateFilter()
+}
+
+const sortBy = (column) => {
+    if (currentSort.value === column) {
+        sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
+    } else {
+        currentSort.value = column
+        sortDirection.value = 'asc'
+    }
+    emit('sort', { column, direction: sortDirection.value })
+}
+
+const toggleSelectAll = () => {
+    if (allSelected.value) {
+        selectedItems.value = []
+    } else {
+        selectedItems.value = paginatedData.value.map(item => item.id)
+    }
+}
+
+const changePage = (page) => {
+    emit('page-change', page)
+}
+
+const handleItemsPerPageChange = () => {
+    emit('items-per-page-change', itemsPerPage.value)
+}
+
+const bulkEdit = () => {
+    emit('bulk-edit', selectedItems.value)
+}
+
+const bulkDelete = () => {
+    if (confirm(`Are you sure you want to delete ${selectedItems.value.length} items?`)) {
+        emit('bulk-delete', selectedItems.value)
+        selectedItems.value = []
+    }
+}
+
+const exportData = (format) => {
+    emit('export', { format, items: selectedItems.value.length ? selectedItems.value : null })
+}
+
+const importData = () => {
+    emit('import')
+}
+
+const duplicateItem = (item) => {
+    emit('duplicate', item)
+}
+
+const archiveItem = (item) => {
+    emit('archive', item)
+}
+
+const exportItem = (item) => {
+    emit('export', { format: 'json', items: [item.id] })
+}
+
+const toggleBoolean = (item, key, event) => {
+    emit('toggle-boolean', { item, key, value: event.target.checked })
+}
+
+const getColumnValue = (item, column) => {
+    return item[column.key]
+}
+
+const getStatusClass = (status) => {
+    switch (status?.toLowerCase()) {
+        case 'active':
+            return 'badge-success'
+        case 'pending':
+            return 'badge-warning'
+        case 'inactive':
+            return 'badge-error'
+        default:
+            return 'badge-ghost'
+    }
+}
+
+const getInitials = (name) => {
+    if (!name) return 'N'
+    return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase()
+}
+
+const formatDate = (dateString) => {
+    if (!dateString) return 'N/A'
+    return new Date(dateString).toLocaleDateString()
+}
+
+const formatTimeAgo = (dateString) => {
+    if (!dateString) return 'N/A'
+
+    const now = new Date()
+    const date = new Date(dateString)
+    const diff = now - date
+
+    const minutes = Math.floor(diff / 60000)
+    const hours = Math.floor(diff / 3600000)
+    const days = Math.floor(diff / 86400000)
+
+    if (minutes < 1) return 'Just now'
+    if (minutes < 60) return `${minutes}m ago`
+    if (hours < 24) return `${hours}h ago`
+    if (days < 30) return `${days}d ago`
+
+    return formatDate(dateString)
+}
+
+const formatCurrency = (value) => {
+    if (!value) return '0.00'
+    return Number(value).toFixed(2)
+}
+
+const formatNumber = (value) => {
+    if (!value) return '0'
+    return Number(value).toLocaleString()
+}
+
+// Lifecycle
+onMounted(() => {
+    // Component initialization
+})
+
+// Watchers
+watch(() => props.data, (newData) => {
+    // Clear selections when data changes
+    selectedItems.value = []
+}, { deep: true })
+</script>
+
+<style scoped>
+.{{name}}-admin-component {
+    @apply w-full;
+}
+
+.btn-group .btn.btn-active {
+    @apply bg-primary text-primary-content;
+}
+
+/* Custom scrollbar */
+.overflow-x-auto::-webkit-scrollbar {
+    height: 6px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.5);
+    border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.7);
+}
+
+/* Improved table styles */
+.table th {
+    @apply sticky top-0 z-10;
+}
+
+.table tr.hover:hover {
+    @apply bg-base-200;
+}
+
+/* Animation for loading states */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+</style>

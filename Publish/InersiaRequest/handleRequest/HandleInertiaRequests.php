@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Mariojgt\SkeletonAdmin\Models\Navbar;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
 use Mariojgt\SkeletonAdmin\Resource\Common\NavbarResource;
+use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
 use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
 
 class HandleInertiaRequests extends Middleware
@@ -97,6 +98,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'flash' => $this->handleFlashMessage($request),
             'app'   => config('app.name'),
+            'user'         => auth()->user() ? new UserResource(auth()->user()) : null,
         ]);
     }
 

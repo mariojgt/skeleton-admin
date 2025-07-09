@@ -2,9 +2,19 @@
 
 namespace {{namespace}}Commands;
 
-use File;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
+/**
+ * Republish Command for {{name}} Package
+ *
+ * This command copies resource files from the application back to the package
+ * for development purposes. It's useful when developing the package.
+ *
+ * @package {{namespace}}Commands
+ * @author Package Author
+ * @version 1.0.0
+ */
 class Republish extends Command
 {
     /**
@@ -12,14 +22,23 @@ class Republish extends Command
      *
      * @var string
      */
-    protected $signature = 'republish:{{name}}';
+    protected $signature = 'republish:{{name}}
+                            {--dry-run : Show what would be copied without actually copying}
+                            {--force : Force overwrite existing files}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This command will copy the resource files from back to the package';
+    protected $description = 'Copy resource files from application back to the {{name}} package';
+
+    /**
+     * Files and directories to copy back to package.
+     *
+     * @var array
+     */
+    private array $copyMappings = [];
 
     /**
      * Create a new command instance.
@@ -29,6 +48,7 @@ class Republish extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->initializeCopyMappings();
     }
 
     /**
@@ -36,81 +56,231 @@ class Republish extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        $bar = $this->output->createProgressBar(5);
-        $bar->start();
+        try {
+            $this->info('📦 Republishing {{name}} Package Files...');
+            $this->newLine();
 
-        // First we move the resources where we keep the css and js files
-        $this->moveFileOrFolder(
-            resource_path('vendor/SkeletonAdmin/'),
-            __DIR__ . '/../../Publish/Resource/',
-            $bar
-        );
+            if ($this->option('dry-run')) {
+                $this->warn('🧪 DRY RUN MODE - No files will be copied');
+                $this->newLine();
+            }
 
-        // Now we move the already compiles files from the public
-        $this->moveFileOrFolder(
-            public_path('vendor/Skeleton'),
-            __DIR__ . '/../../Publish/Public/',
-            $bar
-        );
+            $this->validatePackageStructure();
 
-        $npmFolder = __DIR__ . '/../../Publish/Npm/';
-        // Create the $npmFolder
-        if (!File::exists($npmFolder)) {
-            File::makeDirectory($npmFolder);
+            $bar = $this->output->createProgressBar(count($this->copyMappings));
+            $bar->setFormat(' %current%/%max% [%bar%] %percent:3s%% %message%');
+
+            $copiedFiles = 0;
+            $skippedFiles = 0;
+
+            foreach ($this->copyMappings as $mapping) {
+                $bar->setMessage("Copying {$mapping['name']}...");
+
+                $result = $this->copyFileOrDirectory($mapping);
+
+                if ($result['copied']) {
+                    $copiedFiles++;
+                } else {
+                    $skippedFiles++;
+                }
+
+                $bar->advance();
+                usleep(100000); // Small delay for visual effect
+            }
+
+            $bar->finish();
+            $this->newLine(2);
+
+            $this->displayResults($copiedFiles, $skippedFiles);
+            return 0;
+
+        } catch (\Exception $e) {
+            $this->error('Republish failed: ' . $e->getMessage());
+            return 1;
         }
-        // Now we copy the vite.config.js file
-        $this->moveFileOrFolder(
-            base_path('vite.config.js'),
-            __DIR__ . '/../../Publish/Npm/vite.config.js',
-            $bar,
-            true
-        );
-
-        // Now we copy the tailwind file
-        $this->moveFileOrFolder(
-            base_path('vite.config.js'),
-            __DIR__ . '/../../Publish/Npm/vite.config.js',
-            $bar,
-            true
-        );
-
-        // Now we copy the package.json file
-        $this->moveFileOrFolder(
-            base_path('package.json'),
-            __DIR__ . '/../../Publish/Npm/package.json',
-            $bar,
-            true
-        );
-
-        // Now we copy the postcss.config.js file
-        $this->moveFileOrFolder(
-            base_path('postcss.config.js'),
-            __DIR__ . '/../../Publish/Npm/postcss.config.js',
-            $bar,
-            true
-        );
-
-        $bar->finish(); // Finish the progress bar
-        $this->newLine();
-        $this->info('The command was successful!');
     }
 
     /**
-     * @param mixed $target // The folder we want to copy
-     * @param mixed $destination // The folder we want to copy to
-     * @param mixed $bar // The progress bar or the command
+     * Initialize file copy mappings.
      *
      * @return void
      */
-    private function moveFileOrFolder($target, $destination, $bar, $isFile = false): void
+    private function initializeCopyMappings(): void
     {
-        if ($isFile) {
-            File::copy($target, $destination);
-        } else {
-            File::copyDirectory($target, $destination);
+        $packagePath = $this->getPackagePath();
+
+        $this->copyMappings = [
+            [
+                'name' => 'Resources',
+                'source' => resource_path('vendor/SkeletonAdmin'),
+                'destination' => $packagePath . '/Publish/Resource',
+                'type' => 'directory'
+            ],
+            [
+                'name' => 'Public Assets',
+                'source' => public_path('vendor/Skeleton'),
+                'destination' => $packagePath . '/Publish/Public',
+                'type' => 'directory'
+            ],
+            [
+                'name' => 'Vite Config',
+                'source' => base_path('vite.config.js'),
+                'destination' => $packagePath . '/Publish/Npm/vite.config.js',
+                'type' => 'file'
+            ],
+            [
+                'name' => 'Package JSON',
+                'source' => base_path('package.json'),
+                'destination' => $packagePath . '/Publish/Npm/package.json',
+                'type' => 'file'
+            ],
+            [
+                'name' => 'PostCSS Config',
+                'source' => base_path('postcss.config.js'),
+                'destination' => $packagePath . '/Publish/Npm/postcss.config.js',
+                'type' => 'file'
+            ],
+            [
+                'name' => 'Tailwind Config',
+                'source' => base_path('tailwind.config.js'),
+                'destination' => $packagePath . '/Publish/Npm/tailwind.config.js',
+                'type' => 'file'
+            ],
+        ];
+    }
+
+    /**
+     * Get the package path.
+     *
+     * @return string
+     */
+    private function getPackagePath(): string
+    {
+        return base_path('packages/{{name}}');
+    }
+
+    /**
+     * Validate package structure exists.
+     *
+     * @return void
+     * @throws \Exception
+     */
+    private function validatePackageStructure(): void
+    {
+        $packagePath = $this->getPackagePath();
+
+        if (!File::isDirectory($packagePath)) {
+            throw new \Exception("Package directory not found: {$packagePath}");
         }
-        $bar->advance(); // Little Progress bar
+
+        // Ensure Publish directory structure exists
+        $publishDirs = [
+            $packagePath . '/Publish',
+            $packagePath . '/Publish/Resource',
+            $packagePath . '/Publish/Public',
+            $packagePath . '/Publish/Npm',
+        ];
+
+        foreach ($publishDirs as $dir) {
+            if (!File::isDirectory($dir)) {
+                File::makeDirectory($dir, 0755, true);
+            }
+        }
+    }
+
+    /**
+     * Copy a file or directory.
+     *
+     * @param array $mapping
+     * @return array
+     */
+    private function copyFileOrDirectory(array $mapping): array
+    {
+        $source = $mapping['source'];
+        $destination = $mapping['destination'];
+        $type = $mapping['type'];
+        $name = $mapping['name'];
+
+        // Check if source exists
+        if (!File::exists($source)) {
+            $this->warn("Source not found: {$source}");
+            return ['copied' => false, 'reason' => 'source_not_found'];
+        }
+
+        // Skip if destination exists and force is not set
+        if (File::exists($destination) && !$this->option('force')) {
+            if (!$this->option('dry-run')) {
+                $this->warn("Skipping {$name} (destination exists, use --force to overwrite)");
+            }
+            return ['copied' => false, 'reason' => 'destination_exists'];
+        }
+
+        // Dry run mode - just show what would be copied
+        if ($this->option('dry-run')) {
+            $this->info("Would copy: {$source} → {$destination}");
+            return ['copied' => true, 'reason' => 'dry_run'];
+        }
+
+        try {
+            // Ensure destination directory exists
+            $destinationDir = $type === 'file' ? dirname($destination) : dirname($destination);
+            if (!File::isDirectory($destinationDir)) {
+                File::makeDirectory($destinationDir, 0755, true);
+            }
+
+            // Remove existing destination if force is set
+            if (File::exists($destination) && $this->option('force')) {
+                if ($type === 'directory') {
+                    File::deleteDirectory($destination);
+                } else {
+                    File::delete($destination);
+                }
+            }
+
+            // Copy the file or directory
+            if ($type === 'directory') {
+                File::copyDirectory($source, $destination);
+            } else {
+                File::copy($source, $destination);
+            }
+
+            return ['copied' => true, 'reason' => 'success'];
+
+        } catch (\Exception $e) {
+            $this->error("Failed to copy {$name}: " . $e->getMessage());
+            return ['copied' => false, 'reason' => 'copy_failed'];
+        }
+    }
+
+    /**
+     * Display results summary.
+     *
+     * @param int $copiedFiles
+     * @param int $skippedFiles
+     * @return void
+     */
+    private function displayResults(int $copiedFiles, int $skippedFiles): void
+    {
+        if ($this->option('dry-run')) {
+            $this->info('🧪 Dry run completed successfully!');
+        } else {
+            $this->info('✅ Republish completed successfully!');
+        }
+
+        $this->newLine();
+        $this->info('📊 Summary:');
+        $this->info("   • Files copied: {$copiedFiles}");
+        $this->info("   • Files skipped: {$skippedFiles}");
+        $this->newLine();
+
+        if (!$this->option('dry-run')) {
+            $this->info('💡 Tips:');
+            $this->info('   • Use --dry-run to preview changes');
+            $this->info('   • Use --force to overwrite existing files');
+            $this->info('   • Remember to commit your changes to Git');
+            $this->newLine();
+        }
     }
 }
