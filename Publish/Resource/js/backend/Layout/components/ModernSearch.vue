@@ -391,6 +391,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
-  debouncedSearch.cancel()
+//   debouncedSearch.cancel()
 })
 </script>
