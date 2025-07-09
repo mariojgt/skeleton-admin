@@ -2,9 +2,9 @@
   <div class="relative">
     <!-- Notification Button -->
     <button
-      @click="toggleDropdown"
-      class="relative p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200"
-      :class="{ 'bg-slate-100 dark:bg-slate-800': isOpen }"
+      @click="toggleModal"
+      class="btn btn-ghost btn-circle relative"
+      :class="{ 'btn-active': isOpen }"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 19H6a2 2 0 01-2-2V7a2 2 0 012-2h5m5 0v.01M19 12v.01"/>
@@ -13,95 +13,109 @@
       <!-- Badge -->
       <div
         v-if="notificationCount > 0"
-        class="absolute -top-1 -right-1 flex items-center justify-center"
+        class="indicator-item badge badge-error badge-sm absolute -top-1 -right-1"
       >
-        <div class="relative">
-          <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
-            <span class="text-xs font-semibold text-white">
-              {{ notificationCount > 99 ? '99+' : notificationCount }}
-            </span>
-          </div>
-          <div class="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-75"></div>
-        </div>
+        {{ notificationCount > 99 ? '99+' : notificationCount }}
       </div>
     </button>
 
-    <!-- Dropdown -->
+    <!-- Custom Modal Overlay -->
     <div
       v-if="isOpen"
-      class="absolute right-0 top-full mt-2 w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-50 overflow-hidden"
+      class="fixed inset-0 z-50 flex items-start justify-end pt-20 pr-4"
+      @click="closeModal"
     >
-      <!-- Header -->
-      <div class="p-4 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-700">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Notifications</h3>
-            <p class="text-sm text-slate-500 dark:text-slate-400" v-if="notificationCount > 0">
-              You have {{ notificationCount }} new notification{{ notificationCount === 1 ? '' : 's' }}
-            </p>
-            <p class="text-sm text-slate-500 dark:text-slate-400" v-else>
-              All caught up! No new notifications
-            </p>
-          </div>
-          <button
-            v-if="notificationCount > 0"
-            @click="handleClearAll"
-            :disabled="isLoading"
-            class="px-3 py-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors disabled:opacity-50"
-          >
-            Clear all
-          </button>
-        </div>
-      </div>
+      <!-- Backdrop -->
+      <div class="fixed inset-0 bg-black/20 backdrop-blur-sm"></div>
 
-      <!-- Notifications List -->
-      <div class="max-h-80 overflow-y-auto">
-        <div v-if="isLoading" class="p-6 text-center">
-          <div class="inline-flex items-center space-x-2 text-slate-500">
-            <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-            </svg>
-            <span class="text-sm">Loading notifications...</span>
+      <!-- Modal Content -->
+      <div
+        class="relative w-96 card card-compact shadow-xl bg-base-100 border border-base-300"
+        @click.stop
+      >
+        <!-- Header -->
+        <div class="card-header p-4 border-b border-base-300 bg-gradient-to-r from-primary/10 to-secondary/10">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="card-title text-lg">Notifications</h3>
+              <p class="text-sm text-base-content/70" v-if="notificationCount > 0">
+                You have {{ notificationCount }} new notification{{ notificationCount === 1 ? '' : 's' }}
+              </p>
+              <p class="text-sm text-base-content/70" v-else>
+                All caught up! No new notifications
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button
+                v-if="notificationCount > 0"
+                @click="handleClearAll"
+                :disabled="isLoading"
+                class="btn btn-ghost btn-xs"
+                :class="{ 'loading': isLoading }"
+              >
+                Clear all
+              </button>
+              <button
+                @click="closeModal"
+                class="btn btn-ghost btn-circle btn-xs"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-
-        <div v-else-if="notifications.length === 0" class="p-8 text-center">
-          <div class="w-16 h-16 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center">
-            <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 19H6a2 2 0 01-2-2V7a2 2 0 012-2h5m5 0v.01M19 12v.01"/>
-            </svg>
-          </div>
-          <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">No notifications yet</p>
-          <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">We'll notify you when something arrives</p>
         </div>
 
-        <div v-else>
-          <TransitionGroup
-            enter-active-class="transition duration-300 ease-out"
-            enter-from-class="transform translate-x-full opacity-0"
-            enter-to-class="transform translate-x-0 opacity-100"
-            leave-active-class="transition duration-200 ease-in"
-            leave-from-class="transform translate-x-0 opacity-100"
-            leave-to-class="transform translate-x-full opacity-0"
-          >
+        <!-- Notifications List -->
+        <div class="card-body p-0 max-h-80 overflow-y-auto">
+          <div v-if="isLoading" class="p-6 text-center">
+            <div class="loading loading-spinner loading-md mx-auto"></div>
+            <p class="text-sm text-base-content/60 mt-2">Loading notifications...</p>
+          </div>
+
+          <div v-else-if="notifications.length === 0" class="p-8 text-center">
+            <div class="avatar mb-4">
+              <div class="w-16 rounded-full bg-base-200">
+                <div class="w-full h-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-base-content/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 19H6a2 2 0 01-2-2V7a2 2 0 012-2h5m5 0v.01M19 12v.01"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-base-content/60 font-medium">No notifications yet</p>
+            <p class="text-xs text-base-content/40 mt-1">We'll notify you when something arrives</p>
+          </div>
+
+          <div v-else>
             <div
               v-for="notification in notifications"
               :key="notification.id"
-              class="border-b border-slate-100 dark:border-slate-700 last:border-none"
+              class="border-b border-base-300 last:border-none"
             >
-              <div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-200">
+              <div class="p-4 hover:bg-base-200 transition-colors duration-200">
                 <div class="flex items-start space-x-3">
                   <!-- Icon -->
                   <div class="flex-shrink-0 mt-0.5">
                     <div
-                      class="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
+                      class="avatar w-10 h-10"
                       :class="getIconBgClass(notification.data.type)"
                     >
-                      <component
-                        :is="getNotificationIcon(notification.data.type)"
-                        class="w-5 h-5"
-                        :class="getIconClass(notification.data.type)"
-                      />
+                      <div class="rounded-xl flex items-center justify-center">
+                        <svg
+                          class="w-5 h-5"
+                          :class="getIconClass(notification.data.type)"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path v-if="notification.data.type === 'success'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          <path v-else-if="notification.data.type === 'error'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          <path v-else-if="notification.data.type === 'warning'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                          <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                      </div>
                     </div>
                   </div>
 
@@ -109,16 +123,16 @@
                   <div class="flex-1 min-w-0">
                     <div class="flex items-start justify-between">
                       <div class="flex-1">
-                        <p class="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                        <p class="text-sm font-semibold text-base-content mb-1">
                           {{ notification.data.title }}
                         </p>
-                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        <p class="text-sm text-base-content/70 leading-relaxed">
                           {{ notification.data.content }}
                         </p>
                       </div>
                       <button
                         @click="markAsRead(notification.id)"
-                        class="ml-2 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded transition-colors"
+                        class="btn btn-ghost btn-circle btn-xs ml-2"
                       >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -126,11 +140,13 @@
                       </button>
                     </div>
                     <div class="flex items-center justify-between mt-3">
-                      <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-                        :class="getTypeBadgeClass(notification.data.type)">
+                      <div
+                        class="badge badge-sm"
+                        :class="getTypeBadgeClass(notification.data.type)"
+                      >
                         {{ notification.data.type }}
-                      </span>
-                      <span class="text-xs text-slate-500 dark:text-slate-400">
+                      </div>
+                      <span class="text-xs text-base-content/50">
                         {{ formatTimestamp(notification.created_at) }}
                       </span>
                     </div>
@@ -138,28 +154,29 @@
                 </div>
               </div>
             </div>
-          </TransitionGroup>
+          </div>
         </div>
-      </div>
 
-      <!-- Footer Actions -->
-      <div class="p-3 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
-        <button
-          @click="handleRefresh"
-          :disabled="isLoading"
-          class="w-full flex items-center justify-center space-x-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors disabled:opacity-50"
-        >
-          <svg
-            class="w-4 h-4 transition-transform duration-200"
-            :class="{ 'animate-spin': isLoading }"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <!-- Footer Actions -->
+        <div class="card-actions p-3 border-t border-base-300 bg-base-200">
+          <button
+            @click="handleRefresh"
+            :disabled="isLoading"
+            class="btn btn-ghost btn-sm w-full"
+            :class="{ 'loading': isLoading }"
           >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-          </svg>
-          <span>{{ isLoading ? 'Refreshing...' : 'Refresh' }}</span>
-        </button>
+            <svg
+              v-if="!isLoading"
+              class="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+            {{ isLoading ? 'Refreshing...' : 'Refresh' }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -170,13 +187,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { startWindToast } from '@mariojgt/wind-notify/packages/index.js'
 import { api } from '../../Boot/axios.js'
 
-// Icons
-const CheckCircleIcon = 'svg'
-const AlertCircleIcon = 'svg'
-const InfoIcon = 'svg'
-const AlertTriangleIcon = 'svg'
-const BellIcon = 'svg'
-
 // State
 const notifications = ref([])
 const notificationCount = ref(0)
@@ -185,11 +195,15 @@ const isOpen = ref(false)
 let pollingInterval
 
 // Methods
-const toggleDropdown = () => {
+const toggleModal = () => {
   isOpen.value = !isOpen.value
   if (isOpen.value) {
     fetchNotifications()
   }
+}
+
+const closeModal = () => {
+  isOpen.value = false
 }
 
 const fetchNotifications = async () => {
@@ -233,46 +247,35 @@ const handleRefresh = () => {
   fetchNotifications()
 }
 
-const getNotificationIcon = (type) => {
-  const iconMap = {
-    success: 'check-circle',
-    error: 'alert-circle',
-    warning: 'alert-triangle',
-    info: 'info',
-    default: 'bell'
-  }
-  return iconMap[type] || iconMap.default
-}
-
 const getIconBgClass = (type) => {
   const classMap = {
-    success: 'bg-green-100 dark:bg-green-900/30',
-    error: 'bg-red-100 dark:bg-red-900/30',
-    warning: 'bg-yellow-100 dark:bg-yellow-900/30',
-    info: 'bg-blue-100 dark:bg-blue-900/30',
-    default: 'bg-slate-100 dark:bg-slate-700'
+    success: 'bg-success/20',
+    error: 'bg-error/20',
+    warning: 'bg-warning/20',
+    info: 'bg-info/20',
+    default: 'bg-base-200'
   }
   return classMap[type] || classMap.default
 }
 
 const getIconClass = (type) => {
   const classMap = {
-    success: 'text-green-600 dark:text-green-400',
-    error: 'text-red-600 dark:text-red-400',
-    warning: 'text-yellow-600 dark:text-yellow-400',
-    info: 'text-blue-600 dark:text-blue-400',
-    default: 'text-slate-600 dark:text-slate-400'
+    success: 'text-success',
+    error: 'text-error',
+    warning: 'text-warning',
+    info: 'text-info',
+    default: 'text-base-content/60'
   }
   return classMap[type] || classMap.default
 }
 
 const getTypeBadgeClass = (type) => {
   const classMap = {
-    success: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-    error: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-    warning: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-    info: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-    default: 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-400'
+    success: 'badge-success',
+    error: 'badge-error',
+    warning: 'badge-warning',
+    info: 'badge-info',
+    default: 'badge-neutral'
   }
   return classMap[type] || classMap.default
 }
@@ -292,10 +295,10 @@ const formatTimestamp = (timestamp) => {
   return date.toLocaleDateString()
 }
 
-// Click outside handler
-const handleClickOutside = (e) => {
-  if (!e.target.closest('.relative')) {
-    isOpen.value = false
+// Handle escape key
+const handleEscape = (e) => {
+  if (e.key === 'Escape' && isOpen.value) {
+    closeModal()
   }
 }
 
@@ -303,11 +306,11 @@ const handleClickOutside = (e) => {
 onMounted(() => {
   fetchNotifications()
   pollingInterval = setInterval(fetchNotifications, 30000) // Poll every 30 seconds
-  document.addEventListener('click', handleClickOutside)
+  document.addEventListener('keydown', handleEscape)
 })
 
 onUnmounted(() => {
   clearInterval(pollingInterval)
-  document.removeEventListener('click', handleClickOutside)
+  document.removeEventListener('keydown', handleEscape)
 })
 </script>

@@ -1,28 +1,28 @@
 <template>
-  <div class="relative" ref="searchContainer">
+  <div class="relative">
     <!-- Search Button/Input -->
     <div class="relative">
       <button
         v-if="!isSearchOpen"
         @click="openSearch"
-        class="flex items-center space-x-2 px-4 py-2 text-sm text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all duration-200 min-w-[200px] justify-start"
+        class="btn btn-ghost btn-sm gap-2 text-base-content/70 bg-base-200 hover:bg-base-300 min-w-[200px] justify-start normal-case"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
         <span>Search...</span>
-        <div class="ml-auto flex items-center space-x-1">
-          <kbd class="px-1.5 py-0.5 text-xs font-semibold text-slate-500 bg-slate-200 dark:bg-slate-700 dark:text-slate-400 rounded">⌘</kbd>
-          <kbd class="px-1.5 py-0.5 text-xs font-semibold text-slate-500 bg-slate-200 dark:bg-slate-700 dark:text-slate-400 rounded">K</kbd>
+        <div class="ml-auto flex items-center gap-1">
+          <kbd class="kbd kbd-xs">⌘</kbd>
+          <kbd class="kbd kbd-xs">K</kbd>
         </div>
       </button>
 
       <div
         v-else
-        class="flex items-center space-x-2 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 min-w-[320px]"
+        class="input-group bg-base-100 shadow-lg border border-base-300 rounded-lg min-w-[320px]"
       >
         <div class="relative flex-1">
-          <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-base-content/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input
@@ -34,12 +34,12 @@
             @keydown.enter.prevent="selectItem"
             @keydown.esc="closeSearch"
             placeholder="Search for pages, users, content..."
-            class="w-full pl-10 pr-4 py-3 bg-transparent border-0 focus:ring-0 focus:outline-none text-slate-900 dark:text-slate-100 placeholder-slate-500"
+            class="input input-bordered w-full pl-10 pr-4 focus:outline-none focus:border-primary"
           />
         </div>
         <button
           @click="closeSearch"
-          class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-lg transition-colors"
+          class="btn btn-ghost btn-square btn-sm"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -48,102 +48,143 @@
       </div>
     </div>
 
-    <!-- Search Results Dropdown -->
+    <!-- Custom Modal Overlay for Search Results -->
     <div
       v-if="isSearchOpen && searchQuery.length >= minChars"
-      class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-50 max-h-96 overflow-hidden"
+      class="fixed inset-0 z-50 flex items-start justify-center pt-32 px-4"
+      @click="closeSearch"
     >
-      <!-- Loading State -->
-      <div v-if="isLoading" class="p-6 text-center">
-        <div class="inline-flex items-center space-x-2 text-slate-500">
-          <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-          </svg>
-          <span class="text-sm">Searching...</span>
-        </div>
-      </div>
+      <!-- Backdrop -->
+      <div class="fixed inset-0 bg-black/20 backdrop-blur-sm"></div>
 
-      <!-- No Results -->
-      <div v-else-if="!hasResults" class="p-6 text-center">
-        <div class="w-12 h-12 mx-auto mb-3 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center">
-          <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.441-1.036-5.877-2.709M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <p class="text-sm text-slate-500 dark:text-slate-400">No results found</p>
-        <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Try adjusting your search terms</p>
-      </div>
-
-      <!-- Results -->
-      <div v-else class="overflow-y-auto max-h-80">
-        <div v-for="(category, categoryName) in searchResults.data" :key="categoryName">
-          <!-- Category Header -->
-          <div class="sticky top-0 bg-slate-50 dark:bg-slate-900 px-4 py-2 border-b border-slate-200 dark:border-slate-700">
-            <div class="flex items-center space-x-2">
-              <div class="w-5 h-5 bg-gradient-to-r from-blue-500 to-purple-600 rounded flex items-center justify-center">
-                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
-                </svg>
+      <!-- Search Results Modal -->
+      <div
+        class="relative w-full max-w-2xl card card-compact shadow-xl bg-base-100 border border-base-300 max-h-96 overflow-hidden"
+        @click.stop
+      >
+        <!-- Search Results Header -->
+        <div class="card-header p-4 border-b border-base-300 bg-gradient-to-r from-primary/10 to-secondary/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-base-content/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              <div>
+                <h3 class="card-title text-lg">Search Results</h3>
+                <p class="text-sm text-base-content/70">
+                  {{ hasResults ? `Found ${totalItems} results` : 'No results found' }} for "{{ searchQuery }}"
+                </p>
               </div>
-              <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">{{ categoryName }}</span>
-              <span class="text-xs text-slate-500 bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded-full">
-                {{ category.search.length }}
-              </span>
+            </div>
+            <button
+              @click="closeSearch"
+              class="btn btn-ghost btn-circle btn-xs"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Results Content -->
+        <div class="card-body p-0 overflow-y-auto max-h-80">
+          <!-- Loading State -->
+          <div v-if="isLoading" class="p-6 text-center">
+            <div class="loading loading-spinner loading-md mx-auto"></div>
+            <p class="text-sm text-base-content/60 mt-2">Searching...</p>
+          </div>
+
+          <!-- No Results -->
+          <div v-else-if="!hasResults" class="p-8 text-center">
+            <div class="avatar mb-4">
+              <div class="w-16 rounded-full bg-base-200">
+                <div class="w-full h-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-base-content/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.441-1.036-5.877-2.709M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-base-content/60 font-medium">No results found</p>
+            <p class="text-xs text-base-content/40 mt-1">Try adjusting your search terms</p>
+          </div>
+
+          <!-- Results -->
+          <div v-else>
+            <div v-for="(category, categoryName) in searchResults.data" :key="categoryName">
+              <!-- Category Header -->
+              <div class="bg-base-200 px-4 py-3 border-b border-base-300 sticky top-0">
+                <div class="flex items-center gap-3">
+                  <div class="badge badge-primary badge-sm">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                    </svg>
+                  </div>
+                  <span class="text-sm font-semibold">{{ categoryName }}</span>
+                  <div class="badge badge-neutral badge-xs">
+                    {{ category.search.length }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category Items -->
+              <div v-for="(item, index) in category.search" :key="index">
+                <button
+                  @click="selectSearchResult(item)"
+                  class="w-full flex items-center gap-3 px-4 py-3 hover:bg-base-200 transition-colors group border-b border-base-300 last:border-b-0 text-left"
+                  :class="{ 'bg-primary/10 border-r-2 border-primary': selectedIndex === getGlobalIndex(categoryName, index) }"
+                >
+                  <div class="flex-shrink-0">
+                    <div class="avatar">
+                      <div class="w-8 rounded-lg bg-base-300 group-hover:bg-primary transition-all duration-200">
+                        <div class="w-full h-full flex items-center justify-center">
+                          <svg class="w-4 h-4 text-base-content/60 group-hover:text-primary-content transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.441-1.036-5.877-2.709M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-base-content truncate">
+                      {{ item.result }}
+                    </p>
+                    <div class="flex items-center gap-1 mt-1">
+                      <svg class="w-3 h-3 text-base-content/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                      <p class="text-xs text-base-content/50 truncate">
+                        {{ item.last_route }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <svg class="w-4 h-4 text-base-content/40 group-hover:text-base-content/60 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
-
-          <!-- Category Items -->
-          <div v-for="(item, index) in category.search" :key="index">
-            <Link
-              :href="item.route"
-              @click="closeSearch"
-              class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group"
-              :class="{ 'bg-blue-50 dark:bg-blue-900/20 border-r-2 border-blue-500': selectedIndex === getGlobalIndex(categoryName, index) }"
-            >
-              <div class="flex-shrink-0">
-                <div class="w-8 h-8 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-600 rounded-lg flex items-center justify-center group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-200">
-                  <svg class="w-4 h-4 text-slate-600 dark:text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.441-1.036-5.877-2.709M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
-                  {{ item.result }}
-                </p>
-                <div class="flex items-center space-x-1 mt-1">
-                  <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
-                    {{ item.last_route }}
-                  </p>
-                </div>
-              </div>
-              <div class="flex-shrink-0">
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </Link>
-          </div>
         </div>
-      </div>
 
-      <!-- Footer -->
-      <div class="border-t border-slate-200 dark:border-slate-700 p-3 bg-slate-50 dark:bg-slate-900">
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <div class="flex items-center space-x-2">
-            <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 rounded">↑↓</kbd>
-            <span>Navigate</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 rounded">↵</kbd>
-            <span>Select</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 rounded">ESC</kbd>
-            <span>Close</span>
+        <!-- Footer -->
+        <div class="border-t border-base-300 p-3 bg-base-200">
+          <div class="flex items-center justify-between text-xs text-base-content/60">
+            <div class="flex items-center gap-2">
+              <kbd class="kbd kbd-xs">↑↓</kbd>
+              <span>Navigate</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <kbd class="kbd kbd-xs">↵</kbd>
+              <span>Select</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <kbd class="kbd kbd-xs">ESC</kbd>
+              <span>Close</span>
+            </div>
           </div>
         </div>
       </div>
@@ -153,14 +194,32 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
-import { Link } from '@inertiajs/vue3'
-import { api } from '../../Boot/axios.js'
-import debounce from 'lodash/debounce'
+import { api } from '../../Boot/axios.js' // Uncomment when you have real API
+// import debounce from 'lodash/debounce' // Uncomment when you have lodash
+
+// Simple debounce function (replace with lodash when available)
+const debounce = (func, wait) => {
+  let timeout
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
 
 // Props
-const props = withDefaults(defineProps(), {
-  minChars: 2,
-  debounceTime: 300
+const props = defineProps({
+  minChars: {
+    type: Number,
+    default: 2
+  },
+  debounceTime: {
+    type: Number,
+    default: 300
+  }
 })
 
 // State
@@ -169,7 +228,6 @@ const searchResults = ref({ status: false, data: {} })
 const isLoading = ref(false)
 const isSearchOpen = ref(false)
 const selectedIndex = ref(0)
-const searchContainer = ref(null)
 const searchInput = ref(null)
 
 // Computed
@@ -194,11 +252,55 @@ const debouncedSearch = debounce(async () => {
 
   try {
     isLoading.value = true
+
+    // Mock search for demo - replace with your actual API call
+    await new Promise(resolve => setTimeout(resolve, 500)) // Simulate API delay
+
+    // Filter mock data based on search query
+    const query = searchQuery.value.toLowerCase()
+    const mockData = {
+      'Pages': [
+        { result: 'Dashboard Overview', route: '/dashboard', last_route: '/admin/dashboard' },
+        { result: 'User Management', route: '/users', last_route: '/admin/users' },
+        { result: 'Analytics Reports', route: '/analytics', last_route: '/admin/analytics' },
+        { result: 'Settings Panel', route: '/settings', last_route: '/admin/settings' },
+        { result: 'Profile Settings', route: '/profile', last_route: '/admin/profile' }
+      ],
+      'Users': [
+        { result: 'John Doe', route: '/users/1', last_route: '/admin/users/1' },
+        { result: 'Jane Smith', route: '/users/2', last_route: '/admin/users/2' },
+        { result: 'Admin User', route: '/users/3', last_route: '/admin/users/3' }
+      ],
+      'Settings': [
+        { result: 'System Configuration', route: '/settings', last_route: '/admin/settings' },
+        { result: 'User Permissions', route: '/settings/permissions', last_route: '/admin/settings/permissions' },
+        { result: 'Security Settings', route: '/settings/security', last_route: '/admin/settings/security' }
+      ]
+    }
+
+    // Filter results based on search query
+    const filteredData = {}
+    Object.entries(mockData).forEach(([category, items]) => {
+      const filtered = items.filter(item =>
+        item.result.toLowerCase().includes(query) ||
+        item.route.toLowerCase().includes(query)
+      )
+      if (filtered.length > 0) {
+        filteredData[category] = { search: filtered }
+      }
+    })
+
+    searchResults.value = {
+      status: Object.keys(filteredData).length > 0,
+      data: filteredData
+    }
+
     const response = await api.get(
       route('admin.api.search', { search: searchQuery.value })
     )
     searchResults.value = response.data
   } catch (error) {
+    console.error('Search error:', error)
     searchResults.value = { status: false, data: {} }
   } finally {
     isLoading.value = false
@@ -221,6 +323,13 @@ const closeSearch = () => {
   searchQuery.value = ''
   searchResults.value = { status: false, data: {} }
   selectedIndex.value = 0
+}
+
+const selectSearchResult = (item) => {
+  if (item.route) {
+    window.location.href = item.route
+  }
+  closeSearch()
 }
 
 const getGlobalIndex = (categoryName, itemIndex) => {
@@ -251,8 +360,7 @@ const selectItem = () => {
   for (const category of Object.values(searchResults.value.data)) {
     for (const item of category.search) {
       if (currentIndex === selectedIndex.value) {
-        window.location.href = item.route
-        closeSearch()
+        selectSearchResult(item)
         return
       }
       currentIndex++
@@ -270,11 +378,8 @@ const handleKeydown = (e) => {
       openSearch()
     }
   }
-}
 
-// Click outside
-const handleClickOutside = (e) => {
-  if (searchContainer.value && !searchContainer.value.contains(e.target)) {
+  if (e.key === 'Escape' && isSearchOpen.value) {
     closeSearch()
   }
 }
@@ -282,12 +387,10 @@ const handleClickOutside = (e) => {
 // Lifecycle
 onMounted(() => {
   document.addEventListener('keydown', handleKeydown)
-  document.addEventListener('click', handleClickOutside)
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
-  document.removeEventListener('click', handleClickOutside)
   debouncedSearch.cancel()
 })
 </script>
