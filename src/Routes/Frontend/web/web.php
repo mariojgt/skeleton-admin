@@ -7,8 +7,8 @@ use Mariojgt\SkeletonAdmin\Controllers\Frontend\Web\Dashboard\DashboardControlle
 Route::group([
     'middleware' => ['web'],
 ], function () {
-    Route::get('/home', [DashboardController::class, 'index'])->name('home');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/home', [DashboardController::class, 'index'])->name('home');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::group([
