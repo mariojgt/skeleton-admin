@@ -6,9 +6,9 @@ use Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Api\Notifications\NotificationCo
 Route::group([
     'middleware' => ['web', 'auth'],
     'prefix' => config('skeleton.route_prefix_front'),
-], function () {
+], function (): void {
     if (class_exists(NotificationController::class)) {
-        Route::controller(NotificationController::class)->group(function () {
+        Route::controller(NotificationController::class)->group(function (): void {
             Route::get('/user/api/notifications/{amount}', 'index')->name('user.api.notifications');
             Route::post('/user/api/notification/read', 'read')->name('user.api.notification.read');
         });

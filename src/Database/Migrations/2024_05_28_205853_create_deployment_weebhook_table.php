@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         // Webhook Configurations Table
-        Schema::create('webhook_configs', function (Blueprint $table) {
+        Schema::create('webhook_configs', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->string('repository_url');
@@ -22,7 +22,7 @@ return new class extends Migration
         });
 
         // Deployment Logs Table
-        Schema::create('deployment_logs', function (Blueprint $table) {
+        Schema::create('deployment_logs', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('webhook_config_id')->constrained('webhook_configs')->onDelete('cascade');
             $table->string('commit_hash')->nullable();

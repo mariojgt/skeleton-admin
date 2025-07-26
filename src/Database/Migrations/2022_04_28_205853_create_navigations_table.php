@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('navigations', function (Blueprint $table) {
+        Schema::create('navigations', function (Blueprint $table): void {
             $table->id();
             $table->integer('parent_id')->nullable();
             $table->string('menu_label');

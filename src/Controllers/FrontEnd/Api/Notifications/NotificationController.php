@@ -21,7 +21,7 @@ class NotificationController extends Controller
     public function index($amount = 10)
     {
         $notifications = [];
-        foreach ($this->userModel as $key => $model) {
+        foreach ($this->userModel as $model) {
             $user = $model::find(Auth::user()->id);
             if ($user) {
                 $notifications[] = $user->notifications()
@@ -43,7 +43,7 @@ class NotificationController extends Controller
     public function read()
     {
         $notifications = [];
-        foreach ($this->userModel as $key => $model) {
+        foreach ($this->userModel as $model) {
             $user = $model::find(Auth::user()->id);
             if ($user) {
                 $notifications[] = $user->notifications()

@@ -8,18 +8,18 @@ use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\ResetPassword;
 Route::group([
     'middleware' => ['web', 'guest'],
     'prefix' => config('skeleton.route_prefix_front'),
-], function () {
-    Route::controller(LoginController::class)->group(function () {
+], function (): void {
+    Route::controller(LoginController::class)->group(function (): void {
         Route::get('/login', 'index')->name('login');
         Route::post('/login/user', 'login')->name('login.user');
     });
 
-    Route::controller(RegisterController::class)->group(function () {
+    Route::controller(RegisterController::class)->group(function (): void {
         Route::get('/register', 'register')->name('register.user.form');
         Route::post('/register/user', 'userRegister')->name('register.user');
     });
 
-    Route::controller(ResetPassword::class)->group(function () {
+    Route::controller(ResetPassword::class)->group(function (): void {
         Route::get('/forgot-password', 'index')->name('forgot-password');
         Route::post('/password-reset', 'reset')->name('password-reset.user');
         Route::get('/password-reset/{token}', 'passwordReset')->name('password.reset');
@@ -30,8 +30,8 @@ Route::group([
 Route::group([
     'middleware' => ['web'],
     'prefix' => config('skeleton.route_prefix_front'),
-], function () {
-    Route::controller(LoginController::class)->group(function () {
+], function (): void {
+    Route::controller(LoginController::class)->group(function (): void {
         Route::get('/email/verify', 'needVerify')->name('verification.notice');
         Route::get('/user/verify/{id}/{time}', 'verify')->name('user.verify');
     });
@@ -40,6 +40,6 @@ Route::group([
 Route::group([
     'middleware' => ['web', 'auth'],
     'prefix' => config('skeleton.route_prefix_front'),
-], function () {
+], function (): void {
     Route::any('/logout', [LoginController::class, 'logout'])->name('logout.user');
 });

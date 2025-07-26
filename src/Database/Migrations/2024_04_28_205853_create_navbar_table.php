@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('navbars', function (Blueprint $table) {
+        Schema::create('navbars', function (Blueprint $table): void {
             $table->id();
             $table->string('menu_label');
             $table->string('route');

@@ -9,7 +9,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             // Make password nullable since social login users might not have a password
             $table->string('password')->nullable()->change();
 
@@ -23,7 +23,7 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $table->string('password')->nullable(false)->change();
             $table->dropColumn(['avatar', 'registration_type']);
         });

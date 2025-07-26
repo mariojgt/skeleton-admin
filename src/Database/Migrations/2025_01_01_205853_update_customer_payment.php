@@ -14,7 +14,7 @@ return new class extends Migration
     {
         // Add the new gateway_customer_ids JSON column if it doesn't exist
         if (! Schema::hasColumn('users', 'gateway_customer_ids')) {
-            Schema::table('users', function (Blueprint $table) {
+            Schema::table('users', function (Blueprint $table): void {
                 $table->json('gateway_customer_ids')->nullable()->after('password');
             });
         }
@@ -36,7 +36,7 @@ return new class extends Migration
 
             // Optionally remove the stripe_id column
             // Commented out for backward compatibility
-            Schema::table('users', function (Blueprint $table) {
+            Schema::table('users', function (Blueprint $table): void {
                 $table->dropColumn('stripe_id');
             });
         }
@@ -66,7 +66,7 @@ return new class extends Migration
 
         // Drop the gateway_customer_ids column
         if (Schema::hasColumn('users', 'gateway_customer_ids')) {
-            Schema::table('users', function (Blueprint $table) {
+            Schema::table('users', function (Blueprint $table): void {
                 $table->dropColumn('gateway_customer_ids');
             });
         }

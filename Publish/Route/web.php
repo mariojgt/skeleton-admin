@@ -5,6 +5,6 @@ use Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Web\Dashboard\DashboardControlle
 
 Route::group([
     'middleware' => ['web'],
-], function () {
+], function (): void {
     Route::get('/', [DashboardController::class, 'index'])->name('homepage');
 });

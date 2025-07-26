@@ -16,11 +16,11 @@ use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User\UserController;
 Route::group([
     'middleware' => ['skeleton_admin', '2fa:skeleton_admin'],
     'prefix' => config('skeleton.route_prefix'),
-], function () {
+], function (): void {
     Route::get('/skeleton-admin/home', [DashboardController::class, 'index'])
         ->name('skeleton-admin.home');
 
-    Route::controller(AdminController::class)->group(function () {
+    Route::controller(AdminController::class)->group(function (): void {
         Route::get('/admin/index', 'index')->name('admin.admin.index');
         Route::get('/admin/edit/{admin?}', 'edit')->name('admin.edit');
         Route::patch('/admin/update/{admin}', 'update')->name('admin.update');
@@ -30,22 +30,22 @@ Route::group([
         Route::post('/admin/2fa/enable', 'enable2fa')->name('admin.2fa.enable');
     });
 
-    Route::controller(UserController::class)->group(function () {
+    Route::controller(UserController::class)->group(function (): void {
         Route::get('/user/index', 'index')->name('user.admin.index');
     });
 
-    Route::controller(RoleController::class)->group(function () {
+    Route::controller(RoleController::class)->group(function (): void {
         Route::get('/role/index', 'index')->name('admin.role.index');
         Route::get('/role/edit/{role}', 'edit')->name('admin.role.edit');
         Route::patch('/role/edit/{role}', 'update')->name('admin.role.update');
         Route::patch('/role/edit/perm/sync/{role}', 'syncPerm')->name('admin.role.perm.update');
     });
 
-    Route::controller(PermissionController::class)->group(function () {
+    Route::controller(PermissionController::class)->group(function (): void {
         Route::get('/permission/index', 'index')->name('admin.permission.index');
     });
 
-    Route::controller(NavigationController::class)->group(function () {
+    Route::controller(NavigationController::class)->group(function (): void {
         Route::get('/navigation/index', 'index')->name('admin.navigation.index');
         Route::get('/navigation/position', 'position')->name('admin.navigation.position');
 
@@ -56,12 +56,12 @@ Route::group([
         Route::get('/api/navigation/tree', 'getNavigationTree')->name('admin.api.navigation.tree');
     });
 
-    Route::controller(NavbarController::class)->group(function () {
+    Route::controller(NavbarController::class)->group(function (): void {
         Route::get('/navbar/index', 'index')->name('admin.navbar.index');
     });
 
     // System Settings Routes
-    Route::controller(SystemController::class)->group(function () {
+    Route::controller(SystemController::class)->group(function (): void {
         Route::get('/system/settings', 'index')->name('admin.system.settings');
 
         // API routes for system management
@@ -85,7 +85,7 @@ Route::group([
     });
 
     // Package Builder Routes
-    Route::controller(PackageBuilderController::class)->group(function () {
+    Route::controller(PackageBuilderController::class)->group(function (): void {
         Route::get('/package/builder', 'index')->name('admin.package.builder');
 
         // API routes for package generation
@@ -95,7 +95,7 @@ Route::group([
     });
 });
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web']], function (): void {
     Route::get('/auth/{provider}/redirect', [SocialAuthController::class, 'redirect'])
         ->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])

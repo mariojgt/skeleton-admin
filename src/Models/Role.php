@@ -9,10 +9,13 @@ class Role extends SpatieRole
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @return array
      */
-    protected $casts = [
-        'created_at' => 'date:d/m/Y',
-        'updated_at' => 'date:d/m/Y',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'date:d/m/Y',
+            'updated_at' => 'date:d/m/Y',
+        ];
+    }
 }

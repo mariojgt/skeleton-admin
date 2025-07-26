@@ -15,7 +15,7 @@ return new class extends Migration
     {
         // Only add the avatar column if it doesn't exist
         if (! Schema::hasColumn('users', 'avatar')) {
-            Schema::table('users', function (Blueprint $table) {
+            Schema::table('users', function (Blueprint $table): void {
                 $table->string('avatar')->nullable()->after('email');
             });
         }
@@ -30,7 +30,7 @@ return new class extends Migration
     {
         // Only drop the avatar column if it exists
         if (Schema::hasColumn('users', 'avatar')) {
-            Schema::table('users', function (Blueprint $table) {
+            Schema::table('users', function (Blueprint $table): void {
                 $table->dropColumn('avatar');
             });
         }

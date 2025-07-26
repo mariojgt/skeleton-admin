@@ -76,8 +76,8 @@ class SkeletonAdminProvider extends ServiceProvider
             ],
         ];
 
-        foreach ($routeGroups as $section => $types) {
-            foreach ($types as $type => $path) {
+        foreach ($routeGroups as $types) {
+            foreach ($types as $path) {
                 $this->loadRoutesFromDirectory($path);
             }
         }

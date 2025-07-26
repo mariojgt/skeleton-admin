@@ -50,22 +50,12 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'gateway_customer_ids' => 'json',
-    ];
-
-    /**
      * Boot method for model events
      */
     protected static function booted()
     {
         // Automatically create a user level when a user is created
-        static::created(function ($user) {
+        static::created(function ($user): void {
             UserCreationManager::onUserCreated($user);
         });
     }
@@ -160,5 +150,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasGatewayCustomerId(string $gateway): bool
     {
         return $this->getGatewayCustomerId($gateway) !== null;
+    }
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @return array
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'gateway_customer_ids' => 'json',
+        ];
     }
 }

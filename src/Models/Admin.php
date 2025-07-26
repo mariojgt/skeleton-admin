@@ -47,28 +47,31 @@ class Admin extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
      * Send a password reset email to the user.
      */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminMailResetPasswordToken($token));
     }
-
-    public function getAdminAvatarAttribute()
+    protected function adminAvatar(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
-        if ($this->avatar) {
-            return Media::find($this->avatar)->renderFiles()['medium'];
-        } else {
-            return Gravatar::gravatar($this->email);
-        }
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: function () {
+            if ($this->avatar) {
+                return Media::find($this->avatar)->renderFiles()['medium'];
+            } else {
+                return Gravatar::gravatar($this->email);
+            }
+        });
+    }
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @return array
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+        ];
     }
 }

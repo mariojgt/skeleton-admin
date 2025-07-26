@@ -53,7 +53,7 @@ class TestNotification extends Command
                 // Get all users
                 $admins = Admin::all();
                 // Loop the users and send a notification
-                foreach ($admins as $key => $admin) {
+                foreach ($admins as $admin) {
                     // Use factory to create names
                     $faker = \Faker\Factory::create();
                     // Get a random name
@@ -74,7 +74,7 @@ class TestNotification extends Command
                 // Get all users
                 $users = User::all();
                 // Loop the users and send a notification
-                foreach ($users as $key => $user) {
+                foreach ($users as $user) {
                     // Use factory to create names
                     $faker = \Faker\Factory::create();
                     // Get a random name

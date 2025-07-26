@@ -55,7 +55,7 @@ class ResetPassword extends Controller
         // Reset the admin password based in the broker
         $this->broker()->reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
+            function ($user, $password): void {
                 $user->forceFill([
                     'password' => Hash::make($password),
                 ])->save();

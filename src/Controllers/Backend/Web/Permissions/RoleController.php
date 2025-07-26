@@ -74,7 +74,7 @@ class RoleController extends GenericCrudController
         $permissions = Permission::all()->groupBy('guard_name');
         $rolePermissions = [];
         foreach ($permissions as $key => $item) {
-            foreach ($item as $keyData => $data) {
+            foreach ($item as $data) {
                 $rolePermissions[$key][$data['name']] = empty($role->permissions->where('name', $data['name'])->first()) ? false : true;
             }
         }
@@ -105,7 +105,7 @@ class RoleController extends GenericCrudController
     {
         $permissions = $request->permissions;
         $synPerms = [];
-        foreach ($permissions as $key => $item) {
+        foreach ($permissions as $item) {
             foreach ($item as $itemKey => $data) {
                 if ($data) {
                     $synPerms[] = $itemKey;

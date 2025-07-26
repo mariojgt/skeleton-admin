@@ -161,7 +161,7 @@ class NavigationController extends GenericCrudController
     public function resetPositions(Request $request)
     {
         try {
-            \DB::transaction(function () {
+            \DB::transaction(function (): void {
                 // Reset all navigation items to root level with sequential order
                 $navigations = Navigation::orderBy('id')->get();
 
@@ -225,7 +225,7 @@ class NavigationController extends GenericCrudController
      */
     private function validateAndFixSortOrders()
     {
-        \DB::transaction(function () {
+        \DB::transaction(function (): void {
             // Fix root level items
             $rootItems = Navigation::whereNull('parent_id')->orderBy('sort_order')->get();
             foreach ($rootItems as $index => $item) {

@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('deployment_output_logs', function (Blueprint $table) {
+        Schema::create('deployment_output_logs', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('deployment_log_id')->constrained('deployment_logs')->onDelete('cascade');
             $table->string('command');
