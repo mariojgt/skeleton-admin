@@ -151,10 +151,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->getGatewayCustomerId($gateway) !== null;
     }
+
     /**
      * The attributes that should be cast to native types.
-     *
-     * @return array
      */
     protected function casts(): array
     {

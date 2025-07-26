@@ -53,6 +53,7 @@ class Admin extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new AdminMailResetPasswordToken($token));
     }
+
     protected function adminAvatar(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
         return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: function () {
@@ -63,10 +64,9 @@ class Admin extends Authenticatable implements MustVerifyEmail
             }
         });
     }
+
     /**
      * The attributes that should be cast to native types.
-     *
-     * @return array
      */
     protected function casts(): array
     {

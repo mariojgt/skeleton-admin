@@ -8,8 +8,6 @@ class Role extends SpatieRole
 {
     /**
      * The attributes that should be cast to native types.
-     *
-     * @return array
      */
     protected function casts(): array
     {
