@@ -2,12 +2,12 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\System;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
+use Inertia\Inertia;
 
 class PackageBuilderController extends Controller
 {
@@ -20,8 +20,8 @@ class PackageBuilderController extends Controller
             'title' => 'Extension Package Builder',
             'breadcrumb' => [
                 ['label' => 'System', 'url' => null],
-                ['label' => 'Package Builder', 'url' => route('admin.package.builder')]
-            ]
+                ['label' => 'Package Builder', 'url' => route('admin.package.builder')],
+            ],
         ]);
     }
 
@@ -45,16 +45,16 @@ class PackageBuilderController extends Controller
             'features.commands' => 'boolean',
             'features.vueComponents' => 'boolean',
             'autoComposerUpdate' => 'boolean',
-            'autoInstall' => 'boolean'
+            'autoInstall' => 'boolean',
         ]);
 
         try {
             // Check if package already exists
-            $packagePath = base_path('packages/' . $validated['name']);
-            if (File::isDirectory($packagePath) && !$validated['force']) {
+            $packagePath = base_path('packages/'.$validated['name']);
+            if (File::isDirectory($packagePath) && ! $validated['force']) {
                 return response()->json([
                     'success' => false,
-                    'message' => "Package '{$validated['name']}' already exists. Use force option to overwrite."
+                    'message' => "Package '{$validated['name']}' already exists. Use force option to overwrite.",
                 ], 422);
             }
 
@@ -68,7 +68,7 @@ class PackageBuilderController extends Controller
                 '--no-interaction' => true, // Key for preventing prompts
             ];
 
-            if (!empty($validated['description'])) {
+            if (! empty($validated['description'])) {
                 $arguments['--description'] = $validated['description'];
             }
 
@@ -97,19 +97,19 @@ class PackageBuilderController extends Controller
                 'success' => true,
                 'message' => 'Package generated successfully!',
                 'output' => $output,
-                'package_path' => 'packages/' . $validated['name'],
-                'next_steps' => $this->getNextSteps($validated['name'])
+                'package_path' => 'packages/'.$validated['name'],
+                'next_steps' => $this->getNextSteps($validated['name']),
             ]);
         } catch (\Exception $e) {
-            \Log::error('Package generation failed: ' . $e->getMessage(), [
+            \Log::error('Package generation failed: '.$e->getMessage(), [
                 'request_data' => $validated,
-                'stack_trace' => $e->getTraceAsString()
+                'stack_trace' => $e->getTraceAsString(),
             ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Package generation failed: ' . $e->getMessage(),
-                'error_details' => app()->environment('local') ? $e->getTraceAsString() : null
+                'message' => 'Package generation failed: '.$e->getMessage(),
+                'error_details' => app()->environment('local') ? $e->getTraceAsString() : null,
             ], 500);
         }
     }
@@ -128,7 +128,7 @@ class PackageBuilderController extends Controller
 
                 foreach ($directories as $dir) {
                     $packageName = basename($dir);
-                    $composerFile = $dir . '/composer.json';
+                    $composerFile = $dir.'/composer.json';
 
                     if (File::exists($composerFile)) {
                         $composer = json_decode(File::get($composerFile), true);
@@ -137,18 +137,18 @@ class PackageBuilderController extends Controller
                             'name' => $packageName,
                             'composer_name' => $composer['name'] ?? 'unknown',
                             'description' => $composer['description'] ?? 'No description',
-                            'path' => 'packages/' . $packageName,
+                            'path' => 'packages/'.$packageName,
                             'has_composer' => true,
-                            'created_at' => date('Y-m-d H:i:s', filemtime($dir))
+                            'created_at' => date('Y-m-d H:i:s', filemtime($dir)),
                         ];
                     } else {
                         $packages[] = [
                             'name' => $packageName,
                             'composer_name' => 'unknown',
                             'description' => 'No composer.json found',
-                            'path' => 'packages/' . $packageName,
+                            'path' => 'packages/'.$packageName,
                             'has_composer' => false,
-                            'created_at' => date('Y-m-d H:i:s', filemtime($dir))
+                            'created_at' => date('Y-m-d H:i:s', filemtime($dir)),
                         ];
                     }
                 }
@@ -156,13 +156,13 @@ class PackageBuilderController extends Controller
 
             return response()->json([
                 'success' => true,
-                'packages' => $packages
+                'packages' => $packages,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to load existing packages',
-                'packages' => []
+                'packages' => [],
             ], 500);
         }
     }
@@ -176,40 +176,40 @@ class PackageBuilderController extends Controller
             $errors = [];
 
             // Validate package name
-            if (!preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $request->name)) {
+            if (! preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $request->name)) {
                 $errors['name'] = 'Package name must be in kebab-case';
             }
 
             // Check if package exists
-            if (File::isDirectory(base_path('packages/' . $request->name))) {
+            if (File::isDirectory(base_path('packages/'.$request->name))) {
                 $errors['name'] = 'Package already exists';
             }
 
             // Validate namespace
-            if (!preg_match('/^[A-Z][A-Za-z0-9\\\\]+\\\\?$/', $request->namespace)) {
+            if (! preg_match('/^[A-Z][A-Za-z0-9\\\\]+\\\\?$/', $request->namespace)) {
                 $errors['namespace'] = 'Invalid namespace format';
             }
 
             // Validate composer prefix
-            if (!preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $request->prefix)) {
+            if (! preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $request->prefix)) {
                 $errors['prefix'] = 'Invalid composer prefix format';
             }
 
             // Validate controller
-            if (!preg_match('/^[A-Z][A-Za-z0-9]*$/', $request->controller)) {
+            if (! preg_match('/^[A-Z][A-Za-z0-9]*$/', $request->controller)) {
                 $errors['controller'] = 'Controller name must be PascalCase';
             }
 
             return response()->json([
                 'success' => count($errors) === 0,
                 'errors' => $errors,
-                'valid' => count($errors) === 0
+                'valid' => count($errors) === 0,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'errors' => ['general' => 'Validation failed'],
-                'valid' => false
+                'valid' => false,
             ], 500);
         }
     }
@@ -219,35 +219,35 @@ class PackageBuilderController extends Controller
      */
     private function processPackageFeatures(string $packageName, array $features)
     {
-        $packagePath = base_path('packages/' . $packageName);
+        $packagePath = base_path('packages/'.$packageName);
 
         // Remove unused directories based on features
-        if (!$features['database']) {
-            $this->removeDirectory($packagePath . '/src/Models');
-            $this->removeDirectory($packagePath . '/src/Database');
+        if (! $features['database']) {
+            $this->removeDirectory($packagePath.'/src/Models');
+            $this->removeDirectory($packagePath.'/src/Database');
         }
 
-        if (!$features['commands']) {
-            $this->removeDirectory($packagePath . '/src/Commands');
+        if (! $features['commands']) {
+            $this->removeDirectory($packagePath.'/src/Commands');
         }
 
-        if (!$features['apiRoutes']) {
-            $this->removeDirectory($packagePath . '/src/Routes/Backend/api');
-            $this->removeDirectory($packagePath . '/src/Routes/Frontend/api');
+        if (! $features['apiRoutes']) {
+            $this->removeDirectory($packagePath.'/src/Routes/Backend/api');
+            $this->removeDirectory($packagePath.'/src/Routes/Frontend/api');
         }
 
-        if (!$features['backendRoutes']) {
-            $this->removeDirectory($packagePath . '/src/Routes/Backend');
-            $this->removeDirectory($packagePath . '/src/Controllers/Backend');
+        if (! $features['backendRoutes']) {
+            $this->removeDirectory($packagePath.'/src/Routes/Backend');
+            $this->removeDirectory($packagePath.'/src/Controllers/Backend');
         }
 
-        if (!$features['frontendRoutes']) {
-            $this->removeDirectory($packagePath . '/src/Routes/Frontend');
-            $this->removeDirectory($packagePath . '/src/Controllers/Frontend');
+        if (! $features['frontendRoutes']) {
+            $this->removeDirectory($packagePath.'/src/Routes/Frontend');
+            $this->removeDirectory($packagePath.'/src/Controllers/Frontend');
         }
 
-        if (!$features['vueComponents']) {
-            $this->removeDirectory($packagePath . '/src/Resources');
+        if (! $features['vueComponents']) {
+            $this->removeDirectory($packagePath.'/src/Resources');
         }
     }
 
@@ -272,11 +272,11 @@ class PackageBuilderController extends Controller
             if ($result->failed()) {
                 \Log::warning('Composer update failed during package generation', [
                     'exit_code' => $result->exitCode(),
-                    'output' => $result->output()
+                    'output' => $result->output(),
                 ]);
             }
         } catch (\Exception $e) {
-            \Log::warning('Failed to run composer update: ' . $e->getMessage());
+            \Log::warning('Failed to run composer update: '.$e->getMessage());
         }
     }
 
@@ -288,7 +288,7 @@ class PackageBuilderController extends Controller
         try {
             Artisan::call("install:{$packageName}");
         } catch (\Exception $e) {
-            \Log::warning("Failed to auto-install package {$packageName}: " . $e->getMessage());
+            \Log::warning("Failed to auto-install package {$packageName}: ".$e->getMessage());
         }
     }
 
@@ -298,10 +298,10 @@ class PackageBuilderController extends Controller
     private function getNextSteps(string $packageName): array
     {
         return [
-            "Run: npm install && npm run dev",
+            'Run: npm install && npm run dev',
             "Run: php artisan install:{$packageName}",
             "Run: php artisan republish:{$packageName}",
-            "Visit your package routes to test functionality"
+            'Visit your package routes to test functionality',
         ];
     }
 }

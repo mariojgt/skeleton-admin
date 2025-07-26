@@ -2,17 +2,17 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Web\Profile;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Session;
-use Mariojgt\SkeletonAdmin\Models\User;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
-use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
+use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
+use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
 
 class ProfileController extends Controller
 {
@@ -28,18 +28,18 @@ class ProfileController extends Controller
             $user = User::find($user);
         }
 
-        $authenticator = new AuthenticatorHandle();
+        $authenticator = new AuthenticatorHandle;
         $authenticatorInfo = [];
         // First we check if the user is using the authenticator
         if (Auth::user()->twoStepsEnable()) {
             $authenticatorInfo = [
-                'is_enable'    => Auth::user()->twoStepsEnable(),
+                'is_enable' => Auth::user()->twoStepsEnable(),
                 'backup_codes' => json_decode(Auth::user()->getCodes->codes),
             ];
         } else {
             $authenticatorInfo = [
-                'codeinfo'     => $authenticator->generateCode(Auth::user()->email),
-                'is_enable'    => Auth::user()->twoStepsEnable(),
+                'codeinfo' => $authenticator->generateCode(Auth::user()->email),
+                'is_enable' => Auth::user()->twoStepsEnable(),
             ];
         }
 
@@ -48,8 +48,8 @@ class ProfileController extends Controller
 
         return Inertia::render('FrontEnd/User/Edit', [
             'autenticator' => $authenticatorInfo,
-            'user'         => new UserResource($user),
-            'extraLinks'   => $links,
+            'user' => new UserResource($user),
+            'extraLinks' => $links,
         ]);
     }
 
@@ -60,21 +60,21 @@ class ProfileController extends Controller
     {
         // Validate the username and email to ensure they are unique
         $data = $request->validate([
-            'username'   => 'required|unique:users,username,' . $user->id,
+            'username' => 'required|unique:users,username,'.$user->id,
             'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required|email|unique:users,email,' . $user->id,
-            'avatar'     => 'nullable|string',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'avatar' => 'nullable|string',
         ]);
 
         // Update the user's profile with the validated data
         $user->username = $data['username'];
         $user->first_name = $data['first_name'];
-        $user->last_name  = $data['last_name'];
-        $user->email      = $data['email'];
+        $user->last_name = $data['last_name'];
+        $user->email = $data['email'];
 
         // Update avatar if provided
-        if (isset($data['avatar']) && !empty($data['avatar'])) {
+        if (isset($data['avatar']) && ! empty($data['avatar'])) {
             $user->avatar = $data['avatar'];
         }
 
@@ -87,6 +87,7 @@ class ProfileController extends Controller
             'Account created successfully.',
             'icon'
         ));
+
         return Redirect::back()
             ->with('success', 'Profile updated successfully');
     }
@@ -103,10 +104,10 @@ class ProfileController extends Controller
         $avatarsPath = public_path('assets/avatars');
 
         // Check if directory exists
-        if (!File::isDirectory($avatarsPath)) {
+        if (! File::isDirectory($avatarsPath)) {
             return response()->json([
                 'message' => 'Avatars directory not found',
-                'avatars' => []
+                'avatars' => [],
             ], 404);
         }
 
@@ -119,7 +120,7 @@ class ProfileController extends Controller
                 $avatars[] = [
                     'id' => $file->getFilename(),
                     'name' => $file->getFilenameWithoutExtension(),
-                    'path' => asset('assets/avatars/' . $file->getFilename()),
+                    'path' => asset('assets/avatars/'.$file->getFilename()),
                     'extension' => $file->getExtension(),
                 ];
             }
@@ -144,7 +145,7 @@ class ProfileController extends Controller
         // Validate the email to make sure it is unique
         // Validate the user Note the small update in the password verification
         $request->validate([
-            'password'  => ['required', 'confirmed'],
+            'password' => ['required', 'confirmed'],
         ]);
 
         // Check if the two factor is enable
@@ -154,7 +155,7 @@ class ProfileController extends Controller
                 'code' => 'required|digits:6',
             ]);
 
-            $authenticatorHandle = new AuthenticatorHandle();
+            $authenticatorHandle = new AuthenticatorHandle;
             $verification = $authenticatorHandle->checkCode(Request('code'));
             // If the code is not valid we redirect the user to the edit page
             if ($verification == false) {
@@ -180,11 +181,12 @@ class ProfileController extends Controller
             'code' => 'required|digits:6',
         ]);
 
-        $authenticatorHandle = new AuthenticatorHandle();
+        $authenticatorHandle = new AuthenticatorHandle;
         $verification = $authenticatorHandle->checkCode(Request('code'));
         // if true we can sync the user
         if ($verification) {
             Auth::user()->syncAuthenticator(Session::get('authenticator_key'));
+
             // Return success
             return Redirect::back()
                 ->with('success', 'code sync with success.');
@@ -206,7 +208,7 @@ class ProfileController extends Controller
         ]);
 
         // Call the authenticator handle to remove the authenticator
-        $authenticatorHandle = new AuthenticatorHandle();
+        $authenticatorHandle = new AuthenticatorHandle;
         $verification = $authenticatorHandle->checkCode(Request('code'));
 
         // If the code is not valid we redirect the user to the edit page

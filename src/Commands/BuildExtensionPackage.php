@@ -2,10 +2,10 @@
 
 namespace Mariojgt\SkeletonAdmin\Commands;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
@@ -37,22 +37,16 @@ class BuildExtensionPackage extends Command
 
     /**
      * Package configuration
-     *
-     * @var array
      */
     private array $config = [];
 
     /**
      * Progress bar instance
-     *
-     * @var ProgressBar
      */
     private ?ProgressBar $progressBar = null;
 
     /**
      * Whether running in interactive mode
-     *
-     * @var bool
      */
     private bool $isInteractive = true;
 
@@ -66,27 +60,26 @@ class BuildExtensionPackage extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
         try {
             // Check if running in non-interactive mode
-            $this->isInteractive = !$this->option('no-interaction');
+            $this->isInteractive = ! $this->option('no-interaction');
 
             if ($this->isInteractive) {
                 $this->displayWelcome();
             }
 
-            if (!$this->validateEnvironment()) {
+            if (! $this->validateEnvironment()) {
                 return 1;
             }
 
             $this->gatherConfiguration();
 
-            if ($this->isInteractive && !$this->confirmConfiguration()) {
+            if ($this->isInteractive && ! $this->confirmConfiguration()) {
                 $this->warn('Package creation cancelled.');
+
                 return 0;
             }
 
@@ -100,10 +93,11 @@ class BuildExtensionPackage extends Command
 
             return 0;
         } catch (\Exception $e) {
-            $this->error('An error occurred: ' . $e->getMessage());
+            $this->error('An error occurred: '.$e->getMessage());
             if ($this->option('verbose')) {
-                $this->error('Stack trace: ' . $e->getTraceAsString());
+                $this->error('Stack trace: '.$e->getTraceAsString());
             }
+
             return 1;
         }
     }
@@ -129,26 +123,27 @@ class BuildExtensionPackage extends Command
         $errors = [];
 
         // Check if we're in a Laravel project
-        if (!file_exists(base_path('artisan'))) {
+        if (! file_exists(base_path('artisan'))) {
             $errors[] = 'Not in a Laravel project root directory';
         }
 
         // Check if composer.json exists
-        if (!file_exists(base_path('composer.json'))) {
+        if (! file_exists(base_path('composer.json'))) {
             $errors[] = 'composer.json not found in project root';
         }
 
         // Check if packages directory exists or can be created
         $packagesDir = base_path('packages');
-        if (!File::isDirectory($packagesDir) && !File::makeDirectory($packagesDir, 0755, true)) {
+        if (! File::isDirectory($packagesDir) && ! File::makeDirectory($packagesDir, 0755, true)) {
             $errors[] = 'Cannot create packages directory';
         }
 
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             $this->error('Environment validation failed:');
             foreach ($errors as $error) {
-                $this->error('  • ' . $error);
+                $this->error('  • '.$error);
             }
+
             return false;
         }
 
@@ -161,7 +156,7 @@ class BuildExtensionPackage extends Command
     private function gatherConfiguration(): void
     {
         // In non-interactive mode, all options must be provided
-        if (!$this->isInteractive && !$this->validateRequiredOptions()) {
+        if (! $this->isInteractive && ! $this->validateRequiredOptions()) {
             throw new \Exception('In non-interactive mode, all required options must be provided: --name, --namespace, --prefix, --controller');
         }
 
@@ -175,7 +170,7 @@ class BuildExtensionPackage extends Command
         ];
 
         // Generate provider name
-        $this->config['provider_name'] = Str::studly($this->config['package_name']) . 'ServiceProvider';
+        $this->config['provider_name'] = Str::studly($this->config['package_name']).'ServiceProvider';
 
         // Store the original namespace for different contexts
         $this->config['namespace'] = $this->normalizeNamespace($this->config['namespace']);
@@ -189,7 +184,7 @@ class BuildExtensionPackage extends Command
         $required = ['name', 'namespace', 'prefix', 'controller'];
 
         foreach ($required as $option) {
-            if (!$this->option($option)) {
+            if (! $this->option($option)) {
                 return false;
             }
         }
@@ -204,27 +199,27 @@ class BuildExtensionPackage extends Command
     {
         $name = $this->option('name');
 
-        if (!$name && $this->isInteractive) {
+        if (! $name && $this->isInteractive) {
             $name = $this->ask(
                 'Package name (kebab-case, e.g., blog-system, user-management)',
                 'skeleton-blog'
             );
         }
 
-        if (!$name) {
+        if (! $name) {
             throw new \Exception('Package name is required');
         }
 
         // Validate package name
-        if (!preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $name)) {
+        if (! preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $name)) {
             throw new \Exception('Package name must be in kebab-case (lowercase, hyphens allowed)');
         }
 
         // Check if package already exists
-        $packagePath = base_path('packages/' . $name);
-        if (File::isDirectory($packagePath) && !$this->option('force')) {
+        $packagePath = base_path('packages/'.$name);
+        if (File::isDirectory($packagePath) && ! $this->option('force')) {
             if ($this->isInteractive) {
-                if (!$this->confirm("Package '{$name}' already exists. Overwrite?", false)) {
+                if (! $this->confirm("Package '{$name}' already exists. Overwrite?", false)) {
                     throw new \Exception('Package creation cancelled - package already exists');
                 }
             } else {
@@ -242,19 +237,19 @@ class BuildExtensionPackage extends Command
     {
         $namespace = $this->option('namespace');
 
-        if (!$namespace && $this->isInteractive) {
+        if (! $namespace && $this->isInteractive) {
             $namespace = $this->ask(
                 'Package namespace (e.g., Skeleton\\Blog\\, MyCompany\\Extensions\\)',
                 'Skeleton\\Blog\\'
             );
         }
 
-        if (!$namespace) {
+        if (! $namespace) {
             throw new \Exception('Namespace is required');
         }
 
         // Validate namespace
-        if (!preg_match('/^[A-Z][A-Za-z0-9\\\\]+\\\\?$/', $namespace)) {
+        if (! preg_match('/^[A-Z][A-Za-z0-9\\\\]+\\\\?$/', $namespace)) {
             throw new \Exception('Namespace must be in PascalCase with backslashes (e.g., Skeleton\\Blog\\)');
         }
 
@@ -268,19 +263,19 @@ class BuildExtensionPackage extends Command
     {
         $prefix = $this->option('prefix');
 
-        if (!$prefix && $this->isInteractive) {
+        if (! $prefix && $this->isInteractive) {
             $prefix = $this->ask(
                 'Composer prefix (lowercase, e.g., skeleton, mycompany)',
                 'skeleton'
             );
         }
 
-        if (!$prefix) {
+        if (! $prefix) {
             throw new \Exception('Composer prefix is required');
         }
 
         // Validate composer prefix
-        if (!preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $prefix)) {
+        if (! preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $prefix)) {
             throw new \Exception('Composer prefix must be lowercase with optional hyphens');
         }
 
@@ -294,7 +289,7 @@ class BuildExtensionPackage extends Command
     {
         try {
             $description = $this->option('description');
-            if (!$description && $this->isInteractive) {
+            if (! $description && $this->isInteractive) {
                 $description = $this->ask(
                     'Package description (optional)',
                     'A Laravel extension package for Skeleton Admin'
@@ -316,19 +311,19 @@ class BuildExtensionPackage extends Command
     {
         $controller = $this->option('controller');
 
-        if (!$controller && $this->isInteractive) {
+        if (! $controller && $this->isInteractive) {
             $controller = $this->ask(
                 'Main controller name (PascalCase, e.g., Blog, UserManagement)',
                 'Blog'
             );
         }
 
-        if (!$controller) {
+        if (! $controller) {
             throw new \Exception('Controller name is required');
         }
 
         // Validate controller name
-        if (!preg_match('/^[A-Z][A-Za-z0-9]*$/', $controller)) {
+        if (! preg_match('/^[A-Z][A-Za-z0-9]*$/', $controller)) {
             throw new \Exception('Controller name must be in PascalCase');
         }
 
@@ -346,7 +341,7 @@ class BuildExtensionPackage extends Command
         $namespace = str_replace('/', '\\', $namespace);
         $namespace = preg_replace('/\\\\+/', '\\', $namespace);
 
-        return $namespace . '\\';
+        return $namespace.'\\';
     }
 
     /**
@@ -360,14 +355,14 @@ class BuildExtensionPackage extends Command
         switch ($context) {
             case 'composer':
                 // For composer.json, we need to escape backslashes for JSON
-                return str_replace('\\', '\\\\', $namespace) . '\\\\';
+                return str_replace('\\', '\\\\', $namespace).'\\\\';
             case 'php':
                 // For PHP files, use single backslashes
-                return $namespace . '\\';
+                return $namespace.'\\';
             case 'php_with_trailing':
-                return $namespace . '\\';
+                return $namespace.'\\';
             default:
-                return $namespace . '\\';
+                return $namespace.'\\';
         }
     }
 
@@ -382,7 +377,7 @@ class BuildExtensionPackage extends Command
             [
                 ['Package Name', $this->config['package_name']],
                 ['Namespace (PHP)', $this->getNamespaceForContext('php')],
-                ['Composer Name', $this->config['composer_prefix'] . '/' . $this->config['package_name']],
+                ['Composer Name', $this->config['composer_prefix'].'/'.$this->config['package_name']],
                 ['Description', $this->config['description']],
                 ['Controller', $this->config['controller']],
                 ['Provider', $this->config['provider_name']],
@@ -411,7 +406,7 @@ class BuildExtensionPackage extends Command
         ];
 
         // Only add composer update step if not skipped and in interactive mode
-        if (!$this->option('no-composer-update') && $this->isInteractive) {
+        if (! $this->option('no-composer-update') && $this->isInteractive) {
             $steps[] = 'Running composer update';
         }
 
@@ -486,7 +481,7 @@ class BuildExtensionPackage extends Command
      */
     private function createDirectoryStructure(): void
     {
-        $packagePath = base_path('packages/' . $this->config['package_name']);
+        $packagePath = base_path('packages/'.$this->config['package_name']);
         $directories = [
             'src',
             'src/Controllers/Backend',
@@ -508,8 +503,8 @@ class BuildExtensionPackage extends Command
         ];
 
         foreach ($directories as $dir) {
-            $fullPath = $packagePath . '/' . $dir;
-            if (!File::isDirectory($fullPath)) {
+            $fullPath = $packagePath.'/'.$dir;
+            if (! File::isDirectory($fullPath)) {
                 File::makeDirectory($fullPath, 0755, true);
             }
         }
@@ -524,13 +519,13 @@ class BuildExtensionPackage extends Command
             'variables' => ['{{name}}', '{{description}}'],
             'values' => [
                 $this->config['package_name'],
-                $this->config['description']
-            ]
+                $this->config['description'],
+            ],
         ];
 
         $this->loadStubFileAndSave(
             'config',
-            base_path('packages/' . $this->config['package_name'] . '/src/Config'),
+            base_path('packages/'.$this->config['package_name'].'/src/Config'),
             $this->config['package_name'],
             '.php',
             $replace
@@ -545,16 +540,16 @@ class BuildExtensionPackage extends Command
         $replace = [
             'variables' => ['{{name}}', '{{description}}', '{{namespace}}', '{{provider}}'],
             'values' => [
-                $this->config['composer_prefix'] . '/' . $this->config['package_name'],
+                $this->config['composer_prefix'].'/'.$this->config['package_name'],
                 $this->config['description'],
                 $this->getNamespaceForContext('composer'), // Use escaped backslashes for JSON
-                $this->getNamespaceForContext('php') . $this->config['provider_name'],
-            ]
+                $this->getNamespaceForContext('php').$this->config['provider_name'],
+            ],
         ];
 
         $this->loadStubFileAndSave(
             'composer',
-            base_path('packages/' . $this->config['package_name']),
+            base_path('packages/'.$this->config['package_name']),
             'composer',
             '.json',
             $replace
@@ -568,12 +563,12 @@ class BuildExtensionPackage extends Command
     {
         $replace = [
             'variables' => ['{{name}}', '{{description}}'],
-            'values' => [$this->config['package_name'], $this->config['description']]
+            'values' => [$this->config['package_name'], $this->config['description']],
         ];
 
         $this->loadStubFileAndSave(
             'README',
-            base_path('packages/' . $this->config['package_name']),
+            base_path('packages/'.$this->config['package_name']),
             'README',
             '.md',
             $replace
@@ -593,13 +588,13 @@ class BuildExtensionPackage extends Command
             'values' => [
                 $namespace,
                 $this->config['provider_name'],
-                $this->config['package_name']
-            ]
+                $this->config['package_name'],
+            ],
         ];
 
         $this->loadStubFileAndSave(
             'provider',
-            base_path('packages/' . $this->config['package_name'] . '/src'),
+            base_path('packages/'.$this->config['package_name'].'/src'),
             $this->config['provider_name'],
             '.php',
             $replace
@@ -614,7 +609,7 @@ class BuildExtensionPackage extends Command
         $locations = ['Backend', 'Frontend'];
 
         foreach ($locations as $location) {
-            $controller = $location . $this->config['controller'] . 'Controller';
+            $controller = $location.$this->config['controller'].'Controller';
 
             $replace = [
                 'variables' => ['{{name}}', '{{namespace}}', '{{location}}', '{{controller}}'],
@@ -622,13 +617,13 @@ class BuildExtensionPackage extends Command
                     $this->config['package_name'],
                     $this->getNamespaceForContext('php'),
                     $location,
-                    $controller
-                ]
+                    $controller,
+                ],
             ];
 
             $this->loadStubFileAndSave(
                 'controller',
-                base_path('packages/' . $this->config['package_name'] . '/src/Controllers/' . $location),
+                base_path('packages/'.$this->config['package_name'].'/src/Controllers/'.$location),
                 $controller,
                 '.php',
                 $replace
@@ -646,13 +641,13 @@ class BuildExtensionPackage extends Command
 
         foreach ($locations as $location) {
             foreach ($routeTypes as $routeType) {
-                $controller = $location . $this->config['controller'] . 'Controller';
+                $controller = $location.$this->config['controller'].'Controller';
                 $routePrefix = $location === 'Backend' ? 'admin' : strtolower($this->config['package_name']);
 
                 $replace = [
                     'variables' => [
                         '{{namespace}}', '{{name}}', '{{location}}',
-                        '{{controller}}', '{{route_prefix}}', '{{location_lower}}'
+                        '{{controller}}', '{{route_prefix}}', '{{location_lower}}',
                     ],
                     'values' => [
                         $this->getNamespaceForContext('php'),
@@ -660,13 +655,13 @@ class BuildExtensionPackage extends Command
                         $location,
                         $controller,
                         $routePrefix,
-                        strtolower($location)
-                    ]
+                        strtolower($location),
+                    ],
                 ];
 
                 $this->loadStubFileAndSave(
-                    $routeType . 'Route',
-                    base_path('packages/' . $this->config['package_name'] . '/src/Routes/' . $location . '/' . $routeType),
+                    $routeType.'Route',
+                    base_path('packages/'.$this->config['package_name'].'/src/Routes/'.$location.'/'.$routeType),
                     $routeType,
                     '.php',
                     $replace
@@ -685,26 +680,26 @@ class BuildExtensionPackage extends Command
         foreach ($locations as $location) {
             $locationLower = strtolower($location);
             $viewLayout = $location === 'Backend' ? '@backend_layout/App.vue' : '@frontend_layout/App.vue';
-            $controller = $location . $this->config['controller'] . 'Controller';
+            $controller = $location.$this->config['controller'].'Controller';
             $namespace = str_replace('\\\\', '\\', $this->config['namespace']);
 
             $replace = [
                 'variables' => [
                     '{{namespace}}', '{{name}}', '{{location}}',
-                    '{{controller}}', '{{page_layout}}'
+                    '{{controller}}', '{{page_layout}}',
                 ],
                 'values' => [
                     $namespace,
                     $this->config['package_name'],
                     $locationLower,
                     $controller,
-                    $viewLayout
-                ]
+                    $viewLayout,
+                ],
             ];
 
             // Create the main index view
-            $viewPath = resource_path('vendor/SkeletonAdmin/js/' . $locationLower . '/Pages/Vendor/' . $this->config['package_name']);
-            if (!File::isDirectory($viewPath)) {
+            $viewPath = resource_path('vendor/SkeletonAdmin/js/'.$locationLower.'/Pages/Vendor/'.$this->config['package_name']);
+            if (! File::isDirectory($viewPath)) {
                 File::makeDirectory($viewPath, 0755, true);
             }
 
@@ -717,14 +712,14 @@ class BuildExtensionPackage extends Command
             );
 
             // Create the component directory and component file
-            $componentPath = resource_path('vendor/SkeletonAdmin/js/' . $locationLower . '/Components/Vendor/' . $this->config['package_name']);
-            if (!File::isDirectory($componentPath)) {
+            $componentPath = resource_path('vendor/SkeletonAdmin/js/'.$locationLower.'/Components/Vendor/'.$this->config['package_name']);
+            if (! File::isDirectory($componentPath)) {
                 File::makeDirectory($componentPath, 0755, true);
             }
 
             // Create the component based on location (frontend/backend)
             $componentStub = $location === 'Backend' ? 'vueComponentBackend' : 'vueComponentFrontend';
-            $componentName = ucfirst($this->config['package_name']) . 'Component';
+            $componentName = ucfirst($this->config['package_name']).'Component';
 
             $this->loadStubFileAndSave(
                 $componentStub,
@@ -747,12 +742,12 @@ class BuildExtensionPackage extends Command
         $additionalViews = [
             'create' => 'Create New Item',
             'edit' => 'Edit Item',
-            'show' => 'View Item Details'
+            'show' => 'View Item Details',
         ];
 
         foreach ($additionalViews as $viewName => $title) {
             $basicViewContent = $this->getBasicViewTemplate($title, $replace['values'][1]);
-            file_put_contents($viewPath . '/' . $viewName . '.vue', $basicViewContent);
+            file_put_contents($viewPath.'/'.$viewName.'.vue', $basicViewContent);
         }
     }
 
@@ -818,13 +813,13 @@ VUE;
             'values' => [
                 $this->getNamespaceForContext('php'),
                 $this->config['package_name'],
-                $this->config['provider_name']
-            ]
+                $this->config['provider_name'],
+            ],
         ];
 
         $this->loadStubFileAndSave(
             'InstallCommand',
-            base_path('packages/' . $this->config['package_name'] . '/src/Commands'),
+            base_path('packages/'.$this->config['package_name'].'/src/Commands'),
             'Install',
             '.php',
             $installReplace
@@ -835,13 +830,13 @@ VUE;
             'variables' => ['{{namespace}}', '{{name}}'],
             'values' => [
                 $this->getNamespaceForContext('php'),
-                $this->config['package_name']
-            ]
+                $this->config['package_name'],
+            ],
         ];
 
         $this->loadStubFileAndSave(
             'republishCommand',
-            base_path('packages/' . $this->config['package_name'] . '/src/Commands'),
+            base_path('packages/'.$this->config['package_name'].'/src/Commands'),
             'Republish',
             '.php',
             $republishReplace
@@ -854,9 +849,9 @@ VUE;
     private function updateProjectComposer(): void
     {
         $composerPath = base_path('composer.json');
-        $packageName = $this->config['composer_prefix'] . '/' . $this->config['package_name'];
+        $packageName = $this->config['composer_prefix'].'/'.$this->config['package_name'];
 
-        if (!$this->isInteractive) {
+        if (! $this->isInteractive) {
             // In non-interactive mode, always try to update automatically
             $shouldUpdate = true;
         } else {
@@ -873,18 +868,19 @@ VUE;
             $shouldUpdate = $this->confirm('Would you like to update composer.json automatically?', true);
         }
 
-        if (!$shouldUpdate) {
+        if (! $shouldUpdate) {
             if ($this->isInteractive) {
                 $this->warn('⚠️  Composer.json not updated automatically.');
                 $this->showManualInstructions();
             }
+
             return;
         }
 
         try {
             $composerJson = json_decode(file_get_contents($composerPath), true);
 
-            if (!$composerJson) {
+            if (! $composerJson) {
                 throw new \Exception('Failed to parse composer.json file');
             }
 
@@ -894,12 +890,12 @@ VUE;
             // Add repository path
             $repositoryPath = [
                 'type' => 'path',
-                'url' => 'packages/' . $this->config['package_name'],
-                'options' => ['symlink' => true]
+                'url' => 'packages/'.$this->config['package_name'],
+                'options' => ['symlink' => true],
             ];
 
             // Initialize repositories array if it doesn't exist
-            if (!isset($composerJson['repositories'])) {
+            if (! isset($composerJson['repositories'])) {
                 $composerJson['repositories'] = [];
             }
 
@@ -912,17 +908,17 @@ VUE;
                 }
             }
 
-            if (!$exists) {
+            if (! $exists) {
                 $composerJson['repositories'][] = $repositoryPath;
             }
 
             // Create backup of original composer.json
-            $backupPath = $composerPath . '.backup.' . date('Y-m-d-H-i-s');
+            $backupPath = $composerPath.'.backup.'.date('Y-m-d-H-i-s');
             copy($composerPath, $backupPath);
 
             // Save updated composer.json
             $jsonContent = json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-            if (!file_put_contents($composerPath, $jsonContent)) {
+            if (! file_put_contents($composerPath, $jsonContent)) {
                 throw new \Exception('Failed to write updated composer.json');
             }
 
@@ -931,7 +927,7 @@ VUE;
                 $this->info("📄 Backup created: {$backupPath}");
             }
         } catch (\Exception $e) {
-            $this->error('❌ Failed to update composer.json: ' . $e->getMessage());
+            $this->error('❌ Failed to update composer.json: '.$e->getMessage());
             if ($this->isInteractive) {
                 $this->warn('You will need to update composer.json manually.');
                 $this->showManualInstructions();
@@ -944,7 +940,7 @@ VUE;
      */
     private function showManualInstructions(): void
     {
-        $packageName = $this->config['composer_prefix'] . '/' . $this->config['package_name'];
+        $packageName = $this->config['composer_prefix'].'/'.$this->config['package_name'];
 
         $this->newLine();
         $this->info('💡 Manual Setup Instructions:');
@@ -953,13 +949,13 @@ VUE;
         $this->newLine();
 
         $this->info('1. In the "require" section:');
-        $this->line('   "' . $packageName . '": "@dev"');
+        $this->line('   "'.$packageName.'": "@dev"');
         $this->newLine();
 
         $this->info('2. In the "repositories" section (create if it doesn\'t exist):');
         $this->line('   {');
         $this->line('       "type": "path",');
-        $this->line('       "url": "packages/' . $this->config['package_name'] . '",');
+        $this->line('       "url": "packages/'.$this->config['package_name'].'",');
         $this->line('       "options": {');
         $this->line('           "symlink": true');
         $this->line('       }');
@@ -974,7 +970,7 @@ VUE;
      */
     private function runComposerUpdate(): void
     {
-        if (!$this->isInteractive) {
+        if (! $this->isInteractive) {
             // In non-interactive mode, skip composer update by default
             return;
         }
@@ -988,9 +984,10 @@ VUE;
         $this->warn('⚠️  This may take a few minutes and will update other packages if needed.');
         $this->newLine();
 
-        if (!$this->confirm('Would you like to run "composer update" now?', true)) {
+        if (! $this->confirm('Would you like to run "composer update" now?', true)) {
             $this->info('⏭️  Skipping composer update.');
             $this->showNextSteps();
+
             return;
         }
 
@@ -1004,12 +1001,12 @@ VUE;
             $result = Process::run(['composer', 'update', '--no-scripts']);
 
             if ($result->failed()) {
-                throw new \Exception('Composer update failed with exit code: ' . $result->exitCode());
+                throw new \Exception('Composer update failed with exit code: '.$result->exitCode());
             }
 
             $this->info('✅ Composer packages updated successfully!');
         } catch (\Exception $e) {
-            $this->error('❌ Composer update failed: ' . $e->getMessage());
+            $this->error('❌ Composer update failed: '.$e->getMessage());
             $this->warn('You will need to run "composer update" manually.');
             $this->showNextSteps();
         }
@@ -1039,23 +1036,24 @@ VUE;
     ): void {
         $this->makePath($saveFilePath);
 
-        $stubPath = __DIR__ . '/Stubs/ExtensionPackage/' . $stubFile . '.stub';
+        $stubPath = __DIR__.'/Stubs/ExtensionPackage/'.$stubFile.'.stub';
 
-        if (!file_exists($stubPath)) {
+        if (! file_exists($stubPath)) {
             // If stub file doesn't exist, create a basic template
             $this->createBasicStub($stubFile, $saveFilePath, $fileName, $fileExtension, $replace);
+
             return;
         }
 
         $stub = file_get_contents($stubPath);
 
-        if (!empty($replace)) {
+        if (! empty($replace)) {
             $stub = str_replace($replace['variables'], $replace['values'], $stub);
         }
 
-        $filePath = $saveFilePath . '/' . $fileName . $fileExtension;
+        $filePath = $saveFilePath.'/'.$fileName.$fileExtension;
 
-        if (!file_put_contents($filePath, $stub)) {
+        if (! file_put_contents($filePath, $stub)) {
             throw new \Exception("Failed to create file: {$filePath}");
         }
     }
@@ -1111,8 +1109,8 @@ VUE;
                 $content = "<?php\n\n// Basic template for {$stubFile}\n";
         }
 
-        $filePath = $saveFilePath . '/' . $fileName . $fileExtension;
-        if (!file_put_contents($filePath, $content)) {
+        $filePath = $saveFilePath.'/'.$fileName.$fileExtension;
+        if (! file_put_contents($filePath, $content)) {
             throw new \Exception("Failed to create file: {$filePath}");
         }
     }
@@ -1541,8 +1539,8 @@ PHP;
      */
     private function makePath(string $path): void
     {
-        if (!File::isDirectory($path)) {
-            if (!File::makeDirectory($path, 0755, true)) {
+        if (! File::isDirectory($path)) {
+            if (! File::makeDirectory($path, 0755, true)) {
                 throw new \Exception("Failed to create directory: {$path}");
             }
         }
@@ -1570,7 +1568,7 @@ PHP;
 
         $this->info('📝 Available Routes:');
         $this->info("   Frontend: /{$this->config['package_name']}/frontend");
-        $this->info("   Backend: /admin/backend");
+        $this->info('   Backend: /admin/backend');
         $this->newLine();
 
         $this->info('Happy coding! 🎉');

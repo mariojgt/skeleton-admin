@@ -5,7 +5,7 @@ use Mariojgt\SkeletonAdmin\Controllers\FrontEnd\Api\Notifications\NotificationCo
 
 Route::group([
     'middleware' => ['web', 'auth'],
-    'prefix'     => config('skeleton.route_prefix_front'),
+    'prefix' => config('skeleton.route_prefix_front'),
 ], function () {
     if (class_exists(NotificationController::class)) {
         Route::controller(NotificationController::class)->group(function () {

@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // Add the new gateway_customer_ids JSON column if it doesn't exist
-        if (!Schema::hasColumn('users', 'gateway_customer_ids')) {
+        if (! Schema::hasColumn('users', 'gateway_customer_ids')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->json('gateway_customer_ids')->nullable()->after('password');
             });
@@ -30,7 +30,7 @@ return new class extends Migration
                 DB::table('users')
                     ->where('id', $user->id)
                     ->update([
-                        'gateway_customer_ids' => json_encode(['stripe' => $user->stripe_id])
+                        'gateway_customer_ids' => json_encode(['stripe' => $user->stripe_id]),
                     ]);
             }
 

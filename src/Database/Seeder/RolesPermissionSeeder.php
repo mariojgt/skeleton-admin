@@ -3,9 +3,9 @@
 namespace Mariojgt\SkeletonAdmin\Database\Seeder;
 
 use Illuminate\Database\Seeder;
-use Mariojgt\SkeletonAdmin\Models\Role;
-use Mariojgt\SkeletonAdmin\Models\Permission;
 use Mariojgt\SkeletonAdmin\Enums\PermissionEnum;
+use Mariojgt\SkeletonAdmin\Models\Permission;
+use Mariojgt\SkeletonAdmin\Models\Role;
 
 class RolesPermissionSeeder extends Seeder
 {
@@ -19,11 +19,11 @@ class RolesPermissionSeeder extends Seeder
         // Create roles
         $roles = [
             [
-                'name'       => 'Administrator',
+                'name' => 'Administrator',
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => 'User',
+                'name' => 'User',
                 'guard_name' => 'web',
             ],
         ];
@@ -31,38 +31,38 @@ class RolesPermissionSeeder extends Seeder
         foreach ($roles as $role) {
             // First or create the role
             Role::firstOrCreate([
-                'name'       => $role['name'],
+                'name' => $role['name'],
                 'guard_name' => $role['guard_name'],
             ]);
         }
         // Create permissions
         $permissions = [
             [
-                'name'       => PermissionEnum::CreatePermission->value,
+                'name' => PermissionEnum::CreatePermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => PermissionEnum::EditPermission->value,
+                'name' => PermissionEnum::EditPermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => PermissionEnum::DeletePermission->value,
+                'name' => PermissionEnum::DeletePermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => PermissionEnum::ReadPermission->value,
+                'name' => PermissionEnum::ReadPermission->value,
                 'guard_name' => 'skeleton_admin',
             ],
             [
-                'name'       => PermissionEnum::AdminEdit->value,
+                'name' => PermissionEnum::AdminEdit->value,
                 'guard_name' => 'skeleton_admin',
-            ]
+            ],
         ];
         // Loop the permissions and create them
         foreach ($permissions as $permission) {
             // Create or update the permission
             $newPermission = Permission::firstOrCreate([
-                'name'       => $permission['name'],
+                'name' => $permission['name'],
                 'guard_name' => $permission['guard_name'],
             ]);
             // Find the Administrator role and assign the permission

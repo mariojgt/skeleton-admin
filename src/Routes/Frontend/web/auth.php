@@ -7,7 +7,7 @@ use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\ResetPassword;
 
 Route::group([
     'middleware' => ['web', 'guest'],
-    'prefix'     => config('skeleton.route_prefix_front'),
+    'prefix' => config('skeleton.route_prefix_front'),
 ], function () {
     Route::controller(LoginController::class)->group(function () {
         Route::get('/login', 'index')->name('login');
@@ -29,7 +29,7 @@ Route::group([
 
 Route::group([
     'middleware' => ['web'],
-    'prefix'     => config('skeleton.route_prefix_front'),
+    'prefix' => config('skeleton.route_prefix_front'),
 ], function () {
     Route::controller(LoginController::class)->group(function () {
         Route::get('/email/verify', 'needVerify')->name('verification.notice');
@@ -39,7 +39,7 @@ Route::group([
 
 Route::group([
     'middleware' => ['web', 'auth'],
-    'prefix'     => config('skeleton.route_prefix_front'),
+    'prefix' => config('skeleton.route_prefix_front'),
 ], function () {
     Route::any('/logout', [LoginController::class, 'logout'])->name('logout.user');
 });

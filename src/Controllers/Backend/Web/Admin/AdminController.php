@@ -2,19 +2,18 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin;
 
-use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Mariojgt\Builder\Enums\FieldTypes;
-use Illuminate\Support\Facades\Session;
-use Mariojgt\SkeletonAdmin\Models\Role;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
+use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
-use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
-use Mariojgt\SkeletonAdmin\Enums\PermissionEnum;
-use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
+use Mariojgt\SkeletonAdmin\Enums\PermissionEnum;
+use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Models\Role;
+use Mariojgt\SkeletonAdmin\Resource\Backend\AdminResource;
 
 class AdminController extends GenericCrudController
 {
@@ -26,7 +25,7 @@ class AdminController extends GenericCrudController
 
     protected function getFormConfig(): FormHelper
     {
-        return (new FormHelper())
+        return (new FormHelper)
             ->addIdField()
             ->addField(
                 label: 'First Name',
@@ -61,16 +60,16 @@ class AdminController extends GenericCrudController
                 unique: true,
                 type: FieldTypes::EMAIL->value
             )
-            ->setCustomEditRoute('/' . config('skeleton.route_prefix') . '/admin/edit/');
+            ->setCustomEditRoute('/'.config('skeleton.route_prefix').'/admin/edit/');
     }
 
     /**
      * Edit the admin.
      */
-    public function edit(Admin $admin = null)
+    public function edit(?Admin $admin = null)
     {
         // Check if the login user has the permission to edit the admin
-        if (!backendGuard()->user()->can(PermissionEnum::AdminEdit->value)) {
+        if (! backendGuard()->user()->can(PermissionEnum::AdminEdit->value)) {
             return Redirect::back()
                 ->with('error', 'You do not have permission to edit this admin');
         }
@@ -82,20 +81,20 @@ class AdminController extends GenericCrudController
         }
 
         // Start the user authenticator so we can enable or disable the 2FA and other options
-        $authenticator = new AuthenticatorHandle();
+        $authenticator = new AuthenticatorHandle;
         // Authenticator information
         $authenticatorInfo = [];
 
         // First we check if the user is uisng the authenticator
         if ($adminInfo->twoStepsEnable()) {
             $authenticatorInfo = [
-                'is_enable'    => $adminInfo->twoStepsEnable(),
+                'is_enable' => $adminInfo->twoStepsEnable(),
                 'backup_codes' => json_decode($adminInfo->getCodes->codes),
             ];
         } else {
             $authenticatorInfo = [
-                'codeinfo'     => $authenticator->generateCode($adminInfo->email),
-                'is_enable'    => $adminInfo->twoStepsEnable(),
+                'codeinfo' => $authenticator->generateCode($adminInfo->email),
+                'is_enable' => $adminInfo->twoStepsEnable(),
             ];
         }
 
@@ -104,8 +103,8 @@ class AdminController extends GenericCrudController
 
         return Inertia::render('BackEnd/Admin/Edit', [
             'autenticator' => $authenticatorInfo,
-            'admin'              => new AdminResource($adminInfo),
-            'roles'              => $roles,
+            'admin' => new AdminResource($adminInfo),
+            'roles' => $roles,
         ]);
     }
 
@@ -117,13 +116,13 @@ class AdminController extends GenericCrudController
         // Validate the email to make sure it is unique
         $request->validate([
             'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required|email|unique:admins,email,' . $admin->id,
+            'last_name' => 'required',
+            'email' => 'required|email|unique:admins,email,'.$admin->id,
         ]);
 
         $admin->first_name = Request('first_name');
-        $admin->last_name  = Request('last_name');
-        $admin->email      = Request('email');
+        $admin->last_name = Request('last_name');
+        $admin->email = Request('email');
         $admin->save();
 
         // Update the roles
@@ -147,7 +146,7 @@ class AdminController extends GenericCrudController
         // Validate the email to make sure it is unique
         // Validate the user Note the small update in the password verification
         $request->validate([
-            'password'  => ['required', 'confirmed'],
+            'password' => ['required', 'confirmed'],
         ]);
 
         // Check if the two factor is enable
@@ -157,7 +156,7 @@ class AdminController extends GenericCrudController
                 'code' => 'required|digits:6',
             ]);
 
-            $authenticatorHandle = new AuthenticatorHandle();
+            $authenticatorHandle = new AuthenticatorHandle;
             $verification = $authenticatorHandle->checkCode(Request('code'));
             // If the code is not valid we redirect the user to the edit page
             if ($verification == false) {
@@ -183,12 +182,13 @@ class AdminController extends GenericCrudController
             'code' => 'required|digits:6',
         ]);
 
-        $authenticatorHandle = new AuthenticatorHandle();
-        $verification        = $authenticatorHandle->checkCode(Request('code'));
+        $authenticatorHandle = new AuthenticatorHandle;
+        $verification = $authenticatorHandle->checkCode(Request('code'));
 
         // if true we can sync the user
         if ($verification) {
             backendGuard()->user()->syncAuthenticator(Session::get('authenticator_key'));
+
             // Return success
             return Redirect::back()
                 ->with('success', 'code sync with success.');
@@ -210,7 +210,7 @@ class AdminController extends GenericCrudController
         ]);
 
         // Call the authenticator handle to remove the authenticator
-        $AuthenticatorHandle = new AuthenticatorHandle();
+        $AuthenticatorHandle = new AuthenticatorHandle;
         $verification = $AuthenticatorHandle->checkCode(Request('code'));
         // If the code is not valid we redirect the user to the edit page
         if ($verification == false) {

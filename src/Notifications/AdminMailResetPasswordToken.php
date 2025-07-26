@@ -25,8 +25,7 @@ class AdminMailResetPasswordToken extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param mixed $notifiable
-     *
+     * @param  mixed  $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -37,13 +36,12 @@ class AdminMailResetPasswordToken extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param mixed $notifiable
-     *
+     * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject('Reset your password')
             ->line('Hey, did you forget your password? Click the button to reset it.')
             ->line('Link will expire in 60 minutes.')
@@ -54,8 +52,7 @@ class AdminMailResetPasswordToken extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param mixed $notifiable
-     *
+     * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)

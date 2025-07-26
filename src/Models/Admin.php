@@ -2,28 +2,28 @@
 
 namespace Mariojgt\SkeletonAdmin\Models;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Mariojgt\Castle\Trait\Castle;
 use Mariojgt\Magnifier\Models\Media;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
-use Spatie\Permission\Traits\HasPermissions;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Mariojgt\SkeletonAdmin\Notifications\AdminMailResetPasswordToken;
+use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable implements MustVerifyEmail
 {
+    use CanResetPassword;
+    use Castle;
     use HasApiTokens;
     use HasFactory;
-    use Notifiable;
-    use Castle;
-    use CanResetPassword;
-    use HasRoles;
     use HasPermissions;
+    use HasRoles;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

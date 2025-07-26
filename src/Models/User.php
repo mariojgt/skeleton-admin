@@ -2,25 +2,25 @@
 
 namespace Mariojgt\SkeletonAdmin\Models;
 
-use Laravel\Sanctum\HasApiTokens;
-use Mariojgt\Castle\Trait\Castle;
 use App\Helpers\UserCreationManager;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
-use Spatie\Permission\Traits\HasPermissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Mariojgt\Castle\Trait\Castle;
+use Mariojgt\SkeletonAdmin\Helpers\Gravatar;
+use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use Castle;
     use HasApiTokens;
     use HasFactory;
-    use Notifiable;
-    use Castle;
-    use HasRoles;
     use HasPermissions;
+    use HasRoles;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'gateway_customer_ids', // New JSON field replacing stripe_id
         'avatar',
         'registration_type',
-        'email_verified_at'
+        'email_verified_at',
     ];
 
     /**
@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getAvatarPath()
     {
         // If user has a custom avatar, use it
-        if (!empty($this->avatar) && $this->avatar !== null) {
+        if (! empty($this->avatar) && $this->avatar !== null) {
             // Check if it's a full URL or just a filename
             if (filter_var($this->avatar, FILTER_VALIDATE_URL)) {
                 return $this->avatar;
@@ -100,7 +100,7 @@ class User extends Authenticatable implements MustVerifyEmail
             }
 
             // Otherwise assume it's just a filename
-            return asset('assets/avatars/' . $this->avatar);
+            return asset('assets/avatars/'.$this->avatar);
         }
 
         // Fallback to Gravatar
@@ -110,18 +110,18 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get customer ID for a specific payment gateway
      *
-     * @param string $gateway Gateway identifier (e.g., 'stripe', 'paypal')
+     * @param  string  $gateway  Gateway identifier (e.g., 'stripe', 'paypal')
      * @return string|null Customer ID for the specified gateway or null if not found
      */
     public function getGatewayCustomerId(string $gateway): ?string
     {
         // First check the new gateway_customer_ids JSON field
-        if (!empty($this->gateway_customer_ids) && isset($this->gateway_customer_ids[$gateway])) {
+        if (! empty($this->gateway_customer_ids) && isset($this->gateway_customer_ids[$gateway])) {
             return $this->gateway_customer_ids[$gateway];
         }
 
         // For backward compatibility with stripe_id
-        if ($gateway === 'stripe' && !empty($this->stripe_id)) {
+        if ($gateway === 'stripe' && ! empty($this->stripe_id)) {
             return $this->stripe_id;
         }
 
@@ -131,9 +131,8 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Set customer ID for a specific payment gateway
      *
-     * @param string $gateway Gateway identifier (e.g., 'stripe', 'paypal')
-     * @param string $customerId Customer ID to store
-     * @return self
+     * @param  string  $gateway  Gateway identifier (e.g., 'stripe', 'paypal')
+     * @param  string  $customerId  Customer ID to store
      */
     public function setGatewayCustomerId(string $gateway, string $customerId): self
     {
@@ -155,7 +154,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Check if user has a customer ID for a specific payment gateway
      *
-     * @param string $gateway Gateway identifier (e.g., 'stripe', 'paypal')
+     * @param  string  $gateway  Gateway identifier (e.g., 'stripe', 'paypal')
      * @return bool Whether user has a customer ID for the specified gateway
      */
     public function hasGatewayCustomerId(string $gateway): bool

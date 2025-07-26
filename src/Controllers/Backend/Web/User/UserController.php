@@ -3,8 +3,6 @@
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User;
 
 use App\Models\User;
-use Inertia\Inertia;
-use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
@@ -19,7 +17,7 @@ class UserController extends GenericCrudController
 
     protected function getFormConfig(): FormHelper
     {
-        return (new FormHelper())
+        return (new FormHelper)
             ->addIdField()
             ->addField(
                 label: 'First Name',
@@ -61,10 +59,10 @@ class UserController extends GenericCrudController
                 canCreate: false, // Not manually set on creation
                 canEdit: false // Typically not editable manually
             );
-            // If you have a custom edit route for users (e.g., for profile settings), you'd add it here:
-            // ->setCustomEditRoute(
-            //     route: route('admin.user.edit', ['user' => '{id}']), // Example, adjust as needed
-            //     customActionName: 'User Profile'
-            // );
+        // If you have a custom edit route for users (e.g., for profile settings), you'd add it here:
+        // ->setCustomEditRoute(
+        //     route: route('admin.user.edit', ['user' => '{id}']), // Example, adjust as needed
+        //     customActionName: 'User Profile'
+        // );
     }
 }

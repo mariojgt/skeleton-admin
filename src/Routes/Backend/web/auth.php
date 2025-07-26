@@ -22,7 +22,6 @@ Route::group([
         ->name('skeleton.magic.login')
         ->middleware(['signed']);
 
-
     /*
     |--------------------------------------------------------------------------
     | Allow user to register if the config is enable

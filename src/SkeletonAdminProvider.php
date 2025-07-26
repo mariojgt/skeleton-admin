@@ -3,13 +3,10 @@
 namespace Mariojgt\SkeletonAdmin;
 
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Notification;
-use Mariojgt\SkeletonAdmin\Commands\Install;
-use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
+use Illuminate\Support\ServiceProvider;
 use Mariojgt\SkeletonAdmin\Channels\DiscordChannel;
-use Mariojgt\SkeletonAdmin\Services\PackageManager;
-use Mariojgt\SkeletonAdmin\Services\ExtensionManager;
+use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
 use Mariojgt\SkeletonAdmin\Listeners\SendUserVerifyListener;
 
 class SkeletonAdminProvider extends ServiceProvider
@@ -60,7 +57,7 @@ class SkeletonAdminProvider extends ServiceProvider
      */
     protected function loadViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/Resources/Views', 'skeleton-admin');
+        $this->loadViewsFrom(__DIR__.'/Resources/Views', 'skeleton-admin');
     }
 
     /**
@@ -70,13 +67,13 @@ class SkeletonAdminProvider extends ServiceProvider
     {
         $routeGroups = [
             'backend' => [
-                'web' => __DIR__ . '/Routes/Backend/web',
-                'api' => __DIR__ . '/Routes/Backend/api',
+                'web' => __DIR__.'/Routes/Backend/web',
+                'api' => __DIR__.'/Routes/Backend/api',
             ],
             'frontend' => [
-                'web' => __DIR__ . '/Routes/Frontend/web',
-                'api' => __DIR__ . '/Routes/Frontend/api',
-            ]
+                'web' => __DIR__.'/Routes/Frontend/web',
+                'api' => __DIR__.'/Routes/Frontend/api',
+            ],
         ];
 
         foreach ($routeGroups as $section => $types) {
@@ -91,11 +88,11 @@ class SkeletonAdminProvider extends ServiceProvider
      */
     protected function loadRoutesFromDirectory(string $directory): void
     {
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             return;
         }
 
-        $routeFiles = glob($directory . '/*.php');
+        $routeFiles = glob($directory.'/*.php');
         foreach ($routeFiles as $routeFile) {
             $this->loadRoutesFrom($routeFile);
         }
@@ -106,7 +103,7 @@ class SkeletonAdminProvider extends ServiceProvider
      */
     protected function loadMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
     }
 
     /**
@@ -115,7 +112,7 @@ class SkeletonAdminProvider extends ServiceProvider
     protected function registerNotificationChannels(): void
     {
         Notification::extend('discord', function ($app) {
-            return new DiscordChannel();
+            return new DiscordChannel;
         });
     }
 
@@ -139,17 +136,17 @@ class SkeletonAdminProvider extends ServiceProvider
      */
     protected function loadCommands(): void
     {
-        $commandsPath = __DIR__ . '/Commands';
-        if (!is_dir($commandsPath)) {
+        $commandsPath = __DIR__.'/Commands';
+        if (! is_dir($commandsPath)) {
             return;
         }
 
         try {
             $commandClasses = [];
-            $files = glob($commandsPath . '/*.php');
+            $files = glob($commandsPath.'/*.php');
 
             foreach ($files as $file) {
-                if (!is_file($file)) {
+                if (! is_file($file)) {
                     continue;
                 }
 
@@ -161,20 +158,20 @@ class SkeletonAdminProvider extends ServiceProvider
                     $reflection = new \ReflectionClass($fullClassName);
 
                     // Ensure it's a command class and not abstract
-                    if (!$reflection->isAbstract() &&
+                    if (! $reflection->isAbstract() &&
                         $reflection->isSubclassOf(\Illuminate\Console\Command::class)) {
                         $commandClasses[] = $fullClassName;
                     }
                 }
             }
 
-            if (!empty($commandClasses)) {
+            if (! empty($commandClasses)) {
                 $this->commands($commandClasses);
             }
         } catch (\Exception $e) {
             // Log error but don't break the application
             if (app()->bound('log')) {
-                app('log')->warning('Failed to load Skeleton Admin commands: ' . $e->getMessage());
+                app('log')->warning('Failed to load Skeleton Admin commands: '.$e->getMessage());
             }
         }
     }
@@ -186,48 +183,48 @@ class SkeletonAdminProvider extends ServiceProvider
     {
         // Configuration files
         $this->publishes([
-            __DIR__ . '/../Publish/Config/' => config_path(''),
+            __DIR__.'/../Publish/Config/' => config_path(''),
         ], 'skeleton-admin-config');
 
         // Middleware files
         $this->publishes([
-            __DIR__ . '/../Publish/InertiaRequest/handleRequest' => app_path('Http/Middleware'),
+            __DIR__.'/../Publish/InertiaRequest/handleRequest' => app_path('Http/Middleware'),
         ], 'skeleton-admin-middleware');
 
         // View files
         $this->publishes([
-            __DIR__ . '/../Publish/InertiaRequest/appLayout' => resource_path('views/skeleton-admin'),
+            __DIR__.'/../Publish/InertiaRequest/appLayout' => resource_path('views/skeleton-admin'),
         ], 'skeleton-admin-views');
 
         // NPM configuration
         $this->publishes([
-            __DIR__ . '/../Publish/Npm' => base_path(),
+            __DIR__.'/../Publish/Npm' => base_path(),
         ], 'skeleton-admin-npm');
 
         // Resources
         $this->publishes([
-            __DIR__ . '/../Publish/Resource' => resource_path('vendor/SkeletonAdmin/'),
+            __DIR__.'/../Publish/Resource' => resource_path('vendor/SkeletonAdmin/'),
         ], 'skeleton-admin-resources');
 
         // Public assets
         $this->publishes([
-            __DIR__ . '/../Publish/Avatars' => public_path('assets/avatars'),
-            __DIR__ . '/../Publish/Public' => public_path('vendor/Skeleton'),
+            __DIR__.'/../Publish/Avatars' => public_path('assets/avatars'),
+            __DIR__.'/../Publish/Public' => public_path('vendor/Skeleton'),
         ], 'skeleton-admin-assets');
 
         // Bootstrap files
         $this->publishes([
-            __DIR__ . '/../Publish/Bootstrap' => base_path('bootstrap'),
+            __DIR__.'/../Publish/Bootstrap' => base_path('bootstrap'),
         ], 'skeleton-admin-bootstrap');
 
         // Helper files
         $this->publishes([
-            __DIR__ . '/../Publish/Helpers' => app_path('Helpers'),
+            __DIR__.'/../Publish/Helpers' => app_path('Helpers'),
         ], 'skeleton-admin-helpers');
 
         // Main web.php file
         $this->publishes([
-            __DIR__ . '/../Publish/Route/web.php' => base_path('routes/web.php'),
+            __DIR__.'/../Publish/Route/web.php' => base_path('routes/web.php'),
         ], 'skeleton-admin-routes');
     }
 }

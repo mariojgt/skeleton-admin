@@ -2,14 +2,13 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions;
 
-use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 use Mariojgt\Builder\Enums\FieldTypes;
-use Mariojgt\SkeletonAdmin\Models\Role;
 use Mariojgt\Builder\Helpers\FormHelper;
-use Mariojgt\SkeletonAdmin\Models\Permission;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
+use Mariojgt\SkeletonAdmin\Models\Permission;
+use Mariojgt\SkeletonAdmin\Models\Role;
 
 class RoleController extends GenericCrudController
 {
@@ -21,7 +20,7 @@ class RoleController extends GenericCrudController
 
     protected function getFormConfig(): FormHelper
     {
-        return (new FormHelper())
+        return (new FormHelper)
             ->addIdField()
             ->addField(
                 label: 'Name',
@@ -40,8 +39,8 @@ class RoleController extends GenericCrudController
                     'select_options' => [
                         ['value' => 'skeleton_admin', 'label' => 'backend'],
                         ['value' => 'web', 'label' => 'frontend'],
-                        ['value' => 'api', 'label' => 'api']
-                    ]
+                        ['value' => 'api', 'label' => 'api'],
+                    ],
                 ],
                 filterable: true
             )
@@ -59,7 +58,7 @@ class RoleController extends GenericCrudController
                 canCreate: false,
                 canEdit: false
             )
-            ->setCustomEditRoute('/' . config('skeleton.route_prefix') . '/role/edit/');
+            ->setCustomEditRoute('/'.config('skeleton.route_prefix').'/role/edit/');
     }
 
     public function edit(Request $request, Role $role)
@@ -67,8 +66,8 @@ class RoleController extends GenericCrudController
         $breadcrumb = [
             [
                 'label' => 'Role',
-                'url'   => route('admin.role.index'),
-            ]
+                'url' => route('admin.role.index'),
+            ],
         ];
 
         // System available permissions and group by guard
@@ -81,9 +80,9 @@ class RoleController extends GenericCrudController
         }
 
         return Inertia::render('BackEnd/Role/Edit', [
-            'breadcrumb'      => $breadcrumb,
-            'role'            => $role,
-            'permissions'     => $permissions,
+            'breadcrumb' => $breadcrumb,
+            'role' => $role,
+            'permissions' => $permissions,
             'rolePermissions' => $rolePermissions,
         ]);
     }
@@ -91,11 +90,11 @@ class RoleController extends GenericCrudController
     public function update(Request $request, Role $role)
     {
         $validData = $request->validate([
-          'name'       => 'required',
-          'guard_name' => 'required',
+            'name' => 'required',
+            'guard_name' => 'required',
         ]);
 
-        $role->name       = $validData['name'];
+        $role->name = $validData['name'];
         $role->guard_name = $validData['guard_name'];
         $role->save();
 

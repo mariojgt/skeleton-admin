@@ -1,12 +1,13 @@
 <?php
+
 namespace Mariojgt\SkeletonAdmin\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\HtmlString;
 
 /**
  * Trigger a generic notification to the backend or frontend.
@@ -16,10 +17,15 @@ class GenericNotification extends Notification implements ShouldQueue
     use Queueable;
 
     public $title;
+
     public $icon;
+
     public $message;
+
     public $mail;
+
     public $type;
+
     public $discord;  // New property to control Discord notification
 
     public function __construct(
@@ -49,12 +55,13 @@ class GenericNotification extends Notification implements ShouldQueue
         if ($this->discord) {
             $channels[] = 'discord';
         }
+
         return $channels;
     }
 
     public function toMail($notifiable)
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject($this->title)
             ->line(new HtmlString($this->title))
             ->line(new HtmlString($this->message));
@@ -84,9 +91,9 @@ class GenericNotification extends Notification implements ShouldQueue
         // Map notification icons to Discord colors
         $colorMap = [
             'success' => '65280',    // Green
-            'info'    => '3447003',  // Blue
+            'info' => '3447003',  // Blue
             'warning' => '16776960', // Yellow
-            'error'   => '15158332', // Red
+            'error' => '15158332', // Red
         ];
 
         // Default color if icon not in map

@@ -2,16 +2,14 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\System;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+use Inertia\Inertia;
 
 class SystemController extends Controller
 {
@@ -24,8 +22,8 @@ class SystemController extends Controller
             'title' => 'System Settings',
             'breadcrumb' => [
                 ['label' => 'System', 'url' => null],
-                ['label' => 'Settings', 'url' => route('admin.system.settings')]
-            ]
+                ['label' => 'Settings', 'url' => route('admin.system.settings')],
+            ],
         ]);
     }
 
@@ -39,7 +37,7 @@ class SystemController extends Controller
                 'cpu' => $this->getCpuUsage(),
                 'memory' => $this->getMemoryUsage(),
                 'disk' => $this->getDiskUsage(),
-                'uptime' => $this->getSystemUptime()
+                'uptime' => $this->getSystemUptime(),
             ];
 
             return response()->json($stats);
@@ -49,7 +47,7 @@ class SystemController extends Controller
                 'cpu' => 0,
                 'memory' => 0,
                 'disk' => 0,
-                'uptime' => 'Unknown'
+                'uptime' => 'Unknown',
             ]);
         }
     }
@@ -68,20 +66,21 @@ class SystemController extends Controller
                     'debug' => config('app.debug'),
                     'cache_driver' => config('cache.default'),
                     'session_driver' => config('session.driver'),
-                    'queue_driver' => config('queue.default')
+                    'queue_driver' => config('queue.default'),
                 ],
                 'database' => [
                     'driver' => config('database.default'),
                     'version' => $this->getDatabaseVersion(),
                     'size' => $this->getDatabaseSize(),
-                    'tables' => $this->getTableCount()
-                ]
+                    'tables' => $this->getTableCount(),
+                ],
             ];
 
             return response()->json($info);
 
         } catch (\Exception $e) {
-            \Log::error('Failed to get system info: ' . $e->getMessage());
+            \Log::error('Failed to get system info: '.$e->getMessage());
+
             return response()->json(['error' => 'Failed to load system information'], 500);
         }
     }
@@ -92,7 +91,7 @@ class SystemController extends Controller
     public function runCommand(Request $request)
     {
         $validated = $request->validate([
-            'command' => 'required|string'
+            'command' => 'required|string',
         ]);
 
         try {
@@ -113,15 +112,15 @@ class SystemController extends Controller
                 'queue:restart',
                 'storage:link',
                 'down',
-                'up'
+                'up',
             ];
 
             $command = $validated['command'];
 
-            if (!in_array($command, $allowedCommands)) {
+            if (! in_array($command, $allowedCommands)) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Command not allowed for security reasons'
+                    'message' => 'Command not allowed for security reasons',
                 ], 403);
             }
 
@@ -133,16 +132,16 @@ class SystemController extends Controller
             return response()->json([
                 'success' => true,
                 'output' => $output,
-                'message' => 'Command executed successfully'
+                'message' => 'Command executed successfully',
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Command execution failed: ' . $e->getMessage());
+            \Log::error('Command execution failed: '.$e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Command execution failed: ' . $e->getMessage(),
-                'output' => $e->getMessage()
+                'message' => 'Command execution failed: '.$e->getMessage(),
+                'output' => $e->getMessage(),
             ], 500);
         }
     }
@@ -155,7 +154,7 @@ class SystemController extends Controller
         try {
             $composerLock = base_path('composer.lock');
 
-            if (!File::exists($composerLock)) {
+            if (! File::exists($composerLock)) {
                 return response()->json(['packages' => []]);
             }
 
@@ -168,14 +167,15 @@ class SystemController extends Controller
                     'description' => $package['description'] ?? 'No description available',
                     'version' => $package['version'],
                     'license' => implode(', ', $package['license'] ?? ['Unknown']),
-                    'outdated' => $this->isPackageOutdated($package['name'], $package['version'])
+                    'outdated' => $this->isPackageOutdated($package['name'], $package['version']),
                 ];
             }
 
             return response()->json(['packages' => $packages]);
 
         } catch (\Exception $e) {
-            \Log::error('Failed to get packages: ' . $e->getMessage());
+            \Log::error('Failed to get packages: '.$e->getMessage());
+
             return response()->json(['packages' => []], 500);
         }
     }
@@ -187,7 +187,7 @@ class SystemController extends Controller
     {
         $validated = $request->validate([
             'key' => 'required|string',
-            'value' => 'required'
+            'value' => 'required',
         ]);
 
         try {
@@ -211,21 +211,21 @@ class SystemController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'message' => 'Configuration updated successfully'
+                    'message' => 'Configuration updated successfully',
                 ]);
             }
 
             return response()->json([
                 'success' => false,
-                'message' => '.env file not found'
+                'message' => '.env file not found',
             ], 404);
 
         } catch (\Exception $e) {
-            \Log::error('Failed to update config: ' . $e->getMessage());
+            \Log::error('Failed to update config: '.$e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to update configuration'
+                'message' => 'Failed to update configuration',
             ], 500);
         }
     }
@@ -262,13 +262,13 @@ class SystemController extends Controller
     public function getLogs(Request $request)
     {
         $validated = $request->validate([
-            'file' => 'required|string'
+            'file' => 'required|string',
         ]);
 
         try {
-            $logPath = storage_path('logs/' . $validated['file']);
+            $logPath = storage_path('logs/'.$validated['file']);
 
-            if (!File::exists($logPath)) {
+            if (! File::exists($logPath)) {
                 return response()->json(['error' => 'Log file not found'], 404);
             }
 
@@ -291,6 +291,7 @@ class SystemController extends Controller
 
         try {
             $load = sys_getloadavg();
+
             return round($load[0] * 100 / 4, 1); // Assuming 4 cores
         } catch (\Exception $e) {
             return rand(20, 80);
@@ -325,6 +326,7 @@ class SystemController extends Controller
 
         try {
             $uptime = shell_exec('uptime -p');
+
             return trim(str_replace('up ', '', $uptime));
         } catch (\Exception $e) {
             return 'Unknown';
@@ -343,14 +345,14 @@ class SystemController extends Controller
     private function getDatabaseSize()
     {
         try {
-            $dbName = config('database.connections.' . config('database.default') . '.database');
+            $dbName = config('database.connections.'.config('database.default').'.database');
             $result = DB::select("
                 SELECT ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) AS 'size_mb'
                 FROM information_schema.tables
                 WHERE table_schema = ?
             ", [$dbName]);
 
-            return $result[0]->size_mb . ' MB';
+            return $result[0]->size_mb.' MB';
         } catch (\Exception $e) {
             return 'Unknown';
         }
@@ -359,12 +361,12 @@ class SystemController extends Controller
     private function getTableCount()
     {
         try {
-            $dbName = config('database.connections.' . config('database.default') . '.database');
-            $result = DB::select("
+            $dbName = config('database.connections.'.config('database.default').'.database');
+            $result = DB::select('
                 SELECT COUNT(*) as count
                 FROM information_schema.tables
                 WHERE table_schema = ?
-            ", [$dbName]);
+            ', [$dbName]);
 
             return $result[0]->count;
         } catch (\Exception $e) {
@@ -413,14 +415,16 @@ class SystemController extends Controller
                 rewind($handle);
             }
             $text[$lines - $linecounter - 1] = fgets($handle);
-            if ($beginning) break;
+            if ($beginning) {
+                break;
+            }
         }
         fclose($handle);
 
         return implode('', array_reverse($text));
     }
 
-     /**
+    /**
      * Get environment variables
      */
     public function getEnvVariables()
@@ -428,7 +432,7 @@ class SystemController extends Controller
         try {
             $envFile = base_path('.env');
 
-            if (!File::exists($envFile)) {
+            if (! File::exists($envFile)) {
                 return response()->json(['variables' => []]);
             }
 
@@ -459,7 +463,7 @@ class SystemController extends Controller
                         'description' => $this->getEnvDescription($key),
                         'isEditing' => false,
                         'editValue' => '',
-                        'showValue' => false
+                        'showValue' => false,
                     ];
                 }
             }
@@ -467,7 +471,8 @@ class SystemController extends Controller
             return response()->json(['variables' => $variables]);
 
         } catch (\Exception $e) {
-            \Log::error('Failed to get environment variables: ' . $e->getMessage());
+            \Log::error('Failed to get environment variables: '.$e->getMessage());
+
             return response()->json(['variables' => []], 500);
         }
     }
@@ -478,13 +483,13 @@ class SystemController extends Controller
     public function updateEnvVariable(Request $request, $key)
     {
         $validated = $request->validate([
-            'value' => 'required|string'
+            'value' => 'required|string',
         ]);
 
         try {
             $envFile = base_path('.env');
 
-            if (!File::exists($envFile)) {
+            if (! File::exists($envFile)) {
                 return response()->json(['error' => '.env file not found'], 404);
             }
 
@@ -498,7 +503,7 @@ class SystemController extends Controller
 
             // Handle values that need quotes
             if (str_contains($newValue, ' ') || str_contains($newValue, '#')) {
-                $newValue = '"' . $newValue . '"';
+                $newValue = '"'.$newValue.'"';
             }
 
             // Update or add the variable
@@ -516,15 +521,15 @@ class SystemController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Environment variable updated successfully'
+                'message' => 'Environment variable updated successfully',
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Failed to update environment variable: ' . $e->getMessage());
+            \Log::error('Failed to update environment variable: '.$e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to update environment variable'
+                'message' => 'Failed to update environment variable',
             ], 500);
         }
     }
@@ -537,13 +542,13 @@ class SystemController extends Controller
         $validated = $request->validate([
             'key' => 'required|string|regex:/^[A-Z_][A-Z0-9_]*$/',
             'value' => 'required|string',
-            'type' => 'required|in:string,boolean,number,array'
+            'type' => 'required|in:string,boolean,number,array',
         ]);
 
         try {
             $envFile = base_path('.env');
 
-            if (!File::exists($envFile)) {
+            if (! File::exists($envFile)) {
                 return response()->json(['error' => '.env file not found'], 404);
             }
 
@@ -555,7 +560,7 @@ class SystemController extends Controller
             if (preg_match("/^{$key}=.*/m", $envContent)) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Environment variable already exists'
+                    'message' => 'Environment variable already exists',
                 ], 422);
             }
 
@@ -569,14 +574,14 @@ class SystemController extends Controller
                     break;
                 case 'array':
                     // Handle array format
-                    if (!str_starts_with($value, '[')) {
-                        $value = '[' . $value . ']';
+                    if (! str_starts_with($value, '[')) {
+                        $value = '['.$value.']';
                     }
-                    $value = '"' . $value . '"';
+                    $value = '"'.$value.'"';
                     break;
                 default:
                     if (str_contains($value, ' ') || str_contains($value, '#')) {
-                        $value = '"' . $value . '"';
+                        $value = '"'.$value.'"';
                     }
             }
 
@@ -591,15 +596,15 @@ class SystemController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Environment variable added successfully'
+                'message' => 'Environment variable added successfully',
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Failed to add environment variable: ' . $e->getMessage());
+            \Log::error('Failed to add environment variable: '.$e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to add environment variable'
+                'message' => 'Failed to add environment variable',
             ], 500);
         }
     }
@@ -640,10 +645,10 @@ class SystemController extends Controller
             $allowedConfigs = [
                 'app', 'auth', 'broadcasting', 'cache', 'cors', 'database',
                 'filesystems', 'hashing', 'logging', 'mail', 'queue',
-                'sanctum', 'services', 'session', 'view'
+                'sanctum', 'services', 'session', 'view',
             ];
 
-            if (!in_array($filename, $allowedConfigs)) {
+            if (! in_array($filename, $allowedConfigs)) {
                 return response()->json(['error' => 'Config file not allowed'], 403);
             }
 
@@ -652,7 +657,8 @@ class SystemController extends Controller
             return response()->json(['config' => $config]);
 
         } catch (\Exception $e) {
-            \Log::error('Failed to get config file: ' . $e->getMessage());
+            \Log::error('Failed to get config file: '.$e->getMessage());
+
             return response()->json(['error' => 'Failed to load config file'], 500);
         }
     }
@@ -664,9 +670,9 @@ class SystemController extends Controller
     {
         try {
             $envFile = base_path('.env');
-            $backupFile = base_path('.env.backup.' . date('Y-m-d-H-i-s'));
+            $backupFile = base_path('.env.backup.'.date('Y-m-d-H-i-s'));
 
-            if (!File::exists($envFile)) {
+            if (! File::exists($envFile)) {
                 return response()->json(['error' => '.env file not found'], 404);
             }
 
@@ -675,13 +681,13 @@ class SystemController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Environment file backed up successfully',
-                'backup_file' => basename($backupFile)
+                'backup_file' => basename($backupFile),
             ]);
 
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to backup environment file'
+                'message' => 'Failed to backup environment file',
             ], 500);
         }
     }
@@ -714,7 +720,7 @@ class SystemController extends Controller
             'APP_KEY', 'DB_PASSWORD', 'REDIS_PASSWORD', 'MAIL_PASSWORD',
             'AWS_SECRET_ACCESS_KEY', 'PUSHER_APP_SECRET', 'JWT_SECRET',
             'SESSION_ENCRYPT_COOKIES', 'ENCRYPTION_KEY', 'API_SECRET',
-            'OAUTH_CLIENT_SECRET', 'STRIPE_SECRET', 'PAYPAL_SECRET'
+            'OAUTH_CLIENT_SECRET', 'STRIPE_SECRET', 'PAYPAL_SECRET',
         ];
 
         return in_array($key, $sensitiveKeys) ||
@@ -744,7 +750,7 @@ class SystemController extends Controller
             'MAIL_HOST' => 'Mail server host',
             'MAIL_PORT' => 'Mail server port',
             'MAIL_USERNAME' => 'Mail username',
-            'MAIL_PASSWORD' => 'Mail password'
+            'MAIL_PASSWORD' => 'Mail password',
         ];
 
         return $descriptions[$key] ?? null;

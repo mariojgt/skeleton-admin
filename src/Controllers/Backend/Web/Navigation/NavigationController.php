@@ -2,14 +2,13 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navigation;
 
-use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
 use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
 
 class NavigationController extends GenericCrudController
 {
@@ -21,7 +20,7 @@ class NavigationController extends GenericCrudController
 
     protected function getFormConfig(): FormHelper
     {
-        return (new FormHelper())
+        return (new FormHelper)
             ->addIdField()
             ->addField(
                 label: 'Menu Label',
@@ -65,17 +64,17 @@ class NavigationController extends GenericCrudController
         $breadcrumb = [
             [
                 'label' => 'Navigations',
-                'url'   => route('admin.navigation.index'),
+                'url' => route('admin.navigation.index'),
             ],
             [
                 'label' => 'Position',
-                'url'   => route('admin.navigation.position'),
+                'url' => route('admin.navigation.position'),
             ],
         ];
 
         // Return the view
         return Inertia::render('BackEnd/Navigation/PositionManage', [
-            'title'      => 'Navigations | Position Management',
+            'title' => 'Navigations | Position Management',
             'breadcrumb' => $breadcrumb,
             'navigation' => $navigation,
         ]);
@@ -134,24 +133,24 @@ class NavigationController extends GenericCrudController
                     'parent_id' => $navigation->parent_id,
                     'sort_order' => $navigation->sort_order,
                     'menu_label' => $navigation->menu_label,
-                ]
+                ],
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Validation failed',
-                'errors' => $e->errors()
+                'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
-            \Log::error('Navigation update failed: ' . $e->getMessage(), [
+            \Log::error('Navigation update failed: '.$e->getMessage(), [
                 'navigation_id' => $navigation->id,
                 'request_data' => $request->all(),
-                'stack_trace' => $e->getTraceAsString()
+                'stack_trace' => $e->getTraceAsString(),
             ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to update navigation position: ' . $e->getMessage(),
+                'message' => 'Failed to update navigation position: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -169,23 +168,23 @@ class NavigationController extends GenericCrudController
                 foreach ($navigations as $index => $navigation) {
                     $navigation->update([
                         'sort_order' => $index + 1,
-                        'parent_id' => null
+                        'parent_id' => null,
                     ]);
                 }
             });
 
             return response()->json([
                 'success' => true,
-                'message' => 'Navigation positions reset successfully'
+                'message' => 'Navigation positions reset successfully',
             ]);
         } catch (\Exception $e) {
-            \Log::error('Navigation reset failed: ' . $e->getMessage(), [
-                'stack_trace' => $e->getTraceAsString()
+            \Log::error('Navigation reset failed: '.$e->getMessage(), [
+                'stack_trace' => $e->getTraceAsString(),
             ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to reset navigation positions: ' . $e->getMessage(),
+                'message' => 'Failed to reset navigation positions: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -207,16 +206,16 @@ class NavigationController extends GenericCrudController
             return response()->json([
                 'success' => true,
                 'message' => 'All navigation positions confirmed and validated successfully',
-                'total_items' => $totalItems
+                'total_items' => $totalItems,
             ]);
         } catch (\Exception $e) {
-            \Log::error('Navigation positions validation failed: ' . $e->getMessage(), [
-                'stack_trace' => $e->getTraceAsString()
+            \Log::error('Navigation positions validation failed: '.$e->getMessage(), [
+                'stack_trace' => $e->getTraceAsString(),
             ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to validate navigation positions: ' . $e->getMessage(),
+                'message' => 'Failed to validate navigation positions: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -253,7 +252,7 @@ class NavigationController extends GenericCrudController
      */
     private function wouldCreateCircularReference(Navigation $item, $newParentId)
     {
-        if (!$newParentId) {
+        if (! $newParentId) {
             return false;
         }
 
@@ -323,20 +322,20 @@ class NavigationController extends GenericCrudController
                     'route' => $item->route,
                     'icon' => $item->icon,
                     'sort_order' => $item->sort_order,
-                    'children' => $this->buildNavigationChildren($item)
+                    'children' => $this->buildNavigationChildren($item),
                 ];
             }
 
             return response()->json([
                 'success' => true,
-                'data' => $tree
+                'data' => $tree,
             ]);
         } catch (\Exception $e) {
-            \Log::error('Failed to get navigation tree: ' . $e->getMessage());
+            \Log::error('Failed to get navigation tree: '.$e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to load navigation tree'
+                'message' => 'Failed to load navigation tree',
             ], 500);
         }
     }
@@ -355,7 +354,7 @@ class NavigationController extends GenericCrudController
                 'route' => $child->route,
                 'icon' => $child->icon,
                 'sort_order' => $child->sort_order,
-                'children' => $this->buildNavigationChildren($child)
+                'children' => $this->buildNavigationChildren($child),
             ];
         }
 

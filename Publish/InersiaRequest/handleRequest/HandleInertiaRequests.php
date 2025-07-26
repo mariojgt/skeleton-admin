@@ -2,14 +2,14 @@
 
 namespace App\Http\Middleware;
 
-use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Inertia\Middleware;
 use Mariojgt\SkeletonAdmin\Models\Navbar;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
 use Mariojgt\SkeletonAdmin\Resource\Common\NavbarResource;
-use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
 use Mariojgt\SkeletonAdmin\Resource\Common\NavigationResource;
+use Mariojgt\SkeletonAdmin\Resource\Frontend\UserResource;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -34,10 +34,6 @@ class HandleInertiaRequests extends Middleware
      * Determines the current asset version.
      *
      * @see https://inertiajs.com/asset-versioning
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return string|null
      */
     public function version(Request $request): ?string
     {
@@ -48,10 +44,6 @@ class HandleInertiaRequests extends Middleware
      * Defines the props that are shared by default.
      *
      * @see https://inertiajs.com/shared-data
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array
      */
     public function share(Request $request): array
     {
@@ -66,7 +58,6 @@ class HandleInertiaRequests extends Middleware
     /**
      * Return data for the inersia shared data for the backend.
      *
-     * @param Request $request
      *
      * @return array [data]
      */
@@ -77,19 +68,18 @@ class HandleInertiaRequests extends Middleware
         });
 
         return array_merge(parent::share($request), [
-            'flash'      => $this->handleFlashMessage($request),
-            'app'        => config('app.name'),
+            'flash' => $this->handleFlashMessage($request),
+            'app' => config('app.name'),
             'navigation' => NavigationResource::collection(Navigation::where('guard', 'skeleton_admin')->get()),
-            'navbar'     => $navbar,
-            'avatar'     => backendGuard()?->user()?->admin_avatar,
-            'themes'     => config('skeleton.themes')
+            'navbar' => $navbar,
+            'avatar' => backendGuard()?->user()?->admin_avatar,
+            'themes' => config('skeleton.themes'),
         ]);
     }
 
     /**
      * Return data for the inersia shared data for the frontend.
      *
-     * @param Request $request
      *
      * @return array [data]
      */
@@ -97,15 +87,14 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'flash' => $this->handleFlashMessage($request),
-            'app'   => config('app.name'),
-            'user'         => auth()->user() ? new UserResource(auth()->user()) : null,
+            'app' => config('app.name'),
+            'user' => auth()->user() ? new UserResource(auth()->user()) : null,
         ]);
     }
 
     /**
      * Handle the inersia request stuff.
      *
-     * @param Request $request
      *
      * @return [type]
      */
@@ -114,28 +103,28 @@ class HandleInertiaRequests extends Middleware
         // Return the flash error message.
         if ($request->session()->get('error')) {
             return [
-                'type'    => 'error',
+                'type' => 'error',
                 'message' => $request->session()->get('error'),
             ];
         }
         // Return the flash success message.
         if ($request->session()->get('success')) {
             return [
-                'type'    => 'success',
+                'type' => 'success',
                 'message' => $request->session()->get('success'),
             ];
         }
         // Return the flash info message.
         if ($request->session()->get('info')) {
             return [
-                'type'    => 'info',
+                'type' => 'info',
                 'message' => $request->session()->get('info'),
             ];
         }
         // Return the flash warning message.
         if ($request->session()->get('warning')) {
             return [
-                'type'    => 'warning',
+                'type' => 'warning',
                 'message' => $request->session()->get('warning'),
             ];
         }

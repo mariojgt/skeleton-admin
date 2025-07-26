@@ -3,18 +3,18 @@
 namespace Mariojgt\SkeletonAdmin\Commands;
 
 use Exception;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Mariojgt\SkeletonAdmin\Models\Admin;
-use Mariojgt\SkeletonAdmin\Services\InstallationService;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\RegisterController as BackendRegisterController;
+use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\RegisterController as FrontendRegisterController;
 use Mariojgt\SkeletonAdmin\Database\Seeder\NavbarSeeder;
 use Mariojgt\SkeletonAdmin\Database\Seeder\NavigationSeeder;
 use Mariojgt\SkeletonAdmin\Database\Seeder\RolesPermissionSeeder;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth\RegisterController as BackendRegisterController;
-use Mariojgt\SkeletonAdmin\Controllers\Auth\FrontendAuth\RegisterController as FrontendRegisterController;
+use Mariojgt\SkeletonAdmin\Models\Admin;
+use Mariojgt\SkeletonAdmin\Services\InstallationService;
 
 class Install extends Command
 {
@@ -67,8 +67,9 @@ class Install extends Command
         try {
             $this->displayWelcome();
 
-            if (!$this->confirmInstallation()) {
+            if (! $this->confirmInstallation()) {
                 $this->info('Installation cancelled.');
+
                 return self::SUCCESS;
             }
 
@@ -78,6 +79,7 @@ class Install extends Command
             return self::SUCCESS;
         } catch (Exception $e) {
             $this->displayError($e);
+
             return self::FAILURE;
         }
     }
@@ -144,7 +146,7 @@ class Install extends Command
                 $this->checkRequirements();
                 break;
             case 'cleaning_migrations':
-                if (!$this->option('skip-migrations')) {
+                if (! $this->option('skip-migrations')) {
                     $this->cleanMigrations();
                 }
                 break;
@@ -178,7 +180,7 @@ class Install extends Command
         ];
 
         foreach ($requirements as $requirement => $met) {
-            if (!$met) {
+            if (! $met) {
                 throw new Exception("Requirement not met: {$requirement}");
             }
         }
@@ -189,7 +191,7 @@ class Install extends Command
      */
     protected function isComposerInstalled(): bool
     {
-        return !empty(shell_exec('which composer'));
+        return ! empty(shell_exec('which composer'));
     }
 
     /**
@@ -199,13 +201,14 @@ class Install extends Command
     {
         $migrationsPath = database_path('migrations');
 
-        if (!File::isDirectory($migrationsPath)) {
+        if (! File::isDirectory($migrationsPath)) {
             File::makeDirectory($migrationsPath, 0755, true);
+
             return;
         }
 
         // Backup existing migrations
-        $backupPath = database_path('migrations_backup_' . date('Y_m_d_H_i_s'));
+        $backupPath = database_path('migrations_backup_'.date('Y_m_d_H_i_s'));
         File::copyDirectory($migrationsPath, $backupPath);
 
         // Clean migrations
@@ -237,12 +240,12 @@ class Install extends Command
                     '--force' => true,
                 ]);
             } catch (Exception $e) {
-                $this->warn("Warning: Could not publish {$package}: " . $e->getMessage());
+                $this->warn("Warning: Could not publish {$package}: ".$e->getMessage());
             }
         }
 
         // Install NPM packages if not skipped
-        if (!$this->option('skip-npm')) {
+        if (! $this->option('skip-npm')) {
             $this->installNpmPackages();
         }
     }
@@ -270,10 +273,10 @@ class Install extends Command
         // Create default media folder if Magnifier is available
         if (class_exists('Mariojgt\Magnifier\Controllers\MediaFolderController')) {
             try {
-                $mediaManager = new \Mariojgt\Magnifier\Controllers\MediaFolderController();
+                $mediaManager = new \Mariojgt\Magnifier\Controllers\MediaFolderController;
                 $mediaManager->makeFolder('media');
             } catch (Exception $e) {
-                $this->warn('Could not create media folder: ' . $e->getMessage());
+                $this->warn('Could not create media folder: '.$e->getMessage());
             }
         }
     }
@@ -296,7 +299,7 @@ class Install extends Command
                     '--force' => true,
                 ]);
             } catch (Exception $e) {
-                $this->warn("Warning: Could not run seeder {$seeder}: " . $e->getMessage());
+                $this->warn("Warning: Could not run seeder {$seeder}: ".$e->getMessage());
             }
         }
     }
@@ -314,21 +317,21 @@ class Install extends Command
             $adminPassword = $this->createAdminUser($adminEmail);
             $credentials['admin'] = [
                 'email' => $adminEmail,
-                'password' => $adminPassword
+                'password' => $adminPassword,
             ];
 
             // Create regular user
             $userPassword = $this->createRegularUser($adminEmail);
             $credentials['user'] = [
                 'email' => $adminEmail,
-                'password' => $userPassword
+                'password' => $userPassword,
             ];
 
             // Save credentials to file
             $this->saveCredentialsToFile($credentials);
 
         } catch (Exception $e) {
-            $this->warn('Could not create default users: ' . $e->getMessage());
+            $this->warn('Could not create default users: '.$e->getMessage());
         }
     }
 
@@ -346,7 +349,7 @@ class Install extends Command
             'password_confirmation' => $password,
         ]);
 
-        $controller = new BackendRegisterController();
+        $controller = new BackendRegisterController;
         $controller->userRegister($request);
 
         return $password;
@@ -359,19 +362,19 @@ class Install extends Command
     {
         $password = Str::random(12);
         $request = new Request([
-            'username' => 'user_' . Str::random(6),
+            'username' => 'user_'.Str::random(6),
             'first_name' => 'Regular',
             'last_name' => 'User',
-            'email' => 'user_' . $email,
+            'email' => 'user_'.$email,
             'password' => $password,
             'password_confirmation' => $password,
         ]);
 
-        $controller = new FrontendRegisterController();
+        $controller = new FrontendRegisterController;
         $controller->userRegister($request);
 
         // Verify email automatically
-        $user = Admin::where('email', 'user_' . $email)->first();
+        $user = Admin::where('email', 'user_'.$email)->first();
         if ($user) {
             $user->email_verified_at = now();
             $user->save();
@@ -386,12 +389,12 @@ class Install extends Command
     protected function saveCredentialsToFile(array $credentials): void
     {
         $content = "Skeleton Admin - Default User Credentials\n";
-        $content .= "Generated on: " . now()->toDateTimeString() . "\n\n";
+        $content .= 'Generated on: '.now()->toDateTimeString()."\n\n";
 
         foreach ($credentials as $type => $creds) {
-            $content .= strtoupper($type) . " USER:\n";
-            $content .= "Email: " . $creds['email'] . "\n";
-            $content .= "Password: " . $creds['password'] . "\n\n";
+            $content .= strtoupper($type)." USER:\n";
+            $content .= 'Email: '.$creds['email']."\n";
+            $content .= 'Password: '.$creds['password']."\n\n";
         }
 
         $content .= "⚠️  Please change these passwords after first login!\n";
@@ -441,7 +444,7 @@ class Install extends Command
     protected function displayError(Exception $e): void
     {
         $this->error('❌ Installation failed!');
-        $this->error('Error: ' . $e->getMessage());
+        $this->error('Error: '.$e->getMessage());
         $this->newLine();
 
         $this->info('🔧 Troubleshooting:');

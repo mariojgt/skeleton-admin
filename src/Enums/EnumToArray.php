@@ -2,9 +2,6 @@
 
 namespace Mariojgt\SkeletonAdmin\Enums;
 
-/**
- *
- */
 trait EnumToArray
 {
     public static function names(): array

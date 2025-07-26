@@ -31,18 +31,18 @@ class RegisterController extends Controller
 
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
-            'email'      => ['required', 'string', 'email', 'max:255', 'unique:admins'],
-            'password'   => ['required', 'confirmed', Password::min(8)->uncompromised()],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+            'password' => ['required', 'confirmed', Password::min(8)->uncompromised()],
         ]);
 
         DB::beginTransaction();
 
-        $user             = new Admin();
+        $user = new Admin;
         $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->email      = $request->email;
-        $user->password   = Hash::make($request->password);
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
         $user->save();
 
         $user->email_verified_at = Carbon::now();

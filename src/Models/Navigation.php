@@ -1,4 +1,5 @@
 <?php
+
 namespace Mariojgt\SkeletonAdmin\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ class Navigation extends Model
         'route',
         'icon',
         'parent_id',
-        'sort_order'
+        'sort_order',
     ];
 
     /**
@@ -30,8 +31,7 @@ class Navigation extends Model
     /**
      * Get the collection of the parent category
      *
-     * @param mixed $category
-     *
+     * @param  mixed  $category
      * @return array [collection|null]
      */
     public function parentCollection($navigation)
@@ -45,7 +45,7 @@ class Navigation extends Model
                 'menu_label' => $cat->menu_label,
                 'route' => $cat->route,
                 'icon' => $cat->icon,
-                'child' => $this->parentCollection($cat)
+                'child' => $this->parentCollection($cat),
             ];
         }
 

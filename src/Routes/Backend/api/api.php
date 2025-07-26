@@ -2,16 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Mariojgt\Builder\Controllers\TableBuilderApiController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Media\MediaController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth\AuthApiController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Search\SearchController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Media\MediaController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Notifications\NotificationsController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Search\SearchController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Api\User\UserController;
 
 Route::group([
     'middleware' => ['web', 'skeleton_admin'],
-    'prefix'     => config('skeleton.route_prefix'),
+    'prefix' => config('skeleton.route_prefix'),
 ], function () {
     Route::controller(NotificationsController::class)->group(function () {
         Route::get('/admin/api/notifications/{amount}', 'index')->name('admin.api.notifications');
@@ -44,7 +44,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix'     => 'api',
+    'prefix' => 'api',
 ], function () {
     Route::controller(AuthApiController::class)->group(function () {
         Route::post('/backend/login', 'login')->name('skeleton.backend.api.login');
@@ -60,7 +60,7 @@ Route::group([
 */
 Route::group([
     'middleware' => ['auth:sanctum'],
-    'prefix'     => 'api',
+    'prefix' => 'api',
 ], function () {
     Route::controller(UserController::class)->group(function () {
         Route::post('/user/info', 'index')->name('user.info');

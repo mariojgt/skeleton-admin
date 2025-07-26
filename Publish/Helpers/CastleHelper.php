@@ -14,6 +14,7 @@ class CastleHelper
     /**
      * This function will render the authentication page so the user can type the code
      * note that we can change this to use ajax, inertia js or any other way default use the blade file
+     *
      * @return [type]
      */
     public function overrideWallAuthentication()
@@ -24,7 +25,6 @@ class CastleHelper
 
     /**
      * On authentication success we redirect the user using the customer helper that you can change
-     * @param Request $request
      *
      * @return [type]
      */
@@ -32,13 +32,13 @@ class CastleHelper
     {
         // get the current guard
         $currentGuard = $request->session()->get('castle_wall_current_guard');
+
         // Return to the next request
         return redirect()->route(config('castle.sucess_login_route')[$currentGuard]);
     }
 
     /**
      * On authentication error we redirect the user using the customer helper that you can change
-     * @param Request $request
      *
      * @return [type]
      */

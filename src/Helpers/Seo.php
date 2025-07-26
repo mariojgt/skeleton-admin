@@ -13,36 +13,58 @@ class Seo
 {
     // Core SEO properties
     private string $title = '';
+
     private string $description = '';
+
     private string $keywords = '';
+
     private string $author = '';
+
     private string $image = '';
+
     private string $url = '';
+
     private string $type = 'website';
+
     private string $siteName = 'TheDevRealm';
+
     private string $twitterHandle = '@thedevrealm';
+
     private string $locale = 'en_US';
+
     private string $robots = 'index, follow';
 
     // Enhanced SEO properties
     private array $alternateLanguages = [];
+
     private array $breadcrumbs = [];
+
     private array $customMeta = [];
+
     private array $structuredData = [];
+
     private string $themeColor = '#3B82F6';
+
     private string $appleTouchIcon = '/apple-touch-icon.png';
+
     private string $favicon = '/favicon.ico';
+
     private string $manifest = '/manifest.json';
 
     // Performance and caching
     private static ?self $instance = null;
+
     private static array $cache = [];
+
     private bool $enableMinification = true;
+
     private bool $enableCaching = true;
 
     // SEO limits for validation
     private const TITLE_MAX_LENGTH = 60;
+
     private const DESCRIPTION_MAX_LENGTH = 160;
+
     private const KEYWORDS_MAX_COUNT = 10;
 
     public function __construct(?string $title = null, ?string $description = null)
@@ -57,15 +79,16 @@ class Seo
         // Set default URL if available
         if (isset($_SERVER['HTTP_HOST']) && isset($_SERVER['REQUEST_URI'])) {
             $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-            $this->url = $protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $this->url = $protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         }
     }
 
     public static function getInstance(): self
     {
         if (static::$instance === null) {
-            static::$instance = new self();
+            static::$instance = new self;
         }
+
         return static::$instance;
     }
 
@@ -81,6 +104,7 @@ class Seo
         $title = trim($title);
 
         $this->title = $title;
+
         return $this;
     }
 
@@ -88,6 +112,7 @@ class Seo
     {
         $description = trim($description);
         $this->description = $description;
+
         return $this;
     }
 
@@ -96,6 +121,7 @@ class Seo
         // Handle null or empty values
         if (empty($keywords)) {
             $this->keywords = '';
+
             return $this;
         }
 
@@ -108,12 +134,12 @@ class Seo
         if (is_array($keywords)) {
             // Filter out empty values and trim whitespace
             $keywords = array_filter(array_map('trim', $keywords), function ($keyword) {
-                return !empty($keyword);
+                return ! empty($keyword);
             });
 
             // Check count and trigger warning if exceeded
             if (count($keywords) > self::KEYWORDS_MAX_COUNT) {
-                trigger_error("Keywords exceed recommended count of " . self::KEYWORDS_MAX_COUNT, E_USER_WARNING);
+                trigger_error('Keywords exceed recommended count of '.self::KEYWORDS_MAX_COUNT, E_USER_WARNING);
             }
 
             // Limit to max count and convert back to comma-separated string
@@ -129,69 +155,78 @@ class Seo
     public function setImage(string $image): self
     {
         // Validate image URL format
-        if (!filter_var($image, FILTER_VALIDATE_URL) && !str_starts_with($image, '/')) {
+        if (! filter_var($image, FILTER_VALIDATE_URL) && ! str_starts_with($image, '/')) {
             throw new InvalidArgumentException('Image must be a valid URL or absolute path');
         }
         $this->image = $image;
+
         return $this;
     }
 
     public function setUrl(string $url): self
     {
-        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+        if (! filter_var($url, FILTER_VALIDATE_URL)) {
             throw new InvalidArgumentException('URL must be valid');
         }
         $this->url = $url;
+
         return $this;
     }
 
     public function setType(string $type): self
     {
         $validTypes = ['website', 'article', 'product', 'book', 'profile', 'video', 'music', 'course'];
-        if (!in_array($type, $validTypes)) {
-            throw new InvalidArgumentException('Invalid type. Must be one of: ' . implode(', ', $validTypes));
+        if (! in_array($type, $validTypes)) {
+            throw new InvalidArgumentException('Invalid type. Must be one of: '.implode(', ', $validTypes));
         }
         $this->type = $type;
+
         return $this;
     }
 
     public function setAuthor(string $author): self
     {
         $this->author = trim($author);
+
         return $this;
     }
 
     public function setSiteName(string $siteName): self
     {
         $this->siteName = trim($siteName);
+
         return $this;
     }
 
     public function setTwitterHandle(string $handle): self
     {
         // Ensure @ prefix
-        $this->twitterHandle = str_starts_with($handle, '@') ? $handle : '@' . $handle;
+        $this->twitterHandle = str_starts_with($handle, '@') ? $handle : '@'.$handle;
+
         return $this;
     }
 
     public function setLocale(string $locale): self
     {
         $this->locale = $locale;
+
         return $this;
     }
 
     public function setRobots(string $robots): self
     {
         $this->robots = $robots;
+
         return $this;
     }
 
     public function setThemeColor(string $color): self
     {
-        if (!preg_match('/^#[0-9A-Fa-f]{6}$/', $color)) {
+        if (! preg_match('/^#[0-9A-Fa-f]{6}$/', $color)) {
             throw new InvalidArgumentException('Theme color must be a valid hex color');
         }
         $this->themeColor = $color;
+
         return $this;
     }
 
@@ -199,12 +234,14 @@ class Seo
     public function addAlternateLanguage(string $lang, string $url): self
     {
         $this->alternateLanguages[$lang] = $url;
+
         return $this;
     }
 
     public function setBreadcrumbs(array $breadcrumbs): self
     {
         $this->breadcrumbs = $breadcrumbs;
+
         return $this;
     }
 
@@ -213,14 +250,16 @@ class Seo
         $this->customMeta[] = [
             'type' => $type, // 'name' or 'property'
             'name' => $name,
-            'content' => $content
+            'content' => $content,
         ];
+
         return $this;
     }
 
     public function addStructuredData(array $data): self
     {
         $this->structuredData[] = $data;
+
         return $this;
     }
 
@@ -250,6 +289,7 @@ class Seo
         $this->addCustomMeta('product:price:amount', $price, 'property');
         $this->addCustomMeta('product:price:currency', $currency, 'property');
         $this->addCustomMeta('product:availability', $availability, 'property');
+
         return $this;
     }
 
@@ -257,12 +297,14 @@ class Seo
     public function enableMinification(bool $enable = true): self
     {
         $this->enableMinification = $enable;
+
         return $this;
     }
 
     public function enableCaching(bool $enable = true): self
     {
         $this->enableCaching = $enable;
+
         return $this;
     }
 
@@ -335,7 +377,7 @@ class Seo
         if ($this->author) {
             $baseSchema['author'] = [
                 '@type' => 'Person',
-                'name' => $this->author
+                'name' => $this->author,
             ];
         }
 
@@ -347,31 +389,31 @@ class Seo
                 '@context' => 'https://schema.org',
                 '@type' => 'WebSite',
                 'name' => $this->siteName,
-                'url' => parse_url($this->url, PHP_URL_SCHEME) . '://' . parse_url($this->url, PHP_URL_HOST),
+                'url' => parse_url($this->url, PHP_URL_SCHEME).'://'.parse_url($this->url, PHP_URL_HOST),
                 'potentialAction' => [
                     '@type' => 'SearchAction',
-                    'target' => parse_url($this->url, PHP_URL_SCHEME) . '://' . parse_url($this->url, PHP_URL_HOST) . '/search?q={search_term_string}',
-                    'query-input' => 'required name=search_term_string'
-                ]
+                    'target' => parse_url($this->url, PHP_URL_SCHEME).'://'.parse_url($this->url, PHP_URL_HOST).'/search?q={search_term_string}',
+                    'query-input' => 'required name=search_term_string',
+                ],
             ];
         }
 
         // Breadcrumbs schema
-        if (!empty($this->breadcrumbs)) {
+        if (! empty($this->breadcrumbs)) {
             $breadcrumbItems = [];
             foreach ($this->breadcrumbs as $index => $breadcrumb) {
                 $breadcrumbItems[] = [
                     '@type' => 'ListItem',
                     'position' => $index + 1,
                     'name' => $breadcrumb['name'],
-                    'item' => $breadcrumb['url'] ?? null
+                    'item' => $breadcrumb['url'] ?? null,
                 ];
             }
 
             $jsonLd[] = [
                 '@context' => 'https://schema.org',
                 '@type' => 'BreadcrumbList',
-                'itemListElement' => $breadcrumbItems
+                'itemListElement' => $breadcrumbItems,
             ];
         }
 
@@ -388,7 +430,7 @@ class Seo
         $maxScore = 100;
 
         // Title scoring (20 points)
-        if (!empty($this->title)) {
+        if (! empty($this->title)) {
             $score += 10;
             if (strlen($this->title) <= self::TITLE_MAX_LENGTH && strlen($this->title) >= 30) {
                 $score += 10;
@@ -396,7 +438,7 @@ class Seo
         }
 
         // Description scoring (20 points)
-        if (!empty($this->description)) {
+        if (! empty($this->description)) {
             $score += 10;
             if (strlen($this->description) <= self::DESCRIPTION_MAX_LENGTH && strlen($this->description) >= 120) {
                 $score += 10;
@@ -404,32 +446,32 @@ class Seo
         }
 
         // Image scoring (15 points)
-        if (!empty($this->image)) {
+        if (! empty($this->image)) {
             $score += 15;
         }
 
         // Keywords scoring (10 points)
-        if (!empty($this->keywords)) {
+        if (! empty($this->keywords)) {
             $score += 10;
         }
 
         // URL scoring (10 points)
-        if (!empty($this->url)) {
+        if (! empty($this->url)) {
             $score += 10;
         }
 
         // Author scoring (5 points)
-        if (!empty($this->author)) {
+        if (! empty($this->author)) {
             $score += 5;
         }
 
         // Structured data scoring (10 points)
-        if (!empty($this->structuredData) || !empty($this->breadcrumbs)) {
+        if (! empty($this->structuredData) || ! empty($this->breadcrumbs)) {
             $score += 10;
         }
 
         // Social media optimization (10 points)
-        if (!empty($this->twitterHandle) && !empty($this->image)) {
+        if (! empty($this->twitterHandle) && ! empty($this->image)) {
             $score += 10;
         }
 
@@ -439,7 +481,7 @@ class Seo
     // Enhanced render method with performance optimizations
     public function render(): string
     {
-        $cacheKey = 'render_' . $this->getCacheKey();
+        $cacheKey = 'render_'.$this->getCacheKey();
 
         if ($this->enableCaching && isset(static::$cache[$cacheKey])) {
             return static::$cache[$cacheKey];
@@ -469,12 +511,12 @@ class Seo
 
         // Title
         if ($this->title) {
-            $html[] = '<title>' . htmlspecialchars($this->title, ENT_QUOTES, 'UTF-8') . '</title>';
+            $html[] = '<title>'.htmlspecialchars($this->title, ENT_QUOTES, 'UTF-8').'</title>';
         }
 
         // Standard meta tags
         foreach ($this->toArray()['meta'] as $name => $content) {
-            if (!empty($content)) {
+            if (! empty($content)) {
                 $html[] = sprintf(
                     '<meta name="%s" content="%s">',
                     htmlspecialchars($name, ENT_QUOTES, 'UTF-8'),
@@ -504,7 +546,7 @@ class Seo
 
         // Open Graph tags
         foreach ($this->toArray()['og'] as $property => $content) {
-            if (!empty($content)) {
+            if (! empty($content)) {
                 $html[] = sprintf(
                     '<meta property="og:%s" content="%s">',
                     htmlspecialchars($property, ENT_QUOTES, 'UTF-8'),
@@ -515,7 +557,7 @@ class Seo
 
         // Twitter Card tags
         foreach ($this->toArray()['twitter'] as $property => $content) {
-            if (!empty($content)) {
+            if (! empty($content)) {
                 $html[] = sprintf(
                     '<meta name="twitter:%s" content="%s">',
                     htmlspecialchars($property, ENT_QUOTES, 'UTF-8'),
@@ -543,13 +585,13 @@ class Seo
 
         // JSON-LD Schema
         $jsonLd = $this->toArray()['jsonLd'];
-        if (!empty($jsonLd)) {
+        if (! empty($jsonLd)) {
             $html[] = '<script type="application/ld+json">';
             $html[] = json_encode($jsonLd, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
             $html[] = '</script>';
         }
 
-        return implode(PHP_EOL, $html) . PHP_EOL;
+        return implode(PHP_EOL, $html).PHP_EOL;
     }
 
     private function minifyHtml(string $html): string
@@ -557,6 +599,7 @@ class Seo
         // Simple HTML minification
         $html = preg_replace('/\s+/', ' ', $html);
         $html = preg_replace('/>\s+</', '><', $html);
+
         return trim($html);
     }
 
@@ -572,7 +615,7 @@ class Seo
             $this->type,
             $this->customMeta,
             $this->structuredData,
-            $this->breadcrumbs
+            $this->breadcrumbs,
         ]));
     }
 
@@ -596,6 +639,7 @@ class Seo
         if ($url) {
             $seo->setUrl($url);
         }
+
         return $seo;
     }
 
@@ -607,13 +651,13 @@ class Seo
         if (empty($this->title)) {
             $issues[] = 'Title is required for SEO';
         } elseif (strlen($this->title) > self::TITLE_MAX_LENGTH) {
-            $issues[] = "Title exceeds {self::TITLE_MAX_LENGTH} characters";
+            $issues[] = 'Title exceeds {self::TITLE_MAX_LENGTH} characters';
         }
 
         if (empty($this->description)) {
             $issues[] = 'Description is required for SEO';
         } elseif (strlen($this->description) > self::DESCRIPTION_MAX_LENGTH) {
-            $issues[] = "Description exceeds {self::DESCRIPTION_MAX_LENGTH} characters";
+            $issues[] = 'Description exceeds {self::DESCRIPTION_MAX_LENGTH} characters';
         }
 
         if (empty($this->image)) {

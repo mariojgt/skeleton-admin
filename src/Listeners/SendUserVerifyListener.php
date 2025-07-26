@@ -20,12 +20,8 @@ class SendUserVerifyListener
 
     /**
      * Send the user a link so we can verify the email.
-     *
-     * @param UserVerifyEvent $event
-     *
-     * @return void
      */
-    public function handle(UserVerifyEvent $event) : void
+    public function handle(UserVerifyEvent $event): void
     {
         Mail::to($event->user)->send(new UserVerifyEmail($event->user));
     }

@@ -1,22 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User\UserController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Admin\AdminController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navbar\NavbarController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\System\SystemController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navigation\NavigationController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\PermissionController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\RoleController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Social\SocialAuthController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Dashboard\DashboardController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navigation\NavigationController;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\System\PackageBuilderController;
-use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions\PermissionController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\System\SystemController;
+use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\User\UserController;
 
 // Auth Route
 Route::group([
     'middleware' => ['skeleton_admin', '2fa:skeleton_admin'],
-    'prefix'     => config('skeleton.route_prefix'),
+    'prefix' => config('skeleton.route_prefix'),
 ], function () {
     Route::get('/skeleton-admin/home', [DashboardController::class, 'index'])
         ->name('skeleton-admin.home');
@@ -50,7 +49,7 @@ Route::group([
         Route::get('/navigation/index', 'index')->name('admin.navigation.index');
         Route::get('/navigation/position', 'position')->name('admin.navigation.position');
 
-         // API routes
+        // API routes
         Route::put('/api/navigation/update/{navigation}', 'updatePosition')->name('admin.api.navigation.update');
         Route::post('/api/navigation/reset', 'resetPositions')->name('admin.api.navigation.reset');
         Route::post('/api/navigation/save', 'savePositions')->name('admin.api.navigation.save');
@@ -74,7 +73,7 @@ Route::group([
         Route::get('/api/system/log-files', 'getLogFiles')->name('admin.api.system.log-files');
         Route::get('/api/system/logs', 'getLogs')->name('admin.api.system.logs');
 
-         // Environment management
+        // Environment management
         Route::get('/api/system/env-variables', 'getEnvVariables')->name('admin.api.system.env-variables');
         Route::put('/api/system/env-variable/{key}', 'updateEnvVariable')->name('admin.api.system.env-variable');
         Route::post('/api/system/env-variable', 'addEnvVariable')->name('admin.api.system.env-variable.store');
@@ -98,7 +97,7 @@ Route::group([
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/auth/{provider}/redirect', [SocialAuthController::class, 'redirect'])
-    ->name('social.redirect');
+        ->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])
         ->name('social.callback');
 });

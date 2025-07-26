@@ -17,7 +17,7 @@ class Gravatar
      */
     public static function gravatarUrl($code, $size = 50)
     {
-        return '//www.gravatar.com/avatar/' . $code . '?s=350&d=mp';
+        return '//www.gravatar.com/avatar/'.$code.'?s=350&d=mp';
     }
 
     /**
@@ -30,7 +30,7 @@ class Gravatar
         } else {
             $code = self::createGravatar($email);
             $url = self::gravatarUrl($code, $size);
-            echo '<img src="' . $url . '" class="img-avatar img-fluid" />';
+            echo '<img src="'.$url.'" class="img-avatar img-fluid" />';
         }
     }
 

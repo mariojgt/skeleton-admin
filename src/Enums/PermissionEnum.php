@@ -2,8 +2,6 @@
 
 namespace Mariojgt\SkeletonAdmin\Enums;
 
-use Mariojgt\SkeletonAdmin\Enums\EnumToArray;
-
 enum PermissionEnum: string
 {
     use EnumToArray;

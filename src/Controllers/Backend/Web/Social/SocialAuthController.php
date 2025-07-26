@@ -2,13 +2,13 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Social;
 
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Mariojgt\SkeletonAdmin\Models\User;
-use Laravel\Socialite\Facades\Socialite;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Laravel\Socialite\Facades\Socialite;
 use Mariojgt\SkeletonAdmin\Models\SocialAccount;
+use Mariojgt\SkeletonAdmin\Models\User;
 
 class SocialAuthController extends Controller
 {
@@ -16,6 +16,7 @@ class SocialAuthController extends Controller
     {
         activity()
             ->log('User redirected to social login');
+
         return Socialite::driver($provider)->redirect();
     }
 
@@ -48,10 +49,10 @@ class SocialAuthController extends Controller
                         ->log('User created with social account');
                     // Create new user
                     $user = User::create([
-                        'first_name'        => $socialUser->getName(),
-                        'username'          => $socialUser->getNickname() ?? strtolower(str_replace(' ', '_', $socialUser->getName())),
-                        'email'             => $socialUser->getEmail(),
-                        'avatar'            => $socialUser->getAvatar(),
+                        'first_name' => $socialUser->getName(),
+                        'username' => $socialUser->getNickname() ?? strtolower(str_replace(' ', '_', $socialUser->getName())),
+                        'email' => $socialUser->getEmail(),
+                        'avatar' => $socialUser->getAvatar(),
                         'registration_type' => $provider,
                         'email_verified_at' => now(),
                     ]);
@@ -75,6 +76,7 @@ class SocialAuthController extends Controller
             activity()
                 ->causedBy($user)
                 ->log('User logged in with social account');
+
             return redirect()->route('home');
         } catch (ClientException $e) {
             // Handle specific Guzzle client exceptions
@@ -83,14 +85,14 @@ class SocialAuthController extends Controller
             $errorDetails = json_decode($e->getResponse()->getBody()->getContents(), true);
 
             return redirect()->route('login')->withErrors([
-                'error' => 'Social login failed: ' . ($errorDetails['error_description'] ?? 'An unknown error occurred.'),
+                'error' => 'Social login failed: '.($errorDetails['error_description'] ?? 'An unknown error occurred.'),
             ]);
         } catch (\Exception $e) {
             // Handle general exceptions
             DB::rollBack();
 
             return redirect()->route('login')
-                ->with('error', 'Unable to login with ' . ucfirst($provider) . '. Please try again.');
+                ->with('error', 'Unable to login with '.ucfirst($provider).'. Please try again.');
         }
     }
 }

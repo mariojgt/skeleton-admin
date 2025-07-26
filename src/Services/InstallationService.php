@@ -3,9 +3,9 @@
 namespace Mariojgt\SkeletonAdmin\Services;
 
 use Exception;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
 class InstallationService
 {
@@ -52,6 +52,7 @@ class InstallationService
 
         if (File::exists($composerFile)) {
             $composer = json_decode(File::get($composerFile), true);
+
             return $composer['version'] ?? 'unknown';
         }
 
@@ -101,6 +102,7 @@ class InstallationService
     {
         try {
             \DB::connection()->getPdo();
+
             return true;
         } catch (Exception $e) {
             return false;
@@ -145,7 +147,7 @@ class InstallationService
      */
     public function createBackup(): string
     {
-        $backupDir = storage_path('backups/skeleton-admin-' . date('Y-m-d-H-i-s'));
+        $backupDir = storage_path('backups/skeleton-admin-'.date('Y-m-d-H-i-s'));
         File::makeDirectory($backupDir, 0755, true);
 
         $filesToBackup = [
@@ -156,7 +158,7 @@ class InstallationService
 
         foreach ($filesToBackup as $name => $path) {
             if (File::exists($path)) {
-                File::copyDirectory($path, $backupDir . '/' . $name);
+                File::copyDirectory($path, $backupDir.'/'.$name);
             }
         }
 
@@ -173,9 +175,11 @@ class InstallationService
                 '--provider' => $provider,
                 '--force' => $force,
             ]);
+
             return true;
         } catch (Exception $e) {
-            $this->status['errors'][] = "Failed to publish {$provider}: " . $e->getMessage();
+            $this->status['errors'][] = "Failed to publish {$provider}: ".$e->getMessage();
+
             return false;
         }
     }
@@ -190,9 +194,11 @@ class InstallationService
                 '--class' => $seederClass,
                 '--force' => true,
             ]);
+
             return true;
         } catch (Exception $e) {
-            $this->status['errors'][] = "Failed to run seeder {$seederClass}: " . $e->getMessage();
+            $this->status['errors'][] = "Failed to run seeder {$seederClass}: ".$e->getMessage();
+
             return false;
         }
     }
@@ -214,7 +220,7 @@ class InstallationService
                 Artisan::call($command);
             } catch (Exception $e) {
                 // Log but don't fail installation
-                $this->status['warnings'][] = "Failed to run {$command}: " . $e->getMessage();
+                $this->status['warnings'][] = "Failed to run {$command}: ".$e->getMessage();
             }
         }
     }
@@ -224,7 +230,7 @@ class InstallationService
      */
     public function optimizeForProduction(): void
     {
-        if (!app()->environment('production')) {
+        if (! app()->environment('production')) {
             return;
         }
 
@@ -238,7 +244,7 @@ class InstallationService
             try {
                 Artisan::call($command);
             } catch (Exception $e) {
-                $this->status['warnings'][] = "Failed to run {$command}: " . $e->getMessage();
+                $this->status['warnings'][] = "Failed to run {$command}: ".$e->getMessage();
             }
         }
     }

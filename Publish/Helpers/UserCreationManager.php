@@ -10,20 +10,20 @@ use Mariojgt\SkeletonAdmin\Models\User;
  */
 class UserCreationManager
 {
-     /**
+    /**
      * This function will be called when a user is created
      * You can override this method in your main Laravel app
-     * @param User $user
+     *
      * @return void
      */
     public static function onUserCreated(User $user)
     {
         // Default plugin behavior - create user level if method exists
-        if (method_exists($user, 'userLevel') && !$user->userLevel) {
+        if (method_exists($user, 'userLevel') && ! $user->userLevel) {
             $user->userLevel()->create([
                 'level' => 1,
                 'xp' => 0,
-                'total_xp' => 0
+                'total_xp' => 0,
             ]);
         }
         // Log the user creation

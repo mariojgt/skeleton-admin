@@ -2,12 +2,10 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Navbar;
 
-use Inertia\Inertia;
-use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
-use Mariojgt\SkeletonAdmin\Models\Navbar;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
+use Mariojgt\SkeletonAdmin\Models\Navbar;
 
 class NavbarController extends GenericCrudController
 {
@@ -19,7 +17,7 @@ class NavbarController extends GenericCrudController
 
     protected function getFormConfig(): FormHelper
     {
-        return (new FormHelper())
+        return (new FormHelper)
             ->addIdField()
             ->addField(
                 label: 'Menu Label',

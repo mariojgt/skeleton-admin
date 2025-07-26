@@ -42,38 +42,38 @@ class Republish extends Command
         $bar->start();
 
         // Delete extra files from other packages if they exist
-        File::deleteDirectory(__DIR__ . '/../../Publish/Resource');
+        File::deleteDirectory(__DIR__.'/../../Publish/Resource');
 
         // First we move the resources where we keep the css and js files
         $this->moveFileOrFolder(
             resource_path('vendor/SkeletonAdmin/'),
-            __DIR__ . '/../../Publish/Resource/',
+            __DIR__.'/../../Publish/Resource/',
             $bar
         );
-        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/backend/Pages/Vendor');
-        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/backend/Components/Vendor');
-        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/frontend/Pages/Vendor');
-        File::deleteDirectory(__DIR__ . '/../../Publish/Resource/js/frontend/Components/Vendor');
+        File::deleteDirectory(__DIR__.'/../../Publish/Resource/js/backend/Pages/Vendor');
+        File::deleteDirectory(__DIR__.'/../../Publish/Resource/js/backend/Components/Vendor');
+        File::deleteDirectory(__DIR__.'/../../Publish/Resource/js/frontend/Pages/Vendor');
+        File::deleteDirectory(__DIR__.'/../../Publish/Resource/js/frontend/Components/Vendor');
 
-        File::deleteDirectory(__DIR__ . '/../../Publish/Public');
+        File::deleteDirectory(__DIR__.'/../../Publish/Public');
         // Now we move the already compiles files from the public
         $this->moveFileOrFolder(
             public_path('vendor/Skeleton'),
-            __DIR__ . '/../../Publish/Public/',
+            __DIR__.'/../../Publish/Public/',
             $bar
         );
 
         // Copy the avatar folder
         $this->moveFileOrFolder(
             public_path('assets/avatars'),
-            __DIR__ . '/../../Publish/Avatars',
+            __DIR__.'/../../Publish/Avatars',
             $bar
         );
 
         // Now we copy the tailwind file
         $this->moveFileOrFolder(
             base_path('vite.config.js'),
-            __DIR__ . '/../../Publish/Npm/vite.config.js',
+            __DIR__.'/../../Publish/Npm/vite.config.js',
             $bar,
             true
         );
@@ -81,7 +81,7 @@ class Republish extends Command
         // Now we copy the package.json file
         $this->moveFileOrFolder(
             base_path('package.json'),
-            __DIR__ . '/../../Publish/Npm/package.json',
+            __DIR__.'/../../Publish/Npm/package.json',
             $bar,
             true
         );
@@ -89,7 +89,7 @@ class Republish extends Command
         // Now we copy the postcss.config.js file
         $this->moveFileOrFolder(
             base_path('postcss.config.js'),
-            __DIR__ . '/../../Publish/Npm/postcss.config.js',
+            __DIR__.'/../../Publish/Npm/postcss.config.js',
             $bar,
             true
         );
@@ -97,7 +97,7 @@ class Republish extends Command
         // Now we copy the postcss.config.js file
         $this->moveFileOrFolder(
             base_path('jsconfig.json'),
-            __DIR__ . '/../../Publish/Npm/jsconfig.json',
+            __DIR__.'/../../Publish/Npm/jsconfig.json',
             $bar,
             true
         );
@@ -108,11 +108,9 @@ class Republish extends Command
     }
 
     /**
-     * @param mixed $target // The folder we want to copy
-     * @param mixed $destination // The folder we want to copy to
-     * @param mixed $bar // The progress bar or the command
-     *
-     * @return void
+     * @param  mixed  $target  // The folder we want to copy
+     * @param  mixed  $destination  // The folder we want to copy to
+     * @param  mixed  $bar  // The progress bar or the command
      */
     private function moveFileOrFolder($target, $destination, $bar, $isFile = false): void
     {

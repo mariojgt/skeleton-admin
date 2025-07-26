@@ -1,12 +1,10 @@
 <?php
 
-use Mariojgt\SkeletonAdmin\Models\Role;
-use Mariojgt\SkeletonAdmin\Models\User;
 use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\SkeletonAdmin\Models\Navigation;
 use Mariojgt\SkeletonAdmin\Models\Permission;
-use Mariojgt\GameDev\Models\User as GamedevUser;
-use Skeleton\Store\Models\User as SkeletonStore;
+use Mariojgt\SkeletonAdmin\Models\Role;
+use Mariojgt\SkeletonAdmin\Models\User;
 
 return [
     /**
@@ -16,14 +14,14 @@ return [
     /**
      * If true we going to send an email to the user to verify his account.
      */
-    'frontend_email_verify'       => true,
+    'frontend_email_verify' => true,
     /**
      * Redirect after login, register, logout, verify for the front end.
      */
-    'front_end_login_redirect'    => 'home',
-    'front_end_logout_redirect'   => 'home',
+    'front_end_login_redirect' => 'home',
+    'front_end_logout_redirect' => 'home',
     'front_end_register_redirect' => 'home',
-    'front_end_verify_redirect'   => 'home',
+    'front_end_verify_redirect' => 'home',
     /**
      * Enable or disable backend register.
      */
@@ -33,7 +31,7 @@ return [
      * The Boot Token is used in the pre api authentication
      * So we can prevent unwanted application ping your url.
      */
-    'boot_token'      => 'admin',
+    'boot_token' => 'admin',
 
     /**
      * In here for example you have have a admin guard login or a different user guard
@@ -92,14 +90,14 @@ return [
     ],
 
     'front_end_notification_user_model' => [
-        User::class
+        User::class,
     ],
 
     'themes' => [
         'forest',
         'master',
-        'admin'
+        'admin',
     ],
 
-    'extra_profile_links' => []
+    'extra_profile_links' => [],
 ];

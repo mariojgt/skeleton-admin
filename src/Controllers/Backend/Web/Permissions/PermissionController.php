@@ -2,12 +2,10 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Permissions;
 
-use Inertia\Inertia;
-use App\Http\Controllers\Controller;
 use Mariojgt\Builder\Enums\FieldTypes;
 use Mariojgt\Builder\Helpers\FormHelper;
-use Mariojgt\SkeletonAdmin\Models\Permission;
 use Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud\GenericCrudController;
+use Mariojgt\SkeletonAdmin\Models\Permission;
 
 class PermissionController extends GenericCrudController
 {
@@ -19,7 +17,7 @@ class PermissionController extends GenericCrudController
 
     protected function getFormConfig(): FormHelper
     {
-        return (new FormHelper())
+        return (new FormHelper)
             ->addIdField()
             ->addField(
                 label: 'Name',
@@ -38,8 +36,8 @@ class PermissionController extends GenericCrudController
                     'select_options' => [
                         ['value' => 'skeleton_admin', 'label' => 'backend'],
                         ['value' => 'web', 'label' => 'frontend'],
-                        ['value' => 'api', 'label' => 'api']
-                    ]
+                        ['value' => 'api', 'label' => 'api'],
+                    ],
                 ],
                 filterable: true
             )

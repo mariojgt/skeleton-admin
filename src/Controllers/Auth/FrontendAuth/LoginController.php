@@ -17,14 +17,14 @@ class LoginController extends Controller
     public function index()
     {
         return Inertia::render('Auth/Frontend/Index', [
-            'title'   => 'Login',
+            'title' => 'Login',
         ]);
     }
 
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
@@ -33,11 +33,12 @@ class LoginController extends Controller
         // Try login Note the you have the guard
         if (Auth::guard(config('skeleton.user_guard'))->attempt($credentials)) {
             // Check if the user has been verify
-            if (!Auth::user()->hasVerifiedEmail()) {
+            if (! Auth::user()->hasVerifiedEmail()) {
                 Auth::logout();
 
                 return back()->with('error', 'User need to be verify!');
             }
+
             return redirect()->back()->with('success', 'Welcome :)');
         } else {
             return Redirect::back()->with('error', 'Credentials do not match');
@@ -53,10 +54,10 @@ class LoginController extends Controller
 
     public function verify(Request $request, $userId, $expiration)
     {
-        $userId     = decrypt($userId);
+        $userId = decrypt($userId);
         $expiration = decrypt($expiration);
-        $user       = User::findOrFail($userId);
-        $nowDate    = Carbon::now();
+        $user = User::findOrFail($userId);
+        $nowDate = Carbon::now();
 
         // Check if is expired
         if ($nowDate > $expiration) {
@@ -64,7 +65,7 @@ class LoginController extends Controller
         }
 
         // Check if the user has been verify
-        if (!$user->hasVerifiedEmail()) {
+        if (! $user->hasVerifiedEmail()) {
             $user->markEmailAsVerified();
             event(new Verified($user));
             Auth::guard(config('skeleton.user_guard'))->login($user);

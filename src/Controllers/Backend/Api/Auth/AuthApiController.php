@@ -2,11 +2,11 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Api\Auth;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Mariojgt\SkeletonAdmin\Models\Admin;
@@ -17,11 +17,10 @@ class AuthApiController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'       => ['required', 'string', 'email', 'max:255'],
-            'password'    => ['required', 'string', 'min:8'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
             'device_name' => ['required', 'string'],
         ]);
-
 
         $credentials = $request->only('email', 'password');
 
@@ -29,10 +28,11 @@ class AuthApiController extends Controller
         if (backendGuard()->attempt($credentials)) {
             // Return the sanctum token that will be used in the api
             $token = backendGuard()->user()->createToken(Request('device_name'))->plainTextToken;
+
             // Return the token
             return response()->json([
                 'raw_token' => $token,
-                'token'     => explode('|', $token)[1],
+                'token' => explode('|', $token)[1],
             ]);
         } else {
             return response()->json([
@@ -48,6 +48,7 @@ class AuthApiController extends Controller
     {
         // Logout the user
         Auth::user()->tokens()->delete();
+
         // Return the response
         return response()->json([
             'data' => 'Logout successful',
@@ -57,7 +58,6 @@ class AuthApiController extends Controller
     /**
      * Register a new user
      *
-     * @param Request $request
      *
      * @return [type]
      */
@@ -72,18 +72,18 @@ class AuthApiController extends Controller
 
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
-            'email'      => ['required', 'string', 'email', 'max:255', 'unique:admins'],
-            'password'   => ['required', 'confirmed', 'min:8'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+            'password' => ['required', 'confirmed', 'min:8'],
         ]);
 
         DB::beginTransaction();
 
-        $user                    = new Admin();
-        $user->first_name        = $request->first_name;
-        $user->last_name         = $request->last_name;
-        $user->email             = $request->email;
-        $user->password          = Hash::make($request->password);
+        $user = new Admin;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
         $user->email_verified_at = Carbon::now();
         $user->save();
 
@@ -119,7 +119,7 @@ class AuthApiController extends Controller
     public function reset(Request $request)
     {
         $request->validate([
-            'email'      => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
         ]);
 
         $this->broker()->sendResetLink(

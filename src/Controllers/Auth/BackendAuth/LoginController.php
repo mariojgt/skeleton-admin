@@ -2,37 +2,35 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 
-use Inertia\Inertia;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Mariojgt\SkeletonAdmin\Models\Admin;
-use Skeleton\Store\Models\User;
-use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
-use Mariojgt\SkeletonAdmin\Mail\MagicLoginLink;
+use Illuminate\Support\Facades\URL;
+use Inertia\Inertia;
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\SkeletonAdmin\Events\UserVerifyEvent;
+use Mariojgt\SkeletonAdmin\Mail\MagicLoginLink;
+use Mariojgt\SkeletonAdmin\Models\Admin;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
+use Skeleton\Store\Models\User;
 
 class LoginController extends Controller
 {
     public function index()
     {
         return Inertia::render('Auth/Backend/Index', [
-            'title'   => 'Login',
+            'title' => 'Login',
         ]);
     }
 
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
@@ -49,7 +47,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         // Remove all the wall authenticator data from castle
-        $authenticatorHandle = new AuthenticatorHandle();
+        $authenticatorHandle = new AuthenticatorHandle;
         $authenticatorHandle->logout();
 
         backendGuard()->logout();
@@ -89,19 +87,18 @@ class LoginController extends Controller
         return Redirect::route('skeleton-admin.home')->with('success', 'Logged in successfully!');
     }
 
-
     public function verify(Request $request, $userId, $expiration)
     {
-        $userId     = decrypt($userId);
+        $userId = decrypt($userId);
         $expiration = decrypt($expiration);
-        $user       = User::findOrFail($userId);
-        $nowDate    = Carbon::now();
+        $user = User::findOrFail($userId);
+        $nowDate = Carbon::now();
 
         if ($nowDate > $expiration) {
             return Redirect::route('login')->with('error', 'Link Expired!');
         }
 
-        if (!$user->hasVerifiedEmail()) {
+        if (! $user->hasVerifiedEmail()) {
 
             $user->markEmailAsVerified();
 

@@ -35,17 +35,17 @@ class ResetPassword extends Controller
     public function passwordReset(Request $request, $token)
     {
         return Inertia::render('Auth/Frontend/ResetPassword', [
-            'token'   => $token,
+            'token' => $token,
             'isAdmin' => true,
-            'email'   => $request->email,
+            'email' => $request->email,
         ]);
     }
 
     public function passwordChange(Request $request)
     {
         $request->validate([
-            'token'    => 'required',
-            'email'    => 'required|email',
+            'token' => 'required',
+            'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
 

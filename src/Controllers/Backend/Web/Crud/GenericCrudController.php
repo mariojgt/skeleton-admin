@@ -2,14 +2,15 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Backend\Web\Crud;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Mariojgt\Builder\Helpers\FormHelper;
 
 abstract class GenericCrudController extends Controller
 {
     protected string $title;
+
     protected string $model;
 
     /**
@@ -18,12 +19,7 @@ abstract class GenericCrudController extends Controller
      */
     abstract protected function getFormConfig(): FormHelper;
 
-    /**
-     * @param Request $request
-     *
-     * @return \Inertia\Response
-     */
-    public function index(Request $request) : \Inertia\Response
+    public function index(Request $request): \Inertia\Response
     {
         $formConfig = $this->getFormConfig()
             ->setEndpoints(
@@ -37,7 +33,7 @@ abstract class GenericCrudController extends Controller
 
         return Inertia::render('BackEnd/Generic/index', [
             'title' => $this->title,
-            ...$formConfig
+            ...$formConfig,
         ]);
     }
 }

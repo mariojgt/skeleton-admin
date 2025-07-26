@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         // Only add the avatar column if it doesn't exist
-        if (!Schema::hasColumn('users', 'avatar')) {
+        if (! Schema::hasColumn('users', 'avatar')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->string('avatar')->nullable()->after('email');
             });

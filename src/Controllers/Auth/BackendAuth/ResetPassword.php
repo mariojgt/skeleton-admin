@@ -2,13 +2,13 @@
 
 namespace Mariojgt\SkeletonAdmin\Controllers\Auth\BackendAuth;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Auth\Events\PasswordReset;
+use Inertia\Inertia;
 use Mariojgt\SkeletonAdmin\Notifications\GenericNotification;
 
 class ResetPassword extends Controller
@@ -39,7 +39,7 @@ class ResetPassword extends Controller
     public function passwordReset($token)
     {
         return Inertia::render('Auth/Backend/ResetPassword', [
-            'token'   => $token,
+            'token' => $token,
             'isAdmin' => true,  // Dynamic update the logo
         ]);
     }
@@ -47,8 +47,8 @@ class ResetPassword extends Controller
     public function passwordChange(Request $request)
     {
         $request->validate([
-            'token'    => 'required',
-            'email'    => 'required|email',
+            'token' => 'required',
+            'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
 
