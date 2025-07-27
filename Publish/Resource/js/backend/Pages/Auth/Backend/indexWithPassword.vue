@@ -1,28 +1,36 @@
 <template>
-  <Layout title="Backend Reset Password">
+  <Layout title="Backend Login">
     <template #form>
       <form @submit.prevent="submitForm">
         <div class="space-y-4">
-          <!-- Email Field -->
+          <!-- Email Input Field -->
           <input-field
             id="email"
             v-model="email"
             label="Email"
             type="email"
             name="email"
-            placeholder="Enter your email address"
+            placeholder="Type your email"
+          />
+
+          <!-- Password Input Field -->
+          <input-password
+            id="password"
+            v-model="password"
+            label="Password"
+            name="password"
+            placeholder="Type your password"
           />
 
           <!-- Submit Button -->
-          <div class="pt-6">
+          <div class="pt-2">
             <Submit
-              name="Request Password Reset"
               class="btn btn-primary w-full"
-              :disabled="!email || isLoading"
+              :disabled="!email || !password || isLoading"
               @click="submitForm"
             >
-              <span v-if="!isLoading">Send Reset Link</span>
-              <span v-else class="loading loading-spinner loading-sm mr-2">Sending...</span>
+              <span v-if="!isLoading">Login</span>
+              <span v-else class="loading loading-spinner loading-sm mr-2">Logging in...</span>
             </Submit>
           </div>
         </div>
@@ -31,11 +39,11 @@
 
     <template #links>
       <div class="flex flex-col sm:flex-row gap-3 justify-center items-center mt-6">
-        <Link class="btn btn-outline btn-sm" href="/admin/login">
-          <span>Back to Login</span>
-        </Link>
         <Link class="btn btn-outline btn-sm" href="/admin/register">
-          <span>Create Account</span>
+          <span>Register</span>
+        </Link>
+        <Link class="btn btn-outline btn-sm" href="/admin/forgot-password">
+          <span>Forgot Password</span>
         </Link>
       </div>
     </template>
@@ -44,48 +52,50 @@
 
 <script setup>
 import { ref } from 'vue'
-import { router, Link } from "@inertiajs/vue3"
+import { Link, router } from "@inertiajs/vue3"
 import Layout from "@backend_layout/Login.vue"
 
 // Import the form components
 import {
   InputField,
+  InputPassword,
   Submit
 } from "@mariojgt/masterui/packages/index"
 
 // State
 const email = ref("")
+const password = ref("")
 const isLoading = ref(false)
 
 // Props
 const props = defineProps({
   title: {
     type: String,
-    default: "Reset Password"
+    default: "Backend Login"
   }
 })
 
 // Methods
 const submitForm = () => {
-  if (!email.value || isLoading.value) return
+  if (!email.value || !password.value || isLoading.value) return
 
   isLoading.value = true
 
   const form = {
-    email: email.value
+    email: email.value,
+    password: password.value
   }
 
-  router.post(route("skeleton.password-reset"), form, {
+  router.post(route("skeleton.login.user"), form, {
     onFinish: () => {
       isLoading.value = false
     },
     onError: (errors) => {
       isLoading.value = false
-      console.log('Password reset errors:', errors)
+      console.log('Login errors:', errors)
     },
     onSuccess: () => {
-      // Reset link sent successfully
-      // You might want to show a success message or redirect
+      // Login successful, user will be redirected
     }
   })
 }

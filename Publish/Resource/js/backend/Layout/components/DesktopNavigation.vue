@@ -31,11 +31,11 @@
       <!-- Collapsible Menu Item -->
       <div v-else>
         <button
-          @click="toggleSubmenu(index)"
           class="btn btn-ghost w-full justify-start h-auto py-3 px-3 text-sm font-medium normal-case"
           :class="isSubmenuOpen(index)
             ? 'bg-base-200 text-base-content'
             : 'text-base-content hover:bg-base-200'"
+          @click="toggleSubmenu(index)"
         >
           <div
             class="w-6 h-6 mr-3 flex items-center justify-center"

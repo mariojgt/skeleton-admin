@@ -3,9 +3,9 @@
   <div class="relative">
     <!-- User Avatar Button -->
     <button
-      @click="toggleModal"
       class="btn btn-ghost gap-3 p-1.5"
       :class="{ 'btn-active': isOpen }"
+      @click="toggleModal"
     >
       <div class="avatar online">
         <div class="w-8 rounded-lg ring ring-base-300 ring-offset-base-100 ring-offset-2">
@@ -61,8 +61,8 @@
               </div>
             </div>
             <button
-              @click="closeModal"
               class="btn btn-ghost btn-circle btn-xs ml-2"
+              @click="closeModal"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -77,8 +77,8 @@
             <li v-for="(item, index) in userMenuItems" :key="index">
               <a
                 :href="getRouteUrl(item.route)"
-                @click="closeModal"
                 class="flex items-center gap-3 py-3 hover:bg-base-200 rounded-lg transition-colors"
+                @click="closeModal"
               >
                 <div class="w-5 h-5 text-base-content/60" v-html="item.icon"></div>
                 <span class="flex-1">{{ item.menu_label }}</span>
@@ -93,8 +93,8 @@
         <!-- Footer Actions -->
         <div class="card-actions p-2 border-t border-base-300">
           <button
-            @click="handleLogout"
             class="btn btn-error btn-outline btn-sm w-full gap-3 normal-case"
+            @click="handleLogout"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>

@@ -4,8 +4,8 @@
     <div class="relative">
       <button
         v-if="!isSearchOpen"
-        @click="openSearch"
         class="btn btn-ghost btn-sm gap-2 text-base-content/70 bg-base-200 hover:bg-base-300 min-w-[200px] justify-start normal-case"
+        @click="openSearch"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -28,18 +28,18 @@
           <input
             ref="searchInput"
             v-model="searchQuery"
+            placeholder="Search for pages, users, content..."
+            class="input input-bordered w-full pl-10 pr-4 focus:outline-none focus:border-primary"
             @input="handleInput"
             @keydown.down.prevent="navigateDown"
             @keydown.up.prevent="navigateUp"
             @keydown.enter.prevent="selectItem"
             @keydown.esc="closeSearch"
-            placeholder="Search for pages, users, content..."
-            class="input input-bordered w-full pl-10 pr-4 focus:outline-none focus:border-primary"
           />
         </div>
         <button
-          @click="closeSearch"
           class="btn btn-ghost btn-square btn-sm"
+          @click="closeSearch"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -77,8 +77,8 @@
               </div>
             </div>
             <button
-              @click="closeSearch"
               class="btn btn-ghost btn-circle btn-xs"
+              @click="closeSearch"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -131,9 +131,9 @@
               <!-- Category Items -->
               <div v-for="(item, index) in category.search" :key="index">
                 <button
-                  @click="selectSearchResult(item)"
                   class="w-full flex items-center gap-3 px-4 py-3 hover:bg-base-200 transition-colors group border-b border-base-300 last:border-b-0 text-left"
                   :class="{ 'bg-primary/10 border-r-2 border-primary': selectedIndex === getGlobalIndex(categoryName, index) }"
+                  @click="selectSearchResult(item)"
                 >
                   <div class="flex-shrink-0">
                     <div class="avatar">

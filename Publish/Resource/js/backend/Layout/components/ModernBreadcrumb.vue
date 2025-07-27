@@ -1,6 +1,6 @@
 <!-- ModernBreadcrumb.vue -->
 <template>
-  <div class="breadcrumbs text-sm" v-if="breadcrumbs && breadcrumbs.length > 0">
+  <div v-if="breadcrumbs && breadcrumbs.length > 0" class="breadcrumbs text-sm">
     <ul>
       <!-- Home Link -->
       <li>

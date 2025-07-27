@@ -8,11 +8,11 @@
         <div v-if="!item.children || item.children.length === 0">
           <Link
             :href="buildLinkClass(item.route)"
-            @click="$emit('close')"
             class="btn btn-ghost justify-start h-auto py-3 px-4 text-base font-medium normal-case w-full"
             :class="isActive(item.route)
               ? 'btn-primary text-primary-content shadow-lg'
               : 'text-base-content hover:bg-base-200'"
+            @click="$emit('close')"
           >
             <div
               class="w-6 h-6 mr-4 flex items-center justify-center"
@@ -34,11 +34,11 @@
         <!-- Collapsible Menu Item -->
         <div v-else>
           <button
-            @click="toggleSubmenu(index)"
             class="btn btn-ghost w-full justify-start h-auto py-3 px-4 text-base font-medium normal-case"
             :class="isSubmenuOpen(index)
               ? 'bg-base-200 text-base-content'
               : 'text-base-content hover:bg-base-200'"
+            @click="toggleSubmenu(index)"
           >
             <div
               class="w-6 h-6 mr-4 flex items-center justify-center"
@@ -67,11 +67,11 @@
                   v-for="(child, childIndex) in item.children"
                   :key="childIndex"
                   :href="buildLinkClass(child.route)"
-                  @click="$emit('close')"
                   class="btn btn-ghost btn-sm justify-start h-auto py-2.5 px-4 text-sm font-medium normal-case w-full"
                   :class="isActive(child.route)
                     ? 'btn-primary text-primary-content shadow-lg'
                     : 'text-base-content/80 hover:bg-base-200'"
+                  @click="$emit('close')"
                 >
                   <div
                     class="w-5 h-5 mr-3 flex items-center justify-center"

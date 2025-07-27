@@ -2,9 +2,9 @@
   <div class="relative">
     <!-- Notification Button -->
     <button
-      @click="toggleModal"
       class="btn btn-ghost btn-circle relative"
       :class="{ 'btn-active': isOpen }"
+      @click="toggleModal"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 19H6a2 2 0 01-2-2V7a2 2 0 012-2h5m5 0v.01M19 12v.01"/>
@@ -38,26 +38,26 @@
           <div class="flex items-center justify-between">
             <div>
               <h3 class="card-title text-lg">Notifications</h3>
-              <p class="text-sm text-base-content/70" v-if="notificationCount > 0">
+              <p v-if="notificationCount > 0" class="text-sm text-base-content/70">
                 You have {{ notificationCount }} new notification{{ notificationCount === 1 ? '' : 's' }}
               </p>
-              <p class="text-sm text-base-content/70" v-else>
+              <p v-else class="text-sm text-base-content/70">
                 All caught up! No new notifications
               </p>
             </div>
             <div class="flex items-center gap-2">
               <button
                 v-if="notificationCount > 0"
-                @click="handleClearAll"
                 :disabled="isLoading"
                 class="btn btn-ghost btn-xs"
                 :class="{ 'loading': isLoading }"
+                @click="handleClearAll"
               >
                 Clear all
               </button>
               <button
-                @click="closeModal"
                 class="btn btn-ghost btn-circle btn-xs"
+                @click="closeModal"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -131,8 +131,8 @@
                         </p>
                       </div>
                       <button
-                        @click="markAsRead(notification.id)"
                         class="btn btn-ghost btn-circle btn-xs ml-2"
+                        @click="markAsRead(notification.id)"
                       >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -160,10 +160,10 @@
         <!-- Footer Actions -->
         <div class="card-actions p-3 border-t border-base-300 bg-base-200">
           <button
-            @click="handleRefresh"
             :disabled="isLoading"
             class="btn btn-ghost btn-sm w-full"
             :class="{ 'loading': isLoading }"
+            @click="handleRefresh"
           >
             <svg
               v-if="!isLoading"
