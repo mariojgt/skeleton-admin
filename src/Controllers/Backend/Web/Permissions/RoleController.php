@@ -28,13 +28,16 @@ class RoleController extends GenericCrudController
                 sortable: true,
                 canCreate: true,
                 canEdit: true,
-                unique: true, // Role names should be unique
+                unique: true,
                 type: FieldTypes::TEXT->value
             )
             ->addField(
                 label: 'Guard',
                 key: 'guard_name',
                 type: FieldTypes::SELECT->value,
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
                 options: [
                     'select_options' => [
                         ['value' => 'skeleton_admin', 'label' => 'backend'],
@@ -44,16 +47,20 @@ class RoleController extends GenericCrudController
                 ],
                 filterable: true
             )
-            ->addTimestampField(
+            ->addField(
                 label: 'Created At',
                 key: 'created_at',
+                type: FieldTypes::TIMESTAMP->value,
+                filterable: true,
                 sortable: true,
                 canCreate: false,
                 canEdit: false
             )
-            ->addTimestampField(
+            ->addField(
                 label: 'Updated At',
                 key: 'updated_at',
+                type: FieldTypes::TIMESTAMP->value,
+                filterable: true,
                 sortable: true,
                 canCreate: false,
                 canEdit: false
@@ -70,7 +77,6 @@ class RoleController extends GenericCrudController
             ],
         ];
 
-        // System available permissions and group by guard
         $permissions = Permission::all()->groupBy('guard_name');
         $rolePermissions = [];
         foreach ($permissions as $key => $item) {
@@ -112,8 +118,9 @@ class RoleController extends GenericCrudController
                 }
             }
         }
+
         $perms = Permission::whereIn('name', $synPerms)->get()->pluck('id')->toArray();
-        // Sync the permissions
+
         $role->syncPermissions($perms);
 
         return back()->with('success', 'Role updated successfully');

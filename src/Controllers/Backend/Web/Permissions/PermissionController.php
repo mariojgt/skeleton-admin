@@ -22,16 +22,19 @@ class PermissionController extends GenericCrudController
             ->addField(
                 label: 'Name',
                 key: 'name',
-                sortable: true, // Added sortable
-                canCreate: true, // Added canCreate
-                canEdit: true, // Added canEdit
-                unique: true, // Permissions usually have unique names
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
+                unique: true,
                 type: FieldTypes::TEXT->value
             )
             ->addField(
                 label: 'Guard',
                 key: 'guard_name',
                 type: FieldTypes::SELECT->value,
+                sortable: true,
+                canCreate: true,
+                canEdit: true,
                 options: [
                     'select_options' => [
                         ['value' => 'skeleton_admin', 'label' => 'backend'],
@@ -41,19 +44,23 @@ class PermissionController extends GenericCrudController
                 ],
                 filterable: true
             )
-            ->addTimestampField( // Using addTimestampField for created_at
+            ->addField(
                 label: 'Created At',
                 key: 'created_at',
-                sortable: true, // Made sortable
+                type: FieldTypes::TIMESTAMP->value,
+                filterable: true,
+                sortable: true,
                 canCreate: false,
-                canEdit: false // Typically not editable manually
+                canEdit: false
             )
-            ->addTimestampField(
+            ->addField(
                 label: 'Updated At',
                 key: 'updated_at',
-                sortable: true, // Made sortable
+                type: FieldTypes::TIMESTAMP->value,
+                filterable: true,
+                sortable: true,
                 canCreate: false,
-                canEdit: false // Typically not editable manually
+                canEdit: false
             );
     }
 }

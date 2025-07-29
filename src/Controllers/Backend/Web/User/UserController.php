@@ -11,7 +11,7 @@ class UserController extends GenericCrudController
 {
     public function __construct()
     {
-        $this->title = 'Users | Management'; // Adjusted title for clarity
+        $this->title = 'Users | Management';
         $this->model = User::class;
     }
 
@@ -41,28 +41,25 @@ class UserController extends GenericCrudController
                 sortable: true,
                 canCreate: true,
                 canEdit: true,
-                unique: true, // Email should be unique
+                unique: true,
                 type: FieldTypes::EMAIL->value
             )
             ->addField(
                 label: 'Password',
                 key: 'password',
-                sortable: false, // Passwords are not typically sortable
+                sortable: false,
                 canCreate: true,
-                canEdit: true, // Allow editing for password change (though often handled separately)
+                canEdit: true,
                 type: FieldTypes::PASSWORD->value
             )
-            ->addTimestampField( // Using addTimestampField for email_verified_at
+            ->addField(
                 label: 'Email Verified At',
                 key: 'email_verified_at',
+                type: FieldTypes::TIMESTAMP->value,
+                filterable: true,
                 sortable: true,
-                canCreate: false, // Not manually set on creation
-                canEdit: false // Typically not editable manually
+                canCreate: false,
+                canEdit: false
             );
-        // If you have a custom edit route for users (e.g., for profile settings), you'd add it here:
-        // ->setCustomEditRoute(
-        //     route: route('admin.user.edit', ['user' => '{id}']), // Example, adjust as needed
-        //     customActionName: 'User Profile'
-        // );
     }
 }

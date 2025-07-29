@@ -23,7 +23,7 @@ class NavbarController extends GenericCrudController
                 label: 'Menu Label',
                 key: 'menu_label',
                 sortable: true,
-                canCreate: true, // Changed to true to allow creation
+                canCreate: true,
                 canEdit: true,
                 type: FieldTypes::TEXT->value
             )
@@ -31,28 +31,35 @@ class NavbarController extends GenericCrudController
                 label: 'Route',
                 key: 'route',
                 sortable: true,
-                canCreate: true, // Changed to true to allow creation
-                canEdit: true, // Changed to true to allow editing
+                canCreate: true,
+                canEdit: true,
                 type: FieldTypes::TEXT->value
             )
-            ->addIconField(
+            ->addField(
                 label: 'Icon',
                 key: 'icon',
                 sortable: true,
-                canCreate: true, // Changed to true to allow creation
+                canCreate: true,
+                canEdit: true,
+                type: FieldTypes::ICON->value
+            )
+            ->addField(
+                label: 'Is Frontend',
+                key: 'is_frontend',
+                type: FieldTypes::BOOLEAN->value,
+                filterable: true,
+                sortable: true,
+                canCreate: true,
                 canEdit: true
             )
-            ->addBooleanField(
-                label: 'Is Frontend', // Corrected label for consistency
-                key: 'is_frontend',
-                canCreate: true, // Added to allow creation
-                canEdit: true // Added to allow editing
-            )
-            ->addBooleanField(
+            ->addField(
                 label: 'Is Active',
                 key: 'is_active',
-                canCreate: true, // Added to allow creation
-                canEdit: true // Added to allow editing
+                type: FieldTypes::BOOLEAN->value,
+                filterable: true,
+                sortable: true,
+                canCreate: true,
+                canEdit: true
             );
     }
 }
